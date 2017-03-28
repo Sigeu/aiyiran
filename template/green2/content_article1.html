@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<!--提交评论-->
+ <script>
+function addComment(obj)
+{
+	if(!$('#comment_content').val())
+	{
+		alert('评论内容不能为空');
+		return false;
+	}
+	else
+	{
+		$('#commentForm').submit();
+	}
+}
+</script>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar1">
+    {include 'category3.html'}
+    <div class="bg_grayL"> <a href="{getMoreUrl($cid)}" class="moreL">更多>></a> <span class="h_grayL">相关美食</span>
+      <ul class="arrow_ulL">
+	    {mo:articlelist cid='7' row='$cid' order='publishtime desc' type='all' return='data'}
+		{foreach $data $k $v}
+		<li {if $k==9 } class="last"{/if}><a href="{$v['url']}">{csubstr($v['title'],14)}</a></li>
+		{/foreach}
+		{/mo:articlelist}
+      </ul>
+    </div>
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="box_detail">
+        <h1>{$content['title']}</h1>
+        <div class="bg_line"></div>
+        <p class="publish_time">发表日期：{date('Y.m.d',$content['publishtime'])}</p>
+        <div class="detail_con">
+          <div class="img_wrapper"><img src="{UPLOAD_PATH}/{$content['thumb']['src']}"  alt="" title="" onerror="this.src='{IMG_PATH}/default.jpg'" width="200"/></div>
+          <p class="sj">{$content['content']}</p>
+          {if get_mo_config('mo_arcautosp')=='Y'}<div class="page"><a href="{$prepageurl}" >上一页</a><a  href="{$nextpageurl}">下一页</a></div>{/if}
+             <p>相关热词搜索：{$content['keywords']}</p>		
+			上一篇：{$preContent}<Br>下一篇：{$nextContent}
+          <div class="chwl_com">
+            <div class="comment_tit"><h3>发表评论</h3></div>
+			{mo:comment id='$id' modelid='1' pagesize='5'  return='data'}
+			{foreach $data  $key $value}
+            <dl class="comment_list">
+              <dt><a href="#"><img src="{IMG_PATH}/pic_46.jpg" class="imgline" /></a></dt>
+              <dd><span class="time">{date('Y-m-d',$value['comment_time'])}</span><span class="f6">{$value['username']}：</span></dd>
+              <dd>{$value['comment_content']}</dd>
+            </dl>
+			{/foreach} 
+			{/mo:comment}
+            <div class="pages">{$pagestr}</div>
+            
+            <div class="publish_txt02">
+			{if $GLOBALS['username']}
+			<!--评论开始-->
+			 <form action='{HOST_NAME}comment/Comment/add' method='post' id='commentForm'>
+			 <input type='hidden' name='comment_infoid' value='{$id}'/>
+			 <input type='hidden' name='comment_modelid' value='{$model}'/>
+			 <div class="publish_txt mb10"> <span>发表您的评论</span>
+                <textarea name='comment_content' id='comment_content'></textarea>
+                <div>
+                  <input type="button" {if $content['allowcomment']!=1}onclick="javacript:alert('禁止评论');"{else}onclick="javascript:addComment(this);"{/if} value="发表评论"/>
+                  <span class="publish_name">欢迎您&nbsp;&nbsp;{$GLOBALS['username']}</span> </div>
+              </div>
+			  </form>
+			 {else}
+			<form action='{HOST_NAME}user/User/login/type/1' method='post' id='c_loginForm'>
+                <div class="publish_login mb10"><span class="right f6">评论<strong class="fgreen2">23</strong>条</span><label>用户名</label><input type="text" class="login_input" id='c_username' value='{$GLOBALS["cookieUsername"]}' name='username'/>&nbsp;&nbsp;&nbsp;<label>密码</label><input type="password" class="login_input"  id='c_password' name='password'/>&nbsp;&nbsp;<input type="button" value="登 录" class="login_btn"  onclick="commentCheckLogin()" />&nbsp;<input type="button" value="注 册" oclick="window.location.href='{HOST_NAME}user/User/regist/groupid/24'" class="login_btn" /></div>
+                <textarea class="mb10"></textarea>
+                <div> 
+                  <input type="button" value="发表评论" onclick="javacript:alert('请先登录');" class="login_input02">
+                </div>
+				</form>
+			{/if}
+			<!--评论结束-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>
+{include 'footer.html'}
+
+<script>
+function commentCheckLogin()
+{
+	if(!$('#c_username').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#c_password').val())
+	{
+		alert('请输入密码');
+		
+	}
+	else
+	{
+		$('#c_loginForm').submit();
+	}
+}
+</script>

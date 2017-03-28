@@ -1,0 +1,48 @@
+{include 'inc/memorial_head.html'}
+		<script type="text/javascript" src="{JS_PATH}/xiangce.js"></script>
+
+			<div class="Photo_album clearfix">
+				<div class="headline">
+				<span class="fl">相册集<i></i></span>
+				</div>
+				<dl class="title_head">
+					<dt>
+						{if $photo_cat['cover']}
+							<img src="{$photo_cat['cover']}" />
+						{else}
+							<img src="/template/default/member/images/photo.jpg" />
+						{/if}
+					</dt>
+					<dd>
+						<h3>{$photo_cat['name']}</h3>
+						<p>创建时间：{date('Y-m-d', $photo_cat['addtime'])} &nbsp;&nbsp;&nbsp;&nbsp;  照片数量{$count}张 &nbsp;&nbsp;&nbsp;&nbsp; 浏览量：{$photo_cat['click_nums']}</p>
+					    <a href="/jinian/Jinian/albumLists/mid/{$mid}"><span>返回相册列表></span></a>
+					</dd>
+				</dl>
+				<!--***************-->
+					<div class="center clearfix">
+						{foreach $photo $k $v}
+						<a href="###">
+							<img src="{$v['photo']}"/>
+							<p>{$v['name']}</p>
+						</a>
+						{/foreach}
+					</div>
+					<div class="popup"></div>
+					<div class="show">
+						<img class="big" src=""/>
+						<p class="cont_dete"></p>
+						<a href="###" class="arrow left"></a>
+						<a href="###" class="arrow right"></a>
+					    <span class="close"></span>
+					</div>
+				<div class="page">
+		     		{$showPage}
+		     	</div>
+	<!--***************-->		
+
+				
+			</div>
+		</div>	
+			<!--********footer***************************************-->
+{include 'head_footer.html'}

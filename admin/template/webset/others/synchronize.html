@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>同步登录列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">同步登录方式列表</a></dt>
+          </dl>
+            </div><br />
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%"></th>
+                  <th width="6%">ID</th>
+                  <th width="20%">名称</th>
+                  <th width="12%">描述</th>
+                  <th width="12%">状态</th>
+                  <th width="24%">操作</th>
+                </tr>
+                <!--{foreach from=$list item=list}-->
+                <tr>
+                  <td><input type="checkbox" id="id" name="id[]" value="<!--{$list.id}-->"/></td>
+                  <td><!--{$list.id}--></td>
+                  <td><!--{$list.name}--></td>
+                  <td><!--{$list.description}--></td>
+                  <td><!--{if $list.enabled eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>                 
+                  <td><a href="">开启</a> | <a href="">关闭</a> | <a href="">配置</a></td>
+                </tr>
+               <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span> 
+              <input type="button" class="btn5" value="开启" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="" empty-tips="请选择操作项"/>
+            <input type="button" class="btn5" value="关闭" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="" empty-tips="请选择操作项"/>
+            </div> 
+         </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

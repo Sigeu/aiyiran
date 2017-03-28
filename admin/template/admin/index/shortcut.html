@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+</head>
+<body>
+    <form action="" method="post" id='myForm' name="myForm">
+    <input type="hidden" name='task' value="dosubmit" id="task" />
+    <div class="notif">
+    <h4>添加常用操作</h4>
+    <div class="Ncon">
+        <div class="Ncont">
+            <table class="add_daily">
+	            <tr>
+				<!--{section name=loop loop=$shortcutList step=1}--> 
+				<!--{if $smarty.section.loop.index % 5 == 0 and not $smarty.section.loop.first}-->
+				</tr> 
+				<tr>
+				<!--{/if}-->
+				<td><div class="<!--{if in_array($shortcutList[loop].id,$myShortcut)}-->active<!--{else}-->no_active<!--{/if}-->"><!--{$shortcutList[loop].name}--><a href="#">add</a><input type="checkbox" name="shortcut[]" value="<!--{$shortcutList[loop].id}-->" style="display:none"></div></td>
+				<!--{/section}-->
+				</tr> 
+            </table>
+        </div>
+        <!-- <div class="Nsubm" style="margin-top:150px;">
+            <input type="button" hidefocus="hide" value="确定" class="btn3" id="dosubmit">
+            <input type="button" hidefocus="hide" value="取消" class="btn4" id="cancle">
+        </div> -->
+    </div>    
+</div>
+</form>
+    </body>
+    </html>

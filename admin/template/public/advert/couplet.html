@@ -1,0 +1,31 @@
+<!--{if $n neq 1}--><script type='text/javascript' src='<!--{$jspath}-->/jquery-1.7.2.js'></script><script type='text/javascript'><!--{/if}-->
+var str = "<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/J.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_dl{<!--{if $ad.width neq 0}-->width:<!--{$ad.width}-->px; height:<!--{$ad.height}-->px; top:<!--{$ad.up}-->px;<!--{else}-->width:120px;height:270px;top:100px;<!--{/if}-->display:block;position:absolute; }.mainone_ads_dl_left{<!--{if $ad.left neq 0}-->left:<!--{$ad.left}-->px;<!--{else}-->left:0px;<!--{/if}-->}</style><body style='height:2000px;'>";
+<!--{if $flash neq 0 }-->
+    str +="<!--{foreach key=key item=item from=$adimg }--><div class='mainone_ads_dl <!--{if $key eq 0}-->mainone_ads_dl_left<!--{else}-->mainone_ads_dl_right<!--{/if}-->'><object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='32' height='35'><param name='movie' value='/static/uploadfile/advert/<!--{$item.img.path}-->'/><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash'data='/static/uploadfile/advert/<!--{$item.img.path}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object><span class='mainone_ads_dl_closebtn'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/close_btn.jpg' /></span></div><!--{/foreach}-->";
+<!--{else}-->
+    str +="<!--{foreach key=key item=item from=$adimg }--><div class='mainone_ads_dl <!--{if $key eq 0}-->mainone_ads_dl_left<!--{else}-->mainone_ads_dl_right<!--{/if}-->'><img src='<!--{if $item.img.path}-->/static/uploadfile/advert/<!--{$item.img.path}--><!--{/if}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'/><span class='mainone_ads_dl_closebtn'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/close_btn.jpg' /></span></div><!--{/foreach}-->";
+<!--{/if}-->
+document.write(str);
+$(function(){
+  var isFixed=<!--{if $type.attribute eq 1}-->false<!--{else}-->true<!--{/if}-->;
+  var duilian = $('.mainone_ads_dl');
+  var isIE6=!!window.ActiveXObject&&!window.XMLHttpRequest;
+  if(isFixed){
+	  if(isIE6){
+		  duilian.css('position','absolute');
+		  }
+	  else{
+         duilian.css('position','fixed');
+		}
+	  }
+  $('.mainone_ads_dl_closebtn').click(function(){
+    duilian.hide();
+  })
+  if(isIE6){
+	$(window).scroll(function(){
+	 var scrollTop = $(window).scrollTop();
+	 duilian.stop().animate({top:scrollTop+100});
+	})
+  }
+})
+<!--{if $n neq 1}--></script><!--{/if}-->

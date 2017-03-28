@@ -1,0 +1,91 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+			<dd><a href="<!--{$urlArr.indexUrl}-->">内容列表</a></dd>
+            <dt class="on"><a href="javascript:void(0);">添加文章</a></dt>
+			<dd class="add"><a href="<!--{$baseurl}-->/content/issue/content">发布内容页</a></dd>
+          </dl>
+        </div>
+        <form action="<!--{$urlArr.addsaveUrl}-->" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+              <!--{foreach item=item key=key from=$form}-->
+                  <!--{$item}-->
+              <!--{/foreach}-->
+              </table>
+               <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" id='myButton' value="确定" class="btn1" onclick="javascript:formSubmit()"><input type="button" hidefocus="hide" value="取消" onclick="javascript:window.location.href='<!--{$urlArr.indexUrl}-->';" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+<script>
+$(document).ready(function(){
+	$.formValidator.initConfig({autotip:true,formid: "myForm",generalwordwide:true,  debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	<!--{$formvalidator}-->
+})
+$('#categoryid').bind('change',function(){
+	var _obj = $(this);
+	var changeModel = $('#changeModel').val();
+	var categoryid = _obj.val();
+	var modelid = $("#hidden_model_"+categoryid).val();
+	if(modelid!=changeModel&&categoryid)
+	{
+		$('#changeModel').val(modelid);
+		window.location.href="/admin/content/Article/chanageForm/categoryid/"+categoryid;
+	}
+});
+//选中栏目
+jQuery(document).ready(function()
+{
+	var cid = "<!--{$categoryid}-->";
+	jQuery('#categoryid option[value="'+cid+'"]').attr('selected','selected');
+});
+
+$('#categoryid').change(function () {
+    var id = $('#categoryid').val();
+    if (id != '') {
+        $.ajax({
+              type:"POST",
+              url:"<!--{$baseurl}-->/content/content/ajaxGetTemplate",
+              data:"id="+id,
+              async:false,
+              success:function(data){
+                  if (data) {
+                      //data = JSON.parse(data);
+                      $('#template').val(data);
+                  }
+              }
+         });
+    }
+});
+
+$('#categoryid').ready(function () {
+    var id = $('#categoryid').val();
+    if (id != '') {
+        $.ajax({
+              type:"POST",
+              url:"<!--{$baseurl}-->/content/content/ajaxGetTemplate",
+              data:"id="+id,
+              async:false,
+              success:function(data){
+                  if (data) {
+                      //data = JSON.parse(data);
+                      $('#template').val(data);
+                  }
+              }
+         });
+    }
+});
+ </script>
+</body>
+</html>

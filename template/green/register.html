@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>注册页</title>
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<!--必须的引入的文件-->
+<link href="{CSS_PATH}/validator.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script src="{JS_PATH}/formvalidator.js"></script>
+<script src="{JS_PATH}/formvalidatorregex.js"></script>
+<!--必须的引入的文件-->
+<style>
+.Iw290{width:242px; height:31px; line-height:31px; padding-left:3px; border:#b7b7b7 1px solid; }
+</style>
+</head>
+<body class="bg_body">
+
+<div class="RegLog">
+  <div class="RLt">
+    <div class="RLline">用户注册</div>
+  </div>
+  <div class="RLbody">
+    <div class="RLl l">
+	<form action='/user/User/regist' method='post' id='registForm'>
+		<input type="hidden" class="pwd"  name='dosubmit' value="1"/>
+		<input type="hidden" class="groupid"  name='groupid' value="{$groupid}"/>
+      <table>
+		 {foreach $form $key $v}
+			{$v}
+		 {/foreach}
+         {if $hasYzm}
+		  <tr>
+			<th>验 证 码：</th>
+			<td><input type="text" name='code' id='code' class="txt" />
+			  <img src="/static/js/securimage/yzm.php" id='yzm' width="100" height="30" class="yzm captcha"/>  <a href="#"  onclick='yzm.src="/static/js/securimage/yzm.php?"' class="msgLink captcha">看不清，换一张</a></td>
+		  </tr>
+		 {/if}
+        <tr>
+          <th></th>
+          <td><input type="checkbox"  id='clause' name='clause'/>
+            <label>已阅读享生活的<a href='{HOST_NAME}user/User/registerdeal/id/{$registerdeal}' style='color:red'>用户条款</a></label></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><input type="button" value="立即注册"    class="regLogBtn"/></td>
+        </tr>
+      </table>
+	  </form>
+    </div>
+    <div class="RLr">
+      <p class="has">已有享生活账号，<a href="#">立即登录</a></p>
+      <p>你也可以用其它帐号登录：</p>
+      <p class="ID"><a href="#" class="sinaa">新浪微博</a><a href="#" class="qqq">QQ账号</a></p>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+<script>
+$.formValidator.initConfig({autotip:true,formid: "registForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+/*captcha 属性更新验证码及表单认证*/
+$(document).ready(function() { 
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+	$('.regLogBtn').click(function() {
+		checkRegist();
+	});
+});
+function checkRegist()
+{
+    if($('#code').val()=='')
+	{
+	  alert("验证码不能为空");
+	}
+	else if(!$('#clause').attr('checked'))
+	{
+		alert('是否阅读用户条款');
+	}
+	else
+	{
+		$('#registForm').submit();
+	}
+}
+</script>
+</body>
+</html>

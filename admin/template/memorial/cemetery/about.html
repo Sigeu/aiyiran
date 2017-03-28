@@ -1,0 +1,84 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+<style type="text/css">
+    .pic{width: 15px; height: 15px;position: relative;left: -22px; top: -1px;
+    display: inline-block; cursor: pointer;}
+    .pic img{width: 15px; height: 15px;}
+</style>
+
+<body>
+    <div class="pubBox" >
+        <div class="pubtabBox">
+<script type="text/javascript">
+    $(function(){
+        $(".c").addClass("on");
+    })
+</script>
+        <!--{include file="public/cemetery_public.html"}-->
+
+            <form action='<!--{$baseurl}-->/memorial/cemetery/about' method='post' id='myform'>
+                <div class="TabBoxC">
+                    <div>
+                        <div class="pubTabel">
+                            <table class="tabelLR">
+                              
+                                <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园简介：</th>
+                                        <td ><div class="edit_box" style="height:auto"><textarea name="summary" id="content1"><!--{$data.summary}--></textarea></div></td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园荣誉：</th>
+                                        <td ><div class="edit_box" style="height:auto"><textarea name="honor" id="content2"><!--{$data.honor}--></textarea></div></td>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园文化：</th>
+                                        <td ><div class="edit_box" style="height:auto"><textarea name="culture" id="content3"><!--{$data.culture}--></textarea></div></td>
+                                    </td>
+                                </tr>
+                                <input type="hidden" name="id" value="<!--{$id}-->">
+                              </table>
+                            <div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ <script>
+ /*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+var _acc_option=
+{
+    upload_id:'accessory_upload',
+    title:'附件上传',
+    return_id:'accessory',
+    callFunName:'accessoryUpload',
+    setting:'<!--{$picsetting}-->',
+    param:{}
+};
+
+function uploadAccessory (obj)
+{   
+    _acc_option.param = obj;
+    MainOneUpload(_acc_option);//调用统一上传方法
+}
+
+ </script>
+
+<script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/iniEditor.js"></script>
+<script>$(document).ready(function(){init("content1", "加载失败");})</script>
+<script>$(document).ready(function(){init("content2", "加载失败");})</script>
+<script>$(document).ready(function(){init("content3", "加载失败");})</script>
+</body>
+</html>

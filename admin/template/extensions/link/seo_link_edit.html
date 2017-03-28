@@ -1,0 +1,225 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+		  	<dd><a href="<!--{$baseurl}-->/extensions/link/index">内链关键词列表</a></dd>
+            <dt class="on"><a href="#" class="last">修改内链关键词</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+		  <form action="<!--{$baseurl}-->/extensions/link/edit" method="post" id="myForm" name="myForm" >
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 关键词：</th>
+                  <td colspan="3">
+				  <input type="text" value="<!--{$name}-->" class="Iw290" id="link_name" name="link_name" style="width:180px;"/>
+				  &nbsp;&nbsp;&nbsp;&nbsp;
+				  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 是否加粗：</th>
+                  <td colspan="3">
+                  <span>
+                  <!--{if $bold eq 0}-->
+				  <input type="checkbox"  name="link_bold" value='1'>
+				  <!--{elseif $bold eq 1}-->
+                  <input type="checkbox"  checked="checked" name="link_bold" value='1'>
+                  <!--{/if}-->
+                  <label>加粗</label> 
+                  </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 显示颜色：</th>
+                  <td colspan="3"><input type="text" id="inputcolor" name="link_color"  <!--{if $color eq null}--> value="#000000" <!--{else}--> value="<!--{$color}-->" <!--{/if}--> onclick="coloropen(event)"/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 链接地址：</th>
+                  <td colspan="3">
+				  <input type="text" name="link_address" id="link_address" value="<!--{$address}-->"  class="Iw290 C999"/></td>
+				  <td><input type="hidden" value="<!--{$id}-->" name="ids"></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 状态：</th>
+                  <td colspan="3"><span>
+					<!--{if $stat eq 1}-->
+					<input type="checkbox"  name="link_stat" value='2'>
+					<!--{elseif $stat eq 2}-->
+                    <input type="checkbox"  checked="checked" name="link_stat" value='2'>
+                    <!--{/if}-->
+                    <label>开启</label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 栏目选择：<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  	<span>
+                    <input type="checkbox" class="Check-All-Toggle"  checked="checked"  container-id="search-list"/>
+                    <label>全选</label>
+                    </span></th>
+                  <td colspan="3">
+					<div class="tree_boxX">	
+					<!--{$catgory}-->
+					</div>
+                  </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back();">
+              </div>
+            </div>
+			</form>
+            <div class="notice2" style="border-bottom:#d3e0e9 1px solid"><span class="notice_warnblue">备注说明：内链关键词是对网站所有信息内容页内容的全局设置，设置后内容中的相应关键词根据设置格式显示，并指向所设置的链接地址</span></div>
+          </div>
+        </div>
+      </div>
+	  <div id="colorpane" style="position:absolute;z-index:99;display:none;margin-left:328px;margin-top:126px;"></div> 
+      </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+(function initcolor(evt) 
+{ 
+    var ColorHex=new Array('00','33','66','99','CC','FF');
+    var SpColorHex=new Array('FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF');
+    var current=null;
+    var colorTable=''; 
+    for (i=0;i<2;i++)
+    { 
+    for (j=0;j<6;j++) 
+    { 
+    colorTable=colorTable+'<tr height=15>' 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    if (i==0){ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[j]+ColorHex[j]+ColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">'} 
+    else{ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+SpColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">'} 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    for (k=0;k<3;k++) 
+    { 
+    for (l=0;l<6;l++) 
+    { 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[k+i*3]+ColorHex[l]+ColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">' 
+    } 
+    } 
+    } 
+    } 
+    colorTable='<table border="0" cellspacing="0" cellpadding="0" style="border:1px #000000 solid;border-bottom:none;border-collapse: collapse;width:337px;" bordercolor="000000">' 
+    +'<tr height=20><td colspan=21 bgcolor=#E4E4E4 style="font:12px tahoma;padding-left:2px;">' 
+    +'<span style="float:left;color:#999999;"></span>' 
+    +'<span style="float:right;padding-right:3px;cursor:pointer;" onclick="colorclose()">×关闭</span>' 
+    +'</td></table>' 
+    +'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="000000" style="cursor:pointer;">' 
+    +colorTable+'</table>'; 
+    document.getElementById("colorpane").innerHTML=colorTable; 
+    var current_x = document.getElementById("inputcolor").offsetLeft; 
+    var current_y = document.getElementById("inputcolor").offsetTop; 
+    document.getElementById("colorpane").style.left = current_x + "px"; 
+    document.getElementById("colorpane").style.top = current_y + "px"; 
+})();
+
+function doclick(obj)
+{ 
+    //alert(obj); 
+    document.getElementById("inputcolor").value =RGBToHex(obj);
+    window.onload = colorclose(); //选取后关闭弹窗
+}
+
+function colorclose()
+{ 
+    document.getElementById("colorpane").style.display = "none"; 
+} 
+
+function coloropen()
+{ 
+    document.getElementById("colorpane").style.display = ""; 
+}
+
+function RGBToHex(rgb)  //将rgb三原色转换成16位色值
+{ 
+   var regexp = /[0-9]{0,3}/g;  
+   var re = rgb.match(regexp);
+   var hexColor = "#"; var hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];  
+   for (var i = 0; i < re.length; i++) {
+        var r = null, c = re[i], l = c; 
+        var hexAr = [];
+        while (c > 16){  
+              r = c % 16;  
+              c = (c / 16) >> 0; 
+              hexAr.push(hex[r]);  
+         } hexAr.push(hex[c]);
+         if(l < 16&&l != ""){        
+             hexAr.push(0)
+         }
+       hexColor += hexAr.reverse().join(''); 
+    }  
+   return hexColor;  
+}
+
+function clickIt(){
+	$("#changeBold").val("1");
+}
+
+</script>
+
+<script type="text/javascript">
+/*js验证*/
+$(document).ready(function(){
+		
+	$.formValidator.initConfig({formid:"myForm",autotip:true,generalwordwide:true});
+	
+	$("#link_name").formValidator({empty:true,onshow:"输入正确",oncorrect:"输入正确",onempty:"输入正确",onfocus:"请输入1-30个字符"})
+	.inputValidator({min:1,max:30,onerror:"请输入1-30个字符"}).defaultPassed();
+
+	$("#link_address").formValidator({empty:true,onshow:" ",onfocus:"请输入链接地址",oncorrect:"输入正确",onempty:"输入正确"}).inputValidator({min:1,max:200,onerror:"关键词链接长度错误"})
+	 .regexValidator({regexp:['url'],datatype:"enum",onerror:"关键词链接格式错误"});
+});
+</script>
+
+<script type="text/javascript">
+$(function(){
+  $('#tabX').find('tr:gt(0)').hide();
+	$('#selX').change(function(){
+		if($(this).find('option:selected').text()=='选项2'){
+			$('#tabX').find('tr:gt(0)').show();
+		}else{
+			$('#tabX').find('tr:gt(0)').hide();
+		}
+	})
+	
+
+  /*tree*/
+  if($('.tree_boxX').length>0){
+	$('.tree_node_CX').live('click',function(){
+		if($(this).parent('li').find('ul').length>0){
+			$(this).addClass('tree_node_OX').removeClass('tree_node_CX').parent('li').find('ul:eq(0)').hide();
+		}		
+	})
+	$('.tree_node_OX').live('click',function(){
+		$(this).addClass('tree_node_CX').removeClass('tree_node_OX').parent('li').find('ul:eq(0)').show();
+	})
+  }
+
+});
+
+
+/*全选/反选*/
+$('.tree_boxX input').change(function(){
+	var that=$(this);
+	
+	if(that.attr('checked')=='checked'){
+	
+		that.parent().next('ul').find('li input').attr('checked','checked');
+	}else{
+		
+		that.parent().next('ul').find('li input').removeAttr('checked');
+	}
+  })
+</script>

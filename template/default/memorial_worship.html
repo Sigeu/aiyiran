@@ -1,0 +1,34 @@
+{include 'inc/memorial_head.html'}
+{if $lists==null}
+			<div class="biography_details">
+				<div class="details">
+                   	<div class="top_title">
+						<h2 style="font-size: 14px;color: #666;">暂无任何内容</h2>
+                   	</div>
+                   	<div class="details_cont">
+                   	</div>
+                    <!-- <p class="return_sx"><em class="prov fl"><span>上一篇：</span><a href="###">人民心中伟大的领袖毛主席</a></em><em class="next fr"><span>下一篇：</span><a href="###">人民心中伟大的领袖毛主席</a></em></p>  -->
+                   </div>
+
+			</div>
+			{else}
+			<div class="worship_list clearfix">
+				<div class="headline">
+				<span class="fl">祭拜记录<i></i></span>
+				</div>	
+				<ul class="prop_list clearfix">
+				{foreach $lists $k $v}
+					<li>
+						<em>{$v['username']}</em> 使用了祭拜物品 <span>{$v['gname']} x{$v['num']}</span>    <i>{date('Y-m-d h:i:s', $v['addtime'])}</i>
+					</li>
+				{/foreach}
+				</ul>
+				<div class="page">
+		     		{$showPage}
+		     	</div>
+			</div>
+		</div>	
+{/if}
+
+			<!--********footer***************************************-->
+{include 'head_footer.html'}

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>生成栏目页</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="<!--{$csspath}-->/validator.css"></link>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/formvalidator.js"></script>
+<script src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/content/issue/createindex" class="last">发布首页</a></dd>
+            <dt class="on"><a href="<!--{$baseurl}-->/content/issue/column">发布栏目页</a></dt>
+            <dd><a href="<!--{$baseurl}-->/content/issue/content" class="last">发布内容页</a></dd>
+          </dl>
+        </div>
+        <form method="POST" action="" id="form_id" >
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="160px">按照模型更新：</th>
+                  <td><select class="Iw290" id="big" onchange="go();">
+                      <option value="0">全部模型</option>
+                      <!--{foreach from=$model item=list}-->
+                      <option value="<!--{$list.id}-->"><!--{$list.name}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th valign="top">选择栏目范围：</th>
+                  <td><select multiple class="Iw450 Ih80" id="change_group" style="width:462px;height:85px;">
+                  <option value="0">不限栏目</option>
+                  <!--{foreach from=$cat item=list}-->
+                  <option value="<!--{$list.id}-->"><!--{$list.catname}--></option>
+                  <!--{/foreach}-->
+                    </select>
+                  <span class="warnBlue"></span></td>
+                </tr>
+                </table>
+
+              <table class="tabelLR" id="obverse" style="display:none">
+                <tr>
+                  <th>每轮更新条数：</th>
+                  <td><input type="text" class="Iw290" id="number_rand"/></td>
+                </tr>
+                <tr>
+                  <th>按最新发布信息数更新：</th>
+                  <td><input type="text" class="Iw290" id="number_last"/>&nbsp;&nbsp;<input type="button" value="开始更新" class="btn5" onclick="batchOperate(this)" form-id="form_id" form-action="<!--{$baseurl}-->/content/issue/updateAllCategory"/></td>
+                </tr>
+                <tr>
+                  <th>按发布时间更新：</th>
+                  <td><span class="time"><input type="text" value="" onfocus="WdatePicker()" readonly class="Iw150"></span>&nbsp;&nbsp;至&nbsp;&nbsp;<span class="time"><input type="text" value="" onfocus="WdatePicker()" readonly class="Iw150"></span>&nbsp;&nbsp;<input type="button" value="开始更新" class="btn5" onclick="batchOperate(this)" form-id="form_id" form-action="<!--{$baseurl}-->/content/issue/updateAllCategory" /></td>
+                </tr>
+                <tr>
+                  <th>按ID更新：</th>
+                  <td><input type="text" value="" id="start" class="Iw150">&nbsp;&nbsp;至&nbsp;&nbsp;<input type="text" id="end" value="" class="Iw150">&nbsp;&nbsp;<input type="button" value="开始更新" class="btn5" onclick="batchOperate(this)" form-id="form_id" form-action="<!--{$baseurl}-->/content/issue/updateAllCategory"/></td>
+                </tr>
+              </table>
+
+              <table class="tabelLR" id="opposite">
+                <tr>
+                  <th width="160">是否更新子栏目：</th>
+                  <td><span>
+                    <input type="radio" checked="true" name="change"/>
+                    <label>更新子级栏目</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="change"/>
+                    <label>仅更新所选栏目</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>每轮更新条数：</th>
+                  <td><input type="text" class="Iw290" id="every" /></td>
+                </tr>
+                <tr>
+                    <td><input type="button" value="开始更新" class="btn6" onclick="batchOperate(this)" form-id="form_id" form-action="<!--{$baseurl}-->/content/issue/updateAllCategory" /></td>
+                    <td><input type="button" value="更新全部信息" class="btn6" onclick="batchOperate(this)" form-id="form_id" form-action="<!--{$baseurl}-->/content/issue/updateAllCategory" /></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+       </form>
+      </div>
+    </div>
+  <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#number_rand").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#number_last").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#start").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#end").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#every").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+});
+
+//模型联动栏目
+function go() 
+{
+    var l = document.getElementById("big").value;
+    $.ajax({
+        type:"POST",
+        url:"<!--{$baseurl}-->/content/issue/ajax",
+        dataType:'text',
+        data:"m="+l,
+        success:function (result)
+        {
+            $("#change_group").html(result);
+        }
+    });
+
+    if (l !=0) {
+        document.getElementById("obverse").style.display = "block";
+        document.getElementById("opposite").style.display = "none";
+    }else {
+        document.getElementById("opposite").style.display = "block";
+        document.getElementById("obverse").style.display = "none";
+    }
+}
+
+</script>

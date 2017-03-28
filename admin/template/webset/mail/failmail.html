@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+</head>
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/webset/mailset/mailstate" class="last">已发送邮件</a></dd>
+            <dt class="on"><a href="#">发送失败邮件</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/webset/mailset/failmail" method='get' id="batch-form">
+        <div class="pubTabelTot">
+           <input type="hidden" id="page" name="page" value="<!--{$page}-->" />
+           <input type="text" value="<!--{if $search.keyword neq ''}--><!--{$search.keyword}--><!--{else}-->请输入关键字<!--{/if}-->" class="Iw150 text-tips" tips="请输入关键字" name='keyword'>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 发送时间：
+            <span class="time">
+                  <input type="text" value="<!--{$search.starttime}-->" onfocus="WdatePicker()" id='startTime' name='starttime' readonly class="">
+           </span>
+
+            至
+           <span class="time"><input type="text" value="<!--{$search.endtime}-->" name='endtime' readonly onfocus="WdatePicker()" id='endTime' class="">
+            </span>
+           <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB" id='search-list'>
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="26%">邮件主题</th>
+                  <th width="14%">收件人</th>
+                  <th width="14%">发送状态</th>
+                  <th width="16%">发送时间</th>
+                  <th width="20%">操作</th>
+                </tr>
+                <!--{foreach item=i from =$errinfo}-->
+                <tr>
+                  <td>
+                  <input type='hidden' name="state" value="2"></input>
+                  <input type="checkbox" name="column[]" value="<!--{$i.id}-->" /></td>
+                  <td><!--{$i.title}--></td>
+                  <td><!--{$i.reciver}--></td>
+                  <td>失败</td>
+                  <td><!--{$i.sendtime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td><input type='hidden' id='hidid' value="<!--{$i.id}-->"></input><a href="<!--{$baseurl}-->/webset/mailset/check/id/<!--{$i.id}-->/p/<!--{$page}-->/state/1/keyword/<!--{$search.keyword}-->/starttime/<!--{$search.starttime}-->/endtime/<!--{$search.endtime}-->">查看</a> | 
+                  <a href="#"  onclick="MoConfirm('<!--{$baseurl}-->/webset/mailset/delete/id/<!--{$i.id}-->/state/2/keyword/<!--{$search.keyword}-->/starttime/<!--{$search.starttime}-->/endtime/<!--{$search.endtime}-->')">删除</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+             </form>
+               <div class="pubOperate"><span class="btn5"><label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                            全选/反选</label>
+              </span> 
+              <input type="button" class="btn5" value="删除"  class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/mailset/delete" empty-tips="请选择要删除的记录！" confirm-tips="确认删除？"/>
+             </div>
+          
+             <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

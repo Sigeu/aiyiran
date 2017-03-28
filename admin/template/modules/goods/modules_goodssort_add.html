@@ -1,0 +1,64 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	//栏目名验证
+	$("#sortname").formValidator(
+	{
+		onshow:"请输入2至50个字符",
+		onfocus:"请输入2至50个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:2,
+		max:50,
+		onerror:"请输入2至50个字符"
+	});
+});
+
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+		<div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/goodssort/index">商品分类</a></dd>
+            <dt class="on"><a href="javascript:;" class="last">添加分类</a></dt>
+          </dl>
+        </div>
+		<form method="post" action="<!--{$baseurl}-->/modules/goodssort/add" id="formid" enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 分类名称：</th>
+                  <td><input type="text" value="" name="sortname" id="sortname" class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 父级分类：</th>
+                  <td><select class="Iw290" style="width:302px;" name="pid">
+                      <option value="0">顶级分类</option>
+					  <!--{foreach from=$sort_tree item=l}-->
+					  <option value="<!--{$l.sortid}-->" <!--{if $param.sortid eq $l.sortid}-->selected<!--{/if}-->><!--{$l.sortname}--></option>
+					  <!--{/foreach}-->
+                    </select></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit"  hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.go(-1);" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+		</form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script src="<!--{$jspath}-->/pubJq.js"></script>

@@ -1,0 +1,154 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+         <dl class="navTab">
+            <!--{if $types eq 1}-->
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/tag/index/types/1">文章</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/2">商品</a></dd>
+			<dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/a" class="last">专题</a></dd>
+			<!--{elseif $types eq 2}-->
+            <dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/1">文章</a></dd>
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/tag/index/types/2">商品</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/a" class="last">专题</a></dd>
+			<!--{elseif $types eq a}-->
+            <dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/1">文章</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/tag/index/types/2">商品</a></dd>
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/tag/index/types/a" class="last">专题</a></dt>
+			<!--{/if}-->
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+		  <form method="get" action="<!--{$baseurl}-->/extensions/tag/index"  id="tag-form">
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$pageInfo.keyword}-->" class="Iw190 f999 text-tips" tips="请输入关键字" name="keyword"> 
+              <select name='orderby'>
+              <option value='1'>按搜索时间</option>
+              <option value='2'>按搜索次数</option>
+              </select>
+              <select name='pai'>
+              <option value='1'>降序</option>
+              <option value='2'>升序</option>
+              </select>
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+			  <input type="hidden" name="types" id="types" value="<!--{$types}-->"/>
+			  <input type="hidden" name="product" id="product" value="<!--{$tag.product}-->"/>
+            </div>
+		  </form>             
+		  <form method="get" action="<!--{$baseurl}-->/extensions/tag/index" id="backup-form">
+            <div class="pubTabel">
+              <table class="tabelTB"  id="tag-list">
+                <tr>
+                  <th width="6%">选择</th>
+                  <th width="15%">Tag标签</th>
+                  <!--{if $types != a}-->
+                  <th width="18%">点击次数</th>
+                  <!--{else}-->
+                  <!--{/if}--> 
+                  <th width="10%">文档数</th>
+                  <th width="25%">添加时间</th> 
+                  <th width="15%">操作</th>
+                </tr>
+
+				<!--{if $types eq 1}-->
+					<!--{foreach from=$list item=l}-->
+					<tr>
+					  <td>
+					   <input type="checkbox" name="ids[]" value="<!--{$l.id}-->"/>
+					  </td>
+					  <td><!--{$l.tag_name}--></td>
+					  <td><!--{$l.tag_click}--></td>
+					  <td><!--{$l.tag_count}--></td>
+					  <td><!--{$l.tag_times|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+					  <td>
+					  <a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$baseurl}-->/extensions/tag/delete/did/<!--{$l.id}-->/types/1','确定删除？')">删除</a>
+				      </td>
+					</tr>
+					<!--{/foreach}--> 
+				<!--{elseif $types eq 2}-->
+					<!--{foreach from=$list item=l}-->
+					<tr>
+					  <td>
+					   <input type="checkbox" name="ids[]" value="<!--{$l.id}-->"/>
+					  </td>
+					  <td><!--{$l.tag_name}--></td>
+					  <td><!--{$l.tag_click}--></td>
+					  <td><!--{$l.tag_count}--></td>
+					  <td><!--{$l.tag_times|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+					  <td>
+					  <a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$baseurl}-->/extensions/tag/delete/did/<!--{$l.id}-->/types/2','确定删除？')">删除</a>
+				      </td>
+					</tr>
+					<!--{/foreach}--> 
+				<!--{elseif $types eq a}-->
+					<!--{foreach from=$list item=l}-->
+					<tr>
+					  <td>
+					   <input type="checkbox" name="ids[]" value="<!--{$l.id}-->"/>
+					  </td>
+					  <td><!--{$l.tag_name}--></td>
+					  <td><!--{$l.tag_count}--></td>
+					  <td><!--{$l.tag_times|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+					  <td>
+					  <a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$baseurl}-->/extensions/tag/delete/did/<!--{$l.id}-->/types/a','确定删除？')">删除</a>
+				      </td>
+					</tr>
+					<!--{/foreach}--> 
+				<!--{/if}-->
+              </table>
+            </div>
+			</form>
+            <div class="pubOperate">
+			<span class="btn5" style="width:80px;">
+			<label>
+			<input type="checkbox" class="Check-All-Toggle" container-id="tag-list" style="position: relative; top: 3px; width: 15px;"/>
+			全选/反选
+			</label>
+			</span>
+			  
+				<input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="backup-form" container-id="tag-list"  form-action="<!--{$baseurl}-->/extensions/tag/delete<!--{if $types eq 1}-->/types/1<!--{elseif $types eq 2}-->/types/2<!--elseif $types eq a-->/types/a<!--{/if}-->" empty-tips="请选择要进行删除的信息！" confirm-tips="确认删除？"/>
+
+            </div>
+           <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pagestr}--></div>
+            </div>
+			</form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+function click_counts(obj)
+{
+	var old_orderTypes = jQuery('#orderTypes');
+	
+	if( obj == 1 ){
+		var old_orderby = jQuery('#orderby');
+		if(old_orderby.val() == 'asc')
+		{	
+			old_orderby.val('desc');
+		}
+		else
+		{
+			old_orderby.val('asc');
+		}
+		old_orderTypes.val('1');
+	}else{
+		var old_orderby = jQuery('#orderbyTimes');
+		if(old_orderby.val() == 'asc')
+		{	
+			old_orderby.val('desc');
+		}
+		else
+		{
+			old_orderby.val('asc');
+		}
+		old_orderTypes.val('2');
+	}
+	jQuery('#tag-form').submit();
+}
+</script>

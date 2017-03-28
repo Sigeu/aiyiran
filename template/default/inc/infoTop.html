@@ -1,0 +1,17 @@
+<div class="cont_list cont_list7">
+                    <div class="headline">
+                        <span class="fl">最新资讯<i></i></span>
+                        <!-- <a href="{getMoreUrl()}" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+    <!-- 资讯推荐 -->
+{mo:articlelist row="10"  order="id desc" return="data"}
+    {foreach $data  $key $value}
+        <li class="active">
+            <a href="{$value['url']}" target="_blank">{csubstr($value["title"],24)}</a>
+        </li>
+    {/foreach}
+{/mo:articlelist}
+
+                    </ul>
+                </div>

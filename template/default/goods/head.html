@@ -1,0 +1,18 @@
+{include 'tophead.html'}
+<div class="banner">
+<div class="bannerimg">{mo:position id='73' return='hot_other'}
+     {foreach $hot_other $k $value}
+     <a href="{$value['info']['url']}" title="{$value['headline']}" target="_blank" ><img src="{HOST_NAME}{$value['pos_img']}" alt="{$value['headline']}" ></a>
+	 {/foreach}
+    {/mo:position}</div>
+<div class="bannersimg">{mo:position id='73' return='hot_other'}
+     {foreach $hot_other $k $value}
+     <img src="{HOST_NAME}{$value['pos_img']}" alt="{$value['headline']}" width="200" height="90" >
+	 {/foreach}
+    {/mo:position}</div>
+</div>
+<div class="menu"><a href="{HOST_NAME}" {if !$cid}class="focus"{/if}>网站首页</a>{mo:navigation  row='3' order='ordernum'}
+{foreach $return  $v}
+{if $v['id']===$cid or $v['id']===$pid}<a href="{$v['url']}" class="focus">{$v['catname']}</a>{else}<a href="{$v['url']}">{$v['catname']}</a>{/if}
+{/foreach}
+{/mo:navigation}<a href="{getMoreUrl(68)}"{if $cid =='68'} class="focus"{/if}>联系我们</a><!--$n序号，$lastIndex最后一次循环--></div>

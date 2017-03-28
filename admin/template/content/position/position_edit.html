@@ -1,0 +1,79 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab"><dt class="on"><a href="javascript:void(0)">修改推荐位</a></dt></dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+          <form method ="POST" id="thisform" action="<!--{$baseurl}-->/content/position/insertposition" >
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 推荐位名称：</th>
+                  <td><input type="text" value="<!--{$result.name}-->" name="name" id="name" class="Iw290"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 所属栏目：</th>
+                  <td><select class="Iw290" name="cat_id" id="cat_id" style="width:302px;">
+                      <option value="0">请选择栏目</option>
+                      <!--{foreach from=$cat item=list}-->
+                      <option value="<!--{$list.id}-->" <!--{if $list.id eq $result.cat_id}-->selected<!--{/if}-->><!--{$list.catname}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    <span class="warnBlue"></span></td>
+                </tr>
+
+                <tr>
+                  <th>&nbsp; 推荐信息条数：</th>
+                  <td><input type="text" value="<!--{$result.max_num}-->" name="max_num" id="max_num" class="Iw290"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <!--
+                <tr>
+                  <th>&nbsp; 特殊效果：</th>
+                  <td><span>
+                    <input type="radio" name="special" value="0" />
+                    <label>无</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="special" value="1" />
+                    <label>跑马灯</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="special" value="2" />
+                    <label>幻灯</label>
+                    </span></td>
+                </tr>
+                -->
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1"><input type="hidden" value="<!--{$result.pos_id}-->" name="act"/>
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/content/position/index'" class="btn2">
+              </div>
+            </div>
+           </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#name").formValidator({onshow:"请输入1-100个字符，由数字、字母、下划线组成",onfocus:"请输入1-100个字符，由数字、字母、下划线组成",oncorrect:"输入正确",onempty:'输入内容为空'})
+.inputValidator({min:1,max:100,onerror:"请输入1-100个字符，由数字、字母、下划线组成"}).regexValidator({regexp:['username'],datatype:"enum",onerror:"请输入1-100个字符，由数字、字母、下划线组成"}).defaultPassed();
+
+$("#cat_id").formValidator({onshow:"请选择栏目",onfocus:"选择所属栏目",oncorrect:"选择正确"})
+.inputValidator({min:1,onerror:"请选择栏目"}).defaultPassed();
+
+$("#max_num").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",onempty:'输入内容为空',empty:true})
+.inputValidator({}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+});
+</script>

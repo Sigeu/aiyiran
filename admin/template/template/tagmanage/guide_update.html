@@ -1,0 +1,175 @@
+<!--{include file="public/head_admin.html"}-->
+<script>
+	
+	function changeModel(modelId)
+	{
+		$('#modelid').attr("value",parseInt(modelId));
+	}
+	function IDContent()
+	{
+		//默认配置项
+		var _option=
+		{
+			upload_id   : 'IDContent',           //上传标示符
+			title       : '提取文档',                   //窗口title
+			width       : '700px',                      //窗口宽度
+			height      : '450px',                      //窗口高度
+			lock        : true,                         //是否锁屏
+			param       : {}
+		};
+		var hasID = $('#content').val();
+		window.top.art.dialog.open('<!--{$baseurl}-->/template/Tagmanage/IDContent/ids/'+$('#content').val()+'/cid/'+$('#cid').val()+'/mid/'+$('#modelid').val(),
+		{
+				title  : _option.title,
+				id     : _option.upload_id,
+				width  : _option.width,
+				height : _option.height,
+				lock   : _option.lock,
+				ok:function()
+				{
+					var arr = new Array();
+					var str = '';
+					var win = art.dialog.open.origin;			//来源页面
+					var iframe = this.iframe.contentWindow;
+					var checked_ids = $(iframe.document).find('#search_list input:checkbox:checked');
+					$.each(checked_ids,function(i,n){
+						arr.push($(n).val());
+					})
+					var str = arr.join(',');
+                    alert(str);
+					if(str)
+					{
+						if($(win.document).find('#content').val())
+						{
+							$(win.document).find('#content').val($(win.document).find('#content').val() + ',' + str);
+						}
+						else
+						{
+							$(win.document).find('#content').val($(win.document).find('#content').val() + str);
+						}
+					}
+				},
+				cancel:true
+		});
+		
+	}
+
+</script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+	   <div class="TabBoxT">
+          <dl class="navTab">
+             <dd><a href="<!--{$urlArr.indexUrl}-->">标签向导列表</a></dd>
+			 <dt class="on"><a href="#" class="last">编辑向导</a></dt>
+          </dl>
+        </div>
+        <form method='post' action="" id='myForm'>
+        <!-- 隐藏域  -->
+		<input type='hidden' value='<!--{$info.id}-->' id='id' name='id'/>
+		<input type='hidden' value='<!--{$info.modelid}-->' id='modelid' name='modelid'/>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 标签名称：</th>
+                  <td><input type="text" value="<!--{$info.tagname}-->" name='tagname' id='tagname' class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 标签说明：</th>
+                  <td><input type="text" value='<!--{$info.describe}-->' id='describe' name='describe' class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 调用栏目：</th>
+                  <td><select class="Iw290" name='cid' id='cid'>
+	                    <option value="" onclick="javascript:changeModel(0);" model='0'>请选择栏目</option>
+	                    <!--{foreach item=item key=key from=$cat_tree}-->
+	                    <option <!--{if $info.cid==$item.id}-->selected <!--{/if}-->value="<!--{$item.id}-->" model='<!--{$item.model}-->' onclick="javascript:changeModel(<!--{$item.model}-->);" ><!--{$item.catname}--></option>
+	                    <!--{/foreach}-->
+                      </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 是否分页：</th>
+                  <td><span>
+                    <input type="radio" name='ispage' checked='true' <!--{if $info.ispage==1}-->checked <!--{/if}-->value='1'/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='ispage'  <!--{if $info.ispage!=1}-->checked <!--{/if}--> value='0'/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+				<tr id="show_pagesize">
+                  <th valign="top">&nbsp; 每页数量：</th>
+                  <td><input type="text"  <!--{if $info.pagesize != 0}--> value='$info.pagesize' <!--{/if}--> id='pagesize' name='pagesize' class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 调用数量：</th>
+                  <td><input type="text" <!--{if $info.rows != 0}--> value='$info.rows' <!--{/if}--> id='rows' name='rows' class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 排列顺序：</th>
+                  <td><select class="Iw290"  id='order' name='order'>
+	                    <option <!--{if !$info.order}-->selected <!--{/if}--> value="0">请选择</option>
+	                    <option <!--{if $info.order=='publishtime'}-->selected <!--{/if}--> value="publishtime">按发布时间</option>
+	                    <option <!--{if $info.order=='created'}-->selected <!--{/if}--> value="created">按创建时间</option>
+	                    <option <!--{if $info.order=='hits'}-->selected <!--{/if}-->  value="hits">按点击量</option>
+                      </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <span>
+                    <input type="radio"  name="ordertype" checked='true' <!--{if $info.ordertype=='desc'}-->checked <!--{/if}--> value='desc'/>
+                    <label>由高到底</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="ordertype" <!--{if $info.ordertype=='asc'}-->checked <!--{/if}-->  value='asc'/>
+                    <label>由低到高</label>
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 特定文档：</th>
+                  <td><textarea class="Iw450 Ih80" style="height:220px;" name='content' id='content'><!--{$info.content}--></textarea> <span onclick="javascript:IDContent();" style="display:inline-block;vertical-align:bottom;cursor:pointer;color:blue">提取文档<span></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+				<input type='hidden' name='dosubmit' value='1'/>
+                <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消"  onclick="history.back();" class="btn2">
+              </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	 //验证
+	 $.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	  $("#describe").formValidator({onshow:"请输入2～30个字符，由汉字、数字、字母、符号组成",onfocus:"请输入2～30个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确",empty:false}).inputValidator({min:2,max:30,onerror:"请输入2～30个字符，由汉字、数字、字母、符号组成"}).defaultPassed();
+	  $("#tagname").formValidator({onshow:"请输入2～30个字符，由数字、字母、符号、汉字组成",onempty:'请输入2～30个字符，由数字、字母、符号、汉字组成',onfocus:"请输入2～30个字符，由数字、字母、符号、汉字组成",onempty:'请输入2～30个字符，由数字、字母、符号、汉字组成',oncorrect:"输入正确"}).inputValidator({min:2,max:30,onerror:"请输入2～30个字符，由数字、字母、符号、汉字组成"}).defaultPassed();
+	    //栏目
+		$("#cid").formValidator({onshow:"请选择栏目",onfocus:"请选择栏目",oncorrect:"选择正确"}).inputValidator({min:1,onerror: "请选择栏目"}).defaultPassed();
+
+		$("#rows").formValidator({onshow:"请输入调用数量,由正整数组成",onempty:"输入正确",empty:true,onfocus:"请输入调用数量,由正整数组成",oncorrect:"输入正确"}).inputValidator({min:1,onerror: "请输入调用数量,由正整数组成"}).regexValidator({regexp:"^[1-9]\\d*$",onerror:"请输入调用数量,由正整数组成"}).defaultPassed();
+
+		$("#pagesize").formValidator({onshow:"请输入每页调用数量,由正整数组成",onempty:"输入正确",empty:true,onfocus:"请输入每页调用数量,由正整数组成",oncorrect:"输入正确"}).inputValidator({min:1,onerror: "请输入每页调用数量,由正整数组成"}).regexValidator({regexp:"^[1-9]\\d*$",onerror:"请输入每页调用数量,由正整数组成"}).defaultPassed();
+		$("#order").formValidator({onshow:"请选择排列顺序",onfocus:"请选择排列顺序",oncorrect:"选择正确"}).inputValidator({min:1,onerror: "请选择排列顺序"}).defaultPassed();
+		
+		//var val=$('input[name="ispage"]:checked').val();
+		//page(val);
+});
+/*function page(val)
+{
+	if(val==1)
+	{
+		$('#show_pagesize').show();
+	}
+	else
+	{
+		$('#show_pagesize').hide();
+	}
+}*/
+
+
+</script>
+</body>
+</html>

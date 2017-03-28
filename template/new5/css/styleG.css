@@ -1,0 +1,50 @@
+/* CSS Document */
+.thumb { height:32px; line-height:32px; background:url(../images/bg_line2.png) left bottom repeat-x; }
+.ulOne { padding-bottom:12px; background:url(../images/bg_line2.png) left bottom repeat-x; }
+.ulOne li { font-size:14px; color:#333; float:left; width:77px; height:30px; line-height:30px; text-align:center; background:url(../images/bg_liOn.png) no-repeat; margin-right:10px; cursor:pointer; }
+.allList { height:858px; }
+.ulOne li.focus { font-weight:bold; color:#fff; background:url(../images/bg_liHo.png) no-repeat; }
+.ulOneList { width:960px; padding-top:20px; }
+.ulOneList li { float:left; width:230px; margin:0 10px 10px 0; text-align:center; }
+.listImg { background:url(../images/bg_listImg.png) center bottom no-repeat; padding-bottom:8px; }
+.listImg img { display:block; width:226px; height:160px; padding:1px; border:#ccc 1px solid; }
+.listTxt { height:30px; line-height:30px; overflow:hidden; }
+.listTxt a:hover { color:#8d1919; text-decoration:underline; }
+/*pubModL*/
+.pubModL { }
+.pubModL .T { height:34px; line-height:34px; background:url(../images/bg_T.png) no-repeat; padding-left:25px; }
+.pubModL .T h3 { font-size:14px; font-weight:bold; color:#11478f; }
+.pubModL .C { background:#fff url(../images/bg_C.png) left top repeat-x; border:#b5bfdd 1px solid; border-top:none; }
+.subNav { padding-bottom:35px; }
+.subNav li { height:36px; line-height:36px; border-bottom:#c0c9e2 dashed 1px; text-align:center; position:relative; vertical-align:top; zoom:1; }
+.subNav li a { display:block; height:33px; line-height:33px;outline:hidden;}
+.subNav li a:hover, .subNav li a.focus { font-weight:bold; color:#fff; text-decoration:none; width:210px; background:url(../images/aHo.png) no-repeat; position:absolute; left:-6px;}
+.subNav li.last { border-bottom:0 none; }
+/*inkefu*/
+.inkefu { width:196px; height:70px; background:url(../images/inKefu.png) 1px 1px no-repeat; padding:1px; border:#d5d5d5 1px solid; }
+/*inTrends*/
+.inTrends { }
+.inTrends .trendt { width:600px; }
+.inTrends .trendpt { padding:10px 0 20px; margin-bottom:10px; border-bottom:#afb0b2 1px dotted; }
+/*imgLook*/
+.imgLook { width:720px; padding:10px 0 20px; }
+.imgLook img { display:inline-block; margin-right:10px; }
+/*intro*/
+.intro { }
+.intro li { padding-bottom:20px; }
+.intro h4 { height:27px; line-height:27px; background-color:#eff4fb; color:#11478f; font-weight:bold; padding:0 12px; margin-bottom:12px; }
+.intro p { text-indent:24px; line-height:20px; color:#333; }
+/*detailTxt*/
+.detail { padding-top:20px; }
+.detail .T, .detailPic { text-align:center; }
+.detail h2 { font-size:16px; font-weight:bold; color:#333; }
+.detail span { display:block; height:30px; line-height:30px; }
+.detailTxt { line-height:22px; }
+.detailTxt p { padding-bottom:20px; }
+.detailPic{ padding-bottom:40px;}
+.detailPic img { display:block; max-width:470px; width:470px;_width:expression(document.body.clientWidth>470?"470px":"auto");
+overflow:hidden; margin:0 auto; }
+/*updown*/
+.updown{ border-top:#b2b2b2 dotted 1px; line-height:22px; padding:20px 0;}
+/*overflow*/
+.ulOne, .allList { overflow:hidden; clear:both; zoom:1; }

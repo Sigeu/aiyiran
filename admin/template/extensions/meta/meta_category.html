@@ -1,0 +1,81 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/index">首页</a></dd>
+            <dt class="on"><a href="#">栏目页</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/1">栏目页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/special">专题页</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/2">专题页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/3">专题信息列表页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/4">内容页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/5" class="last">商品页默认设置</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC mt10">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB tableTB_Xtal mt10" id="search-list">
+                <tr>
+                  <th width="6%">栏目ID</th>
+                  <th width="30%">栏目名称</th>
+                  <th width="10%">Title</th>
+                  <th width="15%">Keywords</th>
+                  <th width="20%">Description</th>
+                  <th width="5%">操作</th>
+                </tr>
+                <!--{foreach from=$cat_tree item=l}-->
+                <tr class="<!--{$l.class}-->" style="display:<!--{$l.show_hide}-->" child_count="<!--{$l.child_count}-->">
+                    <td><!--{$l.id}--></td>
+                    <td class="tal"><div class="<!--{$l.flag}-->" style="margin-left:<!--{$l.margin_left}-->px"><!--{$l.catname}--></div></td>
+                    <td style="text-align:center" title="<!--{$l.seo_title}-->"><!--{if $l.seo_title}--><!--{$l.seo_title|truncate_cn:10:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                    <td style="text-align:center" title="<!--{$l.seo_keywords}-->"><!--{if $l.seo_keywords}--><!--{$l.seo_keywords|truncate_cn:15:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                    <td style="text-align:center" title="<!--{$l.seo_description}-->"><!--{if $l.seo_description}--><!--{$l.seo_description|truncate_cn:15:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                    <td><a href="<!--{$baseurl}-->/extensions/meta/setcategory/cid/<!--{$l.id}-->" >设置</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+              </div>
+          </div>
+        </div>
+      </div>
+<script type="text/javascript">
+$(function()
+	    {
+	        //收起，折叠效果
+	        $("#search-list tr:gt(0)").find('td:eq(1)').bind('click',function()
+	        {
+	            var tr = $(this).parent('tr');//被点击的TR
+	            var c_index = tr.index();//被点击TR的索引号
+	            var c_child = parseInt(tr.attr('child_count'));//TR的子集个数
+	            if(c_child == '0') return;
+	            var div = $(this).find('div');//折叠符所在元素
+	            var s_class = div.attr('class');//折叠符所在元素last class 
+	            var n_class = (s_class == 'open') ? 'clos' : 'open';//折叠符所在元素new class 
+	            div.removeClass(s_class).addClass(n_class);//切换样式
+
+	            if (n_class == 'open')
+	                tr.attr('bgcolor','#FFF7F2');
+	            else
+	                tr.attr('bgcolor','#F7F7F7');
+
+	            for (var i=1;i<= c_child;i++)
+	            {
+	                var _tr = $("#search-list tr:eq("+(c_index+i)+")");
+	                var _div = _tr.find('td:eq(1)').find('div');
+	                var _s_class = _div.attr('class');
+	                if (n_class == 'open')
+	                    _tr.show();
+	                else
+	                    _tr.hide();
+	                if (_s_class != 'no')
+	                    _div.removeClass().addClass(n_class);
+	            }
+	        });
+	    });
+</script>
+</body>
+</html>

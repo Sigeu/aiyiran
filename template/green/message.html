@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网站留言</title>
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<!--必须的引入的文件-->
+<link href="{CSS_PATH}/validator.css" rel="stylesheet" type="text/css"/>
+<!--必须的引入的文件-->
+</head>
+<body>
+{include 'head.html'}
+<script src="{JS_PATH}/formvalidator.js"></script>
+<script src="{JS_PATH}/formvalidatorregex.js"></script>
+<div class="wrap">
+  <div class="msg">
+    <div class="T">
+      <h3>留言板</h3>
+    </div>
+	<form action='/message/Message/add' id="messageForm" method='post'>
+	<input type='hidden' name='modelid' value="{$modelid}"/>
+	<!--隐藏域-->
+    <table width="100%" cellpadding="0" cellspacing="0">
+      {foreach $form $key $v}
+	    {$v}
+	  {/foreach}
+	  {if $hasYzm}
+      <tr>
+        <th>* 验 证 码：</th>
+        <td><input type="text" name='code' id='code' class="input131_24" />
+          <img src="{HOST_NAME}/static/js/securimage/yzm.php" id='yzm' width="100" height="40" class="yzm captcha"/>  <a href="#"  onclick='yzm.src="/static/js/securimage/yzm.php?"' class="msgLink captcha">看不清，换一张</a></td>
+      </tr>
+	  {/if}
+      <tr>
+        <th></th>
+        <td><input type="button" onclick="submitCheck();" value="提交留言" /></td>
+      </tr>
+    </table>
+	</form>
+  </div>
+
+  <!--  网站留言 start  -->
+	{mo:message modelid="458" pagesize='2' return="data"}{/mo:message}
+	{if isset($data) && !empty($data)}
+	<br />
+	<div class="chwl_com">
+		<div class="comment_tit"><h3>网站留言</h3></div>
+		{foreach $data $key $val}
+		<dl class="comment_list">
+			<dd><span class="time">{date('Y.m.d',$value['leavetime'])}</span><span class="f6">{$val['username']}：</span></dd>
+			<dd>{$val['mess_infor']}</dd>
+		</dl>
+		{/foreach}
+		<div class="pages">
+			 {$pagestr}
+		</div>
+	</div>
+	{/if}
+	<!--  网站留言 end  -->
+</div>
+<script>
+ /*初始化表单认证*/
+$.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+$('#title').formValidator({onshow:'请输入标题',onempty:'请填写标题',onerror:'标题不能为空',oncorrect:'输入正确',onfocus:'请输入标题'}).inputValidator({max:100,min:1,onerrormin:'标题不能为空',onerrormax:'标题不能为空'});
+
+$('#username').formValidator({onshow:'请输入留言人',onempty:'请填写留言人',onerror:'留言人不能为空',oncorrect:'输入正确',onfocus:'请输入留言人'}).inputValidator({max:100,min:1,onerrormin:'留言人不能为空',onerrormax:'标题不能为空'});
+
+$('#mess_infor').formValidator({onshow:'请输入留言内容',onempty:'请填写留言内容',onerror:'请输入留言内容',oncorrect:'输入正确',onfocus:'请输入留言内容'}).inputValidator({max:15,min:1,onerrormin:'留言内容不能为空',onerrormax:'留言内容不能为空'});
+
+/*captcha 属性更新验证码及表单认证*/
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+/*验证码验证*/
+function submitCheck()      
+{
+	if($('#code').val()=='')
+	{
+		alert("验证码不能为空");
+	}
+	else
+	{
+		$('#messageForm').submit();
+	}
+}
+</script>
+{include 'footer.html'}

@@ -1,0 +1,23 @@
+/* CSS Document */
+/*弹窗广告-TCGG*/
+.titG { height:17px; background:url(../images/bg_titG.png) repeat-x; }
+.titG a{ float:right;}
+a.replay{ color:#fff; background:url(../images/bg_lefta.png) left center no-repeat; padding:0 6px;}
+.closeBtnG { display:block; width:15px; height:15px; background:url(../images/closeBtnG.png) no-repeat; float:right; margin-right:2px; }
+/*轮播广告-LBGG*/
+#LBGG { width:245px; height:171px; position:relative; overflow:hidden; }
+#picBox { height:171px; width:245px; position:absolute; }
+#picBox li { height:171px; overflow:hidden; }
+#liBox { position:absolute; bottom:5px; right:0; }
+#liBox li { float:left; width:14px; height:14px; color:#fff; line-height:14px; text-align:center; cursor:pointer; margin-right:2px; background-color:#000; opacity:.5; filter:alpha(opacity=50); }
+#liBox li:hover, #liBox li.active { background-color:#fff; color:#000; }
+/*漂浮广告-PFGG*/
+#PFGG { width:60px; height:60px; }
+.closeBtn1G { display:block; width:14px; height:14px; background:url(../images/closeBtn1G.png) no-repeat; position:absolute; top:0; right:0; }
+/*文字链广告-WZGG*/
+#WZGG { width:214px; height:74px; border:#c0c0c0 1px dashed;padding:5px 15px 0;}
+#WZGG a { height:24px; line-height:24px; overflow:hidden; color:#571b8d; background:url(../images/bg_aWZ.png) left center no-repeat; display:block; padding-left:8px; }
+#marqueeBox{}
+/*全屏广告-QPGG*/
+.full_sc{width:1000px; height:417px;position:absolute;top:36px; left:16%; display:none;}
+#picOff{ display:block;width:45px; height:16px; background:url(../images/q_close.png) no-repeat;position:absolute;top:0;right:0;}

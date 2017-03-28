@@ -1,0 +1,53 @@
+{include 'head.html'}
+
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/index.css"/>
+<script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/index.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+    
+        <!--**********************************************************-->
+        <div class="box_cont clearfix">
+            <div class="family_name">
+                <span class="title_xszc fl">
+                    姓氏宗祠
+                </span>
+                <form action="" method="get">
+                <div class="input_group fr">
+                    <input id="searchMuseumkey" class="form-control fl" name="keywords" value="{$keywords}" placeholder="输入需要查找的内容" type="text">
+                    <span><i></i><input type="submit"  id="" class="input-group-addon fl" value="搜索" /></span>
+                </div>
+                </form>
+            </div>
+            <div class="list_ancestral clearfix">
+                <ul class="list_zc clearfix">
+              {mo:articlelist   cid="314" pagesize="9" keywords="$keywords" order="sortnum desc"  return="data"}
+                {if !empty($data)}
+                    {foreach $data  $key $value}
+                    <li>
+                        <img class="lazy" src='/template/default/member/images/default_max.png' data-original="/static/uploadfile/{$value['thumb']['src']}" width="250" height="250"/>
+                        <h3>{csubstr($value["title"],10)}</h3>
+                        <p>{csubstr($value["description"],95)}</p>
+                        <span>建立时间：{substr(date('Y-m-d', $value['publishtime']),0,10)}</span>
+                        <a href="{$value['url']}" target="_blank">查看宗祠</a>
+                    </li>
+                    {/foreach}
+                 {else}
+                 没找到信息，稍后再试
+                 {/if}
+              {/mo:articlelist}
+                </ul>
+                <div class="page">
+                  {$pagestr}
+                </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+                
+            </div>
+        </div>  
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">模板列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/memorial/moreset/addstyle" class="last">添加模板</a></dd>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/memorial/moreset/stylesort" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="10%">排序</th>
+                  <th width="25%">模板名称</th>
+                  <!--<th width="10%">是否免费</th>-->
+                  <!--<th width="10%">价格</th>-->
+                  <th width="10%">图片</th>
+                  <th width="15%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td>
+                  <input type="checkbox" name="id[]" value="<!--{$item.id}-->" />
+                  </td>
+                  <td>
+                  <input type="text" class="Iw45" name="sort[]" value="<!--{$item.sort}-->">
+                  </td>
+                  <td title='<!--{$item.name}-->'><!--{$item.name}--></td>
+                  <!--<td>&lt;!&ndash;{if $item.free eq 1}&ndash;&gt;是&lt;!&ndash;{else}&ndash;&gt;否&lt;!&ndash;{/if}&ndash;&gt;</td>-->
+                  <!--<td title='&lt;!&ndash;{$item.price}&ndash;&gt;'>&lt;!&ndash;{$item.price}&ndash;&gt;</td>-->
+                  <td><img src="/static/uploadfile<!--{$item.pic}-->" width="60" height="60"/></td>
+                  <td>
+                  <a href="/static/uploadfile<!--{$item.pic}-->" target="_blank">预览</a> |
+                   <a href="javascript:;" class="begin" data="<!--{$item.id}-->"><!--{if $item.status eq 1}-->启用<!--{else}--></a> <a href="javascript:;" class="end" data="<!--{$item.id}-->">禁用<!--{/if}--></a> |
+                   <a href="<!--{$baseurl}-->/memorial/moreset/styleupdate/id/<!--{$item.id}-->/page/<!--{$page}-->">修改</a> 
+                 
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/moreset/stylesort" empty-tips="请选择要进行排序的模板" is-selected="false" />
+			  <input type="button" class="btn5" value="删除" class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/moreset/styledelete" empty-tips="请选择要删除的模板" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+
+          <script type="text/javascript">
+            $(function(){
+              // 不启用
+              $(".begin").click(function(){
+                var id = $(this).attr('data');
+                $.ajax({
+                    type: "Post",
+                    url: "<!--{$baseurl}-->/memorial/moreset/begin",
+                    data: {"id":id},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg, {icon: 1});
+                            setTimeout("window.location.href='<!--{$baseurl}-->/memorial/moreset/style'",2000);
+                        } else {
+                            layer.msg(data.msg, {icon: 2});
+                        };
+                    }
+                });
+              });
+
+              // 启用
+              $(".end").click(function(){
+                var id = $(this).attr('data');
+                $.ajax({
+                    type: "Post",
+                    url: "<!--{$baseurl}-->/memorial/moreset/end",
+                    data: {"id":id},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg, {icon: 1});
+                            setTimeout("window.location.href='<!--{$baseurl}-->/memorial/moreset/style'",2000);
+                        } else {
+                            layer.msg(data.msg, {icon: 2});
+                        };
+                    }
+                });
+              })
+            });
+          </script>
+
+    </body>
+    </html>

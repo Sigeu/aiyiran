@@ -1,0 +1,341 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<style>
+.scale_panel{
+	font-size:12px;
+	color:#999;
+	width:280px;
+	position:absolute; 
+	line-height:18px; 
+	left:180px;
+	top:0px;
+}
+.scale_panel .r{
+	float:right;
+}
+.scale span{
+	background:url('<!--{$imgpath}-->/scroll.gif') no-repeat; 
+	width:8px;
+	height:16px; 
+	position:absolute; 
+	left:-2px;
+	top:-1px;
+	cursor:pointer;
+}
+.scale{
+	background:url('<!--{$imgpath}-->/red.gif') repeat-x 0 100%;
+	border-left:1px #83BBD9 solid;
+	border-right:1px red solid;
+	width:280px;
+	height:10px; 
+	position:relative; 
+	font-size:0px;
+}
+.scale div{
+	background:url('<!--{$imgpath}-->/blue.gif') repeat-x;
+	width:0px; 
+	position:absolute; 
+	width:0;
+	left:0;
+	height:5px;
+	bottom:0;
+}
+li{
+	font-size:13px;
+	line-height:50px;
+	position:relative; 
+	height:50px; 
+    left:22px;
+	list-style:none;
+}
+ul{
+    width:600px;
+}
+</style>
+<body>
+  <form method="POST" id="thisform" action="<!--{$baseurl}-->/webset/Watermark/addMark" enctype="multipart/form-data" >
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">水印设置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="200px"><font>*</font> 上传图片开启水印功能：</th>
+                  <td><span>
+                    <input type="radio" name="mo_start_watermark" value="Y" <!--{if $res.mo_start_watermark eq Y}--> checked="true" <!--{/if}-->/>
+                    <label>开启</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_start_watermark" value="N" <!--{if $res.mo_start_watermark eq N}--> checked="true" <!--{/if}-->/>
+                    <label>关闭</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 选择水印的文件类型：</th>
+                  <td><span>
+                    <input type="radio" name="mo_watermark_type" value="image" <!--{if $res.mo_watermark_type eq image}--> checked="true" <!--{/if}-->/>
+                    <label>图片</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_watermark_type" value="word" <!--{if $res.mo_watermark_type eq word}--> checked="true" <!--{/if}-->/>
+                    <label>文字</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 上传图片：</th>
+                  <td>
+				  <span id="single-upload"><img src="<!--{$res.mo_markimage_url}--> " width="200px;" height="30px;" onerror="javascript:this.src='<!--{$imgpath}-->/default_logo.png';"/></span>&nbsp;
+                    <input class="btn5" type="button" value="替换图片" name="accessory" style="position: relative;top: -9px;" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'brand','self_id':'uploadButton','ady_upload':1,'dis_place':'single-upload'});" handle="single-upload" id="uploadButton"/></td>
+                </tr>
+                <tr>
+                <td colspan="2" >
+                <ul>
+                <li> 水印图片透明度：<span id="title">0</span>
+                <input type="hidden" name="mo_img_diaphaneity" value="<!--{$res.mo_img_diaphaneity}-->" id="mo_img_diaphaneity" />
+                <div class="scale_panel">
+                    <span class="r">100%</span>0%
+                    <div class="scale" id="bar">
+                        <div></div>
+                        <span id="btn"></span>
+                    </div>
+                </div></li>
+                <li> 水印图片缩放比例：<span id="title2">0</span>
+                <input type="hidden" name="mo_img_scaling" value="<!--{$res.mo_img_scaling}-->" id="mo_img_scaling" />
+                <div class="scale_panel">
+                    <span class="r">100%</span>0%
+                    <div class="scale" id="bar2">
+                        <div></div>
+                        <span id="btn2"></span>
+                    </div> 
+                </div></li></ul>
+                </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 水印图片文字内容：</th>
+                  <td><input class="Iw290" name="mo_mark_content" id="mo_mark_content" type="text" value="<!--{$res.mo_mark_content}-->"/></td>
+                </tr>
+                <tr>
+                  <th> 水印图片文字字体大小：</th>
+                  <td><input class="Iw150" name="mo_word_size" id="mo_word_size" type="text" value="<!--{$res.mo_word_size}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <th> 水印图片文字字体颜色：</th>
+                  <td><input class="Iw150" name="mo_word_color" onclick="coloropen(event)" id="inputcolor" type="text" value="<!--{$res.mo_word_color}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align:top;"> 水印位置：</th>
+                  <td><span>
+                    <input type="radio" name="mo_mark_position" value="rb" <!--{if $res.mo_mark_position eq 'rb'}--> checked="true" <!--{/if}-->/>
+                    <label>底部居右</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="cb" <!--{if $res.mo_mark_position eq 'cb'}--> checked="true" <!--{/if}-->/>
+                    <label>底部居中</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="lb" <!--{if $res.mo_mark_position eq 'lb'}--> checked="true" <!--{/if}-->/>
+                    <label>底部居左</label>
+                    </span><br/>
+                    <span>
+                    <input type="radio" name="mo_mark_position" value="rc" <!--{if $res.mo_mark_position eq 'rc'}--> checked="true" <!--{/if}-->/>
+                    <label>右边居中</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="cc" <!--{if $res.mo_mark_position eq 'cc'}--> checked="true" <!--{/if}-->/>
+                    <label>图片中心</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="lc" <!--{if $res.mo_mark_position eq 'lc'}--> checked="true" <!--{/if}-->/>
+                    <label>左边居中</label>
+                    </span><br/>
+                    <span>
+                    <input type="radio" name="mo_mark_position" value="lt" <!--{if $res.mo_mark_position eq 'lt'}--> checked="true" <!--{/if}-->/>
+                    <label>顶部居左</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="ct" <!--{if $res.mo_mark_position eq 'ct'}--> checked="true" <!--{/if}-->/>
+                    <label>顶部居中</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="mo_mark_position" value="rt" <!--{if $res.mo_mark_position eq 'rt'}--> checked="true" <!--{/if}-->/>
+                    <label>顶部居右</label>
+                    </span><br/></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1">
+                <input type="button" onclick="location.href='<!--{$baseurl}-->/webset/Watermark/index'" value="取消" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
+    <div class="clearfix"></div>
+    <div id="colorpane" style="position:absolute;z-index:99;display:none;margin-left:380px;margin-top:350px;"></div> 
+</body>
+</html>
+<script type="text/javascript" language="javascript">
+
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#mo_mark_content").formValidator({onshow:"请输入2-50个字符",onfocus:"请输入2-50个字符",oncorrect:"输入正确"})
+.inputValidator({min:2,max:50,onerror:"请输入2-50个字符"}).defaultPassed();
+
+$("#mo_word_size").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:true})
+.inputValidator({min:1,onerror:"请输入正整数"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#inputcolor").formValidator({empty:false,onshow:" ",onfocus:" ",oncorrect:"输入正确"})
+.regexValidator({regexp:['color1'],datatype:"enum",onerror:"格式错误"});
+});
+
+//点击选取三原色
+(function initcolor(evt) 
+{ 
+    var ColorHex=new Array('00','33','66','99','CC','FF');
+    var SpColorHex=new Array('FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF');
+    var current=null;
+    var colorTable=''; 
+    for (i=0;i<2;i++)
+    { 
+    for (j=0;j<6;j++) 
+    { 
+    colorTable=colorTable+'<tr height=15>' 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    if (i==0){ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[j]+ColorHex[j]+ColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">'} 
+    else{ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+SpColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">'} 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    for (k=0;k<3;k++) 
+    { 
+    for (l=0;l<6;l++) 
+    { 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[k+i*3]+ColorHex[l]+ColorHex[j]+'" onclick="doclick(this.style.backgroundColor)">' 
+    } 
+    } 
+    } 
+    } 
+    colorTable='<table border="0" cellspacing="0" cellpadding="0" style="border:1px #000000 solid;border-bottom:none;border-collapse: collapse;width:337px;" bordercolor="000000">' 
+    +'<tr height=20><td colspan=21 bgcolor=#E4E4E4 style="font:12px tahoma;padding-left:2px;">' 
+    +'<span style="float:left;color:#999999;"></span>' 
+    +'<span style="float:right;padding-right:3px;cursor:pointer;" onclick="colorclose()">×关闭</span>' 
+    +'</td></table>' 
+    +'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="000000" style="cursor:pointer;">' 
+    +colorTable+'</table>'; 
+    document.getElementById("colorpane").innerHTML=colorTable; 
+    var current_x = document.getElementById("inputcolor").offsetLeft; 
+    var current_y = document.getElementById("inputcolor").offsetTop; 
+    document.getElementById("colorpane").style.left = current_x + "px"; 
+    document.getElementById("colorpane").style.top = current_y + "px"; 
+})();
+
+function doclick(obj)
+{ 
+    //alert(obj); 
+    document.getElementById("inputcolor").value = RGBToHex(obj);
+    window.onload = colorclose(); //选取后关闭弹窗
+}
+
+function colorclose()
+{ 
+    document.getElementById("colorpane").style.display = "none"; 
+} 
+
+function coloropen()
+{ 
+    document.getElementById("colorpane").style.display = ""; 
+}
+
+//window.onload = initcolor(this);
+
+function RGBToHex(rgb)  //将rgb三原色转换成16位色值
+{ 
+   var regexp = /[0-9]{0,3}/g;  
+   var re = rgb.match(regexp);
+   var hexColor = "#"; var hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];  
+   for (var i = 0; i < re.length; i++) {
+        var r = null, c = re[i], l = c; 
+        var hexAr = [];
+        while (c > 16){  
+              r = c % 16;  
+              c = (c / 16) >> 0; 
+              hexAr.push(hex[r]);  
+         } hexAr.push(hex[c]);
+         if(l < 16&&l != ""){        
+             hexAr.push(0)
+         }
+       hexColor += hexAr.reverse().join(''); 
+    }  
+   return hexColor;  
+}
+
+</script> 
+
+<script>
+scale=function (btn,bar,title){
+	this.btn=document.getElementById(btn);
+	this.bar=document.getElementById(bar);
+	this.title=document.getElementById(title);
+	this.step=this.bar.getElementsByTagName("DIV")[0];
+	this.init();
+};
+scale.prototype={
+	init:function (){
+        var _width1 = document.getElementById("mo_img_diaphaneity").value;
+        var _width2 = document.getElementById("mo_img_scaling").value;
+        document.getElementById("title").innerHTML = _width1+'%';
+        document.getElementById("title2").innerHTML = _width2+'%';
+        document.getElementById( "btn" ).style.left = (document.getElementById("mo_img_diaphaneity").value)*280/100+'px';
+        document.getElementById( "btn2" ).style.left = (document.getElementById("mo_img_scaling").value)*280/100+'px';
+        jQuery('#bar div').css('width',_width1+'%');
+        jQuery('#bar2 div').css('width',_width2+'%');
+
+		var f=this,g=document,b=window,m=Math;
+		f.btn.onmousedown=function (e){
+			var x=(e||b.event).clientX;
+			var l=this.offsetLeft;
+			var max=f.bar.offsetWidth-this.offsetWidth;
+			g.onmousemove=function (e){
+				var thisX=(e||b.event).clientX;
+				var to=m.min(max,m.max(-2,l+(thisX-x)));
+				f.btn.style.left=to+'px';
+				f.ondrag(m.round(m.max(0,to/max)*100),to);
+				b.getSelection ? b.getSelection().removeAllRanges() : g.selection.empty();
+			};
+			g.onmouseup=new Function('this.onmousemove=null');
+		};
+	},
+	ondrag:function (pos,x){
+		this.step.style.width=Math.max(0,x)+'px';
+		this.title.innerHTML=pos+'%';
+        document.getElementById("mo_img_diaphaneity").value = document.getElementById("title").innerHTML;
+        document.getElementById("mo_img_scaling").value = document.getElementById("title2").innerHTML;
+	}
+}
+new scale('btn','bar','title');
+new scale('btn2','bar2','title2');
+
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>广告管理 </title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">广告列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/modules/admanage/addAdvert/adpos/<!--{$adpos}-->/state/2" class='last'>添加广告</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+             <div class="pubTabelTot">
+            </div>
+            <div class="pubTabel">
+            <form action='' method='get' id="batch-form">
+             <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="7%">排序</th>
+                  <th width="20%">广告名称</th>
+                  <th width="10%">广告类型</th>
+                  <th width="20%">广告位名称</th>
+                  <th width="13%">广告下架时间</th>
+                  <th width="10%">点击量</th>
+                  <th width="15%">操作</th>
+                </tr>
+                <!--{foreach item=item from=$list}-->
+                <tr>
+                  <td><input type="checkbox" value="<!--{$item.id}-->" name='id[]'/></td>
+                  <td>
+                  <input type='hidden' value='<!--{$adpos}-->' name='adpos'></input>
+                  <input type='hidden' value="<!--{$page}-->" name='page'></input>
+                  <input type="hidden" value="<!--{$item.id}-->" name='ids[]'></input>
+                  <input class="Iw45" type="text" value="<!--{$item.sort}-->" name='sort[]'></td>
+                  <td><!--{$item.adtitle}--></td>
+                  <td><!--{$pos.adtypename}--></td>
+                  <td><!--{$pos.clumnname}--></td>
+                  <td>
+                  <!--{if $item.timetype neq 1}-->
+                  <!--{$item.endtime|date_format:"%Y-%m-%d %H:%M:%S"}-->
+                  <!--{else}-->
+                                                      永不限制
+                  <!--{/if}-->
+                  </td>
+                  <td><!--{$item.clicknum}--></td>
+                  <td><a href="<!--{$baseurl}-->/modules/admanage/editorAdvert/id/<!--{$item.id}-->/adpos/<!--{$adpos}-->/page/<!--{$page}-->/state/2">修改</a> | 
+                  <a href="#" onclick="MoConfirm('<!--{$baseurl}-->/modules/admanage/delAdvert/id/<!--{$item.id}-->/adpos/<!--{$adpos}-->/page/<!--{$page}-->/name/<!--{$item.adtitle}-->','确认删除？')">删除</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate">
+              <span class="btn5" style="width:80px;"><label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"  /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/admanage/advertSort" empty-tips="请选择要进行排序的记录！" is-selected="false" />
+               <input type="button" class="btn5" value="删除"  class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/admanage/delAdvert" empty-tips="请选择要删除的记录！" confirm-tips="确认删除？"/>
+            </div>
+            </form>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+          </div>  
+        </div>
+      </div>
+    </div>   
+</body>
+</html>

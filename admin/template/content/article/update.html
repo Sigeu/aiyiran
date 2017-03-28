@@ -1,0 +1,181 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/iniEditor.js"></script>
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#categoryid").formValidator(
+	{
+		onshow:"请选择栏目",
+		onfocus:"请选择栏目",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		onshow:"请选择栏目",
+		onfocus:"请选择栏目",
+		oncorrect:"选择正确"
+	}).defaultPassed();
+	
+	$("#title").formValidator(
+	{
+		onshow:"请输入标题",
+		onempty:'',
+		oncorrect:"输入正确",
+		empty:false,
+		onfocus:"请输入标题",
+	}).inputValidator(
+	{
+		min:1,
+		max:100,
+		onerror:"请输入标题"
+	}).defaultPassed();
+
+	$("#subtitle").formValidator(
+	{
+		onshow:"请输入副标题",
+		onempty:'输入内容为空',
+		oncorrect:"输入正确",
+		empty:true,
+		onfocus:"请输入副标题",
+	}).inputValidator(
+	{
+		min:100,
+		onerror:"最大长度不能超过100个字符"
+	});
+	
+	$('#seotitle').formValidator({
+		onshow:'请输入副标题',
+		onempty:'输入内容为空',
+		onerror:'页面标题格式不正确,最大长度为100',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入页面标题'
+	}).inputValidator({
+			max:100,
+			onerrormax:'最大长度不能超过100个字符'
+    });
+	
+	$('#keywords').formValidator({
+		onshow:'请输入 多个关键词之间用","隔开',
+		onempty:'输入内容为空',
+		onerror:'关键字格式不正确,最大长度为50',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入关键词'
+	}).inputValidator({
+			max:2001,
+			onerrormax:'最大长度不能超过2001个字符'
+	});
+	
+	$('#description').formValidator({
+		onshow:'请输入',
+		onempty:'输入内容为空',
+		onerror:'内容描述格式不正确,最大长度为500',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入内容描述'
+	}).inputValidator({
+			max:500,
+			onerrormax:'最大长度不能超过500个字符'
+	});
+	
+	$('#source').formValidator({
+		onshow:'请输入',
+		onempty:'输入内容为空',
+		onerror:'来源格式不正确,最大长度为100',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入来源'
+		}).inputValidator({
+			max:100,
+			onerrormax:'最大长度不能超过100个字符'
+		});
+	
+	$('#username').formValidator({
+		onshow:"请输入",
+		onempty:'输入内容为空',
+		onerror:'作者格式不正确,最大长度为50',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入作者'
+		}).inputValidator({
+			max:50,
+			onerrormax:'最大长度不能超过50个字符'
+		});
+	
+	$("#content").formValidator(
+	{
+		onshow:"请输入内容",
+		onfocus:"请输入内容",
+		oncorrect:"输入正确",
+		onempty:'',
+		empty:false
+	}).inputValidator(
+	{
+		min:1,
+		onerror:"请输入内容"
+	}).defaultPassed();
+	
+	$('#hits').formValidator({
+		onshow:'请输入正整数',
+		onempty:'输入内容为空',
+		onerror:'请输入正整数',
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入点击量'
+	}).inputValidator({
+			max:999,
+			onerrormax:'最大长度不能超过999个字符'
+	}).regexValidator({
+			regexp:"^[1-9]*[1-9][0-9]*$",onerror:'请输入正整数'
+	});
+	
+	
+	$('#publishtime').formValidator({
+		onshow:'请选择发布时间',
+		onempty:'输入内容为空',
+		onerror:"输入格式不正确",
+		oncorrect:'输入正确',
+		empty:true,
+		onfocus:'请输入发布时间'
+	}).inputValidator({
+			max:999,
+			onerrormax:'最大长度不能超过999个字符'
+	});
+});
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">修改文档</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$urlArr.addsaveUrl}-->" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+              <!--{foreach item=item key=key from=$form}-->
+                  <!--{$item}-->
+              <!--{/foreach}-->
+              </table>
+               <div class="pubTabelBot">
+                <input type="hidden" hidefocus="hide" value="<!--{$id}-->" class="btn1" name='id'/>
+                <input type="hidden" hidefocus="hide" value="1" class="btn1" name='dopost'/>
+                <input type="button" hidefocus="hide" onclick="javacript:formSubmit();" value="确定" class="btn1"  id='myButton'/><input type="button" hidefocus="hide" value="取消" onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+ 
+</body>
+</html>

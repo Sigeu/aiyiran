@@ -1,0 +1,30 @@
+{ if getPid($cid) > 0  }
+     {php $Treeid=getPid($cid);}
+{/if}
+<div class="pubModL">
+  <div class="T">
+    <h3>{cid2name($Treeid)}</h3>
+  </div>
+  <div class="C">
+    <div class="subNav">
+      <ul>
+      {php $cateTree = getCateTree($Treeid,1);}
+        {foreach $cateTree $k $v}
+        {if $lastIndex}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li class="last"><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>	
+        {else}
+        <li class="last"><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {else}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>
+        {else}
+        <li><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {/if}
+        {/foreach}            
+      </ul>
+    </div>
+  </div>
+</div>

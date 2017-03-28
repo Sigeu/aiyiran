@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/memorial/funeray/category" class="last">殡仪列表</a></dd>
+                    <dt class="on"><a href="<!--{$baseurl}-->/memorial/funeray/addcategory">添加分类</a></dt>
+          </dl>
+        </div>
+        
+         <form action='<!--{$baseurl}-->/memorial/funeray/categoryupdate' method='post' id='myform'>
+                <div class="TabBoxC">
+                    <div>
+                        <div class="pubTabel">
+                            <table class="tabelLR">
+                                <tr>
+                                    <th width="170px"><font>*</font> 分类名称：</th>
+                                    <td>
+                                        <input type="text" value="<!--{$find.cate}-->" class="Iw290" name='cate' id='name'/>&nbsp;<span id='nameTip'></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                   <th><font>*</font>分类logo：</th>
+                                    <td>
+                                         <div id="img-adta-0" style="display:none"></div>
+                                        <img class="mt5" src="<!--{$find.pic}-->" id="img0" onclick="uploadAccessory({'upload_id':'0','limit':'2','_switch':'ad_img','ady_upload':'1','img_data_id':'img-adta-0','img_id':'img0','hid_id':'hid0'})" width="110" height="86" style="cursor:pointer">
+                                    </td>
+                                </tr>
+                                <input type="hidden" name="id" value="<!--{$find.id}-->" />
+                            </table>
+                            <div class="pubTabelBot"><input type="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+           </div>
+          </div>
+
+           <script>
+ /*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{   
+
+    var option={
+        upload_id:'logo',
+        title:'相册封面',
+        return_id:'accessory',  
+        callFunName:'accessoryUpload',
+        setting:'<!--{$picsetting}-->',
+        param:obj
+    };
+    MainOneUpload(option);
+}
+
+</script>
+
+    </body>
+    </html>
+

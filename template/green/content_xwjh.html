@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+ <script>
+
+function addComment(obj)
+{
+	if(!$('#comment_content').val())
+	{
+		alert('评论内容不能为空');
+		return false;
+	}
+	else
+	{
+		$('#commentForm').submit();
+	}
+}
+</script>
+<script>
+function checkIt()
+{
+	if(!$('#one').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#two').val())
+	{
+		alert('请输入密码');
+		
+	}
+	else
+	{
+		$('#loginIt').submit();
+	}
+}
+</script>
+<script>
+function checkCommen(){
+	var ids = $("#hiddenId").val();
+	if(ids == 0||ids == null){
+	     alert("请先登录");
+	}else{
+	     $("#commenIt").submit();
+	} 
+}
+</script>
+<script>    	
+     jQuery(function()
+     {
+     	jQuery('.goods-detail-comment li').bind('click',function()
+     	{
+     		var _this = jQuery(this);
+     		_this.addClass('focus');
+     		_this.siblings('li').removeClass('focus');
+     		var cur_class1 = _this.attr('child-div');
+     		var cur_class2 = _this.siblings('li').attr('child-div');
+     		jQuery('.'+cur_class1).show();
+     		jQuery('.'+cur_class2).hide();
+     	});        	
+     });
+</script>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+{include 'category.html'}
+
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">北京娱论</span>
+      <ul class="arrow_ulL">
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		<li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+      </ul>
+    </div>
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="box_detail2">
+        <h1>{$goods['goodsname']}</h1>
+        <div class="bg_line"></div>
+        <div class="box_info">
+          <div class="info_pic"><img src="{UPLOAD_PATH}/goods/{$goodsablum[0]['photo']}" /></div>
+          <div class="info_box">
+            <table class="info_list">
+              <tr>
+                <th>品    牌：</th>
+                <td>{$goods['brandname']}</td>
+              </tr>
+              <tr>
+                <th>新旧程度：</th>
+                <td><b>八成新</b></td>
+              </tr>
+              <tr>
+                <th>交易地点：</th>
+                <td>电话协商</td>
+              </tr>
+              <tr>
+                <th>入手价格：</th>
+                <td>{if intval($goods['shopprice'])}{$goods['shopprice']}元{/if}</td>
+              </tr>
+              <tr>
+                <th>产品价格：</th>
+                <td><span class="fa52 f14 fbold">{if intval($goods['marketprice'])}{$goods['marketprice']}元{/if}</span></td>
+              </tr>
+              <tr>
+                <th>数    量：</th>
+                <td>2辆</td>
+              </tr>
+			
+			  <tr>
+                <th>单行文本:</th>
+                <td><?php echo isset($goods['attr']['单行文本']) ? $goods['attr']['单行文本'] : '' ?></td>
+              </tr>
+			   <tr>
+                <th>HTML文本:</th>
+                <td><?php echo isset($goods['attr']['HTML文本']) ? $goods['attr']['HTML文本'] : '' ?></td>
+              </tr>
+			   <tr>
+                <th>单位</th>
+                <td><?php echo isset($goods['attr']['单位']) ? $goods['attr']['单位'] : '' ?></td>
+              </tr>
+			  <tr>
+                <th>规格</th>
+                <td><?php echo isset($goods['attr']['规格']) ? $goods['attr']['规格'] : '' ?></td>
+              </tr>
+            </table>
+            <a href="#" class="lxmj">联系卖家</a>
+            <div class="pic_list2"> <a href="#" class="left_btn">left</a> <a href="#" class="right_btn">right</a>
+              <div>
+                <table>
+                  <tr>
+				  {foreach $goodsablum $k $v}
+				   {if $k==0}
+                    <td><img style='width:38px;height:38px;' src="{UPLOAD_PATH}/goods/{$v['photo']}" class="on"/></td>
+					{else}
+                    <td><img style='width:38px;height:38px;'src="{UPLOAD_PATH}/goods/{$v['photo']}" /></td>
+					{/if}
+                  {/foreach}
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+		  <div>
+            <ul class="detail_nav">
+              <li class="focus">关联商品</li>
+            </ul>
+           {foreach $goodsLink  $k $v}
+		   <a href='{$v["url"]}'>{$v['goodsname']}</a><br>
+		   {/foreach}
+			<br>
+		   <p>相关热词搜索：{$goods['keywords']}</a></p><br>
+
+		   </div>
+          <div>
+            <ul class="detail_nav goods-detail-comment">
+              <li class="focus" child-div="detail_list1" id='changeInfo'>商品详情</li>
+              <li child-div="detail_list2" id='changeCommen'>商品评论</li>
+            </ul>
+
+            <div class="detail_list1">
+              {$goods['content']}
+            </div>
+            <div class="detail_list2" style="display:none;">
+              {mo:comment id='$id' modelid='2' pagesize='1'  return='data'}
+			  {foreach $data  $key $value}
+              <dl>
+                <dt> <span class="right">{date('Y-m-d  H:i',$value['comment_time'])}</span> <span><em class="fgreen2">“{$value['username']}”</em>说：</span> </dt>
+                <dd>
+                  <div class="msg_top"></div>
+                  <p class="msg_con">{$value['comment_content']}</p>
+                  <div class="msg_bottom"></div>
+                </dd>
+				<span><em class="fgreen2">“{$value['replyer']}”</em>回复：</span> </dt>
+				<dd>
+                  <div class="msg_top"></div>
+                  <p class="msg_con">{$value['reply_content']}</p>
+                  <div class="msg_bottom"></div>
+                </dd>
+              </dl>
+              {/foreach}
+              
+              <!-- 
+              <div class="pages">
+                {$pagestr}
+              </div>
+               -->
+
+			 
+
+             {if $GLOBALS['username']}
+			 <form action='/comment/Comment/add' method='post' id='commentForm'>
+			 <input type='hidden' name='comment_infoid' value='{$id}'/>
+			 <input type='hidden' name='comment_modelid' value='2'/>
+			 <div class="publish_txt mb10"> <span>发表您的评论</span>
+                <textarea name='comment_content' id='comment_content'></textarea>
+                <div>
+                  <input type="button" {if $goods['iscomment']!=1}onclick="javacript:alert('禁止评论');"{else}onclick="javascript:addComment(this);"{/if} value="发表评论"/>
+                  <span class="publish_name">欢迎您&nbsp;&nbsp;{$GLOBALS['username']}</span> </div>
+             </div>
+			 </form>
+			 {else}
+             <div class="publish_txt02"> 
+             	<form action="/user/User/login/type/1" method="post" id='loginIt'>
+                <div class="publish_login mb10"><span class="right f6">评论<strong class="fgreen2">23</strong>条</span>
+                <label>用户名</label><input type="text" class="login_input" name="username" id="one" value='{$GLOBALS["cookieUsername"]}'/>&nbsp;&nbsp;&nbsp;
+                <label>密码</label><input type="password" class="login_input" name="password" id="two"/>&nbsp;&nbsp;
+                <input type="button" value="登 录" class="login_btn" onclick="javascript:checkIt();"  />&nbsp;
+                <input type="button" value="注 册" class="login_btn" />
+                </div>
+                </form>
+                <form action="/comment/Comment/commentAdd" method="post" id='commenIt'>
+                <textarea class="mb10" name="common_text"></textarea>
+                <div>
+                  <input type="hidden" id="hiddenId" value='{$GLOBALS["cookieUsername"]}' />
+                  <input type="button" value="发表评论"  onclick="javacript:alert('请先登录');"   class="login_input02" /> 				   
+                </div>
+                </form>
+             </div>
+			 {/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

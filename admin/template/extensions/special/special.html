@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>专题管理</title>
+<link href="<!--{$jspath}-->/swfupload/swfupload.css" rel="stylesheet" type="text/css" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">专题列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/Special/add" class="last">添加专题</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+        <form action="<!--{$baseurl}-->/extensions/Special/index" method="POST" id="batch-form" name="myForm" >
+          <div>
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$keyword}-->" tips="请输入关键字" class="Iw150 text-tips" name="keyword"/>
+              <select class="Iw290" style="width:110px;" name="type_id" >
+                <option value="0">请选择分类</option>
+               <!--{foreach from=$sort_tree item=l}-->
+                <option value="<!--{$l.id}-->" <!--{if $l.id eq $type}-->selected <!--{/if}--> ><!--{$l.type_name}--></option>
+               <!--{/foreach}-->
+              </select>
+			  <select class="Iw290" style="width:140px;" name="options">
+                <option value="created" <!--{if $select eq 'created'}-->selected <!--{/if}--> >按发布时间</option>
+                <option value="id" <!--{if $select eq 'id'}-->selected <!--{/if}--> >按专题ID</option>
+                <option value="alter_time" <!--{if $select eq 'alter_time'}-->selected <!--{/if}--> >按更新时间</option>
+                <option value="click_num" <!--{if $select eq 'click_num'}-->selected <!--{/if}--> >按点击量</option>
+              </select>
+			  <select class="Iw290" style="width:110px;" name="sequence">
+                <option value="desc" <!--{if $sequence eq 'desc'}-->selected <!--{/if}--> >降序</option>
+                <option value="asc" <!--{if $sequence eq 'asc'}-->selected <!--{/if}--> >升序</option>
+              </select>
+              <input type="submit" value="搜 索" class="btn5" >
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">ID</th>
+				  <th width="7%">排序</th>
+                  <th width="18%">专题名称</th>
+                  <th width="12%">所属分类</th>
+                  <th width="10%">点击量</th>
+                  <th width="13%">更新时间</th>
+                  <th width="25%">操作</th>
+                </tr>
+                <!--{foreach from=$List item=l}-->
+                <tr>
+                  <td><input type="checkbox" id="id" name="ids[]" value="<!--{$l.id}-->"/></td>
+                  <td><!--{$l.id}--></td>
+                  <td><input class="Iw45" type="text" name="number[<!--{$l.id}-->]" value="<!--{$l.number}-->"></td>
+                  <td><!--{$l.name}--></td>
+                  <td><!--{$l.type_name.type_name}--></td>
+                  <td><!--{$l.click_num}--></td>
+                  <td><!--{$l.alter_time|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td><a href="<!--{$baseurl}-->/extensions/Special/manage/sid/<!--{$l.id}-->" target="_blank">信息管理</a> | <a href="/special/Special/index/id/<!--{$l.id}-->/unavailable/1" target="_blank">预览</a> | <a href="<!--{$baseurl}-->/extensions/Special/edit/id/<!--{$l.id}-->">修改</a> | <a href="#" onclick="MoConfirm('<!--{$baseurl}-->/extensions/Special/delete/id/<!--{$l.id}-->')">删除</a> | <a href="<!--{$baseurl}-->/extensions/Special/copy/id/<!--{$l.id}-->">复制</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span> 
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/Special/updateOrder" empty-tips="请选择要更新的信息" is-selected="false"/>
+              <input type="button" class="btn5" value="发布页面" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/Special/issue" empty-tips="请选择要发布的专题"/>
+
+              <input type="button" class="btn5" value="移动到分类" onclick="moveTo(this)" container-id="search-list" form-id="batch-form" form-action="<!--{$baseurl}-->/extensions/Special/move" empty-tips="请先选择要移动的专题！"/>
+
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/Special/delete" empty-tips="请选择要删除的记录！" confirm-tips="你确定要删除吗？"/>
+            </div>
+            <div class="pubTabelBot">
+                <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+          </div>
+         </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+/**
+ * 移动到分类
+ */
+function moveTo (obj)
+{
+    var _obj = $(obj);
+    var options = {
+    "form_id":_obj.attr('form-id'),
+    "container_id":_obj.attr('container-id'),
+    "form_action":_obj.attr('form-action'),
+    "empty_tips":_obj.attr('empty-tips')
+    };
+    var checked_number = $('#'+options.container_id+' input:checkbox:checked').length;  //选中的复选框数量
+    if (!checked_number && options.container_id)
+    {
+        art.dialog.alert(options.empty_tips,'warning');
+        return false;
+    }
+    else 
+    {
+        art.dialog.open('<!--{$baseurl}-->/extensions/Special/moveHtml',{
+            title:'移动到分类',
+            id:'moveSpecial',
+            width:'500px',
+            height:'100px',
+            lock:true,
+            ok:function(){     	
+                var iframe = this.iframe.contentWindow;
+                var moveSpecialId = iframe.document.getElementById('moveSpecialId').value;
+                if(moveSpecialId)
+                {
+                    var url = options.form_action+'/moveSpecialId/'+moveSpecialId;
+                    $('#'+options.form_id).attr('action',url);
+                    $('#'+options.form_id).submit();
+                }
+                window.top.art.dialog({id:'moveSpecial'}).close();
+            },
+            cancel:function(){
+            window.top.art.dialog({id:'moveSpecial'}).close();
+            }
+        });
+    }
+}
+</script>

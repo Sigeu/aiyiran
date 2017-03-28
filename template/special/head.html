@@ -1,0 +1,18 @@
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<div class="head" style="margin-top: 0px;">
+    <ul class="head_nav">
+        <li><a href="{HOST_NAME}" {if !$cid}class="focus"{/if}>首&nbsp;&nbsp;&nbsp;页</a><span>|</span></li>
+        {mo:navigation row="6"}             
+            {foreach  $return  $v}
+            {if $v['id']===$cid or $v['id']===$pid}
+                <li><a href="{$v['url']}" class="focus">{csubstr($v['catname'],4,'')}</a><span>|</span></li>
+            {else}
+                <li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a><span>|</span></li>
+            {/if}
+            {/foreach}
+        {/mo:navigation}
+
+        <li><a href="/special/specialList/index" >网站专题</a><span>|</span></li>
+    </ul>
+    <h1><a href="{HOST_NAME}"><img src="{logo()}"  width="114" height="30" alt="{logoAlt()}"/></a></h1>
+</div>

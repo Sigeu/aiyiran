@@ -1,0 +1,69 @@
+<!--文章、内容详情-->
+
+{include 'header.html'}
+  <div class="content">
+    <div class="company">
+    <!--详细信息 begin-->
+      <div class="com_tit">
+          <span class="paget_btn">
+          <a href="{$prev_link}" class="paget_prev"></a>
+          <a href="{$next_link}" class="paget_next"></a>
+          </span>{$content_info['title']}
+      </div>
+      <div class="publish_info">
+      {if in_array(2, $article_content_show)}
+      <span class="right">点击量：{$content_info['hits']}</span>
+      {/if}
+      {if in_array(1, $article_content_show)}
+      <span>{date('Y-m-d', $content_info['created'])}</span>
+      {/if}
+      </div>
+      {if in_array(3, $article_content_show)}
+      <div style="padding-bottom:10px;">
+        {$content_info['description']}
+      </div>
+      {/if}
+      <div id='content' style="padding-bottom:10px;"><!--content-->
+        {$content_info['content']}
+      </div>
+      {if $show}
+      <div>
+        <a nextpage='{$nextpage}' href="javascript:void(0)" id='showAll' class="showAll">余下全文</a><!--showAll nextpage-->
+      </div>
+      {/if}
+      <!--详细信息 end-->
+      <!--相关信息 begin-->
+      <div style="padding:10px 0;">
+        <div class="pubTit"><h3>相关信息</h3></div>
+        <ul class="ulList05">
+        {foreach $related $key $val}
+          <li>
+            <a href="{URL_HOST}mobile/index/content/id/{$val['id']}">{$val['title']}</a>
+          </li>
+        {/foreach}
+        </ul>
+      </div>
+      <!--相关信息 end-->
+    </div>
+    {include 'interact.html'}
+  </div>
+  {include 'footer.html'}
+
+<!--查看更多js-->  
+<script type='text/javascript'>
+$('#showAll').bind('click', function () {
+    var nextpage = $(this).attr('nextpage');
+    $.post(
+        "{URL_HOST}mobile/index/contentViewMore",
+        {nextpage: nextpage, id : "{$id}"},
+        function (data) {
+            $('#content').html(data.content);
+            $('.showAll').attr('nextpage', nextpage*1 + 1);
+            if (data.show == 0) {
+                $('.showAll').remove();
+            }
+        },
+        "json"
+    )  
+});
+</script>

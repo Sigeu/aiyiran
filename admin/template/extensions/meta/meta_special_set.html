@@ -1,0 +1,60 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">基本信息</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">          
+         <div>
+            <div class="pubTabel">
+              <form action=""  id="myForm" name="myForm" method="post">
+              <input type="hidden" name="sid" value="<!--{$specialInfo.id}-->"/>
+              <input type="hidden" name="task" value="dosubmit"/>
+              <table class="tabelLR" style="table-layout:fixed">
+                <tr>
+                    <th width="85">专题ID：</th>
+                    <th width="85"><!--{$specialInfo.id}--></th>
+                    <td width="100">所属分类：</td>
+                    <td><!--{$specialInfo.typename}--></td>
+                </tr>
+                <tr>
+                  <th width="170" colspan="2">专题名称：</th>
+                  <td colspan="2"><span><!--{$specialInfo.name}--></span></td>
+                </tr>
+                <tr>
+                  <th width="170" colspan="2">标题（title）：</th>
+                  <td colspan="2"><input type="text" class="Iw215" style="width:300px;" id="title" name="seo_title" value="<!--{$specialInfo.seo_title}-->"/></td>
+                </tr>
+                <tr>
+                  <th width="170" colspan="2">关键词（keywords）：</th>
+                  <td colspan="2"><input type="text" class="Iw215" style="width:300px;" id="keywords" name="seo_keywords" value="<!--{$specialInfo.seo_keywords}-->"/></td>
+                </tr>
+                <tr>
+                  <th width="170" colspan="2">描述（description）：</th>
+                  <td colspan="2"><textarea class="Iw450 Ih80" id="seo_description" name="description"><!--{$specialInfo.seo_description}--></textarea></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1"/>
+                <input type="button" hidefocus="hide" value="取消" class="btn2"  onclick="javascript:history.back();"/>
+              </div>
+              <div class="notice2"><span class="notice_warnblue">备注说明：专题页meta信息为空时，按照专题页默认设置来实现。</span></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#title").formValidator({empty:true,onshow:" ",onfocus:"请输入0-62个字符"}).inputValidator({min:0,max:62,onerror:"请输入0-62个字符",onerrormax:"最多输入62个字符"});
+    $("#keywords").formValidator({onshow:' ',onfocus:'请输入0-200个字符，多个关键词之间用","隔开',oncorrect:"输入正确",empty:true}).inputValidator({min:0,max:200,onerror:"请输入0-200个字符",onerrormax:"最多输入200个字符"});
+    $("#description").formValidator({onshow:" ",onfocus:"请输入0-300个字符",oncorrect:"输入正确",empty:true}).inputValidator({min:0,max:300,onerror:"请输入0-300个字符"});
+  });
+</script>
+</body>
+</html>

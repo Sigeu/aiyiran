@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="{JS_PATH}/advert.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#add').cycle({ 
+				fx:'scrollLeft',
+				pager:'#btn'
+		});
+	})
+</script>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'}
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+      {include 'category3.html'}
+      {php $cateTree = getIdListByPid($cid);} 
+      <div class="advertL">
+	  <script language='javascript' src='{HOST_NAME}index/index/preview/id/2'></script>
+        <div id="add"><a href="#"><img src="{IMG_PATH}/advert1.png" width="245" height="102"></a><a href="#"><img  src="{IMG_PATH}/advert2.png" width="245" height="101"></a></div>
+        <div id="btn"></div>
+      </div>
+      <div class="bg_grayL"> <a href="{getMoreUrl($cid)}" class="moreL">更多>></a> <span class="h_grayL">新闻列表</span>
+        <ul class="arrow_ulL">
+        {mo:articlelist row="10" cid="$cid" type="all" return="data"}
+        	{foreach $data $k $v}
+			{if $lastIndex}
+            <li><a href="{$v['url']}">{csubstr($v['title'],'14','..')}</a></li>
+			{else}
+            <li class="last"><a href="{$v['url']}">{csubstr($v['title'],'14','..')}</a></li>
+       		{/if}
+       		{/foreach}
+		{/mo:articlelist}
+        </ul>
+      </div>
+    </div>
+    <div class="m w498">
+      <div class="Greyborder mb10">
+        <div class="title"> <a href="{HOST_NAME}category/Category/list/cid/{$cid}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">最新新闻</span><span class="tit_en">Hot news</span></div>
+        </div>
+		
+        <div class="video_con"> 
+		{mo:articlelist cid='$cid' type='all' row='1' order='publishtime desc' return='data'}
+		   {foreach $data $k $v}
+		<strong class="video_tit"><a href='{$v["url"]}'>{$v['title']}</a></strong>
+          <div><a href='{$v["url"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="454" height="355" alt="{$v['title']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+          <p class="video_des"><a href='{$v["url"]}'>{$v['description']}</a></p>
+			{/foreach}
+		 {/mo:articlelist}
+          <div class="bort pt8 pd8">
+            <div class="pic_list" id="pic_list"> <a href="#" class="pic_left">left</a> <a href="#" class="pic_right">right</a>
+              <div class="pics">
+                <table>
+                  <tr>
+                    {mo:articlelist cid='$cid' type='all' row='5' order='publishtime desc' return='data'}
+		            {foreach $data $k $v}
+                    <td><a href='{$v["url"]}'><img style='width:108px;height:78px;' src="{UPLOAD_PATH}/{$v['thumb']['src']}" alt="{$v['title']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></td>
+					{/foreach}
+		            {/mo:articlelist}
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Greyborder">
+        <div class="title"> <a href="{getMoreUrl($cateTree[0]['id'])}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[0]['id'])}</span><span class="tit_en">Entertainment news</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h95">
+          {php $catid0 = $cateTree[0]['id']}
+		  {mo:articlelist cid='$catid0'  row='1' return='data'}
+		    {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:8px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="134" height="95" alt="{$v['title']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+            <dl class="bc_txt">
+			
+              <dt><a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a></dt>
+              <dd class="f6" style="line-height:20px;">{$v['description']}<a href="{$v['url']}" class="greena">
+                <详细>
+                </a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24 l bg_lineS">
+          {php $catid0 = $cateTree[0]['id']}
+            {mo:articlelist cid='$catid0' row='4' from='1' return='data'}
+		    {foreach $data $k $v}
+            <dd style='width:220px;'><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+          <dl class="bc_txt bc_txt24 l">
+            {mo:articlelist cid='$catid0'  row='4' return='data'}
+		    {foreach $data $k $v}
+             <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="r w237">
+      <div class="Greyborder Greyborder_bg1 mb10">
+        <div class="r_tit"> <a href="{getMoreUrl($cateTree[1]['id'])}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name($cateTree[1]['id'])}</span> </div>
+        <div class="box_con">
+        {php $catid1 = $cateTree[1]['id']}
+		  {mo:articlelist cid='$catid1' row='1' return='data'}
+            {foreach $data $k $v}
+          <h3 class="h3_tit"><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],10,'...')}</a></h3>
+          <p style="margin:0 0 8px 3px;"><a href="{$v['url']}" class="f6">{csubstr($v['description'],30,'...')}</a></p>
+		   {/foreach}
+		   {/mo:articlelist}
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24">
+            {mo:articlelist from='1' cid='$catid1' row='6' return='data'}
+            {foreach $data $k $v}
+            <dd><a href="{$v['url']}" class="bg_dot">{csubstr($v['title'],10,'...')}</a></dd>
+			{/foreach}
+			{/mo:articlelist}
+          </dl>
+          </dl>
+        </div>
+      </div>
+      <div class="Greyborder Greyborder_bg1 mb10">
+        <div class="r_tit"> <a href="{getMoreUrl($cateTree[2]['id'])}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name($cateTree[2]['id'])}</span> </div>
+        <div class="jdtp_w"> 
+  {php $catid2 = $cateTree[2]['id']}      
+{mo:articlelist cid='$catid2' row='1' order='publishtime' return='data'}
+{foreach $data $k $v}
+<a href="{$v['url']}" title="{$v['title']}"> <img src="{UPLOAD_PATH}/{$v['thumb']['src']}" alt="" width="197" height="131" alt="{$v['title']}" onerror="this.src='{IMG_PATH}/default.jpg'" /> <span class="jdtp_txt">{csubstr($v['title'],10,'...')}</span> </a>
+{/foreach}
+{/mo:articlelist}
+        
+         </div>
+      </div>
+      <div class="Greyborder Greyborder_bg1">
+        <div class="r_tit"> <a href="{getMoreUrl($cateTree[3]['id'])}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name($cateTree[3]['id'])}</span> </div>
+        <div class="box_con">
+          <ul class="arrow_ulL" style="margin:0;">
+          {php $catid3 = $cateTree[3]['id']}
+            {mo:articlelist cid='$catid3' row='10' type='all' return='data'}
+		    {foreach $data $k $v}
+           {if $lastIndex} 
+		   <li class="last"><a href="{$v['url']}" alt="{$v['title']}">{$v['title']}</a></li>
+		   {else}
+		   <li><a href="{$v['url']}" alt="{$v['title']}">{$v['title']}</a></li>
+		   {/if}
+			{/foreach}
+		    {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

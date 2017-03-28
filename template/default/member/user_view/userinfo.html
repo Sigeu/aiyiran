@@ -1,0 +1,208 @@
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/manage_yc.css"/>
+        {include 'member/head_top.html'}
+        <div class="wrapW">
+        {include 'member/user_view/user_inc.html'}
+            <div class="conRig_yc">
+                <h3 class="dwH3_yc">个人资料</h3>
+                <form id="infoform"  method="post" enctype="multipart/form-data">
+                <ul class="deadList_yc">
+                    <li>
+                        <span class="deadS_yc">头像：</span>
+                        <img src="{$info['user_photo']}" class="ftx_yc" id="pic_show">
+                        <a href="javascript:;" class="txBtn_yc ml6" id="pic">上传头像</a>
+                        <input type="file" name="user_photo" id="upload"  style="display: none">
+                    </li>
+<script type="text/javascript">
+$(function() {
+    $("#pic").click(function () {
+        $("#upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+        $("#upload").on("change",function(){
+            var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+            if (objUrl) {
+                $("#pic_show").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+            }
+        });
+    });
+});
+ 
+//建立一個可存取到該file的url
+function getObjectURL(file) {
+    var url = null ;
+    if (window.createObjectURL!=undefined) { // basic
+    url = window.createObjectURL(file) ;
+    } else if (window.URL!=undefined) { // mozilla(firefox)
+    url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL!=undefined) { // webkit or chrome
+    url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+}
+</script>
+                    <li>
+                        <span class="deadS_yc"><i>*</i>昵称：</span>
+                        <input type="text" name="nickname" value="{$info['nickname']}" class="deadIn_yc deadIn01_yc">
+                        <strong class="ml6 xingSt"><i>*</i>昵称填写须知：不能重复填写一样的昵称</strong>
+                    </li>
+                    <li>
+                        <span class="deadS_yc">姓名：</span>
+                        <input type="text" name="name" value="{$info['name']}" class="deadIn_yc deadIn01_yc">
+                    </li>
+                    <li>
+                        <span class="deadS_yc">性别：</span>
+                        <select name="sex" class="deadSel_yc deadSel01_yc">
+                            <option value="">请选择</option>
+                            <option value="1" {if $info['sex']==1} selected=""{/if} 
+                            >男</option>
+                            <option value="2" {if $info['sex']==2} selected=""{/if} 
+                            >女</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span class="deadS_yc">生日：</span>
+                        <select name="brith_year" class="deadSel_yc deadSel04_yc">
+                            <option value="0">不详</option>
+                            {foreach $times['year'] $k $v}
+                            <option value="{$v}" {if $birthYear==$v}selected=''{/if}
+                            >{$v}</option>
+                            {/foreach}
+
+                        </select>
+                        <span class="dateS_yc">年</span>
+                        <select name="brith_math" class="deadSel_yc deadSel04_yc">
+                            <option value="0">不详</option>
+                            {foreach $times['math'] $k $v}
+                            <option value="{$v}" {if $birthMath==$v}selected=''{/if}
+                            >{$v}</option>
+                            {/foreach}
+                        </select>
+                        <span class="dateS_yc">月</span>
+                        <select name="brith_day" class="deadSel_yc deadSel04_yc">
+                            <option value="0">不详</option>
+                            {foreach $times['day'] $k $v}
+                            <option value="{$v}" {if $birthDay==$v}selected=''{/if}
+                            >{$v}</option>
+                            {/foreach}
+                        </select>
+                        <span class="dateS_yc">日</span>
+                    </li>
+                    <li>
+                        <span class="deadS_yc">籍贯：</span>
+                        <select name="brithp" id="brithp" date-city="brithd" class="deadSel_yc deadSel02_yc">
+                            <option value="" >选择省份</option>
+                            {foreach $area $k $v}
+                            <option value="{$v['area_id']}" {if $info['brithp']==$v['area_id']}selected=''{/if}
+                            >{$v['area_name']}</option>
+                            {/foreach}
+                        </select>
+                        <select name="brithd" id="brithd" class="deadSel_yc deadSel02_yc ml6">
+                            <option value="" >选择城市</option>
+                            {foreach $brithps $k $v}
+                            <option value="{$v['area_id']}" {if $info['brithd'] == $v['area_id']}selected=''{/if}
+                            >{$v['area_name']}</option>
+                            {/foreach}
+                        <input type="text" name="brithc" value="{$info['brithc']}" placeholder="地区" class="deadIn_yc deadIn02_yc ml6">
+                    </li>
+                    <li>
+                        <span class="deadS_yc">居住地：</span>
+                        <select name="live_sheng" id="live_sheng" class="deadSel_yc deadSel02_yc">
+                            <option value="" >选择省份</option>
+                            {foreach $area $k $v}
+                            <option value="{$v['area_id']}" {if $info['live_sheng']==$v['area_id']}selected=''{/if}
+                            >{$v['area_name']}</option>
+                            {/foreach}
+                        </select>
+                        <select name="live_shi" id="live_shi" class="deadSel_yc deadSel02_yc ml6">
+                            <option value="" >选择城市</option>
+                            {foreach $places $k $v}
+                            <option value="{$v['area_id']}" {if $info['live_shi'] == $v['area_id']}selected=''{/if}
+                            >{$v['area_name']}</option>
+                            {/foreach}
+                        </select>
+                        <input type="text" name="live_diqu" value="{$info['live_diqu']}" placeholder="地区" class="deadIn_yc deadIn02_yc ml6">
+                    </li>
+                    <li>
+                        <div class="deadBtn_yc">
+                            <input type="hidden" name="uid" value="{$info['id']}">
+                            <a href="javascript:;" class="success_yc" id="info_add">保存</a>
+                        </div>
+                    </li>
+                </ul>
+                </form>
+            </div>
+        </div>
+        <div class="wrapS03_yc jbFT_yc">
+            <p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+        </div>
+    </body>
+    <script type="text/javascript" src="/template/default/member/js/html5shiv.js" ></script>
+    <script type="text/javascript" src="/template/default/member/js/common.js" ></script>
+
+        <script>
+                
+            $(function(){
+                var baseUrl = "/member/User/area";
+                $("#brithp").change(function(){
+                    $("#brithd").html('');
+                    var va = $(this).val();
+                    $.ajax({
+                        type: "Post",
+                        url: baseUrl,
+                        data: {'id':va},
+                        dataType: "json",
+                        success: function(data) {
+                            var str = "<option value=''>请选择</option>";
+                                for(var i=0; i<data.length; i++){
+                                 str += "<option value="+data[i].area_id+">"+data[i].area_name+"</option>";
+                                 }
+                                str += "";
+                            $("#brithd").append(str);
+                        }
+                    });
+                });
+            })
+
+            $(function(){
+                var baseUrl = "/member/User/area";
+                $("#live_sheng").change(function(){
+                    $("#live_shi").html('');
+                    var va = $(this).val();
+                    $.ajax({
+                        type: "Post",
+                        url: baseUrl,
+                        data: {'id':va},
+                        dataType: "json",
+                        success: function(data) {
+                            var str = "<option value=''>请选择</option>";
+                                for(var i=0; i<data.length; i++){
+                                 str += "<option value="+data[i].area_id+">"+data[i].area_name+"</option>";
+                                 }
+                                str += "";
+                            $("#live_shi").append(str);
+                        }
+                    });
+                });
+            })
+
+
+            $(function () {
+                $("#info_add").click(function () {
+                    $("#infoform").ajaxSubmit({
+                        type: "Post",
+                        url: "/member/User/userinfo",
+                        data: $("form").serialize(),
+                        success: function(data) {
+                            var member = eval("("+data+")"); //包数据解析为json 格
+                            if (member.status == 1) {
+                                layer.alert(member.message, {icon: 1,offset: '40%'});
+                            } else {
+                                layer.alert(member.message, {icon: 2,offset: '40%'});
+                                return false;
+                            }
+                        }
+                    });
+                });
+            });
+
+        </script>
+</html>

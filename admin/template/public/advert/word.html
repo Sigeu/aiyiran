@@ -1,0 +1,42 @@
+<!--{if $n neq 1}--><script type='text/javascript'><!--{/if}-->
+var str1 ="<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>#mainone_ads_WZGG {<!--{if $ad.width neq 0}-->width:<!--{$ad.width}-->px;height:<!--{$ad.height}-->px;<!--{else}-->width:214px; height:74px;<!--{/if}-->;margin-left:<!--{$ad.left}-->px;margin-top:<!--{$ad.up}-->px;}</style><div id='mainone_ads_WZGG' class='mainone_ads'>";
+document.write(str1);
+<!--{if $type.wordeffect eq 1}-->
+var marqueeContent = new Array();
+<!--{$str}-->
+var marqueeInterval = new Array();
+var marqueeId = 0;
+var marqueeDelay = 4000;
+var marqueeHeight = <!--{$ad.height}-->;
+function initMarquee() {
+    var str = marqueeContent[0];
+    document.write('<div id=mainone_ads_marqueeBox style=\'overflow:hidden;height:' + marqueeHeight + 'px\' onmouseover=\'clearInterval(marqueeInterval[0])\' onmouseout=\'marqueeInterval[0]=setInterval(\'startMarquee()\',marqueeDelay)\'><div>' + str + '</div></div>');
+    marqueeId++;
+    marqueeInterval[0] = setInterval('startMarquee()', marqueeDelay);
+}
+function startMarquee() {
+    var str = marqueeContent[marqueeId];
+    marqueeId++;
+    if (marqueeId >= marqueeContent.length) marqueeId = 0;
+    if (mainone_ads_marqueeBox.childNodes.length == 1) {
+        var nextLine = document.createElement('DIV');
+        nextLine.innerHTML = str;
+        mainone_ads_marqueeBox.appendChild(nextLine);
+    } else {
+    	mainone_ads_marqueeBox.childNodes[0].innerHTML = str;
+    	mainone_ads_marqueeBox.appendChild(mainone_ads_marqueeBox.childNodes[0]);
+    	mainone_ads_marqueeBox.scrollTop = 0;
+    }
+    clearInterval(marqueeInterval[1]);
+    marqueeInterval[1] = setInterval('scrollMarquee()', 10);
+}
+function scrollMarquee() {
+	mainone_ads_marqueeBox.scrollTop++;
+    if (mainone_ads_marqueeBox.scrollTop % marqueeHeight == marqueeHeight) {
+        clearInterval(marqueeInterval[1]);
+    }
+}
+initMarquee();
+<!--{/if}-->
+document.write("</div>");
+<!--{if $n neq 1}--></script><!--{/if}-->

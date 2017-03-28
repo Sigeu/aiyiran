@@ -1,0 +1,35 @@
+<?php if(!defined('IN_MAINONE')) exit(); ?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src='http://apps.bdimg.com/libs/jquery/1.7.2/jquery.min.js'></script>
+    </head>
+    <body>
+        <img src="" alt="">
+            <img src="http://paysdk.weixin.qq.com/example/qrcode.php?data=<?php echo urlencode($code_url);?>" alt="">
+            <p>订单号：<?php echo $out_trade_no; ?></p>
+
+
+                
+    </body>
+</html>
+
+ <script>
+ function check()
+ {
+    var out_trade_no = "<?php echo $out_trade_no; ?>";
+         var url = "/comment/Comment/orderQuery";
+        $.post(url,{'out_trade_no':out_trade_no},function(data){
+             var obj  = JSON.parse(data);
+             if(obj.status==1){
+                 alert('支付成功');
+             }
+         })
+ }
+
+window.setInterval("check()",3000); 
+check();
+    </script>

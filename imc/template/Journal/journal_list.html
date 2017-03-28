@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>日志管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+  <div class="pubBox">
+     <form action="<!--{$baseurl}-->/journal/Journal/index" method="get" id="myForm" name="myForm" >
+      <div class="pubtabBox">
+        <div class="pubTabelTot">
+           <input type="text" value="<!--{$keyword}-->" tips="操作人" class="Iw150 text-tips" name='keyword'>
+            <select name="operation" >
+                <option value="" selected >全部操作</option>
+                <option value="添加用户" <!--{if $operation eq '添加用户'}-->selected <!--{/if}-->>添加用户</option>
+                <option value="编辑用户" <!--{if $operation eq '编辑用户'}-->selected <!--{/if}-->>编辑用户</option>
+                <option value="冻结用户" <!--{if $operation eq '冻结用户'}-->selected <!--{/if}-->>冻结用户</option>
+                <option value="添加应用" <!--{if $operation eq '添加应用'}-->selected <!--{/if}-->>添加应用</option>
+                <option value="编辑应用" <!--{if $operation eq '编辑应用'}-->selected <!--{/if}-->>编辑应用</option>
+                <option value="删除应用" <!--{if $operation eq '删除应用'}-->selected <!--{/if}-->>删除应用</option>
+                <option value="设置财富规则" <!--{if $operation eq '设置财富规则'}-->selected <!--{/if}-->>设置财富规则</option>
+                <option value="更新缓存" <!--{if $operation eq '更新缓存'}-->selected <!--{/if}-->>更新缓存</option>
+                <option value="注册设置" <!--{if $operation eq '注册设置'}-->selected <!--{/if}-->>注册设置</option>
+                <option value="修改密码" <!--{if $operation eq '修改密码'}-->selected <!--{/if}-->>修改密码</option>
+                <option value="删除日志" <!--{if $operation eq '删除日志'}-->selected <!--{/if}-->>删除日志</option>
+                <option value="登录IMCenter" <!--{if $operation eq '登录IMCenter'}-->selected <!--{/if}-->>登录IMCenter</option>
+                <option value="删除用户" <!--{if $operation eq '删除用户'}-->selected <!--{/if}-->>删除用户</option>
+            </select>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 操作时间：
+           <span class="time"><input type="text" class="Iw150" value="<!--{$starttime}-->" onfocus="WdatePicker()" id='starttime' name='starttime' readonly></span> 至
+           <span class="time"><input type="text" class="Iw150" value="<!--{$endtime}-->" onfocus="WdatePicker()" id='endtime' name='endtime' readonly></span>
+           <input type="submit" value="搜 索" class="btn5">
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="16%">操作人</th>
+                  <th width="24%">操作项</th>
+                  <th width="10%">IP</th>
+                  <th width="16%">操作时间</th>
+                  <th>备注</th>
+                </tr>
+                <!--{foreach from=$log item=list}-->
+                <tr>
+                  <td><!--{$list.admin_name}--></td>
+                  <td><!--{$list.operation}--></td>
+                  <td><!--{$list.ip_address}--></td>
+                  <td><!--{$list.log_time|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td title="<!--{$list.remark}-->"><!--{$list.remark|truncate_cn:20:"...":true}--></td>
+                </tr>     
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate">
+            <input type="button" class="btn5" value="清空日志" onclick="javascript:if (confirm('确定清空日志'))location.href='<!--{$baseurl}-->/journal/Journal/deleteJournal'"/>
+            </div>
+            <div class="pubTabelBot">
+                <div class="pageGo"><!--{$pageStr}--></div>
+            </div>           
+           </div>
+          </div>
+        </div>
+      </div>
+     </form>
+    </div>
+</body>
+</html>

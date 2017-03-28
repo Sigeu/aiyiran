@@ -1,0 +1,58 @@
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<style type='text/css'>
+
+.message{width:85%;height:50px;line-height:50px;font-size:12px;text-align:center;overflow:hidden}
+.prompt {width:400px;border:solid 1px #2E9EE1;margin-bottom:100px;margin-top:100px;z-index:120;}
+.prompt1 {width:300px;position:absolute;z-index:120;}
+.prompt_text{width:80%;font-size:14px;text-align:center;padding-top:20px;}
+.bgdate{background:url(../images/background.png) no-repeat; background-position: -270px 0;display: inline-block;height: 24px;vertical-align: -7px;width: 26px;}
+
+</style>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/prompt.js"></script>
+ <script>
+ 
+	$(function(){
+		
+       setTimeout('fun(2)',1000);
+       
+    });
+	
+	function fun(num){
+        num--;
+        if(num==0){
+        	var info = $("#hidtype").val();
+        	if(info =='success' || info == ''){
+        		
+                location.href=$("#url").val();
+        	}else{
+        		
+                history.back(-1);
+            }
+        	
+        }else{
+            setTimeout('fun('+num+')',1000);
+        }
+    }
+ </script>
+ <BODY>
+ <div class="pubBox">
+ <center>
+  <div class="notif prompt">
+			<h4><span style='float:left'>提示</span></h4>
+			<div class="Ncon">
+				<div class="Ncon" style="padding:30px 0px;">
+				  <input type="hidden" value='yes' id='change'>
+				  <input type="hidden" value="<!--{$param.type}-->" id='hidtype'>		
+			      <span class="" id="prom_text"><!--{$param.str}--></span>	
+	            </div>
+				<div class="Nsubm">
+				<input type='hidden' value="<!--{$baseurl}--><!--{$param.url}-->" id='url'>
+				<input class="btn3 confirm" type="button" value="确定" hideFocus="hide"/>
+				</div>
+		  	</div>
+  </div> 
+  </center> 
+</div>   
+ </BODY>
+</HTML>

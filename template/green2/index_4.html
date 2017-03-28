@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'} 
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+     {include 'category3.html'}
+
+      <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+      <div class="bg_grayL"> <a href="{HOST_NAME}category/Category/index/cid/{$cid}" class="moreL">更多>></a> <span class="h_grayL">推荐物品</span>
+        <ul class="arrow_ulL">
+        {mo:goods cid='$cid' row='10' order='hits desc' type='all' return='data'}
+		{foreach $data $k $v}
+		<li {if $k==9 } class="last"{/if}><a href="{$v['url']}">{csubstr($v['goodsname'],14)}</a></li>
+		{/foreach}
+		{/mo:goods}
+        </ul>
+      </div>
+    </div>
+    <div class="right w744">
+    
+      {php $cateTree = getCateTree($cid,1);} 
+	  {foreach $cateTree $k $v}
+	   
+      <div class="Greyborder mb10" style="padding-bottom:8px;">
+        <div class="title">
+		  <a href="{getMoreUrl($v['id'])}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{$v['catname']}</span><span class="tit_en">The latest release</span></div>
+        </div>
+        <div class="box_con">
+          <div class="gList_two">
+            <div class="dlLine mr85"></div>
+            <div class="dlLine"></div>
+            {php $id=$v['id'];}
+            {mo:goods cid='$id' row='4' type='all' order='publishtime' return='data'} 
+			{php $i=1}
+			{foreach $data $sonk $sonv}
+            <dl {if $i%2!=0}class="mr85"{/if}>
+              <dt><a href="{$sonv['url']}">{$sonv['goodsname']}</a></dt>
+              {php $sonv['image'][0] = isset($sonv['image'][0]) ? $sonv['image'][0] : ''}
+              <dd class="pic"><a href="{$sonv['url']}"><img src="{UPLOAD_PATH}/goods/{$sonv['image'][0]}" width="88" height="88" onerror="this.src='{IMG_PATH}/default.jpg'"/></a></dd>
+              <dd>
+                <p>发布时间：<span>{$sonv['publishtime']}</span></p>
+                <p>商品简介：<span>{$sonv['content']}</span></p>
+                <p>出手价格：<span>{$sonv['shopprice']} 元</span></p>
+              </dd>
+            </dl>
+			{if $i%2==0} <div class="dlLine mr85"></div>{/if}
+			{$i++}
+			{/foreach}
+            {/mo:goods}
+          </div>
+        </div>
+      </div>
+	  {/foreach}
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

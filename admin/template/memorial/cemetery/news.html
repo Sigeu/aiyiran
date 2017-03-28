@@ -1,0 +1,102 @@
+<!--{include file="public/head_admin.html"}-->
+<style>
+strong{ font-size:20px; line-height:20px; display:block; padding:10px 0;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$urlArr.indexUrl}-->">内容列表</a></dd>
+            <dt class="on"><a href="">添加文章</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$urlArr.addsaveUrl}-->" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+              <tr>
+                  <th>所属陵园：</th>
+                  <td colspan="3">
+                      <select name="cemetery_id">
+                     <!--{foreach item=item from = $lists}-->
+                           <option value="<!--{$item.id}-->"><!--{$item.title}--></option>
+                      <!--{/foreach}-->
+                        </select>
+                  </td>
+              </tr>
+               
+
+              <!--{foreach item=item key=key from=$form2}-->
+                  <!--{$item}-->
+              <!--{/foreach}-->
+              </table>
+               <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" id='myButton' value="确定" class="btn1" onclick="javascript:formSubmit()"><input type="button" hidefocus="hide" value="取消" onclick="javascript:window.location.href='<!--{$urlArr.indexUrl}-->';" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+ 
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script>
+$(document).ready(function(){
+    $.formValidator.initConfig({autotip:true,formid: "myForm",generalwordwide:true,  debug:false,onError: function(msg) {}, onSuccess: function() {}});
+    <!--{$formvalidator}-->
+    
+    $('#categoryid').bind('change',function(){
+        var _obj = $(this);
+        var changeModel = $('#changeModel').val();
+        var categoryid = _obj.val();
+        var modelid = $("#hidden_model_"+categoryid).val();
+        if(modelid!=changeModel&&categoryid)
+        {
+            $('#changeModel').val(modelid);
+            window.location.href="/admin/content/Content/chanageForm/categoryid/"+categoryid+'/mid/'+modelid;
+        }
+    });
+})
+$('#categoryid').change(function () {
+    var id = $('#categoryid').val();
+    if (id != '') {
+        $.ajax({
+              type:"POST",
+              url:"<!--{$baseurl}-->/content/content/ajaxGetTemplate",
+              data:"id="+id,
+              async:false,
+              success:function(data){
+                  if (data) {
+                      //data = JSON.parse(data);
+                      $('#template').val(data);
+                  }
+              }
+         });
+    }
+});
+
+$('#categoryid').ready(function () {
+    var id = $('#categoryid').val();
+    if (id != '') {
+        $.ajax({
+              type:"POST",
+              url:"<!--{$baseurl}-->/content/content/ajaxGetTemplate",
+              data:"id="+id,
+              async:false,
+              success:function(data){
+                  if (data) {
+                      //data = JSON.parse(data);
+                      $('#template').val(data);
+                  }
+              }
+         });
+    }
+});
+ </script>
+</body>
+</html>

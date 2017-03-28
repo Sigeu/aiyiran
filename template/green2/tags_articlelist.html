@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/banner.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+ 
+<div class="wrap">
+  <div class="sideBar1">
+    {include 'category3.html'}
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="title"> 
+        <!--<a href="#" class="t_more right">更多&gt;&gt;</a>-->
+        <div class="t_name"><span class="tit_green">Tag列表</span><span class="tit_en">{$tagname}</span></div>
+      </div>
+      <table cellpadding="0" cellspacing="0" class="tablist">
+        <tr>
+          <th width="50%">标题</th>
+          <th width="30%">时间</th>
+        </tr>  
+	
+	    {mo:tags row="10" id="$id_list" tables='maintable' field='id,title,created,brief,content' pagesize='1' pagenum='5' return="data"} 
+  			{foreach $data  $key $value}  
+  			<tr class="bggreen"> 
+    		  <td width="60%" class="left"><a href="{$value['url']}">{$value['title']}</a></td>
+   			  <td width="20%">{date('Y-m-d',$value['created'])}</td>
+   			</tr>
+  			{/foreach}
+		{/mo:tags}  
+		
+      </table>
+	 
+       {$pagestr}
+     </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<SCRIPT src="{JS_PATH}/topbanner.js"></SCRIPT>
+</head>                       
+<body>
+<!--手机浏览跳转提示begin-->
+{if $GLOBALS['is_mobile_open']}
+    {if $GLOBALS['is_mobile_scan']}
+        您正在用手机访问电脑版网站，为了保证最佳浏览效果，建议您 <a href='{URL_HOST}index/index/changeEdition/ed/mobile' style="color:blue">[切换至手机版]</a>
+    {/if}
+{/if}
+<!--手机浏览跳转提示end-->
+ {include 'head.html'}
+ <div class="banner"> 
+
+<script>
+
+$(function(){
+   $('#bSlider').loopedSlider({
+	  autoStart: 4000
+	  });
+	  
+	  	$("textarea.Iw450").focus(function(){
+	  if($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == '请在此输入内容，我们会在第一时间给你答复！谢谢！'){
+		  $("textarea.Iw450").val('');
+		  $("textarea.Iw450").css("color","#222");
+	  }
+	});
+	$("textarea.Iw450").blur(function(){
+		if ($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("textarea.Iw450").val('请在此输入内容，我们会在第一时间给你答复！谢谢！');
+			$("textarea.Iw450").css("color","#999");
+		}
+	});
+
+});</script>
+  <div id="bSlider">
+    <div class="ulImg">
+      <ul class="slides">
+      {mo:position id='73' row='3' return='hot_other'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}" title="{$value['pos_info']}"><img {if $value['pos_img']=='' } src="{IMG_PATH}/defimg.png" {else} src="{HOST_NAME}{$value['pos_img']}" {/if} width="226" height="100"/></a></li>
+	{/foreach}
+    {/mo:position} 
+      </ul>
+    </div>
+    <ul class="pagination">
+      {mo:position id='73' row='3' return='hot_other'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}">{$value['headline']}</a></li>
+	{/foreach}
+    {/mo:position} 
+    </ul>
+  </div>
+</div>
+<div class="notice"><span class="bg_spanL"></span><span class="bg_spanR"></span><strong>公司公告：</strong>
+  <ul class="sttongg">
+  {mo:articlelist cid='287' type='all' row='8' return='data'}
+    {foreach $data $k $v}
+  <li><a href="{$v['url']}">{$v['title']}</a></li>
+    {/foreach} 
+   {/mo:articlelist}
+  </ul>
+  <ul class="swap">
+  </ul>
+</div>
+<div class="wrap">
+  <div class="L">
+    <div class="pubMod">
+      <div class="T"><span class="more"><a href="{getMoreUrl(87)}">更多+</a></span>
+        <h3>{cid2name(87)}</h3>
+      </div>
+      <div class="C">
+      {mo:articlelist cid='87' type='all' row='3' return='data'}
+			{foreach $data $k $v}
+            <div class="trendpt">
+              <div class="trendp"><a href="{$v['url']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="94" height="94" alt="{if $v['thumb']['alt']!=''}{$v['thumb']['alt']}{else}{$v['title']}{/if}"/></a></div>
+              <dl class="trendt">
+                <dt><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],30)}</a></dt>
+                <dd>{csubstr($v['description'],100)} <a href="{$v['url']}"  onClick="view(this);">详情>></a></dd>
+              </dl>
+            </div>
+			{/foreach}
+			{/mo:articlelist}
+      </div>
+    </div>
+  </div>
+  <div class="R">
+    <div class="pubMod">
+      <div class="T"><span class="more"><a href="{getMoreUrl(87)}">更多+</a></span>
+        <h3>{cid2name(63)}</h3>
+      </div>
+      <div class="C">
+        <div class="bigImgSlid"><a href="javascript:void(0);" title="上一幅" id="prve"></a><a href="javascript:void(0);" title="下一幅" id="next"></a>
+          <div class="bigSlidUl">
+            <ul id="photoUl" style="position:absolute;left:0;">
+            {mo:articlelist cid='63' type='all' row='5' return='data'}
+			{foreach $data $sonk $sonv}
+            <li><a href="{$sonv['url']}"><img src="{UPLOAD_PATH}/{$sonv['thumb']['src']}" width="304" height="199" alt="{if $sonv['thumb']['alt']!=''}{$sonv['thumb']['alt']}{else}{$sonv['title']}{/if}"/></a></li>
+			{/foreach}
+		    {/mo:articlelist}
+             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kefu">
+      <p class="p1">24小时服务热线</p>
+      <p class="p2">400-800-0606</p>
+    </div>
+  </div>
+  <div class="picpic">
+    <ul>
+    {mo:position id='72' return='hot_other' row='4'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}" title="{$value['pos_info']}"><img src="{HOST_NAME}{$value['pos_img']}" width="226" height="100"/></a><span><a href="{$value['info']['url']}">{$value['headline']}</a></span></li>
+	{/foreach}
+    {/mo:position} 
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="bt">
+  <div class="aboutUs">
+    <div class="boxOne"><strong>{cid2name(53)}</strong>
+      <p>{mo:article id='301' return='content'}
+        {csubstr($content['content'],'320')}
+        {/mo:article}</p>
+      <p style="text-align:right;"><a href="{$content['url']}" class="grayBtn1">MORE</a></p>
+    </div>
+    <div class="boxTwo">
+        <form action='/message/Message/add' id="messageForm" method='post'>
+<input type='hidden' name='modelid' value="283"/>
+  <table width="100%" cellpadding="0" class="homeform" cellspacing="0">
+      {php $hasYzm = hasYzm('mo_captcha_message');}
+      {php $ContentForm = new MessageForm(283);}
+	  {php $form = $ContentForm->get(1,283);}
+	  {php $formvalidator = $ContentForm->formValidator;}
+      {foreach $form $key $v}
+	    {$v}
+	  {/foreach}
+    <tr>
+      <td colspan="4" align="right" class="valign">{if $hasYzm=true}
+      <input type="text" name='code' id='code' class="input131_24" />
+          <img src="{HOST_NAME}/static/js/securimage/yzm.php" old-src="{HOST_NAME}/static/js/securimage/yzm.php" id='yzm' width="60" height="24" class="yzm captcha"/>&nbsp;<a href="javascript:void(0)"  onclick='refreshAuthcode()' class="msgLink captcha">刷新一下</a>
+	  {/if}&nbsp;&nbsp;<input type="button" class="grayBtn1" onclick="submitCheck();" value="提交" /></td>
+    </tr>
+  </table>
+  </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+function refreshAuthcode ()
+{
+    var authcode = jQuery('#yzm');
+    var old_src = authcode.attr('old-src');
+    authcode.attr('src',old_src+'?'+Math.random());
+}
+
+function b(){	
+	t = parseInt(x.css('top'));
+	y.css('top','35px');	
+	x.animate({top: t - 35 + 'px'},'slow');	
+	if(Math.abs(t) == h-35){ 
+		y.animate({top:'0px'},'slow');
+		z=x;
+		x=y;
+		y=z;
+	}
+	setTimeout(b,6000);
+}
+$(function(){
+	$('.swap').html($('.sttongg').html());
+	x = $('.sttongg');
+	y = $('.swap');
+	h = $('.sttongg li').length * 35; 
+	setTimeout(b,6000);
+})
+</script> 
+<script>
+ $.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+function submitCheck()      
+{
+	if($('#code').val()=='')
+	{
+		alert("验证码为空，请填写正确的验证码！");
+	}
+	else
+	{
+		$('#messageForm').submit();
+	}
+}
+</script>
+{include 'footer.html'}
+ <script src="{JS_PATH}/bigphoto.js"></script> 
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>

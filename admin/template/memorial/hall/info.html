@@ -1,0 +1,246 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<!-- 时间日期插件 -->
+<script src="<!--{$jspath}-->/laydate/laydate.js"></script>
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/need/laydate.css" type="text/css">
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/skins/molv/laydate.css" type="text/css">
+
+
+<body>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">     
+                    <dd><a href="<!--{$baseurl}-->/memorial/hall/index" class="last">纪念馆列表</a></dd>
+                    <dt class="on"><a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$mid}-->">逝者资料管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/biography/id/<!--{$mid}-->">传记管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/mshow/id/<!--{$mid}-->">隐私管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/eulogy/id/<!--{$mid}-->">祭文悼词管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->">墓志铭管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/steleauthor/id/<!--{$mid}-->">立碑人信息</a></dt>
+                </dl>
+			</div>
+ <script type="text/javascript">
+         $(function(){
+ var baseUrl = "<!--{$baseurl}-->/memorial/hall/area";
+  $("#originp,#brithp,#diedp").change(function(){
+    var va = $(this).val();
+    var idConn = $(this).attr("date-city");
+    //alert(idConn);
+    $.get(baseUrl,{id:va},function(date){
+      $("#"+idConn).html(date);
+    },"html");
+  });
+ })
+      </script>
+
+			<form action='<!--{$baseurl}-->/memorial/hall/info' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+                               <tr>
+									<th valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font>头像：</th>
+									<td>
+										 <!--<p style="padding-bottom:5px;">
+											<input onclick="uploadAccessory({'limit':'20','_switch':'accessory','self_id':'uploadButton','check_id':'isUpload'})" id="uploadButton" type="button" value="浏览上传" class="btn5" />
+											<input type="hidden" id="isUpload" value=""/>
+										</p>-->
+                                        <div id="img-adta-0" style="display:none"></div>
+                                        <img class="mt5" src="<!--{$memorial.userpic}-->" id="img0" onclick="uploadAccessory({'upload_id':'0','limit':'2','_switch':'ad_img','ady_upload':'1','img_data_id':'img-adta-0','img_id':'img0','hid_id':'hid0'})" width="110" height="86" style="cursor:pointer">
+									</td>
+								</tr>
+								<tr>
+									<th width="170px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font>姓名：</th>
+									<td>
+										<input type="text" value="<!--{$info.person}-->" class="Iw290" name='person' id='person'/>&nbsp;<span id='nameTip'></span>
+									</td>
+								</tr>
+
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：</th>
+									<td>
+									<select name="sex">
+                                      <option value="0" <!--{if $info.sex eq 0}-->selected<!--{/if}-->>未定义</option>
+                                      <option value="1" <!--{if $info.sex eq 1}-->selected<!--{/if}-->>男</option>
+                                      <option value="2" <!--{if $info.sex eq 2}-->selected<!--{/if}-->>女</option>
+                                    </select>
+									</td>
+								</tr>
+                                <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;民族：</th>
+									<td>
+									<select name="nation">
+                                     <option value="">自定义</option>
+                                     <!--{foreach $nation $v}-->
+                                      <option value="<!--{$v}-->" <!--{if $info.nation eq 0}-->selected<!--{/if}-->><!--{$v}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <input type="text" value="<!--{$info.nation}-->" name='nationval'/>
+									</td>
+								</tr>
+							    <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;籍贯：</th>
+									<td>
+									<select name="originp" id="originp" date-city="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $area $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.originp eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <select name="originc" id="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $originInfo $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.originc eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <input type="text" value="<!--{$info.origind}-->" name='origind'/>
+									</td>
+								</tr>
+       	                         <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职业：</th>
+									<td>
+										<input type="text" value="<!--{$info.careers}-->" class="Iw290" name='careers' id='careers'/>&nbsp;<span id='nameTip'></span>
+									</td>
+								</tr>
+                                 <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与逝者关系：</th>
+									<td>
+									<select name="relationship">
+                                     <option value="">请选择</option>
+                                     <!--{foreach $person_type $v}-->
+                                      <option value="<!--{$v}-->" <!--{if $info.relationship eq $v}-->selected<!--{/if}-->><!--{$v}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+									</td>
+								</tr>
+                                <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生辰：</th>
+									<td>
+									<select name="brith">
+                                        <option value="1" <!--{if $info.brith eq 1}-->selected<!--{/if}-->>公元</option>
+                                       <option value="2" <!--{if $info.brith eq 2}-->selected<!--{/if}-->>公元前</option>
+                                    </select>
+                                    <span class="time">
+                                        <input id="data1" class="laydate-icon" name="brithdate" value="<!--{$info.brithdate|date_format:'%Y-%m-%d'}-->" />
+                                    </span>
+									</td>
+								</tr>
+
+                                <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;忌日：</th>
+									<td>
+									<select name="died">
+                                        <option value="1" <!--{if $info.died eq 1}-->selected<!--{/if}-->>公元</option>
+                                       <option value="2" <!--{if $info.died eq 2}-->selected<!--{/if}-->>公元前</option>
+                                    </select>
+                                        <span class="time">
+                                        <input id="data2" class="laydate-icon" name="dieddate" value="<!--{$info.dieddate|date_format:'%Y-%m-%d'}-->" />
+                                        </span>
+									</td>
+								</tr>
+                                 <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生地：</th>
+									<td>
+									<select name="brithp" id="brithp" date-city="brithd">
+                                     <option value="">省份</option>
+                                     <!--{foreach $area $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.brithp eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <select name="brithd" id="brithd">
+                                     <option value="">市区</option>
+                                     <!--{foreach $brithpInfo $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.brithd eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <input type="text" value="<!--{$info.brithc}-->" name='brithc'/>
+									</td>
+								</tr>
+                                <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安葬地：</th>
+									<td>
+									<select name="diedp" id="diedp" date-city="diedd">
+                                     <option value="">省份</option>
+                                     <!--{foreach $area $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.diedp eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <select name="diedd" id="diedd">
+                                     <option value="">市区</option>
+                                     <!--{foreach $diedpInfo $v}-->
+                                      <option value="<!--{$v.area_id}-->" <!--{if $info.diedd eq $v.area_id}-->selected<!--{/if}-->><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <input type="text" value="<!--{$info.diedc}-->" name='diedc'/>
+									</td>
+								</tr>
+                                <tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所葬陵园：</th>
+									<td>
+									<select name="cemetery">
+                                     <option value="">请选择</option>
+                                     <!--{foreach $came $v}-->
+                                      <option value="<!--{$v.id}-->" <!--{if $info.cemetery eq $v.id}-->selected<!--{/if}-->><!--{$v.title}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+									</td>
+								</tr>
+                                <tr><th valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内容描述：</th><td colspan="3"><textarea class="Iw450 Ih80" name="descript" id="descript"><!--{$info.descript}--></textarea> &nbsp;&nbsp;</td></tr>
+                                <!-- 纪念馆id -->
+                                <input type="hidden" name="mid" value="<!--{$mid}-->">
+                                <!-- 资料id -->
+                                <input type="hidden" name="id" value="<!--{$id}-->">
+							</table>
+							<div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+ <script>
+
+ 
+ /*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+var _acc_option=
+{
+	upload_id:'accessory_upload',
+	title:'附件上传',
+	return_id:'accessory',
+	callFunName:'accessoryUpload',
+	setting:'<!--{$picsetting}-->',
+	param:{}
+};
+
+function uploadAccessory (obj)
+{	
+	_acc_option.param = obj;
+	MainOneUpload(_acc_option);//调用统一上传方法
+}
+
+ </script>
+
+<script>
+laydate({
+  elem: '#data1', 
+  event: 'focus',
+  format: 'YYYY-MM-DD', //日期格式
+  min: '1000-01-01 00:00:00' //最小日期
+});
+
+laydate({
+  elem: '#data2', 
+  event: 'focus',
+  format: 'YYYY-MM-DD', //日期格式
+  min: '1000-01-01 00:00:00' //最小日期
+});
+laydate.skin('dahong'); //皮肤
+</script>
+
+</body>
+</html>

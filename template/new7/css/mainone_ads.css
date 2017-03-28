@@ -1,0 +1,6 @@
+/*mainone_ads*/
+.mainone_ads,.mainone_ads *,body{padding:0;margin:0;}
+.mainone_ads {font-family:'宋体'; font-size:12px; line-height:18px; color:#666;}
+.mainone_ads img {border:none;}
+.mainone_ads a {text-decoration:none;}
+.mainone_ads a:hover {text-decoration:underline;}

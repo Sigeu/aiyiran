@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"  src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/pubJq.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$baseurl}-->/members/group/index">分组列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/members/group/add" class="last">添加分组</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+            <div class="pubTabelTot tabelLR"><strong>[温馨提示]：</strong><span style='color:#999999'>当会员组下已经存在会员级别和会员信息时，此会员组不能删除</span></div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="10%">ID</th>
+                  <th width="20%">会员组</th>
+                  <th width="10%">会员数量</th>
+                  <th width="10%">状态</th>
+                  <th width="30%">操作</th>
+                </tr>
+                <!--{foreach from=$groupList item=item}-->
+                <tr>
+                  <td><input type="checkbox"  name="groupid[]" value="<!--{$item.id}-->"  /></td>
+                  <td><!--{$item.id}--></td>
+                  <td title="<!--{$item.groupname}-->"><!--{$item.groupname|truncate_cn:"10":"...":'utf8'}--></td>
+                  <td><!--{$item.membernum}--></td>
+                  <td><!--{$status[$item.status]}--></td> 
+                  <td><a href="<!--{$baseurl}-->/members/group/edit/groupid/<!--{$item.id}-->">修改</a> | 
+                  <a href="#" onclick="MoConfirm('<!--{$baseurl}-->/members/group/delete/groupid/<!--{$item.id}-->','没有会员和级别时才能删除，确定删除？');">删除</a> | 
+                  <a href="<!--{$baseurl}-->/members/group/isable/state/1/groupid/<!--{$item.id}-->" id="<!--{if $item.status==1}-->gray<!--{/if}-->" >开启</a> | 
+                  <a href="<!--{$baseurl}-->/members/group/isable/state/2/groupid/<!--{$item.id}-->" id="<!--{if $item.status==2}-->gray<!--{/if}-->">关闭</a> | 
+                  <a href="<!--{$baseurl}-->/members/member/index/groupid/<!--{$item.id}-->">查看组内会员</a></td>
+                </tr>
+                <!--{/foreach}-->                
+              </table>                
+            </div>
+            <div class="pubOperate">
+            
+              <span class="btn5" style="width:80px;">
+                <label>
+                    <input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选
+                </label>
+              </span>
+              <input type="button" class="btn5" value="开启"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/group/isable/state/1" empty-tips="请选择要开启的分组"  confirm-tips="确定开启？"/>
+              <input type="button" class="btn5" value="关闭"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/group/isable/state/2" empty-tips="请选择要关闭的分组" confirm-tips="确定关闭？" />
+              <input type="button" class="btn5" value="删除"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/group/delete" empty-tips="请选择要删除的分组" confirm-tips="没有会员和级别时才能删除，确定删除？"/>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>    
+</body>
+</html>

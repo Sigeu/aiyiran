@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<!--提交评论-->
+<script>
+function addComment(obj)
+{
+	if(!$('#comment_content').val())
+	{
+		alert('评论内容不能为空');
+		return false;
+	}
+	else
+	{
+		$('#commentForm').submit();
+	}
+}
+</script>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+    {include 'category.html'}
+    <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">相关美食</span>
+      <ul class="arrow_ulL">
+        <li><a href="#">{$GLOBALS['username']}</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		<li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+      </ul>
+    </div>
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">相关美食</span>
+      <ul class="arrow_ulL">
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+      </ul>
+    </div>
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="box_detail">
+        <h1>{$content['title']}</h1>
+        <div class="bg_line"></div>
+        <p class="publish_time">发表日期：{date('Y.m.d',$content['publishtime'])},作者：{$content['username']},来源：{$content['source']}</p>
+        <div class="detail_con">
+          {$content['content']}
+		  <div class="page"><a href="{$prepageurl}"  >上一页</a><a href="{$nextpageurl}"  >下一页</a></div>
+          <div class="chwl_com">
+            <div class="comment_tit"><h3>发表评论</h3></div>
+			
+            {mo:comment id='$id' modelid='1' pagesize='10'  return='data'}
+			{foreach $data  $key $value}
+            <dl class="comment_list">
+              <dt><a href="#"><img src="{IMG_PATH}/pic_46.jpg" class="imgline" /></a></dt>
+              <dd><span class="time">{date('Y-m-d',$value['comment_time'])}</span><span class="f6">{$value['username']}：</span></dd>
+              <dd>{$value['comment_content']}</dd>
+            </dl>
+			{/foreach}       
+            <div class="pages">
+              {$pagestr}
+            </div>
+
+			  <p>相关热词搜索：{$content['keywords']}</a></p><br>
+			
+			上一篇：{$preContent}<Br>下一篇：{$nextContent}
+			{if $GLOBALS['username']}
+			<!--评论开始-->
+			<form action='/comment/Comment/add' method='post' id='commentForm'>
+				<input type='hidden' name='comment_infoid' value='{$id}'/>
+				<input type='hidden' name='comment_modelid' value='{$model}'/>
+				<div class="publish_txt mb10"> <span>发表您的评论</span>
+					<textarea name='comment_content' id='comment_content'></textarea>
+					<div>
+						<input type="button"  {if $content['allowcomment']!=1}onclick="javacript:alert('禁止评论');"{else}onclick="javascript:addComment(this);"{/if} value="发表评论"/>
+						<span class="publish_name">欢迎您&nbsp;&nbsp;{$GLOBALS['username']}</span> 
+					</div>
+				</div>
+			</form>
+			 {else}
+			<div class="publish_txt02"> 
+				<div class="publish_login mb10">
+					<form method="post" action="/user/User/login/type/2" enctype="multipart/form-data">
+						<span class="right f6">评论<strong class="fgreen2">23</strong>条</span>
+						<label>用户名</label><input type="text" name="username" class="login_input" />&nbsp;&nbsp;&nbsp;
+						<label>密码</label><input type="password" name="password" class="login_input" />&nbsp;&nbsp;
+						<input type="submit" value="登 录" class="login_btn" />&nbsp;
+						<input type="button" onclick="javascript:location.href='/user/User/regist/groupid/24'" value="注 册" class="login_btn" />
+					</form>
+				</div>
+				<textarea class="mb10"></textarea>
+				<div> 
+				<input type="button" value="发表评论" onclick="javacript:alert('请先登录');" class="login_input02">
+				</div>
+			</div>
+			{/if}
+			<!--评论结束-->
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>
+{include 'footer.html'}
+			

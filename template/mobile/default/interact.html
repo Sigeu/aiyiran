@@ -1,0 +1,26 @@
+{php $phone_visit_type = isAppVisit();}
+    {if false === $phone_visit_type}
+<!--交互 begin-->
+{if $contact_set}
+<div class="touchbar">
+  <div class="touch_btn">
+    <ul>
+    {foreach $contact_set $key $val}
+      <li>
+        {if $val['id'] == '1'}
+            <a href="tel:{$val['setting']}" class="ico01">{$val['title']}</a>
+        {/if}
+        {if $val['id'] == '2'}
+            <a href="sms:{$val['setting']}" class="ico02">{$val['title']}</a>
+        {/if}
+        {if $val['id'] == '3'}
+            <a href="{URL_HOST}mobile/index/addMessage/id/{$val['setting']}" class="ico03">{$val['title']}</a>
+        {/if}
+      </li>
+    {/foreach}
+    </ul>
+  </div>
+</div>
+{/if}
+<!--交互 end-->
+{/if}

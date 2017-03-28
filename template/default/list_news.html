@@ -1,0 +1,48 @@
+
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/public.css"/>
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/jw.css"/>
+        <script type="text/javascript" src="{JS_PATH}/jquery-1.11.0.min.js" ></script>
+        <script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+{include 'head.html'}
+
+        <!--*****************************************************-->
+        <div class="box_cont clearfix">
+            <div class="w_1200 clearfix">
+                <div class="fl conItem01 clearfix">
+                    <div class="list_word4">
+                        <div class="headline">
+                        <span class="fl">{cid2name($cid)}<i></i></span>
+                        <!-- <a href="{worldge($cid)}" class="fr">查看更多<i></i></a> -->
+                        </div>
+                        <ul class="clearfix">
+                            {mo:articlelist row="15" cid="$cid" pagesize="15" order="sortnum desc" pagenum ="10" return="data"}
+                            {foreach $data  $key $value}
+                            <li>
+                                <a href="{$value['url']}">
+                                    <img src="/static/uploadfile/{$value['thumb']['src']}" />
+                                    <h3>{csubstr($value["title"],27)}</h3>
+                                    <p>{csubstr($value["description"],100)}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                            {/mo:articlelist}
+                        </ul>
+                        <div class="page">
+                            {$pagestr}
+                        </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+                    </div>
+
+
+                </div>
+            {include 'inc/ganwenRight.html'}
+
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'footer.html'}

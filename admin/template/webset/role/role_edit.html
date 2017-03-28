@@ -1,0 +1,121 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/webset/role/index" class="last">角色列表</a></dd>
+            <dt class="on"><a href="#">编辑角色</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div >
+            <div class="pubTabel">
+            <form id="myForm" name="myForm" method="post" action="" >
+              <input id="rolename_old" name="rolename_old" type="hidden" value="<!--{$roleInfo.rolename}-->" />
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 用户角色：</th>
+                  <td><input id="rolename" name="rolename" type="text" class="Iw290" value="<!--{$roleInfo.rolename}-->" /></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 状态：</th>
+                  <td><span>
+                    <input type="radio" id="status" name="status" value='1'  <!--{if $roleInfo.status eq 1}-->checked<!--{/if}--> />
+                    <label>开启</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                   <input type="radio" id="status" name="status" value='2' <!--{if $roleInfo.status eq 2}-->checked<!--{/if}--> />
+                    <label>关闭</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th style="vertical-align:top"><font>*</font> 权限设置：</th>
+                  <td>
+                    <table class="tdNoneBorL">
+                     <tr><td colspan="2"><span id="permissionTip"></span></td></tr>
+                    <!--{foreach from=$topMenus item=row}-->
+                      <tr>
+                        <td class="td1_L"><div><input id="<!--{$row.id}-->" class="node-<!--{$row.id}-->" type="checkbox" level="0" name="permissionid[]" value="<!--{$row.id}-->" onclick="checknode(this);" style="display:none;" <!--{if in_array($row.id,$permissionList)}-->checked<!--{/if}--> /><!--{$row.name}--></div></td>
+                        <td id="node-<!--{$row.id}-->"><ul class="list_L">
+                          <!--{foreach from=$subMenus[$row.id] item=row2}-->
+                            <li> <span>
+                              <input id="<!--{$row2.id}-->" parentid="node-<!--{$row.id}-->" type="checkbox" level="1" name="permissionid[]" value="<!--{$row2.id}-->" onclick="checknode(this);" <!--{if in_array($row2.id,$permissionList)}-->checked<!--{/if}-->  />
+                              <label class="per" id="<!--{$row2.id}-->" <!--{if $row2.children neq ''}-->style="cursor:pointer";<!--{/if}-->><!--{$row2.name}--></label>
+                              </span> </li>                              
+                            <!--{if $row2.children neq ''}-->
+                            <li>
+                              <ul  class="list_L per<!--{$row2.id}-->" style="display:none">
+                            <!--{foreach from=$row2.children item=row3}--> 
+                                <li><span>
+                                  <input id="<!--{$row3.id}-->" parentid="node-<!--{$row.id}-->" type="checkbox"  level="2" name="permissionid[]" value="<!--{$row3.id}-->" onclick="checknode(this);" <!--{if in_array($row3.id,$permissionList)}-->checked<!--{/if}--> />
+                                  <label class="per" id="<!--{$row3.id}-->" <!--{if $row3.children neq ''}-->style="cursor:pointer";<!--{/if}-->><!--{$row3.name}--></label>
+                                  </span></li>
+                                <!--{if $row3.children neq ''}-->
+                                <li>
+                                  <ul class="list_L per<!--{$row3.id}-->" style="display:none">
+                                    <li>
+                                    <!--{foreach from=$row3.children item=row4}--> 
+                                     <span><input id="<!--{$row4.id}-->" parentid="node-<!--{$row.id}-->" type="checkbox" level="3" name="permissionid[]" value="<!--{$row4.id}-->" onclick="checknode(this);" <!--{if in_array($row4.id,$permissionList)}-->checked<!--{/if}-->  /><label>&nbsp;<!--{$row4.name}--></label></span>&nbsp;&nbsp; 
+                                    <!--{/foreach}-->
+                                     </li>
+                                  </ul>
+                                </li>
+                            <!--{/if}-->
+                            <!--{/foreach}-->
+                              </ul>
+                            </li>
+                            <!--{/if}-->
+                            <!--{/foreach}-->
+                          </ul></td>                        
+                      </tr>
+                      <tr class="gapL"></tr>
+                      <!--{/foreach}-->
+                    </table></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id="dosubmit">
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick='javascript:history.back();'>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#rolename").formValidator({onshow:"请输入2-15个字符,由字母、汉字、数字、符号组成",onfocus:"请输入2-15个字符,由字母、汉字、数字、符号组成"}).inputValidator({min:2,max:15,onerror:"请输入2-15个字符,由字母、汉字、数字、符号组成",onerrormax:"最多输入15个字符"}).ajaxValidator({
+    	url:"<!--{$baseurl}-->/admin/ajax/checkrolename",
+        type:"post",
+    	data:"oldvalue=<!--{$roleInfo.rolename}-->",
+        //other:['rolename_old'],
+        success : function(data){
+            //alert(data);
+            if(data==1) return true;
+            if(data==2) return false;
+            return false;
+        },
+        buttons: $("#dosubmit"),
+        error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+        onerror : "该角色名称已存在，请重新输入",
+        onwait : "正在对角色名进行合法性校验，请稍候..."
+        }).defaultPassed();
+    $(":checkbox[name='permissionid[]']").formValidator({tipid:"permissionTip",onshow:"请选择权限",onfocus:"权限不能为空"}).inputValidator({min:1,onerror:"权限不能为空"}).defaultPassed();
+    
+    //权限设置的折叠展开
+    $(".per").click(function(){
+        var clazz = "." + $(this).attr("class") + $(this).attr("id");
+        if($(clazz).css("display") === 'none'){
+            $(clazz).css("display", "");
+        }
+        else{
+            $(clazz).css("display", "none"); 
+        }
+     });  
+  
+  });
+</script>
+</body>
+</html>

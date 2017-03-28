@@ -1,0 +1,30 @@
+<script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script> 
+<script type="text/javascript" src="{JS_PATH}/list.js"></script>
+<!--  栏目联动菜单 目前只能支持到3级  -->
+{mo:category struct="relation" return="data"}{/mo:category}
+<div class="bg_grL mb10">
+	<span class="h_dotL">栏目</span>
+	<ul class="js_list">
+		{foreach $data $key1 $val1}
+		<li>
+			<strong class="level_1L"><span>{$val1['catname']}</span></strong>
+			{if($val1['child'])}
+			<ul class="level2L">
+				{foreach $val1['child'] $key2 $val2}
+				<li>
+					<a href="#"><span class="level_moL level_moR">{$val2['catname']}</span></a>
+					{if($val2['child'])}
+					<ul>
+						{foreach $val2['child'] $key3 $val3}
+						<li><a href="#">{$val3['catname']}</a></li>
+						{/foreach}
+					</ul>
+					{/if}
+				</li>
+				{/foreach}
+			</ul>
+			{/if}
+		</li>
+		{/foreach}
+	</ul>
+</div>

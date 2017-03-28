@@ -1,0 +1,102 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<form method="post" action="<!--{$baseurl}-->/content/goodscmt/view">
+<div class="pubBox">
+  <div class="pubtabBox">
+	<div class="TabBoxT">
+	  <dl class="navTab">
+		<dt class="on"><a href="#">评论管理</a></dt>
+		<dd class="right">
+		<div class="pageGo">
+		<!--{foreach from=$ln item=l}-->
+		<!--{if $l.id}-->
+		<a href="<!--{$baseurl}-->/content/goodscmt/view/id/<!--{$l.id}-->"><!--{$l.text}--></a>
+		<!--{else}--><a href="JavaScript:;"><!--{$l.text}--></a><!--{/if}-->
+		<!--{/foreach}-->
+		</div>
+		</dd>
+	  </dl>
+	 <div class="clearfix"></div>
+	</div>
+	<div class="TabBoxC">
+	  <div>
+		<div class="pubTabel">
+		  <table class="tabelLR">
+			<tr>
+			  <th width="120px">&nbsp; 原文标题：</th>
+			  <td><!--{$info.title}--></td>
+			</tr>
+			<tr>
+			  <th>&nbsp; 审核状态：</th>
+			  <td>
+			  <!--{if $info.comment_status eq 1}-->审核通过
+			  <!--{elseif $info.comment_status eq 2}-->审核不通过
+			  <!--{elseif $info.comment_status eq 3}-->待审核
+			  <!--{/if}-->
+			  </td>
+			</tr>
+			<tr>
+			  <th>&nbsp; 评论人：</th>
+			  <td><!--{if $info.username}--><!--{$info.username}--><!--{else}-->未知<!--{/if}--></td>
+			</tr>
+			<tr>
+			  <th>&nbsp; 评论时间：</th>
+			  <td><!--{$info.comment_time|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+			</tr>
+			<tr>
+			  <th valign="top">&nbsp; 评论内容：</th>
+			  <td><textarea class="Iw450 Ih80"><!--{$info.comment_content}--></textarea></td>
+			</tr>
+			<tr>
+			  <th valign="top">&nbsp; 管理员回复：</th>
+			  <td><textarea class="Iw450 Ih80" name="reply_content"><!--{$info.reply_content}--></textarea></td>
+			</tr>
+		  </table>
+		</div>
+		<div class="pubTabelBot">
+			<input type="hidden" name="comment_id" value="<!--{$info.comment_id}-->" />
+			<input type="hidden" name="comment_status" value="<!--{$info.comment_status}-->" id="status"/>
+			<!--{if $info.comment_status eq 3}-->
+			<input type="button" hidefocus="hide" value="审核通过" onclick="checkPass()" class="btn1">
+			<input type="button" hidefocus="hide" value="审核不通过" onclick="checkFail()" class="btn2">
+			<!--{else}-->
+			<input type="button" value="返回" onclick="javascript:location.href='<!--{$baseurl}-->/content/goodscmt/index<!--{if $pflag eq 1}-->/tab/1<!--{/if}--><!--{if $pflag eq 2}-->/status/<!--{$search.status}--><!--{/if}--><!--{if $pflag eq 3}-->/is_reply/<!--{$search.is_reply}--><!--{/if}-->';" class="btn2">
+			<!--{/if}-->
+		  </div>
+	  </div>
+	</div>
+  </div>
+</div>
+</form>
+<div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+//审核通过
+function checkPass ()
+{
+	art.dialog.through({content: '您确定通过此评论吗？',icon:'question',lock:true,fixed:true},function()
+	{
+		$('#status').val(1);
+		$('form').submit();
+	},
+	function()
+	{
+		
+	});
+}
+
+//审核不通过
+function checkFail ()
+{
+	art.dialog.through({content: '您确定审核不通过此评论吗？',icon:'question',lock:true,fixed:true},function()
+	{
+		$('#status').val(2);
+		$('form').submit();
+	},
+	function()
+	{
+		
+	});
+}
+</script>

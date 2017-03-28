@@ -1,0 +1,46 @@
+/*************************************账号设置--安全设置*****************************************/
+.accoDl_yc{margin-top:20px;}
+.accoDl_yc dd{margin-bottom: 15px;font-size: 14px;color:#666;}
+.proBox_yc{position: relative;width:150px;height: 14px;background: #f0f0f0;margin-left: 20px;}
+.proccess{position: absolute;left:0;top:0;width:40%;height: 100%;background: #ff9000;}
+.accoUl_yc{width:100%;border-top:1px solid #ddd;margin-top:20px;}
+.accoUl_yc li{width:100%;border-bottom:1px solid #ddd;}
+.liDC_yc{width:100%;overflow: hidden;background: #fff;line-height: 50px;}
+.accItem01{float:left;width:24%;margin-left:2%;}
+.accItem02{float:left;width:40%;font-size: 14px;color:#999;}
+.accItem03{float:left;width:23%;}
+.accItem04{position: relative;float:left;width:9%;margin-right:2%;}
+.iconI01_yc{display: inline-block;width:16px;height: 12px;background: url(../images/icon_yc.png) no-repeat 0 -320px;}
+.iconI02_yc{display: inline-block;width:14px;height: 14px;background: url(../images/icon_yc.png) no-repeat 0 -338px;}
+/*绑定后的状态+active*/
+.iconI02_yc.active{width:16px;height: 12px;background: url(../images/icon_yc.png) no-repeat 0 -320px;}
+.accItem01 span{margin-left: 16px;font-size: 14px;color:#666;}
+.accItem03 a{color:#018beb;font-size: 14px;}
+.emSel_yc{display:none;position: absolute;right:0;top:21px;width:13px;height: 7px;background: url(../images/icon_yc.png) no-repeat 0 -307px;cursor: pointer;}
+.liDC_yc:hover{background: #f5f5f5;}
+.liDC_yc:hover .emSel_yc,.liDC_yc.active .emSel_yc{display: block;}
+.liDC_yc.active{background: #ddd;}
+.liDC_yc.active .accItem01 span{color:#333;}
+/*里面内容*/
+.mainBox_yc{display: none;background: #f5f5f5;padding:45px 0 45px 20%;}
+.passD{margin-bottom: 15px;}
+.passSa{display: inline-block;width:120px;text-align: right;font-size: 14px;color:#666;}
+.passSa i{color:#e81c2e;}
+.passInp{width:238px;padding-left: 10px;height: 38px;border:1px solid #ddd;background: #fff;font-family: "微软雅黑";font-size: 14px;color:#666;line-height: 38px;}
+.passInp2{display: block;margin:15px 0 0 120px;}
+.forgetA,.passStr{margin-left: 10px;font-size: 14px;color:#999;}
+.passXG{margin:20px 0 0 120px;}
+.yzm_yc{display: inline-block;padding:12px 16px;border:1px solid #ccc;background: #fff;border-radius:3px;margin-left:10px;font-size: 14px;color:#666;}
+.zjSel{width:250px;padding-left: 10px;height:40px;border:1px solid #ddd;background: #fff;font-family: "微软雅黑";font-size: 14px;color:#666;}
+.fileA{position: relative;display: inline-block;padding:12px 22px;border:1px solid #ccc;background: #fff;border-radius:3px;margin-left:10px;font-size: 14px;color:#666;}
+.scInp{position: absolute;right:0;top:0;opacity:0;filter:alpha(opacity=0);cursor:pointer;font-size:30px;}
+
+/*************************************账号设置--第三方账号绑定*****************************************/
+.thirdIcon01{display: inline-block;width:17px;height: 20px;background: url(../images/icon_yc.png) no-repeat 0 -358px;vertical-align: middle;}
+.thirdIcon02{display: inline-block;width:27px;height: 21px;background: url(../images/icon_yc.png) no-repeat 0 -384px;vertical-align: middle;}
+.thirdIcon03{display: inline-block;width:26px;height: 22px;background: url(../images/icon_yc.png) no-repeat 0 -411px;vertical-align: middle;}
+.thirdIcon01.active{background: url(../images/icon_yc.png) no-repeat 0 -439px;}
+.thirdIcon02.active{background: url(../images/icon_yc.png) no-repeat 0 -465px;}
+.thirdIcon03.active{background: url(../images/icon_yc.png) no-repeat 0 -492px;}
+.thirdM{display: none;padding:39px 0 39px 59px;background: #f5f5f5;}
+.thirdM p{margin-bottom: 18px;font-size: 14px;color:#666;}

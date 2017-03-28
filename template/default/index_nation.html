@@ -1,0 +1,202 @@
+{include 'head.html'}
+
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css" />
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/mzwh.css"/>
+        <!--<script type="text/javascript" src="{JS_PATH}/jquery-1.11.0.min.js" ></script>-->
+        <script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+        <script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+        <script type="text/javascript">
+            $(function(){
+                // banner轮播
+                var banSwiper = new Swiper('.section01 .swiper-container',{
+                    pagination: '.section01 .swiper-container .pagination',
+                    loop:true,
+                    grabCursor: true,
+                    paginationClickable: true,
+                    autoplay : 7000,
+                    speed:1000,
+                    autoplayDisableOnInteraction: false
+                  });
+                  $('.section01 .arrow-left').on('click', function(e){
+                    e.preventDefault()
+                    banSwiper.swipePrev();
+                  });
+                  $('.section01 .arrow-right').on('click', function(e){
+                    e.preventDefault()
+                    banSwiper.swipeNext();
+                  });
+                  $(".section01").hover(function(){
+                    banSwiper.stopAutoplay();
+                  },function(){
+                    banSwiper.startAutoplay();
+                  });
+            })
+        </script>
+
+        <!--*************************-->
+        <div class="box_cont clearfix">
+            <div class="w_1200 clearfix">
+                <div class="ban_reco">
+                    <div class="section01">
+                        <!--banner轮播-->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+                                {mo:advertlist row="3" adposid="78"  return="data" }
+                                {foreach $data  $key $value}
+                                {foreach $value['adimg'] $k $v}
+
+                                <div class="swiper-slide">
+                                    <a href="{$v['link']}" target="_blank"><img src="/static/uploadfile/advert/{$v['img']['path']}"></a>
+                                </div>
+                                {/foreach}
+                                {/foreach}
+                                {/mo:article}
+                            </div>
+                            <div class="pagination"></div>
+                            <div class="arrow-right"><i>&gt;</i></div>
+                            <div class="arrow-left"><i>&lt;</i></div>
+                       </div>
+                    </div>
+                    <div class="reco_info">
+                        <div class="headline">
+                        <b>推荐资讯</b>
+                        </div>
+                        {mo:articlelist  cid="328" row="3" order="id desc"  return="data"}
+                        {foreach $data  $key $value}
+                        <a href="{$value['url']}">
+                            <h3>{csubstr($value["title"],24)}</h3>
+                            <p>{csubstr($value["description"],135)}</p>
+                        </a>
+                         {/foreach}
+                        {/mo:articlelist}
+                    </div>
+                </div>
+                <div class="fl conItem01 clearfix">
+                    <div class="culture fl">
+                        <div class="headline">
+                        <span class="fl">{cid2name(316)}<i></i></span>
+                        <a href="/category/Category/list/cid/316" class="fr">查看更多<i></i></a>
+                        </div>
+                        {mo:articlelist  cid="316" row="1" order="id desc"  return="data"}
+                        {foreach $data  $key $value}
+                        <a href="{$value['url']}" class="head_line">
+                            <img class="lazy" src='/template/default/member/images/default_max.png' data-original="{UPLOAD_PATH}/{$value['thumb']['src']}" width="140" height="79"/>
+                            <h4>{csubstr($value["title"],13)}</h4>
+                            <p>{csubstr($value["description"],31)}</p>
+                        </a>
+                        {/foreach}
+                        {/mo:articlelist}
+                        <ul class="culture_list">
+                        {mo:articlelist  cid="316" row="6" order="id desc" from="1" return="data"}
+                        {foreach $data  $key $value}
+                            <li><a href="{$value['url']}">{csubstr($value["title"],13)}</a><span>{substr(date('Y.m.d', $value['publishtime']),0,10)}</span></li>
+                        {/foreach}
+                        {/mo:articlelist}
+                        </ul>
+                    </div>
+                    <div class="culture culture2 fl">
+                        <div class="headline">
+                        <span class="fl">{cid2name(317)}<i></i></span>
+                        <a href="{worldge(317)}" class="fr">查看更多<i></i></a>
+                        </div>
+                        {mo:articlelist  cid="317" row="2" order="id desc" return="data"}
+                        {foreach $data  $key $value}
+                        <a href="{$value['url']}" class="pichline">
+                            <img class="lazy" src='/template/default/member/images/default_max.png' data-original="{UPLOAD_PATH}/{$value['thumb']['src']}" width="175" height="98"/>
+                            <p>{csubstr($value["title"],10)}</p>
+                        </a>
+                        {/foreach}
+                        {/mo:articlelist}
+
+                     
+                        <ul class="culture_list">
+                        {mo:articlelist  cid="317" row="5" from="2" order="id desc" return="data"}
+                        {foreach $data  $key $value}
+                            <li><a href="{$value['url']}">{csubstr($value["title"],13)}</a><span>{substr(date('Y.m.d', $value['publishtime']),0,10)}</span></li>
+                        {/foreach}
+                        {/mo:articlelist}
+                        </ul>
+                    </div>
+                    <div class="list_word4 fl clearfix">
+                        <div class="headline">
+                        <span class="fl">风水知识<i></i></span>
+                        <a href="{worldge(319)}" class="fr">查看更多<i></i></a>
+                        </div>
+                        <ul class="clearfix">
+                              {mo:articlelist  cid="319" row="4" order="sortnum desc"  return="data"}
+                            {foreach $data  $key $value}
+                            <li>
+                                <a href="{$value['url']}">
+                                    <img class="lazy" src='/template/default/member/images/default_max.png' data-original="/static/uploadfile/{$value['thumb']['src']}" width="150" height="84"/>
+                                    <h3>{csubstr($value["title"],27)}</h3>
+                                    <p>{csubstr($value["description"],100)}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                            {/mo:articlelist}
+                        </ul>
+                    </div>
+                    <div class="list_word4 fl clearfix">
+                        <div class="headline">
+                        <span class="fl">孝爱传承<i></i></span>
+                        <a href="{worldge(320)}" class="fr">查看更多<i></i></a>
+                        </div>
+                        <ul class="clearfix">
+                            {mo:articlelist  cid="320" row="4" order="sortnum desc"  return="data"}
+                            {foreach $data  $key $value}
+                            <li>
+                                <a href="{$value['url']}">
+                                    <img class="lazy" src='/template/default/member/images/default_max.png' data-original="/static/uploadfile/{$value['thumb']['src']}" width="150" height="84"/>
+                                    <h3>{csubstr($value["title"],27)}</h3>
+                                    <p>{csubstr($value["description"],100)}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                            {/mo:articlelist}
+                        </ul>
+                    </div>
+                </div>
+                <div class="fl conItem02 clearfix">
+                    <div class="cont_list cont_list3">
+                    <div class="headline">
+                        <span class="fl">丧葬文化<i></i></span>
+                        <a href="{worldge(318)}" class="fr">参看更多<i></i></a>
+                     </div>
+                        {mo:articlelist  cid="318" row="1" order="id desc" return="data"}
+                        {foreach $data  $key $value}
+                     <a href="{$value['url']}" class="head_line2">
+                        <img src="{IMG_PATH}/mz_09.png"/>
+                        <h3>{csubstr($value["title"],18)}</h3>
+                        <p>{csubstr($value["description"],20)}</p>
+                     </a>
+                      {/foreach}
+                      {/mo:articlelist}
+                    <ul class="">
+                        {mo:articlelist  cid="318" row="10" from="1" order="id desc" return="data"}
+                        {foreach $data  $key $value}
+                        <li>
+                            <a href="{$value['url']}">{csubstr($value["title"],17)} </a>
+                            <span>{substr(date('Y.m.d', $value['publishtime']),0,10)}</span>
+                        </li>
+                     {/foreach}
+                    {/mo:articlelist}
+                    </ul>
+                </div>
+                    <a href="###" class="double_j"><img src="{IMG_PATH}/jw_12.jpg" /></a>
+                    <a href="###" class="data_918"><img src="{IMG_PATH}/jw_30.jpg" /></a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

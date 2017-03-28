@@ -1,0 +1,129 @@
+{include 'head.html'}
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/index.css"/>
+<!-- layer插件 -->
+<link rel="stylesheet" href="/template/default/member/layer/skin/default/layer.css" type="text/css">
+<script src="/template/default/member/layer/layer.js"></script>
+<script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/index.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+        <div class="box_cont clearfix">
+            <div class="indexBanner">
+              <div class="fl conItem01">
+                <div class="section01">
+                        <!--banner轮播-->
+                            {include 'inc/lbt.html'}
+                    </div>
+              </div>
+              <div class="fr conItem02">
+                      <!-- 登录 -->
+                {if $GLOBALS['username']}
+                    {include 'inc/member.html'}
+                {else}
+                <!-- 注册 -->
+                    {include 'inc/login.html'}
+                {/if}
+              </div>
+             </div>
+             <!--****************************************************-->
+             <div class="main1200 clearfix">
+                <div class="fl conItem01 clearfix">
+                    <div class="SearchMuseum">
+             <form action="" method="get">
+                        <div class="input_group">
+                            <input id="searchMuseumkey" name="keywords" value="{$keywords}" class="form-control fl" placeholder="输入需要查找的内容" type="text">
+                            <span><i></i><input type="button" onclick="sousuo(1);" class="input-group-addon fl" value="搜索" /></span>
+                        </div>
+                </form>
+
+                        <p class="as_per">按字母搜索：</p>
+                        <ul class="rank">
+                        {foreach $zimu $v}
+                            <li {if $letter == $v} class="active" {/if}><a href="javascript:;" onclick="sousuo2('{$v}', 2, 1);">{$v}</a></li>
+                        {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                <div class="year_today">
+                  <h3>那年今日</h3>
+                  {mo:memo day="1" pagesize="2"  return="data"}
+                                {if is_array($data)}
+
+                                    {foreach $data  $key $value}
+                    <dl>
+                        <dt>
+                            <a href="/jinian/Jinian/index/mid/{$value['mid']}">
+                            <img src="{$value['userpic']}" />
+                            <p>{$value['personname']}</p>
+                            </a>
+                        </dt>
+                        <dd>生日：{date('Y-m-d',$value["brithdate"])}</dd>
+                        <dd>忌日：{date('Y-m-d',$value["dieddate"])}</dd>
+                    </dl>
+
+                         {/foreach}
+                        {else}
+                                没找到信息，请稍后再试
+                                {/if}
+                    {/mo:memo}
+                </div>
+             </div>
+             <!--*****************************-->
+            <script>
+                window.onload = function(){
+                    sousuo2('all', 4, 1);
+                }
+            </script>
+             <div class="tab_box">
+                <ul>
+                    <li  class="active" ><a href="javascript:;" onclick="sousuo2('all', 4, 1);" >全部 </a></li>
+                    {php $persontype = get_config('common','person_type_admin','home'); }
+                    <!--<li  {if $persontype == 1} class="active" {/if}><a href="?persontype=1">纪念先祖</a></li>-->
+                    <!--<li  {if $persontype == 2} class="active" {/if}><a href="?persontype=2" >纪念姐妹 </a></li>-->
+                    <!--<li  {if $persontype == 3} class="active" {/if}><a href="?persontype=3" >缅怀亲人</a></li>-->
+                    <!--<li  {if $persontype == 4} class="active" {/if}><a href="?persontype=4" >纪念友人</a></li>-->
+                    <!--<li  {if $persontype == 5} class="active" {/if}><a href="?persontype=5" >纪念同事</a></li>-->
+                    <!--<li  {if $persontype == 6} class="active" {/if}><a href="?persontype=6" >纪念老师</a></li>-->
+                    <!--<li  {if $persontype == 7} class="active" {/if}><a href="?persontype=7" >纪念爱人</a></li>-->
+                    <!--<li  {if $persontype == 8} class="active" {/if}><a href="?persontype=8" >纪念兄弟</a></li>-->
+                    {foreach $persontype $k $v}
+                    {if $k<=7}
+                        <li onclick="sousuo2('{$k}', 3, 1);"><a href="javascript:;" >{$v}</a></li>
+                    {/if}
+                    {/foreach}
+
+                </ul>
+                <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+             </div>
+             <!-- form="/search/searchs/lists" -->
+             <div class="tab_cont clearfix" style="min-height: 370px!important;">
+                <div class="headline">
+                <span class="fl">私人纪念馆<i></i></span>
+                <!--<a href="###" class="fr">查看更多<i></i></a>-->
+                </div>
+                <ul class="list_jn clearfix createData">
+
+                </ul>
+                <!--<div class="page">-->
+                    <!--{$pagestr}-->
+                <!--</div>-->
+             </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+
+{include 'inc/three_inc.html'}
+             <div class="link_exchange">
+                <span>友情链接：</span>
+                {mo:friendlink row="100" return="data"}
+                  {foreach $data  $key $value}
+                    <a href='{$value["com_url"]}' target="_blank">{$value["name"]}</a>
+                  {/foreach}
+                {/mo:friendlink}
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

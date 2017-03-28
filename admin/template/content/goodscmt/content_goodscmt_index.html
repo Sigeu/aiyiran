@@ -1,0 +1,99 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+
+<script language="javascript"> 
+<!-- 
+function goCf(){
+    window.location.href="<!--{$baseurl}-->/content/goodscmt/index/status/3" 
+}
+function goRf(){
+    window.location.href="<!--{$baseurl}-->/content/goodscmt/index/is_reply/2" 
+}
+
+--> 
+</script>
+
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+			<dl class="navTab">
+			    <dt <!--{if $pflag eq 1}-->class="on"<!--{/if}-->><a href="<!--{$baseurl}-->/content/goodscmt/index/tab/1">评论管理</a></dt>
+			    <dt <!--{if $pflag eq 2}-->class="on"<!--{/if}-->><a href="javascript:;" onclick="goCf()">审核评论</a></dt>
+			    <dt <!--{if $pflag eq 3}-->class="on"<!--{/if}-->><a href="javascript:;" onclick="goRf()">回复评论</a></dt>
+			</dl>
+			</div>
+			<div class="TabBoxC">
+				<div>
+					<div class="pubTabelTot">
+						<!--  搜索表单  -->
+						<form method="post" action="<!--{$baseurl}-->/content/goodscmt/index<!--{if $pflag eq 1}-->/tab/1<!--{/if}--><!--{if $pflag eq 2}-->/status/<!--{$search.status}--><!--{/if}--><!--{if $pflag eq 3}-->/is_reply/<!--{$search.is_reply}--><!--{/if}-->">
+							<input type="text" value="<!--{$search.title}-->" name='title' class="Iw215 text-tips" tips="请输入主题关键字">&nbsp;&nbsp;
+
+							<select name="status">
+								<option value="0">请选择审核状态</option>
+								<option value="1" <!--{if $search.status eq 1}-->selected<!--{/if}-->>审核通过</option>
+								<option value="2" <!--{if $search.status eq 2}-->selected<!--{/if}-->>审核不通过</option>
+								<option value="3" <!--{if $search.status eq 3}-->selected<!--{/if}-->>待审核</option>
+							</select>
+
+							<select name="is_reply">
+								<option value="0">请选择回复状态</option>
+								<option value="1" <!--{if $search.is_reply eq 1}-->selected<!--{/if}-->>已回复</option>
+								<option value="2" <!--{if $search.is_reply eq 2}-->selected<!--{/if}-->>未回复</option>
+							</select>
+							<input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+						</form>
+					</div>
+
+					<!--  列表批量操作  -->
+					<form method="post" id="list-form" action="javascript:;" enctype="multipart/form-data">
+					<div class="pubTabel">
+					<table class="tabelTB" id="search-list">
+					<tr>
+					<th width="5%">选择</th>
+					<th width="35%">原文标题</th>
+					<th width="10%">评论人</th>
+					<th width="15%">评论时间</th>
+					<th width="10%">评论状态</th>
+					<th width="10%">回复状态</th>
+					<th width="15%">操作</th>
+					</tr>
+					<!--{foreach from=$plist.list item=l}-->				
+					<tr>
+					<td><input type="checkbox" value="<!--{$l.comment_id}-->" name="id[]"/></td>
+					<td><a href="<!--{$smarty.const.HOST_NAME}-->index.php/goods/Goods/info/id/<!--{$l.goodsid}-->" title="<!--{$l.goodsname}-->" target="_blank"><!--{$l.title}--></a></td>
+					<td><!--{if $l.username}--><!--{$l.username}--><!--{else}-->未知<!--{/if}--></td>
+					<td><!--{$l.comment_time|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+					<td>
+					<!--{if $l.comment_status eq 1}-->审核通过<!--{/if}-->
+					<!--{if $l.comment_status eq 2}-->审核不通过<!--{/if}-->
+					<!--{if $l.comment_status eq 3}-->待审核<!--{/if}-->
+					</td>
+					<td>
+					<!--{if $l.reply_isreply eq 1}-->已回复<!--{/if}-->
+					<!--{if $l.reply_isreply eq 2}-->未回复<!--{/if}-->
+					</td>
+					<td><a href="<!--{$baseurl}-->/content/goodscmt/view/id/<!--{$l.comment_id}--><!--{if $pflag eq 1}-->/tab/1<!--{/if}--><!--{if $pflag eq 2}-->/status/<!--{$search.status}--><!--{/if}--><!--{if $pflag eq 3}-->/is_reply/<!--{$search.is_reply}--><!--{/if}-->">查看</a> | <a href="<!--{$baseurl}-->/content/goodscmt/reply/id/<!--{$l.comment_id}--><!--{if $pflag eq 1}-->/tab/1<!--{/if}--><!--{if $pflag eq 2}-->/status/<!--{$search.status}--><!--{/if}--><!--{if $pflag eq 3}-->/is_reply/<!--{$search.is_reply}--><!--{/if}-->">回复</a> | <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/content/goodscmt/del/id/<!--{$l.comment_id}--><!--{if $pflag eq 1}-->/tab/1<!--{/if}--><!--{if $pflag eq 2}-->/status/<!--{$search.status}--><!--{/if}--><!--{if $pflag eq 3}-->/is_reply/<!--{$search.is_reply}--><!--{/if}-->')">删除</a></td>
+					</tr>
+					<!--{/foreach}-->
+					</table>
+					</div>
+					<div class="pubOperate"><span class="btn5"> <label>
+					<input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选</label>
+					</span>
+					<input type="button" class="btn5" value="审核通过" onclick="batchOperate(this)"  form-id="list-form" container-id="search-list" form-action="<!--{$baseurl}-->/content/goodscmt/passfail/s/1"  empty-tips="请选择要审核的信息！" confirm-tips="你确定要审核通过吗?"/>
+
+					<input type="button" class="btn5" value="审核不通过" onclick="batchOperate(this)"  form-id="list-form" container-id="search-list" form-action="<!--{$baseurl}-->/content/goodscmt/passfail/s/2"  empty-tips="请选择要审核的信息！" confirm-tips="你确定要审核不通过吗?"/>
+
+					<input type="button" class="btn5" value="删除" onclick="batchOperate(this)"  form-id="list-form"  container-id="search-list" form-action="<!--{$baseurl}-->/content/goodscmt/del"  empty-tips="请选择要删除的信息！" confirm-tips="你确定要删除?"/>
+					</div>
+					</form>
+					<div class="pubTabelBot">
+					<div class="pageGo"><!--{$plist.pagestr}--></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

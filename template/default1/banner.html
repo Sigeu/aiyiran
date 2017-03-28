@@ -1,0 +1,30 @@
+﻿<div class="banner"><img src="{IMG_PATH}/banner3.png" width="990" height="220" /></div>
+<div class="searchBar">
+   <script>
+        function searchSubmit()
+        {
+            var val = $('#keywords').val();
+            if(val=="请输入关键词"||val=='')
+            {
+                alert("请输入关键词");
+                return false;
+            }
+            else
+           {
+                $("#hiddens").val(1);
+                $("#searchForm").submit();
+            }
+        }
+    </script>
+  <form action='{HOST_NAME}search/Search/search' method='post' id='searchForm' target="_self">
+    <input type='hidden' value='0' id='hiddens' name='hiddens'>
+    <input type='hidden' value='1' id='mid' name='mid'>
+    <input type='hidden' value='0' id='cid' name='cid'>
+    <select class="select1" name='search_type'>
+      <option value='1' name='search_type'>搜索标题</option>
+      <option value='2' name='search_type'>智能搜索</option>
+    </select>
+    <input type="text" name='keywords' id='keywords' placeholder="请输入关键词" {if isset($keywords)&&$keywords}value="{$keywords}"{else}value=""{/if} />&nbsp;&nbsp;
+    <input type="button" value="搜 索" class="button1"/>
+  </form>
+</div>

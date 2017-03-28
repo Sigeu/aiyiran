@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>支付工具列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+    <form action="" method="get" id="batch-form" name="myForm">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">支付工具列表</a></dt>
+          </dl>
+            </div>
+            <div class="pubTabelTot">
+              <input type="text" tips="请输入关键字" class="Iw150 text-tips" name="keyword" />&nbsp;&nbsp;
+             <select name="operation" >
+                <option value="" selected >请选择状态</option>
+                <option value="1" >开启</option>
+                <option value="0" >关闭</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="submit" value="搜 索" class="btn5"/>
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%"></th>
+                  <th width="6%">ID</th>
+                  <th width="20%">接口标识</th>
+                  <th width="20%">接口名称</th>
+                  <th width="12%">接口描述</th>
+                  <th width="12%">状态</th>
+                  <th width="24%">操作</th>
+                </tr>
+                <!--{foreach from=$list item=list}-->
+                <tr>
+                  <td><input type="checkbox" id="linkageid" name="linkageid[]" value="<!--{$list.pay_id}-->"/></td>
+                  <td><!--{$list.pay_id}--></td>
+                  <td><!--{$list.pay_code}--></td>
+                  <td><!--{$list.pay_name}--></td>
+                  <td><!--{$list.pay_desc}--></td>
+                  <td><!--{if $list.enabled eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>                 
+                  <td><a href="">开启</a> | <a href="">关闭</a> | <a href="">配置</a></td>
+                </tr>
+               <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span> 
+              <input type="button" class="btn5" value="开启" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="" empty-tips="请选择操作项"/>
+            <input type="button" class="btn5" value="关闭" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="" empty-tips="请选择操作项"/>
+            </div> 
+           </div>
+       </form>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

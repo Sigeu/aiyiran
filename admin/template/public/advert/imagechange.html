@@ -1,0 +1,4 @@
+<!--{if $n neq 1}--><script type='text/javascript'><!--{/if}-->
+var str ="<style type='text/css'>.mainone_ads_q_pic_art_<!--{$ad.id}--> {width:<!--{if $ad.width}--><!--{$ad.width}--><!--{else}-->900<!--{/if}-->px;height:<!--{if $ad.height}--><!--{$ad.height}--><!--{else}-->90<!--{/if}-->px;}.mainone_ads_q_pic_art_<!--{$ad.id}-->{margin-top:<!--{$ad.up}-->px;margin-left:<!--{$ad.left}-->px;}</style><div class='mainone_ads_q_pic_art_<!--{$ad.id}-->'><a href='<!--{$adimg.link}-->' target='_blank'><img src='<!--{if $adimg.img.path}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{else}-->/admin/template/images/pic_.jpg<!--{/if}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'/></div>";
+document.write(str);
+<!--{if $n neq 1}--></script><!--{/if}-->

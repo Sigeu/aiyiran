@@ -1,0 +1,109 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/members/group/index" class="last">分组列表</a></dd>
+            <dt class="on"><a href="#">编辑分组</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 会员组名：</th>
+                  <td><input type="text" class="Iw290" id='groupname' name="groupname" value="<!--{$groupInfo.groupname}-->"/></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 会员注册表单：</th>
+                  <td><select class="Iw290" style="width:302px;" disabled>
+                      <!--{foreach from=$formList key=id item=name}-->
+                      <option value="<!--{$id}-->" <!--{if $groupInfo.registerform eq $id}-->selected<!--{/if}--> ><!--{$name}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 会员注册协议：</th>
+                  <td><select class="Iw290" style="width:302px;" id="registerdeal" name="registerdeal">
+                      <!--{foreach from=$dealList key=id item=name}-->
+                      <option value="<!--{$id}-->" <!--{if $groupInfo.registerdeal eq $id}-->selected<!--{/if}--> ><!--{$name}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 状态：</th>
+                  <td><span>
+                    <input type="radio" id='status' name="status" value="1"  <!--{if $groupInfo.status==1}-->checked<!--{/if}--> />
+                    <label>开启</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" id='status' name="status" value="2"  <!--{if $groupInfo.status==2}-->checked<!--{/if}-->/>
+                    <label>关闭</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 升级方式：</th>
+                  <td><span>
+                    <input type="checkbox" id="upgrade" name="upgrade" value="1"   <!--{if $groupInfo.upgrade==1}-->checked<!--{/if}--> />
+                    <label>自动升级</label>
+                    </span>
+                    <span class="tabelLR"><strong>[温馨提示]：</strong></span><span style='color:#999999'>若不勾选，则管理员手动更改</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 与会员组关联内容：</th>
+                  <td><span style="display:block;width:145px;float:left;">
+                    <label>注册审核设置：</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="float:left;">
+                    <input type="checkbox" id="regverify" name="regverify" value="1"   <!--{if $groupInfo.regverify==1}-->checked<!--{/if}--> />
+                    <label>手动审核</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="checkbox" id="mailverify" name="mailverify" value="1" <!--{if $groupInfo.mailverify==1}-->checked<!--{/if}-->/>
+                    <label>邮件激活</label>
+                    </span><br />
+                    <!--{foreach from=$categoryList key=categoryid item=name}-->
+                    <span style="display:block;width:145px;float:left;">
+                    <label title="<!--{$name}-->"><!--{$name|truncate_cn:"8":"...":'utf8'}-->：</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="float:left;">
+                    <input type="checkbox" name="priv[<!--{$categoryid}-->][]" value="1" <!--{if array_key_exists($categoryid,$groupPriv) && in_array('1',$groupPriv[$categoryid])}-->checked<!--{/if}-->/>
+                    <label>允许浏览</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="checkbox" name="priv[<!--{$categoryid}-->][]" value="2"  <!--{if array_key_exists($categoryid,$groupPriv) && in_array('2',$groupPriv[$categoryid])}-->checked<!--{/if}--> />
+                    <label>允许评论</label>
+                    </span><br />
+                    <!--{/foreach}--></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1"><input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back();">
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#groupname").formValidator({onshow:"请输入2-30个字符，由汉字、字母、数字、符号组成",onfocus:"请输入2-30个字符，由汉字、字母、数字、符号组成"}).inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由汉字、字母、数字、符号组成",onerrormax:"最多输入30个字符"}).ajaxValidator({
+        url:"<!--{$baseurl}-->/admin/ajax/chkgroupname",
+        type:"post",
+        data:"oldvalue=<!--{$groupInfo.groupname}-->",
+        success : function(data){
+            //alert(data);
+            if(data==1) return true;
+            if(data==2) return false;
+            return false;
+        },
+        buttons: $("#dosubmit"),
+        error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+        onerror : "该会员组名已存在，请重新输入",
+        onwait : "正在对用户名进行合法性校验，请稍候..."
+        }).defaultPassed();
+    })
+</script>
+</body>
+</html>

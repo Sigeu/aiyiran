@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>内容模型-字段管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<style type="text/css">
+	.mydisable{color:#868686}
+</style>
+ <script>
+ function id_name(obj)
+ {
+ 	var _obj = $(obj);
+ 	var mychecked = _obj.attr('checked');
+ 	var this_state = mychecked == undefined ? false : true;  
+ 	_obj.siblings(".field").attr('checked',this_state);
+ }
+ </script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$urlArr.fieldUrl}-->">字段管理</a></dt>
+            <dd><a href="<!--{$urlArr.addfieldUrl}-->">添加字段</a></dd>
+            <dd><a href="<!--{$urlArr.previewUrl}-->" class="last">预览表单</a></dd>
+          </dl>
+        </div>
+        <div class="height16"></div>
+         <form action="" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB"  id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">排序</th>
+                  <th width="15%">字段名称</th>
+                  <th width="10%">数据字段名</th>
+                  <th width="16%">字段类型</th>
+                  <th width="5%">必填</th>
+                  <th width="5%">搜索</th>
+                  <th width="5%">状态</th>
+                  <th width="14%">操作</th>
+                </tr>
+				<!--{foreach item=item key=key from=$fieldlist}-->
+                <tr>
+                  <td><input type="checkbox" value='<!--{$item.id}-->' name='id[]'  onclick="javascript:id_name(this)"/><input type="checkbox"  style="display:none" value="<!--{$item.field}-->" name='field[]' class="Iw45 field" /></td>
+                  <td><input type="text" value="<!--{$item.sortid}-->" name='sortid[]' class="Iw45" />
+                  <input type="hidden" value="<!--{$item.id}-->" name='ids[]' class="Iw45" /></td>
+                  <td title="<!--{$item.name}-->"><!--{$item.name|truncate_cn:13:"...":true}--></td>
+                  <td><!--{$item.field}--></td>
+                  <td><!--{$fieldArr[$item.fieldtype]}--></td>
+                  <td><span <!--{if $item.isnull eq 1}-->class="warnCorrect warnCorrectG"<!--{else}-->class="warnError warnErrorG"<!--{/if}-->></span></td>
+                  <td><span <!--{if $item.issearch eq 1}-->class="warnCorrect warnCorrectG"<!--{else}-->class="warnError warnErrorG"<!--{/if}-->></span></td>
+                  <td><!--{if $item.flag eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>
+                  <td><a href="<!--{$urlArr.updateUrl}-->/id/<!--{$item.id}-->">修改</a> | <!--{if !$item.field|in_array:$nodeletelist and $item.issystem neq 1}--><a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$urlArr.delUrl}-->/id/<!--{$item.id}-->/field/<!--{$item.field}-->','你确定删除此字段？');">删除</a><!--{else}--><span class="f999">删除</span><!--{/if}-->
+                  | <a href="#" <!--{if $item.flag eq 2}-->onclick="operateOne('<!--{$urlArr.setflagUrl}-->/flag/1/id/<!--{$item.id}-->','你确定要开启此字段')"<!--{/if}-->><span <!--{if $item.flag eq 1}-->class="f999"<!--{/if}-->>开启</span></a> 
+                  | <a href="#" <!--{if !$item.field|in_array:$nodisablelist and $item.flag eq 1}-->onclick="operateOne('<!--{$urlArr.setflagUrl}-->/flag/2/id/<!--{$item.id}-->','你确定要关闭此字段')"<!--{/if}-->><span <!--{if $item.flag eq 2 or $item.field|in_array:$nodisablelist and $item.flag eq 1}-->class="f999"<!--{/if}-->>关闭</span></a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5"><label>
+            <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+              </label></span>
+               <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="myForm" form-action="<!--{$urlArr.setOrderIdUrl}-->" />
+               <input type="button" class="btn5" value="开启" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.setflagUrl}-->/flag/1" empty-tips="请选择要开启的字段！" confirm-tips="你确定要开启?"/>
+               <input type="button" class="btn5" value="关闭" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.setflagUrl}-->/flag/2" empty-tips="请选择要关闭的字段！" confirm-tips="你确定要关闭?"/>
+			   <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.delUrl}-->"   empty-tips="请选择要删除的字段！" confirm-tips="你确定要删除?"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pagestr}--></div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+</body>
+</html>

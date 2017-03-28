@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>广告模块-添加广告</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/fileprogress.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/swfupload.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/swfupload.queue.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/fileprogress.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/handlers.js"></script>
+<script type="text/javascript">
+<!--{$initUpload}-->
+
+function check_wartermark(obj){
+	if($(obj).attr('checked')) {
+		swfu.addPostParam('haswater', '1');
+	} else {
+		swfu.removePostParam('haswater');
+	}
+}
+</script>
+</head>
+<body>
+<div class="notif width530">
+	  <!--<h4><span class="close mt15">关闭</span>图片上传</h4>-->
+      <div class="layoutBox">
+        <div class="layout">
+          <dl class="laytab">
+            <dt class="focus"><a href="javascript:void(0)">本地上传</a></dt>
+
+			<!--  时候允许浏览本地图库 此项可配置  -->
+			<!--{if $settings.has_dir}-->
+            <dt><a href="<!--{$baseurl}-->/content/accessory/local/?param=<!--{$query_string}-->">本地图库</a></dt>
+            <dt><a href="<!--{$baseurl}-->/content/accessory/folder/?param=<!--{$query_string}-->">目录浏览 </a></dt>
+			<!--{/if}-->
+          </dl>
+        </div>
+        <div class="layoutC">
+          <div>
+            <table class="tabelLR" style="margin:10px 0;">
+              <tr>
+                <td>
+				<span class="c_pic"><span id="mybutton"></span></span>&nbsp;&nbsp;
+				<input type="button" hidefocus="hide" value="开始上传" class="btn5" onclick="swfu.startUpload()" style="vertical-align:top">
+				</td>
+              </tr>
+              <tr>
+                <td class="pTB"><span class="warnBlueL">支持上传<!--{$settings.file_types}--> 格式的文件，最多可以上传<!--{$settings.file_upload_limit}-->个文件。</span></td>
+              </tr>
+              <!--{if $settings.has_watermark}-->
+              <tr>
+                <td class="f333"><span><input type="checkbox" name='watermark' value='1' onclick="javacript:check_wartermark(this);"/></span>&nbsp;<label>添加水印</label></td>
+              </tr>
+              <!--{/if}-->
+              <tr>
+                <td>
+                  <fieldset>
+                    <legend>上传的文件</legend>
+                    <div  id='fsUploadProgress'>
+						<ul class="Lpic">
+							
+						</ul>
+					</div>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+	</div>
+ <div style="display:none"  id='hid_filename'></div>
+ <div style="display:none"  id='hid_savename'></div>
+ <div style="display:none"  id='hid_size'></div>
+ <div style="display:none"  id='hid_src'></div>
+ <div style="display:none"  id='hid_isimage'></div>
+ <div style="display:none"  id='hid_water_mark'></div>
+</body>
+</html>
+<script type="text/javascript">
+//页面加载完毕后 自动清理临时文件夹里的内容
+(function(){$.post('<!--{$baseurl}-->/content/accessory/clearfile');})()
+</script>

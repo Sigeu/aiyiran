@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>标签列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<style type="text/css">
+	.mydisable{color:#868686}
+</style>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$urlArr.indexUrl}-->">标签列表</a></dt>
+			 <dd><a href="<!--{$urlArr.addUrl}-->"  class="last">新建标签</a></dd>
+          </dl>
+        </div>
+        <form action="" method="post" id="myForm">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB" id='search-list'>
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="20%">标签名称</th>
+                  <th width="25%">标签说明</th>
+                  <th width="20%">修改时间</th>
+                  <th width="25%">操作</th>
+                </tr>
+                
+            	<!--{foreach item=filetime key=tagname from=$taglist}--> 
+                <tr>
+                  <td><input type="checkbox" name='tagname[]' value='<!--{$tagname}-->'/></td>
+                  <td><!--{$tagname}--></td>
+                  <td><!--{$configArr.$tagname.describe}--></td>
+                  <td><!--{$filetime}--></td>
+                  <td><a href="<!--{$urlArr.updateUrl}-->/tagname/<!--{$tagname}-->">修改</a>  | <!--{if $configArr.$tagname.system neq 1}--><a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$urlArr.delUrl}-->/tagname/<!--{$tagname}-->','确认删除？');">删除</a><!--{else}--><span class="mydisable">删除</span><!--{/if}--></td>  
+                </tr>
+               <!--{foreachelse}-->
+                <tr ><td align="center" style="colspan:5">没有标签文件</td></tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><label><span class="btn5">
+              <input type="checkbox"  class="Check-All-Toggle" container-id="search-list"/>
+              全选/反选
+              </span> </label>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$urlArr.delUrl}-->" empty-tips="请选择要删除的标签！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"> <span>共<em><!--{$page.totalnum}--></em>条信息，分<em><!--{$page.pagenum}--></em>页显示，当前第<em><!--{$page.nowpage}--></em>页</span> <a href="<!--{$urlArr.indexUrl}-->/page/<!--{$page.first}-->">首页</a>  <a href="<!--{$urlArr.indexUrl}-->/page/<!--{$page.uppage}-->">上一页</a> <a href="<!--{$urlArr.indexUrl}-->/page/<!--{$page.nextpage}-->">下一页</a> <a href="<!--{$urlArr.indexUrl}-->/page/<!--{$page.last}-->">末页</a> <span>跳转至
+                <select>
+                  <!--{section name="page" loop=$page.pagenum}-->
+                  <option value="<!--{$smarty.section.page.index+1}-->" onclick="javascript:window.location.href='<!--{$urlArr.indexUrl}-->/page/<!--{$smarty.section.page.index+1}-->'"  <!--{if $page.nowpage eq $smarty.section.page.index+1}-->selected<!--{/if}--> ><!--{$smarty.section.page.index+1}--></option>
+                  <!--{/section}-->
+                </select>
+                页 </span> </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+</body>
+</html>

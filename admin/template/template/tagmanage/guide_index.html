@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>编辑向导</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<style type="text/css">
+	.mydisable{color:#868686}
+</style>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$urlArr.indexUrl}-->">标签向导列表</a></dt>
+			 <dd><a href="<!--{$urlArr.addUrl}-->"  class="last">新建向导</a></dd>
+          </dl>
+        </div>
+        <form action="" method="post" id="myForm">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB" id='search-list'>
+                <tr>
+                  <th width="5%">选择</th>
+				  <th width="5%">编号</th>
+				  <th width="10%">标签名称</th>
+				  <th width="10%">标签说明</th>
+                  <th width="45%">调用代码</th>
+                  <th width="25%">操作</th>
+                </tr>
+                <script>
+				 function id_tagname(obj)
+				 {
+					 
+					var _obj = $(obj);
+					var mychecked = _obj.attr('checked');
+					var this_state = mychecked == undefined ? false : true;  
+					_obj.siblings(".tagname").attr('checked',this_state);
+				 }
+				 </script>
+            	<!--{foreach item=item key=key from=$guidelist.list}--> 
+                <tr>
+                  <td><input type="checkbox" name='id[]' value='<!--{$item.id}-->'onclick="javascript:id_tagname(this)"/><input type="checkbox" style="display:none" value='<!--{$item.tagname}-->' class='tagname' name='tagname[]'/></td>
+				  <td><!--{$item.id}--></td>
+				  <td><!--{$item.tagname|truncate_cn:9:"...":true}--></td>
+				  <td><!--{$item.describe|truncate_cn:9:"...":true}--></td>
+                  <td><textarea cols='50' rows='5'><!--{$item.source}--></textarea></td>
+                  <td><a href="<!--{$urlArr.updateUrl}-->/id/<!--{$item.id}-->">修改</a>  |　<a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$urlArr.delUrl}-->/id/<!--{$item.id}-->/tagname/<!--{$item.tagname}-->','确认删除？');">删除</a></td>  
+                </tr>
+               <!--{foreachelse}-->
+                <tr><td colspan='8'>没有生成向导调用代码</td></tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><label><span class="btn5">
+              <input type="checkbox"  class="Check-All-Toggle" container-id="search-list"/>
+              全选/反选
+              </span> </label>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$urlArr.delUrl}-->" empty-tips="请选择要删除的向导！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"> <!--{$guidelist.pagestr}--> </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+</body>
+</html>

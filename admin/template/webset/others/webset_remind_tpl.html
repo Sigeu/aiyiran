@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>提醒内容模板</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd class="last"><a href="<!--{$baseurl}-->/webset/remind/index">提醒设置</a></dd>
+            <dt class="on"><a href="javascript:void(0)">提醒内容模板</a></dt>
+          </dl>
+        </div>
+        <div class="height16"></div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form method="POST" action="" id="batch-form" />
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="30%">模板名称</th>
+                  <!--<th width="30%">状态</th>-->
+                  <th width="30%">操作</th>
+                </tr>
+				<!--{foreach from=$remind_tpl item=l}-->
+                <tr>
+                  <td><!--{$l.tpl_name}--></td>
+                  <!--<td><!--{if $l.status eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>-->
+                  <td><a href="javascript:;" onclick="editRemindTpl(<!--{$l.id}-->)">修改</a></td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+              </form>
+            </div>
+            <div class="pubOperate"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+function editRemindTpl (id)
+{
+	art.dialog.open('<!--{$baseurl}-->/webset/remind/edit/id/'+id, {
+	id: 'tpl',
+	fixed: true,
+	width:600,
+	title:'修改模板',
+	height:470
+	});
+}
+</script>

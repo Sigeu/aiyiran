@@ -1,0 +1,83 @@
+<!--{if $n neq 1}--><script language='javascript' type='text/javascript'><!--{/if}-->
+    var content_str = "<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>#mainone_ads_LBGG {width:<!--{$ad.width}-->px; height:<!--{$ad.height}-->px;position:relative; overflow:hidden;margin-top:<!--{$ad.up}-->px;margin-left:<!--{$ad.left}-->px;}#mainone_ads_picBox { height:<!--{$ad.height}-->px; width:<!--{$ad.width}-->px;}#mainone_ads_picBox li{ height:<!--{$ad.height}-->px;}</style><div class='mainone_ads_LBGG mainone_ads' id='mainone_ads_LBGG'><!--{if 0 eq 0}--><ul id='mainone_ads_picBox' style='top:0;'><!--{foreach key=key item=item from=$adimg}--><li><a href='<!--{$item.link}-->'><img width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'src='<!--{if $item}--><!--{if $n eq 1}-->../..<!--{/if}-->/static/uploadfile/advert/<!--{$item.img.path}--><!--{else}--><!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/LB1.png<!--{/if}-->'/></a></li><!--{/foreach}--></ul><ul id='mainone_ads_liBox'><!--{foreach key=key item=item from=$adimg}--><li <!--{if $key eq 0 }-->class='active'<!--{/if}-->><!--{$key+1}--></li><!--{/foreach}--></ul><!--{else}--><ul id='mainone_ads_picBox' style='top:0;'><li><a href='#'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/LB1.png'/></a></li><li><a href='#'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/LB1.png'/></a></li><li><a href='#'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/LB1.png'/></a></li><li><a href='#'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/LB1.png'/></a></li></ul><ul id='mainone_ads_liBox'><li class='active'>1</li><li>2</li><li>3</li><li>4</li></ul><!--{/if}--></div>";
+	document.write(content_str);
+	var xxk = new function(){
+		function $id(id){
+			return document.getElementById(id);
+		}
+		this.glide = function(auto,a,b,size,second,fSpeed,point){
+			var oSubLi = $id(a).getElementsByTagName('li');
+			var sum = oSubLi.length;
+			var interval,timeout,Rang;
+			var speed = fSpeed;
+			var delay = second * 1000;
+			var time = 5;
+			var a = 0;
+			var setValTop = function(s){
+				return function(){
+					Rang = Math.abs(parseInt($id(b).style[point]));
+					$id(b).style[point] = -Math.floor(Rang + (parseInt(s * size) - Rang) * speed) + 'px';
+					if(Rang == [(s * size)]){
+						clearInterval(interval);
+						a = s;
+					}
+				}
+			}
+			var setValDown = function(s){
+				return function(){
+					Rang = Math.abs(parseInt($id(b).style[point]));
+					$id(b).style[point] = -Math.ceil(Rang + (parseInt(s * size) - Rang) * speed) + 'px';
+					if(Rang == [(s * size)]){
+						clearInterval(interval);
+						a = s;
+					}
+				}
+			}
+			function autoGlide(){
+				for(var c = 0; c < sum;c++){
+					oSubLi[c].className = '';
+				}
+				clearInterval(timeout);
+				if(a == (parseInt(sum) - 1)){
+					for(var c = 0; c < sum;c++){
+						oSubLi[c].className = '';
+					}
+					a = 0;
+					oSubLi[a].className = 'active';
+					interval = setInterval(setValTop(a),time);
+					timeout = setTimeout(autoGlide,delay);
+				}else{
+					a++;
+					oSubLi[a].className = 'active';
+					interval = setInterval(setValDown(a),time);
+					timeout = setTimeout(autoGlide,delay);
+				}
+			}
+			timeout = setTimeout(autoGlide,delay);
+			for(var i = 0;i < sum;i++){
+				oSubLi[i].onmouseover = (function(i){
+					return function(){
+						for(var c = 0;c <sum;c++){
+							oSubLi[c].className = '';
+						}
+						clearInterval(interval);
+						clearTimeout(timeout);
+						oSubLi[i].className = 'active';
+						if(Math.abs(parseInt($id(b).style[point])) > [(size * i)]){
+							interval = setInterval(setValTop(i),time);
+							this.onmouseout = function(){
+								timeout = setTimeout(autoGlide,delay);
+							}
+						}else if(Math.abs(parseInt($id(b).style[point])) < [(size * i)]){
+							interval = setInterval(setValDown(i),time);
+							this.onmouseout = function(){
+								timeout = setTimeout(autoGlide,delay);
+							}
+						}
+					}
+				})(i);
+			}
+		}
+	}
+	xxk.glide(true,'mainone_ads_liBox','mainone_ads_picBox',<!--{if $ad.height neq ''}--><!--{$ad.height}--><!--{else}-->171<!--{/if}-->,5,0.1,'top');
+<!--{if $n neq 1}--></script><!--{/if}-->

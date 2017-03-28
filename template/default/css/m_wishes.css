@@ -1,0 +1,57 @@
+.make_box{position: relative; width: 1200px; height: 400px;  background:url(../images/banxy_03.jpg) no-repeat; margin:20px auto;}
+.make_box a{ width: 140px; margin: 215px 0 0 530px; float: left; height: 54px;background-position: -361px -427px; display: block; text-indent: -9999px;}
+.time_box{ width: 1198px; height:64px;background: #fff; margin: 0 auto 20px; border: 1px solid #eee;}
+.defolt{ display:block; margin: 14px 0 0 20px; width: 118px; height: 34px; border: 1px solid #01d590; text-align: center; line-height: 34px; font-size: 14px; color: #01d590;}
+.time_box .seleBox{ border: 1px solid #dddddd; height: 34px; margin: 14px 0 0 10px; width: 118px;}
+.time_box .seleBox p{ height: 34px; line-height: 34px; width:103px; padding: 0 0 0 15px;}
+.time_box .seleBox .jt_1{ top: 15px; right: 12px;}
+.time_box .sel_list{ top: 34px;}
+.seek_box{ width: 360px; height: 36px; margin: 14px 20px 0 0;}
+.l_input{ float: left; width: 238px; margin: 0 10px 0 0; font-family: "微软雅黑"; height: 34px; border: 1px solid #eee; line-height: 34px; padding: 0 10px;}
+.r_but{ float: left; width: 90px; height: 36px; font-size: 16px; color: #fff; cursor: pointer; border-radius:2px; background: #01d590;}
+
+.mask{ position:fixed; width: 100%; height: 100%; background: url(../images/m6_03.png) repeat; top: 0; left: 0; z-index: 9990;}
+.wishes{ width: 400px; height: 400px; position: absolute; left:50%; top: 50%; margin: -200px 0 0 -200px; background:url(../images/xy_03.jpg) no-repeat; z-index: 9991;}
+.wishes .close{ width: 22px; height: 22px; background:url(../images/col_03.png) no-repeat; display: block; position: absolute; right:20px; top:20px;}
+.wishes input{font-family: "微软雅黑";font-size:14px; width: 338px; padding: 0 10px; height: 38px; line-height: 38px;border: 1px solid #dddddd;margin: 100px 0 0 30px; background: #fff;}
+.wishes textarea{ font-family: "微软雅黑"; color:#666; font-size:14px;width:338px; padding: 10px 10px; height: 128px; background: #fff; border: 1px solid #dddddd; margin: 10px 0 0 30px;}
+.wishes p{ width: 400px; float: left; text-align: center;}
+/*.wishes p input{ width: auto; height:auto; margin: 0;}*/
+.wishes p.radio_p{ margin: 20px 0 20px 145px; width: 255px;}
+.wishes p label{ display:block; float:left; width: 60px;}
+
+.wishes p label input{vertical-align:-2px; width: auto; height: auto; margin: 0; display: inline-block;} 
+.wishes p.sure_an2 .put_in{ cursor: pointer; border: none; font-size: 14px; color: #fff; display:inline-block;width: 168px; height: 44px;line-height: 44px;margin: 0;background:url(../images/icont.png) no-repeat -222px -170px ;}
+
+
+.wishes span{ display:inline-block; font-size: 14px; width: 90px; height: 18px; position: relative; margin: 20px 0;}
+.wishes span i{ width:14px; height: 14px; position:absolute; left: 0; top: 2px;background-position:-142px 0;}
+.wishes p a{ margin: 0 10px;}
+.wishes span.active i{background-position:-142px -15px;}
+.undo{ font-size: 14px; display:inline-block; width: 168px; height: 42px; border: 1px solid #cccccc; font-size: 14px; color: #666; line-height: 42px;}
+.wishes2 textarea{ margin: 138px 0 0 30px;}
+
+.fly_item{width:70px;height:70px;overflow:hidden;position:absolute;visibility:hidden;/*opacity:.4;filter:alpha(opacity=40);*/}
+.shopCart{ z-index: -1; position: absolute;right:132px; top:114px; width: 80px; height: 80px; background: #01D590;}
+.masage_yw{ width: 1200px; height: auto; margin: 0 auto;}
+/***list_message************/
+.list_message{ width: 1200px; height:auto; margin: 0 auto 50px;}
+.list_message ul{ width: 1200px; height: auto;}
+.list_message ul li{ padding: 0 0 20px; background: #fff; margin: 0 0 10px; float: left; border: 1px solid #eee; width:1198px; position: relative;}
+.list_message ul li img{ width:52px; height: 52px; border-radius:50%; float: left; margin: 30px 20px 30px 25px;}
+.list_message ul li h3{ color: #999; font-size: 14px; margin: 30px 0 0; width: 1020px; float: left;}
+.list_message ul li h3 span{ color:#01D590; font-size: 16px;}
+.list_message ul li p{ width: 1080px;font-size: 14px; float: left;color: #666; line-height: 24px; padding: 5px 0;}
+.list_message ul li p i{ display: inline-block; color:#01d590; margin: 0 0 0 15px; cursor: pointer; display: none;}
+.list_message ul li.active p i{ display:inline}
+
+.replys{ width: 1020px; height:122px; float: left; margin: 5px 0 15px 100px;}
+.replys textarea{ color: #666; border: 1px solid #eee; width: 1000px; font-size: 14px; font-family: "微软雅黑"; height: 68px; padding:10px; border-radius:5px;}
+.liu-icon { width: 1020px; height:32px; text-align:right; margin: 10px 0 0;}
+.liu-icon a{ display: inline-block; font-size: 14px; width: 60px; text-align: center; color: #fff; height:32px; line-height:32px; margin:0 0 0 10px}
+.liu-icon a.btn-primary{background-position:-160px -168px;}
+.liu-icon a.btn-default{background-position:-160px -202px; color: #666;}
+.floor{ position: absolute; right: 0; top:50%; width: 40px; height: 24px; margin:-12px 0 0; display: block; font-size: 16px; font-weight: 100; color: #ccc;}
+.my_message{ width: 1020px; float: left; margin: 10px 0 0 100px;}
+.list_message ul li .my_message img{ margin: 0 20px 0 0; width: 40px; height: 40px;}
+.list_message ul li .my_message p{ width: 948px;}

@@ -1,0 +1,65 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+  <form method="POST" id="thisform" action="<!--{$baseurl}-->/webset/backad/update" >
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">后台首页广告设置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+
+                  <!--{if $empower eq '2'}--><div style="margin:10px 0px 10px 20px;">温馨提示：未授权无法修改（<a href="http://www.izhancms.com/category/Category/index/cid/4" target="_blank"><font style="color:red">点击购买授权</font></a>）</div><!--{/if}-->
+
+                <tr>
+                  <th>广告位名称：左侧广告</th>
+                  <td><img src="http://izhancms.com/static/uploadfile/<!--{$lad}-->" width="228" height="46" alt="左侧广告" /></td>
+                </tr>
+                <tr>
+                    <th>显示状态：</th>
+                     <td>
+                      <span style="margin-left:-290px;">
+                              <input type="radio" name="leftad" value="1" <!--{if $status[0] eq '1'}-->checked="true" <!--{/if}--> <!--{if $empower eq '2'}--> disabled <!--{/if}--> />
+                              <label>开启</label>
+                              </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                              <input type="radio" name="leftad" value="2" <!--{if $status[0] eq '2'}-->checked="true" <!--{/if}-->  <!--{if $empower eq '2'}--> disabled <!--{/if}--> />
+                              <label>关闭</label>
+                      </span>
+                      </td>
+                </tr>
+
+                <tr>
+                  <th>广告位名称：右侧广告</th>
+                  <td><img src="http://izhancms.com/static/uploadfile/<!--{$rad}-->" width="228" height="46" alt="右侧广告" /></td>
+                </tr>
+                <tr>
+                    <th>显示状态：</th>
+                     <td>
+                      <span style="margin-left:-290px;">
+                              <input type="radio" name="rightad" value="1" <!--{if $status[1] eq '1'}-->checked="true" <!--{/if}--> <!--{if $empower eq '2'}--> disabled <!--{/if}--> />
+                              <label>开启</label>
+                              </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                              <input type="radio" name="rightad" value="2" <!--{if $status[1] eq '2'}-->checked="true" <!--{/if}--> <!--{if $empower eq '2'}--> disabled <!--{/if}--> />
+                              <label>关闭</label>
+                      </span>
+                      </td>
+                </tr>
+
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" <!--{if $empower eq '2'}--> disabled class="btn2" <!--{else}--> class="btn1" <!--{/if}-->>
+                <input type="button" value="取消" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </form>
+    <div class="clearfix"></div>
+</body>
+</html>

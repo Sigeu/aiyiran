@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'} 
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+      {include 'category.html'}
+
+      <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+      <div class="bg_grayL"> <span class="moreL">更多>></span> <span class="h_grayL">推荐物品</span>
+        <ul class="arrow_ulL">
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="right w744">
+      {php $sonids=getCategoryIds($cid)}
+	  {foreach $sonids $k $v}
+	   {mo:articlelist cid="$v" order='publishtime' return='data'} 
+      <div class="Greyborder mb10">
+        <div class="title Greyborder_bg1"> <a href="{getMoreUrl($v)}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name($v)}</span><span class="tit_en">Administrative regulations</span></div>
+        </div>
+        <div class="box_con">
+          <ul class="policy">
+		  {foreach $data $sonkey $sonvalue}
+            <li><span class="time">{date('Y-m-d',$sonvalue['publishtime'])}</span><a href="{$sonvalue['url']}">{$sonvalue['title']}</a></li>
+          {/foreach}
+          </ul>
+        </div>
+      </div>
+	  {/mo:articlelist}
+	  {/foreach}
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

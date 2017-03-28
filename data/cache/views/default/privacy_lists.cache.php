@@ -1,0 +1,52 @@
+<?php if(!defined('IN_MAINONE')) exit(); ?>
+
+		<link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+		<link rel="stylesheet" type="text/css" href="/template/default/member/css/manage_yc.css"/>
+		<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+
+
+<?php include Template::t_include('member/head_left.html');?>
+	
+			<div class="conRig_yc">
+				<h3 class="dwH3_yc">隐私设置</h3>
+				<form action="">
+				<div class="privacy_yc">
+					<label><input type="radio" value="1" name="isshow" <?php if($info['isshow']==1) { ?>checked<?php } ?>
+					>完全公开</label>
+					<label><input type="radio" value="2" name="isshow" <?php if($info['isshow']==2) { ?>checked<?php } ?>
+					>仅馆主可见</label>
+					<input type="hidden" name="mid" value="<?php echo $mid;?>">
+					<a href="javascript:;" class="success_yc" id='privery'>确定</a>
+				</div>
+				</form>
+			</div>
+		</div>
+		<div class="wrapS03_yc jbFT_yc">
+			<p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+		</div>
+	</body>
+		<script type="text/javascript" src="/template/default/member/js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="/template/default/member/js/html5shiv.js" ></script>
+		<script type="text/javascript" src="/template/default/member/js/common.js" ></script>
+
+		<script>
+            $(function () {
+                $("#privery").click(function () {
+                    $.ajax({
+                        type: "Post",
+                        url: "/member/memorial/privacy",
+                        data: $("form").serialize(),
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.status == 1) {
+                                layer.alert(data.msg, {icon: 1,offset: '40%'});
+                            } else {
+                                layer.alert(data.msg, {icon: 2,offset: '40%'});
+                                return false;
+                            };
+                        }
+                    });
+                });
+            });
+		</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">墓铭志列表列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/memorial/moreset/add" class="last">添加墓铭志</a></dd>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/memorial/moreset/index" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="10%">排序</th>
+                  <th width="25%">分类名称</th>
+                  <th width="20%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td>
+                  <input type="checkbox" name="id[]" value="<!--{$item.id}-->" />
+                  </td>
+                  <td>
+                  <input type="text" class="Iw45" name="sort[]" value="<!--{$item.sort}-->">
+                  </td>
+                  <td title='<!--{$item.name}-->'><!--{$item.name}--></td>
+                  <td>
+                   <a href="<!--{$baseurl}-->/memorial/moreset/update/id/<!--{$item.id}-->/keyword/<!--{$search.keyword}-->/page/<!--{$page}-->">修改</a> |
+                   <a href="#"  onclick="MoConfirm('<!--{$baseurl}-->/memorial/moreset/delete/id/<!--{$item.id}-->/name/<!--{$item.name}-->/page/<!--{$page}-->','确认删除？')">删除</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/moreset/linkSort" empty-tips="请选择要进行排序的友情链接" is-selected="false" />
+			  <input type="button" class="btn5" value="删除" class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/moreset/delete" empty-tips="请选择要删除的友情链接" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+    </body>
+    </html>

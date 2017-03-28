@@ -1,0 +1,9 @@
+<tr>
+	<th width="145px">&nbsp; <!--{$param.attrname}-->：</th>
+	<td>
+		<!--{foreach from=$param.defaultvalue item=l}-->
+		<label style="cursor:pointer"><input type="checkbox" name="attr[<!--{$param.attrid}-->][]" value="<!--{$l}-->" />&nbsp;<!--{$l}-->&nbsp;&nbsp;&nbsp;</label>
+		<!--{/foreach}-->
+		&nbsp;&nbsp;&nbsp;<span class="warnBlue"><!--{$param.fieldtips}--></span>
+	</td>
+</tr>

@@ -1,0 +1,68 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/members/member/index" class="last">用户列表</a></dd>
+            <dt class="on"><a href="">添加用户</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+            <input type="hidden" value="1"  id="status" name="status"/>
+            <input type="hidden" value="mocms"  id="appname" name="appname"/>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 用户名：</th>
+                  <td><input type="text" value="" class="Iw290" id="username" name="username"/></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 密码：</th>
+                  <td><input type="password" value="" class="Iw290" id="password" name="password"/></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 确认密码：</th>
+                  <td><input type="password" value="" class="Iw290" id="password2" name="password2"/></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 电子邮箱：</th>
+                  <td><input type="text" value="" class="Iw290" id="email" name="email"/></td>
+                </tr>
+                
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id="dosubmit">
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="formCancel();" >
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#username").formValidator({onshow:"请输入4-20位字符，由字母、数字、符号组成",onfocus:"请输入4-20位字符，由字母、数字、符号组成"}).inputValidator({min:4,max:20,onerror:"请输入4-20位字符，由英文、数字及“_”组成",onerrormax:"最多不超过20个字符"}).regexValidator({regexp:['username'],datatype:"enum",onerror:"请输入4-20位字符，由英文、数字及“_”组成"}).ajaxValidator({
+        url:"<!--{$baseurl}-->/members/member/checkusername",
+        success : function(data){
+            //alert(data);
+            if(data==1) return true;
+            if(data==2) return false;
+            return false;
+        },
+        buttons: $("#dosubmit"),
+        error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+        onerror : "该用户已存在，请重新输入",
+        onwait : "正在对用户名进行合法性校验，请稍候..."
+        });
+    $("#password").formValidator({onshow:"请输入4-20位字符，由字母、数字、符号组成",onfocus:"请输入4-20位字符，由字母、数字、符号组成"}).inputValidator({min:4,max:20,onerror:"请输入4-20位字符，由字母、数字、符号组成",onerrormax:"最多不超过20个字符"});
+    $("#password2").formValidator({onshow:"请再次输入密码",onfocus:"请输入4-20位字符，由字母、数字、符号组成",oncorrect:"两次输入的密码一致"}).inputValidator({min:4,max:20,onerror:"请输入4-20位字符，由字母、数字、符号组成",onerrormax:"最多不超过20个字符"}).compareValidator({desid:"password",operateor:"=",onerror:"两次密码输入不一致"});
+    $("#email").formValidator({onshow:"请输入正确的邮箱，例：example@example.com",onfocus:"请输入正确的邮箱，例：example@example.com"}).inputValidator({min:6,max:100,onerror:"请输入正确的邮箱，例：example@example.com"}).regexValidator({regexp:"^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",onerror:"输入的邮箱格式不正确"});
+    })
+</script>
+    </body>
+    </html>

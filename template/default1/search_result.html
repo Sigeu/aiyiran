@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG1.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{if !empty($searchList)}
+<div class="wrap">
+  <div class="pubModL">
+    <div class="T">
+      <div class="f14 f3">您搜索的"<em><font color='red'>{$keyword}</font></em>"关键词，为您找到 {$total} 个相关结果:</div>
+    </div>
+    <div class="C">
+      <div class="sRultList">
+         {if $cid != ''}
+		 {mo:searchlist  id="$ids" mid="$mid" cid="$cid" stat="$stat" search_type="$search_type" modelTab="$modelTab"  keyword="$keyword" pagesize='10' pagenum='5' return="data"} 
+		 {else}
+		 {mo:searchlist  id="$ids" mid="$mid" stat="$stat" search_type="$search_type" modelTab="$modelTab"  keyword="$keyword" pagesize='10' pagenum='5' return="data"} 
+  		 {/if}
+  			{foreach $data  $key $v}  
+  			      <dl>
+					  <dt><a href='{$v['url']}'>{$v['goodsname']}{$v['name']}{$v['title']}</a><span>日期：{date('Y-m-d',$v['created'])}</span><span>点击量：{$v['click']}</span></dt>
+				      <dd>{$v['guide']}{$v['brief']}{$v['subtitle']}{$v['description']}</dd>
+				  </dl>
+				  <dl><dt></dt><dd></dd></dl>
+  			{/foreach}
+		 {/mo:searchlist}
+         <div class="pages">
+          {$pagestr}
+         </div>
+      </div>
+    </div>
+  </div>  <div class="friendLink bder">
+    <div class="T">
+      <h3>友情链接</h3>
+    </div>
+    <div class="C"><a href="#" title="">CCTV财经频道</a><a href="#" title="">华尔街日报</a><a href="#" title="">FT中文网</a><a href="#" title="">路透中文网</a><a href="#" title="">财新网</a><a href="#" title="">中国企业家网</a><a href="#" title="">CNBC中文网</a><a href="#" title="">财经网</a><a href="#" title="">一财网</a><a href="#" title="">经济观察网</a><a href="#" title="">21世纪网</a><a href="#" title="">《福布斯》中文网</a><a href="#" title="">《财富》中文网</a><a href="#" title="">BW中文网</a><a href="#" title="">中国新闻网</a><a href="#" title="">全景网</a><a href="#" title="">上海证券报</a><a href="#" title="">中国证券报</a><a href="#" title="">证券时报</a><a href="#" title="">证券时报</a><a href="#" title="">财经国家</a><a href="#" title="">周刊上海热线</a><a href="#" title="">财经北京商报</a><a href="#" title="">国际财经时报</a><a href="#" title="">每日经济新闻</a><a href="#" title="">东方早报</a><a href="#" title="">证券市场</a><a href="#" title="">周刊商界</a><a href="#" title="">评论汽车商业</a><a href="#" title="">评论商务周刊</a><a href="#" title="">中国经济周刊</a></div>
+  </div>
+</div>
+{/if}
+<div class="foot">
+  <p><a href="#" title="网站简介">网站简介</a>|<a href="#" title="广告服务">广告服务</a>|<a href="#" title="联系方式">联系方式</a>|<a href="#" title="意见建议">意见建议</a>|<a href="#" title="版权声明">版权声明</a>|<a href="#" title="网站地图">网站地图</a></p>
+  <p class="copy">&copy; 中小企业信息网 2008-2012 北京中小在线信息服务有限公司 版权所有  | 京ICP证040632号</p>
+</div>
+</body>
+</html>

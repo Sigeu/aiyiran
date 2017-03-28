@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>二维码投放位管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">     
+        <div class="TabBoxT">
+         <dl class="navTab">
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/qrposition/index">二维码投放位列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/qrposition/add" class="last">添加二维码投放位</a></dd>
+         </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form method="get" action="<!--{$baseurl}-->/extensions/qrposition/index">
+            <input type='hidden' value='<!--{$pageInfo.page}-->'>
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$pageInfo.name}-->" class="Iw190 f999 text-tips" tips="请输入二维码投放位名称" name="name">      
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+            </div>
+            </form>
+            <form method="post" id="backup-form" action="/extensions/qrposition/index">
+            <div class="pubTabel">
+              <table class="tabelTB tableTB_Xtal" id="search-list"> 
+                <tr>
+                  <th width="20%">选择</th>
+                  <th width="35%" style="text-align:left; padding-left:1px;">投放位名称</th>
+                  <th width="40%" style="text-align:center;">操作</th>
+                  <th></th>
+                </tr>
+                <!--{foreach from=$list item=l}-->
+                <tr>                
+                  <td>
+                     <input type="checkbox" count='<!--{$l.count}-->' name="ids[]" value="<!--{$l.id}-->"/>
+                  </td>
+                  <td  style="text-align:left; padding-left:1px;" title='<!--{$l.name}-->'><!--{$l.name|truncate_cn:10:'...':true}--></td>                                          
+                  <td style="text-align:center; padding-left:1px;">                        
+                  <a href="<!--{$baseurl}-->/extensions/qrposition/callCode/id/<!--{$l.code_id}-->/pid/<!--{$l.id}-->">调用代码</a> |
+                  <a href="<!--{$baseurl}-->/extensions/qrcode/index/pid/<!--{$l.id}-->">二维码列表</a> |                          
+                  <a href="<!--{$baseurl}-->/extensions/qrcode/add/pid/<!--{$l.id}-->">添加二维码</a> | 
+                  <a href="<!--{$baseurl}-->/extensions/qrposition/edit/id/<!--{$l.id}-->">修改</a> |                           
+                  <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/extensions/qrposition/delete/id/<!--{$l.id}-->','<!--{$l.deltips}-->')">删除</a>
+                  </td>
+                  <td></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            </form>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选</label></span>        
+              <input id='delete_all' type="button" class="btn5" value="删除" onclick="delAll(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/qrposition/delete" empty-tips="请选择要进行删除的信息！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script>
+function delAll (obj)
+{
+    var container = $('#delete_all').attr('container-id');
+    var checked = $('#' + container + ' input:checkbox:checked');  //选中的复选框
+    var count = 0;
+    var deltips = '确认删除？';
+    checked.each( function () {
+        count = count + $(this).attr('count');
+    });
+    if (count > 0) {
+        deltips = '您选中的投放位下有二维码数据，如删除投放位则二维码同步删除，确定删除？';
+    }
+    $('#delete_all').attr('confirm-tips', deltips);
+    batchOperate (obj);
+}
+</script>

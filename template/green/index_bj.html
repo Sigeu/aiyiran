@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/banner.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="{JS_PATH}/advert.js"></script>
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'}
+
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+      {include 'category.html'}
+
+      <div class="advertL">
+        <div id="add"><a href="#"><img src="{IMG_PATH}/advert1.png" width="245" height="102"></a><a href="#"><img  src="{IMG_PATH}/advert2.png" width="245" height="101"></a></div>
+        <div id="btn"></div>
+      </div>
+      <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">北京娱论</span>
+        <ul class="arrow_ulL">
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		  <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="m w498">
+      <div class="Greyborder mb10">
+        <div class="title"> <a href="{getMoreUrl('57')}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">最新新闻</span><span class="tit_en">Hot news</span></div>
+        </div>
+		
+        <div class="video_con"> 
+		{mo:articlelist cid='57' type='son' row='1' return='data'}
+		{foreach $data $k $v}
+		<strong class="video_tit"><a href='{$v["url"]}'>{$v['title']}</a></strong>
+          <div><a href='{$v["url"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="454" height="355"/></a></div>
+          <p class="video_des"><a href='{$v["url"]}'>{$v['description']}</a></p>
+
+			{/foreach}
+		    {/mo:articlelist}
+          <div class="bort pt8 pd8">
+            <div class="pic_list" id="pic_list"> <a href="#" class="pic_left">left</a> <a href="#" class="pic_right">right</a>
+              <div class="pics">
+                <table>
+                  <tr>
+                    {mo:articlelist cid='57' type='son' row='5' return='data'}
+		            {foreach $data $k $v}
+                    <td><a href='{$v["url"]}'><img style='width:108px;height:78px;' src="{UPLOAD_PATH}/{$v['thumb']['src']}"/></a></td>
+					{/foreach}
+		            {/mo:articlelist}
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="Greyborder">
+        <div class="title"> <a href="{getMoreUrl(73)}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name(73)}</span><span class="tit_en">Entertainment news</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h95">
+		  {mo:articlelist cid='73'  row='1' return='data'}
+		    {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:8px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="134" height="95" /></a></div>
+            <dl class="bc_txt">
+			
+              <dt><a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a></dt>
+              <dd class="f6" style="line-height:20px;">{$v['description']}<a href="{$v['url']}" class="greena">
+                <详细>
+                </a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24 l bg_lineS">
+            {mo:articlelist cid='73'   row='4' return='data'}
+		    {foreach $data $k $v}
+            <dd style='width:220px;'><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+          <dl class="bc_txt bc_txt24 l">
+            {mo:articlelist cid='73'  from='4' row='4' return='data'}
+		    {foreach $data $k $v}
+             <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="r w237">
+      <div class="Greyborder Greyborder_bg1 mb10">
+        <div class="r_tit"> <a href="#" class="right t_more">更多>></a> <span class="r_t_name icobg_01">今日关注</span> </div>
+        <div class="box_con">
+          <h3 class="h3_tit"><a href="#">"闯黄"可罚配套须前置</a></h3>
+          <p style="margin:0 0 8px 3px;"><a href="#" class="f6">女子个人200米混合泳叶诗文再夺冠女子个人200米混合泳叶诗文再夺冠。</a></p>
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24">
+            <dd><a href="#" class="bg_dot">哈林50分，火箭擒湖人</a></dd>
+            <dd><a href="#" class="bg_dot">国羽第一女双涉嫌故意输球</a></dd>
+            <dd><a href="#" class="bg_dot">我国小长假公路免费方案已报</a></dd>
+            <dd><a href="#" class="bg_dot">哈林50分，火箭擒湖人</a></dd>
+            <dd><a href="#" class="bg_dot">国羽第一女双涉嫌故意输球</a></dd>
+            <dd><a href="#" class="bg_dot">我国小长假公路免费方案已报</a></dd>
+            <dd><a href="#" class="bg_dot">哈林50分，火箭擒湖人</a></dd>
+            <dd><a href="#" class="bg_dot">国羽第一女双涉嫌故意输球</a></dd>
+            <dd><a href="#" class="bg_dot">我国小长假公路免费方案已报</a></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="Greyborder Greyborder_bg1 mb10">
+        <div class="r_tit"> <a href="#" class="right t_more">更多>></a> <span class="r_t_name icobg_01">今日经典图片</span> </div>
+        <div class="jdtp_w"> <a href="#"> <img src="{IMG_PATH}/tp_pic.jpg" alt="" width="197" height="131" /> <span class="jdtp_txt">哈林50分，火箭擒湖人</span> </a> </div>
+      </div>
+      <div class="Greyborder Greyborder_bg1">
+        <div class="r_tit"> <a href="{getMoreUrl(74)}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name(74)}</span> </div>
+        <div class="box_con">
+          <ul class="arrow_ulL" style="margin:0;">
+            {mo:articlelist cid='74' row='10' return='data'}
+		    {foreach $data $k $v}
+            
+           {if $lastIndex} 
+		   <li class="last"><a href="{$v['url']}">{$v['title']}</a></li>
+		   {else}
+		   <li><a href="{$v['url']}">{$v['title']}</a></li>
+		   {/if}
+			{/foreach}
+		    {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

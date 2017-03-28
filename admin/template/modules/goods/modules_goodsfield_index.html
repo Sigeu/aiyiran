@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>内容模型-字段管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:;">字段管理</a></dt>
+            <dd><a href="<!--{$baseurl}-->/modules/goodsfield/add/typeid/<!--{$typeid}-->" class="last">添加字段</a></dd>
+          </dl>
+        </div>
+        <div class="height16"></div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+			<form method="post" action="javascript:;" id="batch-form" enctype="multipart/form-data">
+			<input type="hidden" name="typeid" value="<!--{$typeid}-->" />
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">排序</th>
+                  <th width="15%">字段名称</th>
+                  <th width="16%">字段类型</th>
+                  <th width="5%">唯一</th>
+                  <th width="5%">搜索</th>
+                  <th width="14%">操作</th>
+                </tr>
+				<!--{foreach from=$plist.list item=l}-->
+                <tr>
+                  <td><input type="checkbox" name="attrid[]" value="<!--{$l.attrid}-->"/></td>
+                  <td><input type="text" value="<!--{$l.ordernum}-->" name="fileds[<!--{$l.attrid}-->]" class="Iw45" /></td>
+                  <td><!--{$l.attrname}--></td>
+                  <td>    
+				  <!--{if $l.fieldtype eq 1}-->单行文本
+				  <!--{elseif $l.fieldtype eq 2}-->多行文本
+				  <!--{elseif $l.fieldtype eq 3}-->HTML文本
+				  <!--{elseif $l.fieldtype eq 4}-->单选框
+				  <!--{elseif $l.fieldtype eq 5}-->多选框
+				  <!--{elseif $l.fieldtype eq 6}-->下拉框
+				  <!--{/if}-->
+				  </td>
+                  <td><!--{if $l.uniqueness eq 1}--><span class="warnCorrect warnCorrectG"></span><!--{else}--><span class="warnError warnErrorG"></span><!--{/if}--></td>
+                  <td><!--{if $l.issearch eq 1}--><span class="warnCorrect warnCorrectG"></span><!--{else}--><span class="warnError warnErrorG"></span><!--{/if}--></td>
+                  <td><a href="<!--{$baseurl}-->/modules/goodsfield/edit/attrid/<!--{$l.attrid}-->">修改</a> | <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/modules/goodsfield/del/typeid/<!--{$typeid}-->/attrid/<!--{$l.attrid}-->')">删除</a> | 
+				  
+
+				  <!--{if $l.enabled eq 1}-->
+				  <span style="color:#A7A7A7">开启</span> | <a href="<!--{$baseurl}-->/modules/goodsfield/openclose/typeid/<!--{$typeid}-->/attrid/<!--{$l.attrid}-->/enabled/<!--{$l.enabled}-->">关闭</a>
+				  <!--{else}-->
+				   <a href="<!--{$baseurl}-->/modules/goodsfield/openclose/typeid/<!--{$typeid}-->/attrid/<!--{$l.attrid}-->/enabled/!--{$l.enabled}-->">开启</a> | <span style="color:#A7A7A7">关闭</span>
+				  <!--{/if}-->
+				  </td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+			  </form>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+             <label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/>
+              全选/反选</label>
+              </span>
+			  <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/goodsfield/updateOrder" empty-tips="请选择要进行排序的记录！" is-selected="false" />
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/goodsfield/del" empty-tips="请选择要删除的记录！" confirm-tips="你确定要删除吗？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$plist.pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

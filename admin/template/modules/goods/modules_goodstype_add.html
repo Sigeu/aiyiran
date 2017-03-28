@@ -1,0 +1,54 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	//栏目名验证
+	$("#typename").formValidator(
+	{
+		onshow:"请输入1至20个字符",
+		onfocus:"请输入1至20个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:1,
+		max:20,
+		onerror:"请输入1至20个字符"
+	});
+});
+
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+	  <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/goodstype/index">商品属性</a></dd>
+            <dt class="on"><a href="javascript:;">添加属性</a></dt>
+          </dl>
+        </div>
+		<form method="post" action="<!--{$baseurl}-->/modules/goodstype/add" id="formid" enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 属性名称：</th>
+                  <td><input type="text" value="" name="typename" id="typename" class="Iw290"/></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit"  hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.go(-1);" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+		</form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

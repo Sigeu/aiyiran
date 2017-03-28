@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/up_basc.css" rel="stylesheet" type="text/css" />
+{if $special['skin'] == 1}
+<link href="{CSS_PATH}/up_style.css" rel="stylesheet" type="text/css" />
+{elseif $special['skin'] == 3}
+<link href="{CSS_PATH}/up_style2.css" rel="stylesheet" type="text/css" />
+{elseif $special['skin'] == 2}
+<link href="{CSS_PATH}/up_style3.css" rel="stylesheet" type="text/css" />
+{elseif $special['skin'] == 4}
+<link href="{CSS_PATH}/up_style4.css" rel="stylesheet" type="text/css" />
+{elseif $special['skin'] == 5}
+<link href="{CSS_PATH}/up_style5.css" rel="stylesheet" type="text/css" />
+{/if}
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script src="{JS_PATH}/common.js"></script>
+<script src="{JS_PATH}/cycle.js"></script>
+<script src="{JS_PATH}/admin.js"></script>
+
+<style type="text/css">
+body {position:relative; background:url('/static/uploadfile/{$special[back_img]}');}
+.head { margin-top:10px; }
+</style>
+
+</head>
+<body class="edit">
+{if $GLOBALS['is_mobile_open']}
+    {if $GLOBALS['is_mobile_scan']}
+        您正在用手机访问电脑版网站，为了保证最佳浏览效果，建议您 <a href='{URL_HOST}index/index/changeEdition/ed/mobile' style="color:blue">[切换至手机版]</a>
+    {/if}
+{/if}
+<div class="head" style="margin-top: 0px;">
+    <ul class="head_nav">
+        <li><a href="{host()}" {if !$cid}class="focus"{/if}>首&nbsp;&nbsp;&nbsp;页</a><span>|</span></li>
+        {mo:navigation row="6"}             
+            {foreach  $return  $v}
+            {if $v['id']===$cid or $v['id']===$pid}
+                <li><a href="{$v['url']}" class="focus">{csubstr($v['catname'],4,'')}</a><span>|</span></li>
+            {else}
+                <li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a><span>|</span></li>
+            {/if}
+            {/foreach}
+        {/mo:navigation}
+
+        <li><a href="/special/specialList/index" >网站专题</a><span>|</span></li>
+        <li><a href="/message/Message/index/id/458" {if isset($ismessage)}class='focus'{/if}>网站留言</a></li>
+    </ul>
+    <h1><a href="javascript:void(0)"><img src="{logo()}" width="114" height="30" alt="logo"/></a></h1>
+</div>
+
+{if $special['banner_img']}
+<div class="pic_booth" data="pic_booth"><img width="960px" src="/static/uploadfile/{$special['banner_img']}"></div>
+{/if}
+
+{if $banner}
+<div class="nav" data="nav">
+    <ul>
+        {foreach $banner $kk $vv}
+        <li><a href="/special/assortList/index/id/{$vv['aid']}" target="_blank">{$vv['banner']}</a></li>
+        {/foreach}
+    </ul>
+</div>
+{else}
+<div style="margin-bottom:10px;"></div>
+{/if}
+{foreach $section $k $v}
+{if $v['section_type'] == 1}
+
+<div class="one_colum">
+{if $v['info_list'][0]['node_conf']['is_show'] == 1}
+<div class="scroll_pic js_scroll_pic3" data="one_1" >
+    <ul class="pics">
+     {foreach $v['info_list'][0]['info_list'] $key $val}
+     {if $val['publishopt'] == 1}
+     <li><a href="{$val['static_url']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+     {else}
+     <li><a href="/content/Content/index/id/{$val['id']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+     {/if}
+     {/foreach}
+    </ul>
+    <div class="txts txts3">
+        <div class="scroll_pci_mask scroll_pci_mask2"></div>
+        <div class="txt_con txt_con2">
+         <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+           <ul>
+            {foreach $v['info_list'][0]['info_list'] $key $val}
+            {if $val['publishopt'] == 1}
+            <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+            {else}
+            <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+            {/if}
+            {/foreach}
+           </ul>
+         </div>
+    </div>
+ </div>
+ {/if}
+
+ {if $v['info_list'][1]['node_conf']['is_show'] == 1}
+ <div class="colum colum_big" data="one_2" >
+    <h2><a href="/special/assortList/index/id/{$v['info_list'][1]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][1]['node_conf']['assort_name']}</span></h2>
+    <div class="colum_con">
+        <ul>
+            {foreach $v['info_list'][1]['info_list'] $key $val}
+            {if $val['publishopt'] == 1}
+            <li class="top">
+                <img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/>
+                <h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3>
+                <p>{csubstr($val['description'], $val['brief_number'])}<a href="{$val['static_url']}" target="_blank">[详情]</a></p>
+            </li>
+            {else}
+            <li class="top">
+                <img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/>
+                <h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3>
+                <p>{csubstr($val['description'], $val['brief_number'])}<a href="/content/Content/index/id/{$val['id']}" target="_blank">[详情]</a></p>
+            </li>
+            {/if}
+            {/foreach}
+        </ul>
+    </div>
+</div>
+{/if}
+
+{if $v['info_list'][2]['node_conf']['is_show'] == 1}
+<div class="colum colum_big" data="one_3" >
+  <h2><a href="/special/assortList/index/id/{$v['info_list'][2]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][2]['node_conf']['assort_name']}</span></h2>
+       {foreach $v['info_list'][2]['info_list'] $key $val}
+        <div class="colum_con">
+          <dl>
+            <dt><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></dt>
+            <dd>
+            {if $val['publishopt'] == 1}
+            <h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3>
+            {else}
+            <h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3>
+            {/if}
+            <div>{csubstr($val['description'], $val['brief_number'])}</div></dd>
+          </dl>
+        </div>
+      {/foreach}
+</div>
+{/if}
+
+{if $v['info_list'][3]['node_conf']['is_show'] == 1}
+<div class="pic_pin" data="one_4" >
+    <h2>{$v['info_list'][3]['node_conf']['assort_name']}</h2>
+    <div class="pic_pin_con">
+        <ul>
+         {foreach $v['info_list'][3]['info_list'] $key $val}
+            {if $val['publishopt'] == 1}
+            <li><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/>
+            <a href="{$val['static_url']}" target="_blank"><strong>{csubstr($val['title'], $val['title_number'])}</strong></a></li>
+            {else}
+            <li><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/>
+            <a href="/content/Content/index/id/{$val['id']}" target="_blank"><strong>{csubstr($val['title'], $val['title_number'])}</strong></a></li>
+            {/if}
+        {/foreach}
+        </ul>
+    </div>
+  </div>
+{/if}
+</div>
+
+{elseif $v['section_type'] == 2}
+
+  <div class="two_colum">
+    <div class="two_colum_left">
+        {if $v['info_list'][0]['node_conf']['is_show'] == 1}
+        <div class="scroll_pic js_scroll_pic" data="two_1" >
+            <ul class="pics">
+                {foreach $v['info_list'][0]['info_list'] $key $val}
+                {if $val['publishopt'] == 1}
+                <li><a href="{$val['static_url']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+                {else}
+                <li><a href="/content/Content/index/id/{$val['id']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+                {/if}
+                {/foreach}
+            </ul>
+            <div class="txts">
+                <div class="scroll_pci_mask"></div>
+                <div class="txt_con">
+                    <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+                    <ul>
+                        {foreach $v['info_list'][0]['info_list'] $key $val}
+                        {if $val['publishopt'] == 1}
+                        <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                        {else}
+                        <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                        {/if}
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][1]['node_conf']['is_show'] == 1}
+        <div class="two_colum_box" data="two_2" >
+            <ul class="line">
+              {foreach $v['info_list'][1]['info_list'] $key $val}
+              {if $val['publishopt'] == 1}
+              <li class="top"><h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="{$val['static_url']}" target="_blank">[详情]</a></p></li>
+              {else}
+              <li class="top"><h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="/content/Content/index/id/{$val['id']}" target="_blank">[详情]</a></p></li>
+              {/if}
+              {/foreach}
+            </ul>
+        </div>
+        {/if}
+
+        {if $v['info_list'][2]['node_conf']['is_show'] == 1}
+        <div class="two_colum_box" data="two_3" >
+            <ul>
+              {foreach $v['info_list'][2]['info_list'] $key $val}
+              {if $val['publishopt'] == 1}
+              <li class="top"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="{$val['static_url']}" target="_blank">[详情]</a></p></li>
+              {else}
+              <li class="top"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="/content/Content/index/id/{$val['id']}" target="_blank">[详情]</a></p></li>
+              {/if}
+              {/foreach}
+            </ul>
+        </div>
+        {/if}
+
+        {if $v['info_list'][3]['node_conf']['is_show'] == 1}
+        <div class="two_colum_box2" data="two_4" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][3]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a>{$v['info_list'][3]['node_conf']['assort_name']}</h2>
+            <ul>
+               {foreach $v['info_list'][3]['info_list'] $key $val}
+               {if $val['publishopt'] == 1}
+               <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+               {else}
+               <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+               {/if}
+			   {/foreach}
+            </ul>
+        </div>
+        {/if}
+    </div>
+
+    <div class="two_colum_right">
+        {if $v['info_list'][4]['node_conf']['is_show'] == 1}
+        <div class="bulletin" data="two_5" >
+            <div class="bulletin_con">
+                <h3><span>专题导读</span></h3>
+                <p>{$special['guide']}</p>
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][5]['node_conf']['is_show'] == 1}
+        <div class="colum" data="two_6" >
+            <h2><span>{$v['info_list'][5]['node_conf']['assort_name']}</span></h2>
+            {foreach $v['info_list'][5]['info_list'] $key $val}
+            {if $val['publishopt'] == 1}
+            <div class="colum_con"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><div>{csubstr($val['description'], $val['brief_number'])}</div></div>
+            {else}
+            <div class="colum_con"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><div>{csubstr($val['description'], $val['brief_number'])}</div></div>
+            {/if}
+		    {/foreach}
+        </div>
+        {/if}
+        
+        {if $v['info_list'][6]['node_conf']['is_show'] == 1}
+        <div class="colum" data="two_7" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][6]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][6]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con">
+                <ul>
+                  {foreach $v['info_list'][6]['info_list'] $key $val}
+                  {if $val['publishopt'] == 1}
+                  <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                  {else}
+                  <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                  {/if}
+			      {/foreach}
+                </ul>
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>
+
+{elseif $v['section_type'] == 3}
+
+<div class="three_colum">
+    <div class="three_colum_son">
+
+        {if $v['info_list'][0]['node_conf']['is_show'] == 1}
+        <div class="scroll_pic js_scroll_pic2" data="three_1" >
+            <ul class="pics">
+                 {foreach $v['info_list'][0]['info_list'] $key $val}
+                 {if $val['publishopt'] == 1}
+                 <li><a href="{$val['static_url']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+                 {else}
+                 <li><a href="/content/Content/index/id/{$val['id']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/></a></li>
+                 {/if}
+			     {/foreach}
+            </ul>
+            <div class="txts txts2">
+                <div class="scroll_pci_mask"></div>
+                <div class="txt_con">
+                    <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+                    <ul>
+                        {foreach $v['info_list'][0]['info_list'] $key $val}
+                        {if $val['publishopt'] == 1}
+                        <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                        {else}
+                        <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                        {/if}
+			            {/foreach}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][1]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_2" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][1]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][1]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con">
+              <ul>
+                {foreach $v['info_list'][1]['info_list'] $key $val}
+                {if $val['publishopt'] == 1}
+                <li class="left"><a href="{$val['static_url']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><strong>{csubstr($val['title'], $val['title_number'])}</strong></a></li>
+                {else}
+                <li class="left"><a href="/content/Content/index/id/{$val['id']}" target="_blank"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><strong>{csubstr($val['title'], $val['title_number'])}</strong></a></li>
+                {/if}
+                {/foreach}
+              </ul>
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][2]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_3" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][2]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][2]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con">
+                <ul>
+					{foreach $v['info_list'][2]['info_list'] $key $val}
+                    {if $val['publishopt'] == 1}
+                    <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {else}
+                    <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {/if}
+					{/foreach}
+                </ul>
+            </div>
+        </div>
+        {/if}
+    </div>
+    <div class="three_colum_son son2">
+		
+        {if $v['info_list'][3]['node_conf']['is_show'] == 1}
+        <div class="bulletin" data="three_4" >
+            <div class="bulletin_con">
+                <h3 class="left"><span>专题导读:</span></h3>
+                <p>{$special['guide']}</p>			
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][4]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_5" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][4]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][4]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con">
+                <ul>
+                    {foreach $v['info_list'][4]['info_list'] $key $val}
+                    {if $val['publishopt'] == 1}
+                    <li class="top"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="{$val['static_url']}" target="_blank">[详情]</a></p></li>
+                    {else}
+                    <li class="top"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><p>{csubstr($val['description'], $val['brief_number'])}<a href="/content/Content/index/id/{$val['id']}" target="_blank">[详情]</a></p></li>
+                    {/if}
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        {/if}
+
+        {if $v['info_list'][5]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_6">
+          <h2><a href="/special/assortList/index/id/{$v['info_list'][5]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][5]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con" >
+                <ul>
+                    {foreach $v['info_list'][5]['info_list'] $key $val}
+                    {if $val['publishopt'] == 1}
+                    <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {else}
+                    <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {/if}
+					{/foreach}
+                </ul>
+            </div>
+       </div>
+       {/if}
+
+    </div>
+
+    <div class="three_colum_son son3">
+
+        {if $v['info_list'][6]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_7" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][6]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][6]['node_conf']['assort_name']}</span></h2>
+            {foreach $v['info_list'][6]['info_list'] $key $val}
+            {if $val['publishopt'] == 1}
+            <div class="colum_con"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><div>{csubstr($val['description'], $val['brief_number'])}</div></div>
+            {else}
+            <div class="colum_con"><img src="/static/uploadfile/{$val['thumb']['src']}" width="{$val['img_wid']}" height="{$val['img_hei']}"/><h3><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></h3><div>{csubstr($val['description'], $val['brief_number'])}</div></div>
+            {/if}
+            {/foreach}
+        </div>
+        {/if}
+
+        {if $v['info_list'][7]['node_conf']['is_show'] == 1}
+        <div class="colum" data="three_8" >
+            <h2><a href="/special/assortList/index/id/{$v['info_list'][7]['node_conf']['aid']}" target="_blank">更多&gt;&gt;</a><span>{$v['info_list'][7]['node_conf']['assort_name']}</span></h2>
+            <div class="colum_con">
+                <ul>
+                    {foreach $v['info_list'][7]['info_list'] $key $val}
+                    {if $val['publishopt'] == 1}
+                    <li><a href="{$val['static_url']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {else}
+                    <li><a href="/content/Content/index/id/{$val['id']}" target="_blank">{csubstr($val['title'], $val['title_number'])}</a></li>
+                    {/if}
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        {/if}
+    </div>
+</div>
+{/if}
+{/foreach}
+
+<div class="footer">
+    <p class="copyright">{powerby()}&nbsp;&nbsp;&nbsp;备案编号：{beian()}</p>
+</div>
+</body>
+</html>
+
+
+

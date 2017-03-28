@@ -1,0 +1,76 @@
+{include 'tophead.html'}
+<div class="logo_search">
+  <div class="logo"><a href="{HOST_NAME}" title="商业资讯网"><img src="{logo()}" /></a></div>
+  <div class="search">
+  <script>
+  function searchSubmit()
+		{
+			var val = $('#keywords').val();
+		    if(val=="请输入关键词"||val=='')
+			{
+				alert("请输入关键词");
+				return false;
+			}
+			else
+			{
+				$('#searchForm').submit();
+			}
+		}
+	</script>
+	 <form action='{HOST_NAME}search/Search/index' method='post' id='searchForm' target="_blank">
+	 <input type='hidden' name='cid' value=''/>
+    <input type="button" class="blueBtn1 right" value="搜 索" onclick='javascript:searchSubmit()'/>
+    <div class="inpt">
+      <div class="selt"> <a href="#" class="grayBtn1"></a>
+        <ul>
+          <li><a href="#">文章搜索</a></li>
+        </ul>
+      </div>
+      <input type="text" class="input299_26 keys"  name='keywords' id='keywords' tips="请输入关键词" {if isset($keywords)&&$keywords}value="{$keywords}"{else}value="请输入关键词"{/if} />
+    </div>
+     </form>
+  </div>
+</div>
+<div class="nav"><span class="bg_spanL"></span><span class="bg_spanR"></span>
+  <div class="date"><!--2013年2月1日 星期五 农历十二月廿一--><SCRIPT>CalConv();</SCRIPT></div>
+  <ul>
+  <li><a href="{HOST_NAME}" {if !$cid}class="focus"{/if}>首页</a></li>
+      <!--$n序号，$lastIndex最后一次循环-->
+      {mo:navigation order='ordernum'}             
+        {foreach $return  $v}
+        <!--{if !$lastIndex}-->
+        {if $v['id']===$cid or $v['id']===$pid}
+       <li><a href="{$v['url']}" class="focus">{$v['catname']}</a></li>
+       {else}
+       <li><a href="{$v['url']}">{$v['catname']}</a></li>
+       {/if}
+<!--       {else}
+       {if $v['id']===$cid or $v['id']===$pid}
+       <li><a href="{$v['url']}" class="focus">{csubstr($v['catname'],4,'')}</a></li>
+       {else}
+       <li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a></li>
+       {/if}
+       {/if}
+-->       {/foreach}
+      {/mo:navigation}
+  </ul>
+</div>
+<script>
+$(document).ready(function(){
+	$("input.keys").css("color","#999");
+	$("input.keys").focus(function(){
+	  if($("input.keys").val().replace(/^\s+|\s+$/g,'') == '请输入关键词'){
+		  $("input.keys").val('');
+		  $("input.keys").css("color","#222");
+	  }
+	});
+	
+	$("input.keys").blur(function(){
+		if ($("input.keys").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("input.keys").val('请输入关键词');
+			$("input.keys").css("color","#999");
+		}
+	});
+
+});
+</script>

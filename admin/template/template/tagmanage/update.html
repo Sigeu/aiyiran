@@ -1,0 +1,51 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+		    <dd><a href="#" onclick="javascript:history.back();" class="last">标签列表</a></dd>
+            <dt class="on"><a href="#">编辑标签</a></dt>
+          </dl>
+        </div>
+        <form method='post' action="<!--{$urlArr.saveUrl}-->" id='myForm'>
+        <!-- 隐藏域  -->
+        <input type='hidden' value='<!--{$configArr.system}-->' name='system'></input>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 标签名称：</th>
+                  <td><input type="text" value="<!--{$tagname}-->"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly  name='show_tagname' id='show_tagname' readonly class="Iw290"/>
+				  <input type="hidden" value="<!--{$tagname}-->"  name='tagname' id='tagname' readonly class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 标签说明：</th>
+                  <td><input type="text" value="<!--{$configArr.describe}-->" id='describe' name='describe' class="Iw290"/></td>
+                </tr>
+                
+                <tr>
+                  <th valign="top"><font>*</font> 标签源码：</th>
+                  <td><textarea class="Iw450 Ih80" style="height:220px;width:650px" name='content' id='content'><!--{$content}--></textarea></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消"  onclick="history.back();" class="btn2">
+              </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+<script type="text/javascript">
+$(document).ready(function() { 
+	 //验证
+	 $.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	 $("#describe").formValidator({onshow:"请输入2～30个字符，由汉字、数字、字母、符号组成",onfocus:"请输入2～30个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确",empty:false}).inputValidator({min:2,max:30,onerror:"请输入2～30个字符，由汉字、数字、字母、符号组成"}).defaultPassed();
+	 $("#content").formValidator({onshow:"请输入模板内容",onempty:'请输入模板内容',onfocus:'请输入模板内容',oncorrect:"输入正确"}).inputValidator({min:2,onerror:"请输入模板内容"}).defaultPassed();
+});
+</script>
+</body>
+</html>

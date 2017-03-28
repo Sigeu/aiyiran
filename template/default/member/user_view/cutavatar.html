@@ -1,0 +1,59 @@
+
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/manage_yc.css"/>
+        {include 'member/head_left.html'}
+
+
+
+
+
+
+
+<style type="text/css" src="/template/default/member/js/uploadify/uploadify.css"></style>
+<script type="text/javascript" src="/template/default/member/js/uploadify/jquery.uploadify.js"></script>
+        <script>
+    //设置一个时间戳
+    <?php echo $timestamp = time();?> 
+    $(function(){
+        $("#uploadify").uploadify({
+            'formData' :{
+                'timestamp' : '<?php echo $timestamp;?>', //输入设置好的时间戳
+                'token' : '<?php echo md5('unique_salt' . $timestamp);?>' //设置一个md5字符串
+            },
+            'auto': true, //是否自动上传
+            'debug': false, //是否开启浏览器调试
+            // 'buttonText': '上传音乐', //上传按钮的文字
+            'fileTypeExts': '*.jpg;*.gif;*.bmp;*.png;*.jpeg;*.mp3', //允许的图片类型
+            'fileSizeLimit': '10000MB', //单张图片的最大值
+            'multi': false, //时运允许多张图片一起上传
+            'removeCompleted' : false,
+            'buttonImage' : '/template/default/member/js/uploadify/123.jpg',
+            'swf' : '/template/default/member/js/uploadify/uploadify.swf',
+            'uploader' : '/member/User/cutavatar',
+            'onUploadSuccess' : function(file,data,response){
+                    console.log(data);
+                    // Object { code: 200, savepath: "uploads/1482931430_5080.jpg" }
+                    if(data.code==200){
+                        // alert('上传成功啦');
+                        var str= '<img src="'+data.savepath+'">';
+                        $("#con").append(str);
+                        $(".uploadify-queue-item").hide();
+                        $(".suc").html('上传成功');
+
+                    }else{
+                        alert(data.errorMsg);
+                    }
+                }
+        });
+    });
+    </script>
+
+            <div class="conRig_yc">
+<input type="file" name="uploadify" id="uploadify" />
+
+            </div>
+             
+
+</html>
+
+

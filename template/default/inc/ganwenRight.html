@@ -1,0 +1,66 @@
+                <div class="fl conItem02 clearfix">
+                    <div class="cont_list cont_list6">
+                    <div class="headline">
+                        <span class="fl">资讯热度排行<i></i></span>
+                        <!-- <a href="" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+                        {mo:articlelist row="10"  order="hits desc" return="data"}
+                        {foreach $data  $key $value}
+                            {$key++}
+                            {if $key < 4}
+                            <li class="active">
+                            <em>{$key}</em>
+                            {else}
+                            <li class="">
+                            <em>{$key}</em>
+                            {/if}
+                            <a href="{$value['url']}">{csubstr($value["title"],23)}</a>
+                        </li>
+                        {/foreach}
+                        {/mo:articlelist}
+                    </ul>
+                </div>
+                <a href="###" class="double_j"><img src="{IMG_PATH}/jw_12.jpg" /></a>
+                <div class="cont_list cont_list7">
+                    <div class="headline">
+                        <span class="fl">资讯推荐<i></i></span>
+                        <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+                    {mo:articlelist row="10"   order='hits desc' return="data"}
+                        {foreach $data  $key $value}
+                        <li class="active">
+                            <a href="{$value['url']}">{csubstr($value["title"],24)}</a>
+                        </li>
+
+                        {/foreach}
+                    {/mo:articlelist}
+                    </ul>
+                </div>
+                <div class="cont_list cont_list6">
+                    <div class="headline">
+                        <span class="fl">纪念馆访问排行<i></i></span>
+                        <!--<a href="###" class="fr">参看更多<i></i></a>-->
+                     </div>
+                    <ul class="">
+
+                    {mo:memorial dearrank="1" field="id,personname" pagesize="10" return="data"}
+                    {foreach $data  $key $value}
+                    {$key++}
+                        {if $key < 4}
+                        <li class="active">
+                            <em>{$key}</em>
+                        {else}
+                        <li class="">
+                            <em>{$key}</em>
+                        {/if}
+                            <a href="">{$value['personname']} </a>
+                        </li>
+
+                    {/foreach}
+                    {/mo:memorial}
+                    </ul>
+                </div>
+                <a href="###" class="data_918"><img src="{IMG_PATH}/jw_30.jpg" /></a>
+                </div>

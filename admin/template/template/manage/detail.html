@@ -1,0 +1,88 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript" src="<!--{$jspath}-->/mo_upload_file.js"></script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">模板详情</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$saveUrl}-->" method="post" id='myForm' enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 模板名称：</th>
+                  <td><input type="text" value="<!--{$setArr.name}-->" id='name' name="name" class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 模板标识：</th>
+                  <td><input type="text" onfocus="this.blur()" style='background-color:#eee;color:#aaa' readonly value="<!--{$setArr.identify}-->"    name="show_identify" class="Iw290"/>
+				  <input type="hidden" readonly value="<!--{$setArr.identify}-->"    name="identify" class="Iw290"/></td>
+                </tr>
+                <tr>
+				<script>
+				function thumbuploadAccessory (obj)
+				{
+					var option={
+					upload_id:'thumb',
+					title:'模板缩略图',
+					return_id:'info[thumb]',	
+					callFunName:'accessoryUpload',
+					setting:'<!--{$setting.setting}-->',
+					param:obj
+					};
+					MainOneUpload(option);
+				}</script>
+
+                  <th valign="top"><font>*</font>  模板缩略图：</th>
+                  <td>
+				  <input type="hidden" value="<!--{$setArr.image}-->" class="Iw290"  name="info[thumb][1][filename]"/>
+
+				  <span id='thumbsingle-upload'></span><input type="text" readonly  value="<!--{$setArr.image}-->" class="Iw290" id="image_filename_show" name=""/>&nbsp;&nbsp;
+				  
+				  <input type="button" hidefocus="hide" value="浏览" class="btn5" onclick="thumbuploadAccessory({'limit':'2','_switch':'upload_image','self_id':'thumb_uploadButton','ady_upload':1,'dis_place':'thumbsingle-upload','check_id':'thumb','show_id':'image_filename_show'})" id="thumb_uploadButton"><input type="hidden" id="thumb" value="" _required=2 />
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 模板描述：</th>
+                  <td><textarea class="Iw450 Ih80" style="height:220px;" name="describe" id='describe'><!--{$setArr.describe}--></textarea></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 状态：</th>
+                  <td><span>
+					<!--{if $setArr.disable == 1}-->
+                    <label>使用中</label>
+                    <!--{else}-->
+                    <label>未使用</label>
+                    <!--{/if}-->
+                    </span>
+                    <!-- 模板状态隐藏值 -->
+                    <input type="hidden" name="disable" value="<!--{$setArr.disable}-->"></input>
+                    </td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="button" onclick='javascript:formSubmit();' hidefocus="hide" value="确定" class="btn1"/><input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back(-1);"/>
+              </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+     <script src="<!--{$jspath}-->/pubJq.js"></script>
+    
+ <script type="text/javascript">
+$(document).ready(function() { 
+	 //验证
+	 $.formValidator.initConfig({autotip:true,generalwordwide:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	 $("#name").formValidator({oncorrect:"输入正确",onempty:'请输入2-30个字符，由汉字、数字、字母 、符号组成',onfocus:'请输入2-30个字符，由汉字、数字、字母 、符号组成'}).inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由汉字、数字、字母 、符号组成"}).defaultPassed();
+	 $("#image").formValidator({onshow:"请上传模板缩略图",onempty:'不允许为空！',oncorrect:"输入正确"}).inputValidator({min:1,onerror:"请上传模板缩略图"});
+	 $("#describe").formValidator({onshow:" ",oncorrect:"输入正确",onempty:'请输入2-30个字符，由汉字、数字、字母、下划线组成',onfocus:'请输入2-30个字符，由汉字、数字、字母、下划线组成',oncorrect:"输入正确"}).inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由汉字、数字、字母、下划线组成"});;
+});
+</script>
+</body>
+</html>

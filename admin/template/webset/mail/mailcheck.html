@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+</head>
+<script>
+$(function(){
+    $("#back").click(function(){
+	   var url = $("#backurl").val();
+	   window.location.href = url;
+	})
+})
+</script>
+<body>
+<div class="pubBox" style='width:1000px;height:auto;'>
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+					<dl class="navTab">
+						<dt class="on"><a href="#">邮件状态详情</a></dt>	
+					</dl>
+			</div>
+			<div class="TabBoxC">
+				<div >
+                    <div class="pubTabel">
+                            <table class="tabelLR">
+                              <tr>
+                                <th width="145px"> 收件人：</th>
+                                <td><span><!--{$con.reciver}--></span></td>
+                              </tr>  
+                               <tr>
+                                <th> 发件人：</th>
+                                <td><span><!--{$con.username}--></span></td>
+                              </tr> 
+                               <tr>
+                                <th> 邮件主题：</th>
+                                <td><span><!--{$con.title}--></span></td>
+                              </tr> 
+                               <tr>
+                                <th style="vertical-align:top;"> 邮件内容：</th>
+                                <td><!--p>亲爱的会员：<br/>&nbsp;&nbsp;&nbsp;&nbsp;你好！</p--><!--{$con.mailcontent}--></td>
+                              </tr> 
+                              <tr>
+                                <th> 发送时间：</th>
+                                <td><span><!--{$con.sendtime|date_format:"%Y-%m-%d %H:%M:%S"}--></span></td>
+                              </tr> 
+                              <tr>
+                                <th> 发送状态：</th>
+                                <td><span><!--{if $con.state eq 1}-->已发送<!--{elseif $con.state eq 2}-->发送失败<!--{/if}--></span></td>
+                              </tr> 
+                              <!--{if $con.state eq 2}-->
+                              <tr>
+                                <th> 出错信息：</th>
+                                <td><span><!--{$con.errorinfor}--></span></td>
+                              </tr>
+                              <!--{/if}-->                  
+                            </table>
+                         <div class="pubTabelBot" style="text-align:left">
+						 <input type='hidden' id='backurl' value="
+                         <!--{if $con.state eq 2}-->
+                           <!--{$baseurl}-->/webset/mailset/failmail/page/<!--{$info.page}-->/keyword/<!--{$info.keyword}-->/starttime/<!--{$info.starttime}-->/endtime/<!--{$info.endtime}-->
+                         <!--{elseif $con.state eq 1}-->
+                            <!--{$baseurl}-->/webset/mailset/mailstate/page/<!--{$info.page}-->/keyword/<!--{$info.keyword}-->/starttime/<!--{$info.starttime}-->/endtime/<!--{$info.endtime}-->
+                         <!--{/if}-->
+						 ">
+                         <input class="btn5 ml10" type="button" id='back' value="返回" hideFocus="hide"/>
+                        </div>
+                    </div>
+				</div>		
+			</div>
+		</div>        
+    </div>
+</body>
+</html>

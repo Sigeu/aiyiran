@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心</title>
+
+</head>
+<body>
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='<!--{$baseurl}--><!--{$pageInfo.listUrl}-->'><em>菜单(权限)列表</em></a><span>|</span><a href='<!--{$baseUrl}--><!--{$pageInfo.addUrl}-->'><em>添加菜单(权限)</em></a>
+    </div>
+</div>
+
+<div class="pad_10">
+<div class="common-form">
+<form name="myform" action="" method="post" id="myform">
+<input type="hidden" name="task" value="dosubmit"> 
+<input type="hidden" name="id" value="<!--{$recordInfo.id}-->"> 
+<table width="100%">
+    <tr>
+        <td width="80">所属菜单：</td> 
+        <td>
+        <select name="info[parentid]" id="parentid">
+          <option value="0" selected>作为顶层</option>
+          <!--{$menuoption}-->
+        </select>
+        </td>
+    </tr> 
+    <tr>
+        <td>菜单名称：</td> 
+        <td><input type="text" name="info[name]" class="input-text" id="name" value="<!--{$recordInfo.name}-->"></td>
+    </tr>
+    <tr>
+        <td>备注名称：</td> 
+        <td><input type="text" name="info[notename]" class="input-text" id="notename" value="<!--{$recordInfo.notename}-->"></td>
+    </tr>
+    <tr>
+        <td>AppDierctory：</td>
+        <td>
+        <input type="text" name="info[appdirectory]" class="input-text" id="appdirectory"  value="<!--{$recordInfo.appdirectory}-->" >
+        </td>
+    </tr>
+    <tr>
+        <td>Module：</td>
+        <td>
+        <input type="text" name="info[module]" value="<!--{$recordInfo.module}-->" class="input-text" id="module" >
+        </td>
+    </tr>
+    <tr>
+        <td>Controller：</td>
+        <td>
+        <input type="text" name="info[controller]" class="input-text" id="controller" value="<!--{$recordInfo.controller}-->">
+        </td>
+    </tr>
+    <tr>
+        <td>Action</td>
+        <td>
+        <input type="text" name="info[actionname]" class="input-text" id="actionname" value="<!--{$recordInfo.actionname}-->">
+        </td>
+    </tr>
+    <tr>
+        <td>参数:</td>
+        <td>
+        <input type="text" name="info[data]" value="<!--{$recordInfo.data}-->" class="input-text" id="data">
+        </td>
+    </tr>
+    <tr>
+        <td>类型:</td>
+        <td>            
+        <input type="radio" name="info[ptype]" value="1" class="input-text" id="ptype" <!--{if $recordInfo.ptype==1}--> checked <!--{/if}--> />菜单
+        <input type="radio" name="info[ptype]" value="2" class="input-text" id="ptype" <!--{if $recordInfo.ptype==2}--> checked <!--{/if}--> />权限
+        </td>
+    </tr>
+    <tr>
+        <td>快捷操作:</td>
+        <td>            
+        <input type="radio" name="info[shortcut]" value="1" class="input-text" id="ptype" <!--{if $recordInfo.shortcut==1}--> checked <!--{/if}--> />是
+        <input type="radio" name="info[shortcut]" value="0" class="input-text" id="ptype" <!--{if $recordInfo.shortcut==0}--> checked <!--{/if}--> />否
+        </td>
+    </tr>
+    <tr>
+        <td>外部链接:</td>
+        <td>            
+        <input type="radio" name="info[flag]" value="1" class="input-text" id="flag" <!--{if $recordInfo.flag==1}--> checked <!--{/if}--> />是
+        <input type="radio" name="info[flag]" value="0" class="input-text" id="flag"  <!--{if $recordInfo.flag==0}--> checked <!--{/if}--> />否
+        </td>
+    </tr>
+    <tr>
+        <td>链接地址:</td>
+        <td>
+        <input type="text" name="info[link]" value="<!--{$recordInfo.link}-->" class="input-text" id="data">
+        </td>
+    </tr>
+</table>
+    <div class="bk15"></div>
+	<div class="btn"><input type="submit" id="dosubmit" class="button" name="dosubmit" value="提交"/></div>
+</form>
+</div>
+</div>
+</body>
+</html>

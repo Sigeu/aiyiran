@@ -1,0 +1,46 @@
+﻿<!--{include file="public/head_admin.html"}-->
+<script>
+   $(function(){
+	   
+     $(".cancel").click(function(){
+	     window.location.href="<!--{$baseurl}--><!--{$url}-->";
+	 })
+	 
+   })
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">表单回复</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form action="<!--{$baseurl}-->/modules/message/reply" method='post'>
+              <table class="tabelLR">
+                <input type='hidden' value="<!--{$url}-->" name='url'>
+                <input type='hidden' value="<!--{$parent.id}-->" name='curid'>
+                <input type='hidden' value="<!--{$parent.typeid}-->" name='typeid'>
+                <input type='hidden' value="<!--{$parent.message_id}-->" name='msid'>
+                <!--{$content}-->
+                <tr>
+                  <th>&nbsp;回复：</th>
+                  <td colspan="3"><textarea style='width:400px;height:150px;font-size:12px;' name='replycon'><!--{$replaycon}--></textarea>
+                  </td>
+                </tr>
+              </table>
+               <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+				<input type="button" hidefocus="hide" value="取消" class="btn2 cancel" >
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

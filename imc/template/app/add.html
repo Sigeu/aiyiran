@@ -1,0 +1,98 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$urlArr.indexUrl}-->" class="last">应用列表</a></dd>
+            <dt class="on"><a href="">添加应用</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+			<input type='hidden' name='dosubmit' value='1'/>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"><font>*</font> 应用名：</th>
+                  <td><input type="text" value="" class="Iw290" id="appname" name="appname"/></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 应用地址：</th>
+                  <td><input type="text" value="" class="Iw290" id="appurl" name="appurl"/>　应用系统地址,例:http://www.b2b.cn</td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 通信密钥：</th>
+                  <td><input type="text" value=""  class="Iw290" id="appkey" name="appkey"/>　<input type='button' value='自动生成' id='button_key' name='button_key' id='button_key'/></td>
+                </tr>
+                <tr>
+                  <th width="145">&nbsp; 应用IP：</th>
+                  <td><input type="text" value="" class="Iw290" id="appip" name="appip"/></td>
+                </tr>
+				 
+				<tr>
+					<th width="145px"><font>*</font> 字符集：</th>
+					<td><select name='charset'>
+					<option value='utf-8'>utf-8</option>
+					<option value='gb2321'>gb2321</option>
+					<option value='big5'>big5</option>
+					<select></td>
+				</tr>
+				<tr>
+                  <th width="145"><font>*</font> 币种：</th>
+                  <td><input type="text" value="" class="Iw145" id="currency" name="currency"/></td>
+                </tr>
+				<tr>
+                  <th width="145">&nbsp; 是否同步登陆：</th>
+                  <td><input type="checkbox" value="1" class="Iw145" id="syslogin" name="syslogin"/></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" value="确定" class="btn1" onclick="formSubmit();">
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="formCancel();" >
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",generalwordwide:true,onerror:function(msg){}});
+    $("#appname").formValidator({onshow:"请输入1-100个字符，由数字、字母、下划线组成",onfocus:"请输入1-100个字符，由数字、字母、下划线组成"}).inputValidator({min:1,max:100,onerror:"请输入1-100个字符，由数字、字母、下划线组成"}).ajaxValidator({
+        url:"<!--{$baseurl}-->/app/App/checkUnique",
+        success : function(data){
+            //alert(data);
+            if(data==1) return true;
+            if(data==2) return false;
+            return false;
+        },
+        buttons: $("#dosubmit"),
+        error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+        onerror : "该应用名已存在，请重新输入",
+        onwait : "正在对应用名进行合法性校验，请稍候..."
+     });
+
+    $("#appurl").formValidator({onshow:"请输入应用地址",onfocus:"应用地址不能为空"}).regexValidator({regexp:"^http[s]?:\\/\\/([\\w-]+\\.)+[\\w-]+([\\w-./?%&=]*)?$",onerror:"请输入正确格式的URL"});
+
+	 $("#appfile").formValidator({onshow:"请输入通讯文件",onfocus:"通讯文件不能为空"}).regexValidator({regexp:"^(\\w)+(\\.php)$",onerror:"通讯文件格式为.php"});
+
+    $("#currency").formValidator({onshow:"请输入1-100个字符，由数字、字母、下划线组成",onfocus:"请输入1-100个字符，由数字、字母、下划线组成"}).inputValidator({min:1,max:99,onerror:"请输入1-100个字符，由数字、字母、下划线组成"});
+
+	
+})
+$('#button_key').click(function(){
+	$.ajax({
+		  type:"POST",
+		  url:"<!--{$urlArr.appkeyUrl}-->",
+		  data:"",
+		  success:function(msg){
+			  $("#appkey").val(msg);    
+		  }
+	});
+})
+</script>
+    </body>
+    </html>

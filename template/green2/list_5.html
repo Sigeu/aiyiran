@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<style>
+.r_goods li {
+	width: 185px;
+	float: left;
+}
+</style>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+    {include 'category_goods.html'}
+
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="{HOST_NAME}category/Category/list/cid/2" class="moreL">更多>></a> <span class="h_grayL">推荐物品</span>
+      <ul class="arrow_ulL">
+        {mo:articlelist cid='2' row='10' order='hits desc' type='all' return='data'}
+		{foreach $data $k $v}
+		<li {if $k==9 } class="last"{/if}><a href="{$v['url']}">{csubstr($v['title'],14)}</a></li>
+		{/foreach}
+		{/mo:articlelist}
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="title"> 
+        <!--<a href="#" class="t_more right">更多&gt;&gt;</a>-->
+        <div class="t_name"><span class="tit_green">{cid2name($cid)}</span></div>
+      </div>
+      <div class="mb10">
+          <ul class="r_goods">
+          {mo:goods order='hits desc' return='data'}
+              {foreach $data $sonk $sonv}
+            <li>
+              <div class="bc_pic" ><a href="{$sonv['url']}" title=""><img style='width:88px;height:88px' src="{UPLOAD_PATH}/{$sonv['thumb']['src']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+              <dl class="dl_goods">
+                <dt><a href="{$value['url']}">{csubstr($sonv['title'],10)}</a></dt>
+                <dd class="f6 pb5">{csubstr($sonv['username'],10)}</dd>
+                <dd><strong class="f14">{$sonv['subtitle']}</strong>元</dd>
+              </dl> 
+             </li>
+           {/foreach}
+         {/mo:goods} 
+          </ul>
+      </div>
+      <div class="pages" style="margin-right:35px;">{$pagestr}</div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+             <dd><a href="<!--{$baseurl}-->/memorial/hall/index" class="last">纪念馆列表</a></dd>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$mid}-->">逝者资料管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/biography/id/<!--{$mid}-->">传记管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/mshow/id/<!--{$mid}-->">隐私管理</a></dt>
+             <dt class="on"><a href="<!--{$baseurl}-->/memorial/hall/eulogy/id/<!--{$mid}-->">祭文悼词管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->">墓志铭管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/steleauthor/id/<!--{$mid}-->">立碑人信息</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/memorial/hall/index" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">编号</th>
+                  <th width="50%">标题</th>
+                  <!-- <th width="10%">留言人</th> -->
+                  <th width="10%">创建时间</th>
+                  <th width="10%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td>
+                  <!--{$item.id}-->
+                  </td>
+                  <td title='<!--{$item.ename}-->'><!--{$item.ename}--></td>
+                  <!-- <td title='<!--{$item.uname}-->'><!--{$item.uname}--></td> -->
+                  <td><!--{$item.createtime}--></td>
+                  <td>
+                   <a href="javascript:;" onclick="honnerInfo(<!--{$item.id}-->)">详情</a> |
+                   <a href="#"  onclick="MoConfirm('<!--{$baseurl}-->/memorial/hall/deleulo/id/<!--{$item.id}-->/mid/<!--{$item.mid}-->/page/<!--{$page}-->','确认删除？')">删除</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+    <script>
+    function honnerInfo(id){
+	    window.top.art.dialog({title:'纪念悼文详情', content:'<iframe src="/admin/memorial/hall/euloinfo/id/'+id+'" width="830px" height="600px" scrolling="no" frameborder="0"></iframe>', width:'830px', height:'600px',id:'createActivit'});
+    }
+    </script>
+    </body>
+    </html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'} 
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+		{include 'category3.html'}
+
+		<div class="bg_grayL">
+			<a href="{HOST_NAME}category/Category/list/cid/$cid" class="moreL">更多>></a>
+			<span class="h_grayL">热门文章</span>
+			<ul class="arrow_ulL">
+			{mo:articlelist row="12" cid="$cid" type='son' order="hits desc" return="data"}
+        	{foreach $data $k $v}
+			{if $lastIndex}
+				<li class="last"><a href="{$v['url']}">[{$v['catname']}]?{$v['title']}</a></li>
+			{else}
+				<li><a href="{$v['url']}">[{$v['catname']}]?{$v['title']}</a></li>
+			{/if}
+            {/foreach}
+		   {/mo:articlelist}
+			</ul>
+		</div>
+	</div>
+	{php $cateTree = getIdListByPid($cid);} 
+    <div class="right w744">
+      <div class="m w498">
+      <div class="Greyborder mb10" style="padding-bottom:8px;">
+        <div class="title">
+          <a href="{getMoreUrl($cateTree[0]['id'])}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[0]['id'])}</span><span class="tit_en">Health</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h95">
+          {php $catid0 = $cateTree[0]['id']}
+            {mo:articlelist cid='$catid0' row='1' order='publishtime' return='data'}
+		  {foreach $data $k $v}
+          <div class="bc bc_h95">
+            <div class="bc_pic" style="margin-right:8px;"><a href="#" title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" alt="{$v['thumb']['alt']}" width="134" height="95" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+            <dl class="bc_txt">
+              <dt><a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a></dt>
+              <dd class="f6" style="line-height:20px;">{csubstr($v['content'],65)}<a href="{$v['url']}" class="greena">
+                <全文>
+                </a></dd>
+            </dl>
+          </div>
+		  {/foreach}
+		  {/mo:articlelist}
+          </div>
+          <div class="bg_line"></div>
+          {php $cate1 = getIdListByPid($cateTree[0]['id']);} 
+          <dl class="bc_txt bc_txt24 l">
+            {php $cid10 = $cate1[0]['id']}
+            {mo:articlelist row='4' cid='cid10' return='data'}
+			{foreach $data $k $v}
+            <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+          <dl class="bc_txt bc_txt24 right">
+          {php $cid11 = $cate1[1]['id']}
+           {mo:articlelist row='4' cid='$cid11' return='data'}
+			{foreach $data $k $v}
+            <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+      <div class="r w237">
+      <div class="Greyborder Greyborder_bg1 mb10">
+        <div class="r_tit">
+          <span class="r_t_name icobg_01">最近更新</span>
+        </div>
+        <div class="box_con">
+          <ul class="arrow_ulL" style="margin:0;">
+            {mo:articlelist row="7" cid="$cid" type='son' order="publishtime" return="data"}
+        	{foreach $data $k $v}
+			{if !$lastIndex}
+            <li><a href="{$v['url']}">{$v['title']}</a></li>
+			{else}
+            <li class="last"><a href="{$v['url']}">{$v['title']}</a></li>
+			{/if}
+            {/foreach}
+		   {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+      <div class="clearfix"></div>
+      <div class="Greyborder mb10">
+        <div class="box_con">
+          <ul class="list_s">
+
+            <li class="line">
+              <div class="bc_pic bc_picb" style="margin-right:8px;">
+			  {mo:articlelist row="1" cid="$cid10" order="publishtime" return="data"}
+        		{foreach $data $k $v}
+			  <a href="{$v['url']}" title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="88" height="88" onerror="this.src='{IMG_PATH}/default.jpg'" ></a>
+			   {/foreach}
+				{/mo:articlelist} 
+			  </div>
+               
+			  <dl class="bc_txt bc_txt24">
+                {mo:articlelist row="4" cid="$cid10" order="publishtime" return="data"}
+        		{foreach $data $k $v}
+                <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+				{/foreach}
+				{/mo:articlelist}
+              </dl>
+            </li>
+            <li>
+              <div class="bc_pic bc_picb" style="margin:0 8px;">
+			  {mo:articlelist row="1" cid="$cid11" order="publishtime" return="data"}
+			  {foreach $data $k $v}
+			  <a href="{$v['url']}" title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="88" height="88" onerror="this.src='{IMG_PATH}/default.jpg'"></a>
+			   {/foreach}
+				{/mo:articlelist} 
+				</div>
+              <dl class="bc_txt bc_txt24">
+                 {mo:articlelist row="4" cid="$cid11" order="publishtime" return="data"}
+        		{foreach $data $k $v}
+                <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+				{/foreach}
+				{/mo:articlelist}
+              </dl>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="m w498">
+      <div class="Greyborder">
+        <div class="title">
+         {php $cate2 = getIdListByPid($cateTree[1]['id']);} 
+          <a href="{getMoreUrl($cate2[0]['id'])}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name($cate2[0]['id'])}</span><span class="tit_en">Kitchen</span></div>
+        </div>
+        <div class="box_con">
+          <ul class="kitchen" style="padding-bottom:3px;">
+          {php $cid20 = $cate2[0]['id']}
+            {mo:articlelist cid='$cid20' row='10' return='data'}
+            {foreach $data $k $v}
+            <li>
+              <a href="{$v['url']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" title='{$v['title']}' onerror="this.src='{IMG_PATH}/default.jpg'"/></a>
+              <p><a href="{$v['url']}" title='{$v['title']}'>{$v['title']}</a></p>
+            </li>
+			 {/foreach}
+			 {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+      <div class="r w237">
+      <div class="Greyborder Greyborder_bg1">
+        <div class="r_tit">
+          <a href="{getMoreUrl($cate2[1]['id'])}" class="right t_more">更多>></a>
+          <span class="r_t_name icobg_01">{cid2name($cate2[1]['id'])}</span>
+        </div>
+        <div class="box_con">
+          <ul class="r_goods">
+          {php $cid21 = $cate2[1]['id']}
+		  {mo:articlelist cid='$cid21' row='1' return='data'}
+            {foreach $data $k $v}
+            <li>
+              <div class="bc_pic">
+			  <a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" style='width:88px;height:88px' onerror="this.src='{IMG_PATH}/default.jpg'" ></a></div>
+              <dl class="dl_goods">
+                <dt><a href="{$v['url']}" class="ft12"><strong>{$v['title']}</strong></a></dt>
+                <dd class="f6 pb5" style="line-height:20px;">{csubstr($v['description'],20)}</dd>
+              </dl>
+            </li>
+		   {/foreach}
+		   {/mo:articlelist}
+          </ul>
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24">
+            {mo:articlelist from='1' cid='$cid21' row='6' return='data'}
+            {foreach $data $k $v}
+            <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+			{/foreach}
+			{/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}
+

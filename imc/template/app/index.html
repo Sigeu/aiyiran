@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>IMC-应用管理列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"  src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/pubJq.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/admin.js"></script>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"></link>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script>
+function check_status(appid)
+{
+	$.ajax({
+	  type:"POST",
+	  url:"<!--{$hostname}-->imc/app/App/checkStatus",
+	  data:"id="+appid,
+	  success:function(msg){
+		if(msg=='1')
+		{
+			$('#status_'+appid).html('<span class="onCorrect">通信成功</span>');
+		}
+		else
+		{
+			$('#status_'+appid).html('<span class="onError">通信失败</span>');
+		}
+		
+	  }	
+	});
+}
+</script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="">应用列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/app/App/add" class="last">添加应用</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$urlArr.indexUrl}-->" method="post" id="myForm" name="myForm">
+            <div class="pubTabel">
+            <table class="tabelTB" id="search-list">
+                <tr>
+                  
+                  <th width="10%">ID</th>
+                  <th width="15%">应用名</th>
+                  <th width="20%">应用地址</th>
+				  <th width="20%">字符集</th>
+                  <th width="20%">通信状况</th>
+                  <th width="20%">详情</th>
+                </tr>
+                <!--{foreach from=$applist item=item key=key}-->
+                <tr>
+                  <td><!--{$item.id}--></td>
+                  <td><!--{$item.appname}--></td>
+                  <td><!--{$item.appurl}--></td>  
+				  <td><!--{$item.charset}--></td>                  
+                  <td><span id='status_<!--{$item.id}-->'></span><script type="text/javascript">$(function(){check_status(<!--{$item.id}-->)})</script></td>
+                  <td><a href="<!--{$urlArr.editUrl}-->/id/<!--{$item.id}-->">修改</a> | 
+					<a href="javascript:;" onclick="javascript:operateOne('<!--{$urlArr.delUrl}-->/id/<!--{$item.id}-->/appname/<!--{$item.appname}-->','确认删除？');"">删除</a></td> 
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pagestr}--></div>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>   
+	
+</body>
+</html>

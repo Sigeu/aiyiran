@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>登录页</title>
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'tophead.html'}
+<div class="logo_search">
+  <div class="logo"><a href="{HOST_NAME}" title="商业资讯网"><img src="{logo()}"/></a></div>
+</div>
+<div class="wrap">
+  <div class="login">
+    <div class="T">
+      <h3>注册协议</h3>
+    </div>
+    <div class="C">
+      <div class="pTabs">
+      <div style="line-height:180%;color:#333;padding:50px;font-size:12px;">
+       {htmlspecialchars_decode($registerdeal)}
+       </div>
+		
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+/*captcha 属性更新验证码及表单认证*/
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+
+function checkLogin()
+{
+	if($('#code').val()=='')
+	{
+	  alert("验证码不能为空");
+	}
+	else if(!$('#username').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#password').val())
+	{
+		alert('请输入密码');
+		
+	}
+	/*根据情况判断是否阅读*/
+	else if(!$('#clause').attr('checked'))
+	{
+		alert('是否阅读用户条款');
+	}
+	else
+	{
+		$('#loginForm').submit();
+	}
+}
+</script>
+{include 'footer.html'}

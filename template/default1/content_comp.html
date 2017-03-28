@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+<div class="subNav">{include 'thumb.html'}</div>
+<div class="wrap">
+  <div class="sideBar">
+    <div class="T">{cid2name(53)}</div>
+    <div class="pubUl">
+      <ul>
+      {mo:articlelist cid='53' type='all' row='5' order='id' return='data'}
+      {foreach $data $k $v}
+        {if $v['id']===$id}
+        <li><a href="{$v['url']}" class="focus">{$v['title']}</a></li>
+        {else}
+        <li><a href="{$v['url']}">{$v['title']}</a></li>
+        {/if}
+      {/foreach}
+      {mo:articlelist}
+      <li><a href="/message/Message/index/id/283" {if isset($ismessage)}class='focus'{/if}>意见和建议</a></li>
+      <li class="last"><a href="{HOST_NAME}category/Category/index/cid/289" title="网站地图">网站地图</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+  <div class="pubBox pubBox1">
+    <div class="textBox">
+    <div class="T">
+        <h2>{$content['title']}</h2>
+      </div>
+      <div class="C">
+        {$content['content']}
+        {if isset($content['thumb']['src'])&&$content['thumb']['src']}
+        <p class="imgTxt">
+          <img src="{UPLOAD_PATH}/{$content['thumb']['src']}" />
+        </p>
+         {/if}
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

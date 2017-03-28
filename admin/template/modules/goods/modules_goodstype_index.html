@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:;">商品属性</a></dt>
+            <dd><a href="<!--{$baseurl}-->/modules/goodstype/add" class="last">添加属性</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+			<form method="post" action="javascript:;" id="batch-form" enctype="multipart/form-data">
+              <table class="tabelTB tableTB_Xtal mt10" id="search-list">
+                <tr style="border-bottom:1px solid #CCD9E4;"><!--  表头  -->
+                  <th width="10%">选择</th>
+                  <th width="40%">属性名称</th>
+                  <th width="14%">商品数量</th>
+                  <th width="16%">操作</th>
+                </tr>
+				<!--{foreach from=$plist.list item=l}-->
+				<tr class="level2">
+					<td><input type="checkbox" name="typeid[]" value="<!--{$l.typeid}-->" /></td>
+					<td style="text-align:center"><!--{$l.typename}--></td>
+					<td style="text-align:center"><!--{$l.attr_number}--></td>
+					<td style="text-align:center"><a href="<!--{$baseurl}-->/modules/goodsfield/index/typeid/<!--{$l.typeid}-->">字段管理</a> | <a href="<!--{$baseurl}-->/modules/goodstype/edit/typeid/<!--{$l.typeid}-->">修改</a> | 
+					<a href="javascript:;" onclick="deleteType('<!--{$baseurl}-->/modules/goodstype/del/typeid/<!--{$l.typeid}-->',<!--{$l.attr_number}-->)">删除</a></td>
+				</tr>
+				<!--{/foreach}-->
+              </table>
+			</form>
+            </div>
+            <div class="pubTabelBot pubTabelBot_X" style="text-align:left;"><span class="btn5" style="width:80px;">
+              <label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/>全选/反选</label></span>
+              <input type="button" class="btn5" value="删除"
+			  onclick="bacchDelete(this)"
+			  form-id="batch-form"
+			  container-id="search-list"
+			  form-action="<!--{$baseurl}-->/modules/goodstype/del"
+			  empty-tips="请选择要删除的记录！"
+			  confirm-tips="删除商品属性会使相关商品属性为空，你确定要删除吗？"/>
+            </div>
+          </div>
+        </div>
+		<div class="pubTabelBot">
+		<div class="pageGo"><!--{$plist.pagestr}--></div>
+		</div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+function deleteType (url,num)
+{
+	var tip = (num == '0') ? '确定删除？' : '有商品正在使用此属性，您确定要删除？';
+	var throughBox = art.dialog.through;
+	throughBox({content: tip,icon:'question',lock:true,fixed:true},function()
+	{
+		window.location.href=url;
+	},
+	function()
+	{
+		//art.dialog.tips('你取消了操作');
+	});
+}
+
+//属性批量删除
+function bacchDelete (obj)
+{
+	var _obj = $(obj);
+	var checked = $('#'+_obj.attr('container-id')+' input:checkbox:checked');  //选中的复选框数量
+	if (!checked.length)
+	{
+		art.dialog.alert('请选择要删除的记录！','warning');
+		return false;
+	}
+	var ids = new Array();
+	$.each(checked,function(i,n)
+	{
+		ids.push($(n).val());
+	});
+	$.post('<!--{$baseurl}-->/modules/goodstype/ajaxcheck',{'ids':ids.join(',')},function(d)
+	{
+		if (d > 0)
+			var confirm_tips = '有商品正在使用此属性，您确定要删除？';
+		else 
+			var confirm_tips = '确定删除？';
+
+		var throughBox = art.dialog.through;
+		throughBox({content: confirm_tips,lock:true,fixed:true,icon:'question'},function()
+		{
+			$('#'+_obj.attr('form-id')).attr('action',_obj.attr('form-action')).submit();
+			return true;
+		},
+		function()
+		{
+			//art.dialog.tips('你取消了操作');
+		});
+	});
+}
+</script>

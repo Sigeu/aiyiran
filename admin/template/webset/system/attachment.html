@@ -1,0 +1,144 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="height16"></div>
+        <form method="post" id="thisform" action="<!--{$baseurl}-->/webset/Attachment/reviseAttachment">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelTB">
+                <tr>
+                  <th width="25%">参数说明</th>
+                  <th width="25%">变量名</th>
+                  <th width="55%" align="left">参数值</th>
+                </tr>
+                <tr>
+                  <td>缩略图默认高度</td>
+                  <td>mo_ddimg_height</td>
+                  <td class="taL"><input class="Iw215" id="mo_ddimg_height" name="mo_ddimg_height" type="text" value="<!--{$attach.mo_ddimg_height}-->"/> px
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>缩略图默认宽度</td>
+                  <td>mo_ddimg_width</td>
+                  <td class="taL"><input class="Iw215" ID="mo_ddimg_width" name="mo_ddimg_width" type="text" value="<!--{$attach.mo_ddimg_width}-->"/> px
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>允许上传图片类型</td>
+                  <td>mo_picturetype</td>
+                  <td class="taL"><input class="Iw215" id="mo_picturetype" name="mo_picturetype" type="text" value="<!--{$attach.mo_picturetype}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>允许上传文件类型</td>
+                  <td>mo_filetype</td>
+                  <td class="taL"><input class="Iw215" id="mo_filetype" name="mo_filetype" type="text" value="<!--{$attach.mo_filetype}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>允许上传媒体文件类型</td>
+                  <td>mo_mediatype</td>
+                  <td class="taL"><input class="Iw215" id="mo_mediatype" name="mo_mediatype" type="text" value="<!--{$attach.mo_mediatype}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>允许上传附件数量</td>
+                  <td>mo_addon_num</td>
+                  <td class="taL"><input class="Iw215" id="mo_addon_num" name="mo_addon_num" type="text" value="<!--{$attach.mo_addon_num}-->"/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <!--
+                <tr>
+                  <td>图片集多行多列样式默认行数</td>
+                  <td>mo_album_row</td>
+                  <td class="taL"><input class="Iw215" id="mo_album_row" name="mo_album_row" type="text" value=""/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>图片集多行多列样式默认列数</td>
+                  <td>mo_album_col</td>
+                  <td class="taL"><input class="Iw215" id="mo_album_col" name="mo_album_col" type="text" value=""/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <tr>
+                  <td>图集默认样式</td>
+                  <td>mo_album_style</td>
+                  <td class="taL"><input class="Iw215" id="mo_album_style" name="mo_album_style" type="text" value=""/>
+                    <span class="warnBlue"></span></td>
+                </tr>
+                -->
+                <tr>
+                  <td>会员上传头像大小(单位KB)</td>
+                  <td>mo_max_face</td>
+                  <td class="taL"><input class="Iw215" id="mo_max_face" name="mo_max_face" type="text" value="<!--{$attach.mo_max_face}-->"/> KB
+                    <span class="warnBlue"></span></td>
+                </tr>
+                <!--
+                <tr>
+                  <td>附件保存形式</td>
+                  <td>mo_addon_savetype</td>
+                  <td class="taL">
+                  <select id="mo_addon_savetype" name="mo_addon_savetype" style="width:220px;">
+                    <option value="1" >yy-mm-dd</option>
+                    <option value="2" >mm-dd-yy</option>
+                    <option value="3" >yy-dd-mm</option>
+                  </select>
+                  <span class="warnBlue"></span></td>
+                </tr>
+                -->
+              </table>
+            </div>
+            <div class="pubTabelBot"/>
+              <input type="submit" value="确定" class="btn1" />
+              <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/webset/Attachment/index'" class="btn2" />
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.formValidator.initConfig({formid:"thisform",autotip:true,debug:false,submitonce:true});
+
+	$("#mo_ddimg_height").formValidator({onshow:" ",onfocus:"请填写默认缩略图高度",oncorrect:"输入正确",empty:true})
+    .inputValidator({min:1,onerror:"请填写默认缩略图高度"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_ddimg_width").formValidator({onshow:" ",onfocus:"请填写默认缩略图宽度",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,onerror:"请填写默认缩略图宽度"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_picturetype").formValidator({onshow:"多个类型之间用'|'隔开",onfocus:"请填写图片类型",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:2,max:300,onerror:"请输入2-300个字符"});
+
+    $("#mo_filetype").formValidator({onshow:"多个类型之间用'|'隔开",onfocus:"请填写文件类型",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:2,max:300,onerror:"请输入2-300个字符"});
+
+    $("#mo_mediatype").formValidator({onshow:"多个类型之间用'|'隔开",onfocus:"请填写多媒体文件",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:2,max:300,onerror:"请输入2-300个字符"});
+
+    $("#mo_addon_num").formValidator({onshow:" ",onfocus:"请输入允许上传附件数量",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,onerror:"请输入允许上传附件数量"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_album_row").formValidator({onshow:" ",onfocus:"请填写图片集默认行数",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,onerror:"请填写图片集默认行数"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_album_col").formValidator({onshow:" ",onfocus:"请填写图片集默认列数",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,onerror:"请填写图片集默认列数"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_album_style").formValidator({onshow:"1为多页多图；2为多页单图；3为缩略图表",onfocus:"请填写图集默认样式",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,max:1,onerror:"1为多页多图；2为多页单图；3为缩略图表"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_max_face").formValidator({onshow:" ",onfocus:"请填写会员头像大小",oncorrect:"输入正确",empty:true})
+	.inputValidator({min:1,onerror:"请填写会员头像大小"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"只允许输入正整数"});
+
+    $("#mo_addon_savetype").formValidator({onshow:" ",onfocus:"请填写日期格式",oncorrect:"选择正确",empty:true})
+    .inputValidator({min:1,onerror:"请填写日期格式"});
+
+});
+
+</script>

@@ -1,0 +1,41 @@
+{include 'inc/memorial_head.html'}
+
+			<!--***古人简介*******************************-->
+			<div class="introduc">
+				<span class="head_left fl">
+					<img src="{$info['userpic']}" />
+					<a href="/jinian/Jinian/index/mid/{$mid}">点击祭拜</a>
+				</span>
+				<h3>{$desc['person']}</h3>
+				<p>({$desc['m_year']}-{$desc['m_month']}-{$desc['m_day']} — {$desc['d_year']}-{$desc['d_month']}-{$desc['d_day']})</p>
+				<dl>
+					<dd>性别：{if $desc['sex']==1}男{else}女{/if}</dd>
+					<dd>民族：{$desc['nation']}</dd>
+					<dd>籍贯：{$sheng['area_name']}省{$shi['area_name']}市{$desc['origind']}</dd>
+					<dd>职业：{$desc['careers']}</dd>
+				</dl>
+				<dl>
+					<dd>生辰：{$desc['m_year']}年{$desc['m_month']}月{$desc['m_day']}日</dd>
+					<dd>忌日：{$desc['d_year']}年{$desc['d_month']}月{$desc['d_day']}日</dd>
+					<dd>出生地址：{$sheng2['area_name']}省{$shi2['area_name']}市{$desc['brithc']}</dd>
+					<dd>安葬地址：{$cemetery['title']}</dd>
+				</dl>
+				<dl>
+					<dd>纪念馆号：{$desc['mid']}</dd>
+					<dd>纪念馆地址：http://ariyiran.com/{$desc['mid']}</dd>
+				</dl>
+			</div>
+			<div class="details_box">
+				<div class="headline">
+				<span class="fl">故人简介<i></i></span>
+				<!--<a href="###" class="fr">参看更多<i></i></a>-->
+				</div>
+				<div class="details_jj">
+				     {$desc['descript']}
+				</div>
+
+
+			</div>
+		</div>
+			<!--********footer***************************************-->
+{include 'head_footer.html'}

@@ -1,0 +1,24 @@
+var str = "<link href='[css]/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='[css]/J.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_dl{[width]px; height:[height]px; top:[up]px;display:block;position:absolute;}.mainone_ads_dl_left{left:[left]px;}</style><body style='height:2000px;'>[add]";
+document.write(str);
+$(function(){
+  var isFixed=[tem];
+  var duilian = $('.mainone_ads_dl');
+  var isIE6=!!window.ActiveXObject&&!window.XMLHttpRequest;
+  $('.mainone_ads_dl_closebtn').click(function(){
+    duilian.hide();
+  })
+  if(isFixed){
+	  if(isIE6){
+		  duilian.css('position','absolute');
+		  }
+	  else{
+         duilian.css('position','fixed');
+		}
+	  }
+  if(isIE6){
+	$(window).scroll(function(){
+	 var scrollTop = $(window).scrollTop();
+	 duilian.stop().animate({top:scrollTop+100});
+	})
+  }
+})

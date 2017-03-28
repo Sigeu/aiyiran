@@ -1,0 +1,7 @@
+<th valign="top">选择栏目范围：</th>
+<td><select name='info[categoryid][]' id='categoryid' class="Iw290" style="width:448px;height:100px" multiple>
+  <option value="">不限栏目</option>
+  <!--{foreach item=item key=key from=$mycategoryList}-->
+  <option value="<!--{$item.id}-->" ><!--{$item.catname}--></option>
+  <!--{/foreach}-->
+</select></td>

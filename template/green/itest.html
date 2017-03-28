@@ -1,0 +1,23 @@
+
+{mo:goodsalbum row="10" id="77" order="goodsid"  return="data"}
+   
+{/mo:goodsalbum}
+
+
+{mo:goodsbrand row="10" order="brandid"  return="data"}
+     
+{/mo:goodsbrand}
+
+
+{mo:goods row="10" id="goodsid"  return="data"} 
+  {foreach $data  $key $value}   
+    <a href='{$value["url"]}'>{$value["brandname"]}</a>
+  {/foreach}
+{/mo:goods}
+
+<pre>
+<?php 
+print_r($data);
+?>
+
+</pre>

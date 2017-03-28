@@ -1,0 +1,42 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">修改文档</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$urlArr.addsaveUrl}-->" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+              <!--{foreach item=item key=key from=$form}-->
+                  <!--{$item}-->
+              <!--{/foreach}-->
+              </table>
+               <div class="pubTabelBot">
+                <input type="hidden" hidefocus="hide" value="<!--{$id}-->" class="btn1" name='id'/>
+                <input type="hidden" hidefocus="hide" value="1" class="btn1" name='dopost'/>
+                <input type="button" hidefocus="hide" onclick="javacript:formSubmit();" value="确定" class="btn1"  id='myButton'/><input type="button" hidefocus="hide" value="取消" onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+ 
+<script src="<!--{$jspath}-->/js/pubJq.js"></script>
+<script>
+$(document).ready(function(){
+	$.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	<!--{$formvalidator}-->$("#thumb").focus().blur();
+})
+
+
+ </script>
+</body>
+</html>

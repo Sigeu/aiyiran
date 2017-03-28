@@ -1,0 +1,44 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<form method="post" action="<!--{$baseurl}-->/members/msgsend/againsend" enctype="multipart/form-data">
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th width="145"><font>*</font> 信件主题：</th>
+									<td>
+									<input type="hidden" name="recipients" value="<!--{$info.recipients}-->" />
+									<input type="text" value="<!--{$info.title}-->" class="Iw290" onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly ><input type="hidden" name="title" value="<!--{$info.title}-->" /></td>
+								</tr>
+
+								<tr>
+									<th valign="top">&nbsp; 收件人：</th>
+									<td><!--{$info.username}--></td>
+								</tr>
+
+								<tr>
+									<th valign="top">&nbsp; 信件内容：</th>
+									<td><textarea class="Iw450 Ih80" name="content" name="content" ><!--{$info.content}--></textarea>&nbsp;<span class="warnBlue">信件内容最多输入500个字符</span></td>
+								</tr>
+
+								<tr>
+									<th valign="top">&nbsp; 发送时间：</th>
+									<td><!--{$info.created|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="pubTabelBot">
+							<input type="submit" hidefocus="hide" value="再次发送" class="btn1">
+							<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.go(-1)">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

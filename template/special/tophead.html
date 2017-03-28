@@ -1,0 +1,53 @@
+<div class="t">
+  <div class="state" id="login-info">
+  	
+    {if $GLOBALS['username']}
+	<div class="other"><a href="/user/User/loginout">安全退出</a></div>
+	{else}
+    <div class="other">|<a href="#" class="sina">用新浪微博登录</a>|<a href="#" class="qq">用QQ账号登录</a></div>
+    {/if}
+    <span>铭万开源平台，欢迎拍砖！</span>
+	{if $GLOBALS['username']}
+	尊敬的用户你好：{$GLOBALS['username']}
+	{else}
+    <form action='/user/User/login/type/1' method='post' id='loginForm'>
+      <label>用户名:</label>
+      <input type="text" class="userID" id='username1' value='{$GLOBALS["cookieUsername"]}' name='username'/>
+      <label>密码:</label>
+      <input type="password" class="pwd" id='password' name='password'/>
+	   <input type="hidden" class="pwd"  name='dosubmit' value="1"/>
+      <input type="button" onclick="javascript:checkLogin();" value="登录" class="grayBtn1"/>
+        <a href="#" class="underline">忘记密码</a>  <a target='__blank' href="/user/User/regist/groupid/24" class="underline">注册</a>
+    </form>
+	{/if}
+  </div>
+</div>
+<script>
+function checkLogin()
+{
+	if(!$('#username1').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#password').val())
+	{
+		alert('请输入密码');
+		
+	}
+	else
+	{
+		$('#loginForm').submit();
+	}
+}
+
+jQuery(function()
+{
+	jQuery.post('{HOST_NAME}user/user/getUserLoginInfo',{},function(data)
+	{
+		if(data != '')
+		{
+			jQuery('#login-info').html(data);
+		}
+	});
+});
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'enhead.html'}
+{include 'banner.html'}
+<div class="wrap">
+<div class="thumb">Localtion：<a href="{getMoreUrl(294)}">Home</a>  &gt; {cid2name($cid)}</div>
+  <div class="caseList">
+    <div class="ulOne">
+      <ul id="card0">
+      {php $cateTree = getCateTree($cid,1);}
+      {foreach $cateTree $k $v}
+        {if $k == 0}
+        <li class="focus">{$v['catname']}</li>
+        {else}
+        <li>{$v['catname']}</li>
+        {/if}
+      {/foreach} 
+      </ul>
+    </div>
+    <div class="allList">
+    {php $cateTree = getCateTree($cid,1);}
+      {foreach $cateTree $k $v}
+      	{if $k == 0 }
+        <div id="card0{$k}">
+        {else}
+		<div id="card0{$k}" style="display:none;">
+        {/if}
+        <ul class="ulOneList">
+		{php $mycid=$v['id'];}
+        {mo:articlelist pagesize='12' cid='$mycid' type='all' order='publishtime desc' return='data'}
+			{foreach $data $sonk $sonv}
+            <li>
+            <div class="listImg"><a href="{$sonv['url']}"><img src="{UPLOAD_PATH}/{$sonv['thumb']['src']}" width="226" height="160" alt="{if $sonv['thumb']['alt']!=''}{$sonv['thumb']['alt']}{else}{$sonv['title']}{/if}"/></a></div>
+            <div class="listTxt"><a href="{$sonv['url']}" title='{$sonv["title"]}'>{csubstr($sonv['title'],30)}</a></div>
+            </li>
+			{/foreach}
+		{/mo:articlelist}
+        </ul>
+      </div>
+      {/foreach} 
+    </div>
+  </div>
+  <div class="page" style="display:none"><a href="{$pageArr['firstPageUrl']}" title="1">Home</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="$k" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['prewPageUrl']}" title="上一页">Prve</a><a href="{$pageArr['nextPageUrl']}" title="1">Next</a><a href="{$pageArr['lastPageUrl']}" title="1">Last</a><span>Total <b>{$pageArr['pageNums']}</b> Page <b>{$pageArr['count']}</b> Article</span></div>
+</div>
+<script src="{JS_PATH}/tabs.js"></script>
+{include 'enfooter.html'}

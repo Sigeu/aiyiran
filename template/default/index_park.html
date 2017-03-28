@@ -1,0 +1,237 @@
+{include 'head.html'}
+
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/lm.css"/>
+<script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+<script type="text/javascript">
+    $(function(){
+        // banner轮播
+        var banSwiper = new Swiper('.cemetery_ban .swiper-container',{
+            pagination: '.cemetery_ban .swiper-container .pagination',
+            loop:true,
+            grabCursor: true,
+            paginationClickable: true,
+            autoplay : 7000,
+            speed:1000,
+            autoplayDisableOnInteraction: false
+        });
+        $('.cemetery_ban .arrow-left').on('click', function(e){
+            e.preventDefault()
+            banSwiper.swipePrev();
+        });
+        $('.cemetery_ban .arrow-right').on('click', function(e){
+            e.preventDefault()
+            banSwiper.swipeNext();
+        });
+        $(".cemetery_ban").hover(function(){
+            banSwiper.stopAutoplay();
+        },function(){
+            banSwiper.startAutoplay();
+        });
+    })
+</script>
+
+        <style>
+            .seleBox select{width: 118px; height: 34px;}
+        </style>
+
+    
+        <!--*******************************-->
+        <div class="box_cont clearfix">
+            <div class="cemetery_ban">
+                <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="{IMG_PATH}/lm_03.jpg" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="{IMG_PATH}/lm_03.jpg" />
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="{IMG_PATH}/lm_03.jpg" />
+                            </div>
+                        </div>
+                        <div class="pagination"></div>
+                        <div class="arrow-right"><i>&gt;</i></div>
+                        <div class="arrow-left"><i>&lt;</i></div>
+                   </div>
+            </div>
+            <div class="three_icont">
+                <ul>
+                    <li class="icon_1">
+                        <span></span>
+                        <h3>代客祭扫服务</h3>
+                        <p>远在他乡也能到陵园鲜花，扫墓。寄托思念</p>
+                    </li>
+                    <li class="icon_2">
+                        <span></span>
+                        <h3>在线祭拜</h3>
+                        <p>无论在何时何地都能祭奠故人，并留下思念悼文</p>
+                    </li>
+                    <li class="icon_3">
+                        <span></span>
+                        <h3>微信祭拜</h3>
+                        <p>结合微信来祭奠故人，并能分享哀思</p>
+                    </li>
+                </ul>
+            </div>
+
+   <form action="" method="get" name=form1>
+            <div class="hunt_box">
+                <b>公园陵墓</b>
+                <em>省份：</em>
+                <div class="seleBox fl">
+             <select name="province" id="originp" date-city="originc">
+                <option value="" selected>选择省份</option>
+                {foreach $area $key $value}
+                    <option value="{$value['area_id']}" 
+                    {if $province == $value['area_id']}
+                    selected=""
+                    {/if} 
+
+                    >{$value['area_name']}</option>
+                {/foreach}
+            </select>
+                </div>
+                <em>城市：</em>
+                <div class="seleBox fl">
+                       <select name="city" id="originc">
+                            <option value="" selected>选择城市</option>
+                                {if $info}
+                                {foreach $info $k $v}
+                                    <option value="{$v['area_id']}"
+                                    {if $v['area_id'] == $city} selected="" {/if}
+                                    >{$v['area_name']}</option>
+                                {/foreach}
+                                {/if}
+                        </select>
+                </div>
+                <div class="seek_box fl">
+                    <input name="keywords" id="" value="{$keywords}" class="l_input" placeholder="请输入标题或内容" type="text">
+                    <input type="submit" value="搜索" class="r_but" type="button">
+                </div>
+            </div>
+    </form>
+<script type="text/javascript">
+$(function(){
+    // 阻止多次请求 unbind
+$('#originp').unbind('change').bind('change',function(){
+            $("#originc").html('');
+     var baseUrl = "/search2/search/area";
+        var va = $(this).val();
+        var idConn = $(this).attr("date-city");
+        //alert(idConn);
+        $.get(baseUrl,{id:va},function(data){
+             var str = "<option value=''>请选择</option>";
+
+                   for(var i=0; i<data.data.length; i++){
+                    str += "<option value="+data.data[i].area_id+">"+data.data[i].area_name+"</option>";
+                    }
+                   str += "";
+          $("#originc").append(str);
+        },"json");
+      });
+});
+</script>
+            <div class="tomb_list clearfix">
+                <ul class="clearfix">
+             {mo:park row="100"  pagesize="25" province="$province" city="$city" keywords="$keywords" return="data"}
+             {if !empty($data)}
+                {foreach $data  $key $value}
+                    <li>
+                        <a href="/content/Content/cemetery/id/{$value['id']}" target="_blank">
+                            <img  class="lazy" src='/template/default/member/images/default_max.png' data-original="{$value['photo_url']}" title="{$value['title']}" width="216" height="216" />
+                            <p>{$value['title']}</p>
+                        </a>
+                    </li>
+              {/foreach}
+                 {else}
+              没找到信息，稍后再试
+              {/if}
+              {/mo:park}    
+                </ul>
+                <div class="page">
+                            {$pagestr}
+                </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+            </div>
+            <div class="three_list">
+                <div class="cont_list">
+                    <div class="headline">
+                        <span class="fl">最新加入<i></i></span>
+                        <a href="###" class="jion fr">申请加入</a>
+                     </div>
+                    <ul class="">
+              {mo:park   row="8"    return="data"}
+              {foreach $data  $key $value}
+                        <li>
+                            <a href="###">{$value['title']} </a>
+                            <span>{substr($value['addtiem'],0,10)}</span>
+                        </li>
+              {/foreach}
+              {/mo:park}    
+                    </ul>
+                </div>
+                <div class="cont_list cont_list5">
+                    <div class="headline">
+                        <span class="fl">热度行榜<i></i></span>
+                        <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+             {mo:park   row="8" order="click_nums DESC"   return="data"}
+              {foreach $data  $key $value}
+                        {$key++}
+                        {if $key < 4}
+                        <li class="active">
+                            <em>{$key}</em>
+                        {else}
+                        <li class="">
+                            <em>{$key}</em>
+                        {/if}
+                            <a href="###">{$value['title']} </a>
+                            <span>浏览：{$value['click_nums']} </span>
+                        </li>
+              {/foreach}
+              {/mo:park}           
+                    </ul>
+                </div>
+                <div class="cont_list cont_list3">
+                    <div class="headline">
+                        <span class="fl">购墓须知<i></i></span>
+                     </div>
+                     <div class="tell_you">
+                     {mo:articlelist row="3" cid="329" return="data"}
+                     {foreach $data  $key $value}
+                        <a href="{$value['url']}">
+                        <h3>{csubstr($value["title"],24)}</h3>
+                        <p>{csubstr($value["description"],47)}</p>
+                        </a>
+                    {/foreach}
+                    {/mo:articlelist}
+                     </div>
+                </div>
+            </div>
+            <div class="link_exchange">
+                <span>友情链接：</span><a href="###">中国民政部</a>  
+                <a href="###">中国殡葬协会  </a>  
+                <a href="###">国际殡葬协会 </a>  
+                <a href="###">中国文明网  </a>  
+                <a href="###">中国红十字会  </a>  
+                <a href="###">中华慈善总会 </a>  
+                <a href="###">中国文化部  </a>  
+                <a href="###">清明网  </a>  
+                <a href="###">中国历史  </a>  
+                <a href="###">39心理网  </a>  
+                <a href="###">农历网  </a>  
+                <a href="###">安康视窗  </a>  
+                <a href="###">徐州民生网</a>  
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

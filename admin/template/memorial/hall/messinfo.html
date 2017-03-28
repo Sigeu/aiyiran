@@ -1,0 +1,35 @@
+<!--{include file="public/head_admin.html"}-->
+	<div class="pubBox" >
+		<div class="pubtabBox">
+		
+			<form action='<!--{$baseurl}-->/memorial/hall/messinfo' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+                                <tr>
+                                  <th>留言内容：</th>
+                                  <td><textarea class="Iw450 Ih80" id='content' name='message'><!--{$info.message}--></textarea></td>
+                                 </tr>
+                                 <tr>
+                                  <th>状态：</th>
+                                  <td>
+                                   <select name="stuatus">
+                                   <!--{foreach $pstatus $v $k}-->
+                                    <option value="<!--{$k}-->" <!--{if $k eq $info['status']}-->selected<!--{/if}-->><!--{$v}--></option>
+                                   <!--{/foreach}-->
+                                   </select>
+                                  </td>
+                                 </tr>
+                                </table>
+                                <input type="hidden" name="hid" value="<!--{$info.id}-->"/>
+                                <input type="hidden" name="mid" value="<!--{$info.mid}-->"/>
+							<div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

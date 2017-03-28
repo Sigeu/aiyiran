@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>后台管理中心-权限菜单管理</title>
+<script language="javascript" type="text/javascript" src="<!--{$jspath}-->/admin.common.js"></script>
+
+</head>
+<body>
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='<!--{$baseurl}-->/system/permission/index' class="on"><em>系统菜单（权限）管理</em></a><span>|</span><a href='<!--{$baseurl}--><!--{$pageInfo.addUrl}-->' ><em>添加菜单（权限）</em></a>
+    </div>
+</div>
+<div class="pad_10">
+<div class="table-list">
+<form name="myform" action="" method="post" id="myform" >
+<input type="hidden" name="task" id="task">
+<table width="100%" cellspacing="0" >
+<thead>
+<tr align="left">
+<th width="7%"><input type="checkbox" name="check_all" id="check_all"/><label for="check_all">选中</label></th>
+<th width="5%" >排序id</th>
+<th width="5%" >编号</th>
+<th width="25%" >菜单（权限）名称</th>
+<th width="10%" >备注名称</th>
+<th width="5%" >AppDirectory</th>
+<th width="5%" >Module</th>
+<th width="5%" >Controller</th>
+<th width="5%" >Action</th>
+<th width="10%" >参数</th>
+<th width="5%" >是否为外部链接</th>
+<!--<th width="5%" align='center'>排序</th>  -->
+<th width="14%" align='center'>操作</th>
+</tr>
+</thead>
+<tbody>
+<!--{$menustr}-->
+<tr><td colspan="12"><input type="submit" name="ordersub" value="排序" /></td></tr>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+<!--
+function add(menuid) {
+	window.top.art.dialog({id:'add'}).close();
+	window.top.art.dialog({title:'修改该菜单权限',id:'add',iframe:'?c=admin_menu_role&a=add&menuid='+menuid,width:'500',height:'300'}, function(){var d = window.top.art.dialog({id:'add'}).data.iframe;d.$('#dosubmit').click();return false;}, function(){window.top.art.dialog({id:'add'}).close()});
+}
+//-->	
+</script>
+</body>
+</html>

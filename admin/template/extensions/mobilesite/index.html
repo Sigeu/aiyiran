@@ -1,0 +1,784 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+<div class="pubBox">
+  <div class="pubtabBox">
+    <div class="TabBoxT">
+      <dl class="navTab">
+        <dt class="on"><a href="<!--{$baseurl}-->/extensions/mobileSite/index">手机站设置</a></dt>
+        <dd class="add"><a href="<!--{$baseurl}-->/extensions/mobileSite/mobileScan">手机站预览</a></dd>
+      </dl>
+    </div>
+    
+    <form method="post" id="thisform" action="<!--{$baseurl}-->/extensions/mobileSite/updateSite" enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div class="pubtabBox">
+            <div class="TabBoxC">
+              <div>
+                <div class="pubTabel mt10">
+                  <table class="tabelLR">
+                    <tr>
+                      <th>手机站点开启：</th>
+                      <td>
+                          <span>
+                            <input type="radio" name="site[base][is_open]" value ="1" <!--{if $webset.is_open eq 1}--> checked="true" <!--{/if}-->/>
+                            <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <span>
+                            <input type="radio" name="site[base][is_open]" value="0" <!--{if $webset.is_open eq 0}--> checked="true" <!--{/if}-->/>
+                            <label>否</label>
+                          </span>
+                      </td>
+                    </tr>
+                    
+                    <tr class="border">
+                      <th>手机站模板：</th>
+                      <td>
+                      <select name="site[template]" id='template'  class="Iw290">
+                          <!--{foreach from=$tpl_conf key=k item=l}-->
+                          <option value="<!--{$k}-->" <!--{if $k == $template}-->selected='selected' <!--{/if}-->><!--{$l.name}--></option>
+                          <!--{/foreach}-->
+                      </select>
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th width="180px"> 站点名称：</th>
+                      <td><input class="Iw290" id="name" name="site[base][name]" type="text" value="<!--{$webset.name}-->"/></td>
+                    </tr>
+                    
+                    <tr>
+                      <th>logo高度设置：</th>
+                      <td>
+                        <input class="Iw90" id="logo_height" name="site[base][logo_height]" type="text" value="<!--{$webset.logo_height}-->"/> px
+                        （备注说明：logo宽度自适应）
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th width="145px">logo图片上传：</th>
+                      <td>
+                      <input type="hidden" name="is_del" id="is_del" value=""/>
+                      <span id="single-upload">
+                      <!--{if $webset.logo != ''}--><img src="<!--{$uploadpath}-->/<!--{$webset.logo}-->" onerror="javascript:this.src='<!--{$hostname}-->admin/template/images/default_logo.png'" height="40" title="" />&nbsp;&nbsp;&nbsp;图片ALT注释<input type="text" name="logo_alt" value="<!--{$webset.logo_alt}-->" maxlength="100"/>&nbsp;&nbsp;&nbsp;<input type="button" class="btn5" value="删除" onclick="javascript:$('#is_del').val('1');$('#single-upload').html('')"/><br /><br /><!--{else}--><input type="text" name="" value="" readonly class="Iw290"/> <!--{/if}--></span><input class="btn5" hideFocus="" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'brand','self_id':'uploadButton','ady_upload':1,'dis_place':'single-upload'})" type="button" value="浏览" id="uploadButton"/></td>
+                    </tr>
+                    
+                    
+                    <tr>
+                      <th>导航设置：</th>
+                      <td>
+                      <table style='border:1px solid #ccc;' id='header'>
+                        <tr>
+                            <td style='text-align:center'>排序</td>
+                            <td style='text-align:center'>栏目选择</td>
+                            <td style='text-align:center'>导航名称</td>
+                            <td style='text-align:center'>操作</td>
+                        </tr>
+                        
+                        <!--{foreach from=$header key=key item=val}-->
+                            <tr>
+                                <td style='width:15%;text-align:center'>
+                                <input class='show_order' type='text' value='<!--{$val.show_order}-->' name='site[header][h_<!--{$val.id}-->][show_order]' style='width:30px;margin-left:15px;'/>
+                                </td>
+                                <td style='width:20%;text-align:center'>
+                                    <select class='category head_cat Iw90' onchange='headerName($(this))' field='h_<!--{$val.id}-->' name="site[header][h_<!--{$val.id}-->][cid]">
+                                      <option value="">请选择栏目</option>
+                                      <!--{foreach from=$category key=k item=l}-->
+                                      <option value="<!--{$l.id}-->" <!--{if $l.id == $val.cid}--> selected <!--{/if}-->><!--{$l.catname}--></option>
+                                      <!--{/foreach}-->
+                                    </select>
+                                </td>
+                                <td style='width:55%;text-align:center'><input id='h_<!--{$val.id}-->' type='text' name='site[header][h_<!--{$val.id}-->][title]' value='<!--{$val.title}-->' class="Iw290 header_name"/></td>
+                                <td style='width:10%;text-align:center'><a href='javascript:void(0)' onclick='del($(this))'>删除</a></td>
+                            </tr>
+                        <!--{/foreach}-->
+                        
+                        <tr id='header_STR_CATEGORY_INDEX' style='display:none'>
+                            <td style='width:15%;text-align:center'>
+                            <input class='show_order' type='text' value='0' name='site[header][STR_CATEGORY_INDEX][show_order]' style='width:30px;margin-left:15px;'/>
+                            </td>
+                            <td style='width:20%;text-align:center'>
+                                <select onchange='headerName($(this))' field='h_STR_CATEGORY_INDEX' class='category head_cat Iw90' name="site[header][STR_CATEGORY_INDEX][cid]">
+                                  <option value="">请选择栏目</option>
+                                  <!--{foreach from=$category key=k item=l}-->
+                                  <option value="<!--{$l.id}-->"><!--{$l.catname}--></option>
+                                  <!--{/foreach}-->
+                                </select>
+                            </td>
+                            <td style='width:55%;text-align:center'><input id='h_STR_CATEGORY_INDEX' type='text' name='site[header][STR_CATEGORY_INDEX][title]' value='' class="Iw290 header_name"/></td>
+                            <td style='width:10%;text-align:center'><a href='javascript:void(0)' onclick='del($(this))'>删除</a></td>
+                        </tr>
+                      </table>          
+                      <input type="button" value="添加导航" class="btn2" onclick='add()' style='margin-top:10px;'/>
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>搜索设置：</th>
+                      <td>
+                      <table style='border:1px solid #ccc;'>
+                        <tr>
+                            <td style='text-align:center'>搜索类型</td>
+                            <td style='text-align:center'>添加</td>
+                            <td style='text-align:center'>排序</td>
+                            <td style='text-align:center'>显示文字</td>
+                        </tr>
+                        <!--{foreach from=$search key=key item=val}-->
+                            <tr>
+                                <td style='width:25%;text-align:center'><!--{$val.search_type}--></td>
+                                <td style='width:25%;text-align:center'>
+                                    <input name='site[search][<!--{$val.id}-->][is_show]' type='hidden' value='0'/>
+                                    <input name='site[search][<!--{$val.id}-->][is_show]' type='checkbox' value='1' <!--{if $val.is_show == 1}--> checked <!--{/if}-->/>
+                                </td>
+                                <td style='width:25%;text-align:center'>
+                                    <input class='show_order' type='text' name='site[search][<!--{$val.id}-->][show_order]' value='<!--{$val.show_order}-->' class="Iw90"/>
+                                </td>
+                                <td style='width:25%;text-align:center'>
+                                    <input type='text' name='site[search][<!--{$val.id}-->][title]' value='<!--{$val.title}-->' class="Iw90 show_words"/>
+                                </td>
+                            </tr>
+                        <!--{/foreach}-->
+                      </table>          
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>互动功能设置：</th>
+                      <td>
+                      <table style='border:1px solid #ccc;'>
+                        <tr>
+                            <td style='text-align:center'>功能类型</td>
+                            <td style='text-align:center'>添加</td>
+                            <td style='text-align:center'>相关设置</td>
+                            <td style='text-align:center'>显示文字</td>
+                        </tr>
+                        <!--{foreach from=$contact key=key item=val}-->
+                        <tr>
+                            <td style='width:25%;text-align:center'><!--{$val.contact_type}--></td>
+                            <td style='width:25%;text-align:center'>
+                                <input type='hidden' value='0' name='site[contact][<!--{$val.id}-->][is_show]'/>
+                                <input name='site[contact][<!--{$val.id}-->][is_show]' type='checkbox' value='1' <!--{if $val.is_show == 1}--> checked <!--{/if}-->/>
+                            </td>
+                            <td style='width:25%;text-align:center'>
+                                <!--{if $val.setting_type == 1}-->
+                                <input type='text' placeholder='请输入电话号码' name='site[contact][<!--{$val.id}-->][setting]' value='<!--{$val.setting}-->' class="phone"/>
+                                <!--{else}-->
+                                <select class='leave' name="site[contact][<!--{$val.id}-->][setting]" style='width:160px;'>
+                                  <option value="">请选择留言类型</option>
+                                  <!--{foreach from=$leave key=key2 item=val2}-->
+                                  <option value="<!--{$val2.id}-->" <!--{if $val2.id == $val.setting}-->selected<!--{/if}-->><!--{$val2.name}--></option>
+                                  <!--{/foreach}-->
+                                </select>
+                                <!--{/if}--> 
+                            </td>
+                            <td style='width:25%;text-align:center'>
+                                <input type='text' name='site[contact][<!--{$val.id}-->][title]' value='<!--{$val.title}-->' class="Iw90 show_words"/>
+                            </td>
+                        </tr>
+                        <!--{/foreach}-->
+                      </table>          
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>首页设置：</th>
+                      <td>
+                      <table style='border:1px solid #ccc;'>
+                        <tr>
+                            <td style='text-align:center'>板块类型</td>
+                            <td style='text-align:center'>添加</td>
+                            <td style='text-align:center'>排序</td>
+                            <td style='text-align:center'>版块名称</td>
+                            <td style='text-align:center'>对应栏目/推荐位</td>
+                        </tr>
+                        
+                        <!--{foreach from=$index key=key item=val}-->
+                        <tr>
+                            <td style='width:20%;text-align:center'><!--{$val.title}--></td>
+                            <td style='width:20%;text-align:center'>
+                                <input type='hidden' value='0' name='site[index][<!--{$val.id}-->][is_show]'/>
+                                <input name='site[index][<!--{$val.id}-->][is_show]' type='checkbox' value='1' <!--{if $val.is_show == 1}--> checked <!--{/if}-->/>
+                            </td>
+                            <td style='width:20%;text-align:center'>
+                                <input class='show_order Iw90' type='text' name='site[index][<!--{$val.id}-->][show_order]' value='<!--{$val.show_order}-->' />
+                            </td>
+                            <td style='width:20%;text-align:center'>
+                                <input type='text' name='site[index][<!--{$val.id}-->][name]' value='<!--{$val.name}-->' class="Iw90 index_name"/>
+                            </td>
+                            <td style='width:20%;text-align:center'>
+                            <!--{if $val.source_type == 1}-->
+                                <select class='position Iw90' name="site[index][<!--{$val.id}-->][source_id]">
+                                  <option value="">请选择推荐位</option>
+                                  <!--{foreach from=$positions[$val.id] key=k item=l}-->
+                                  <option value="<!--{$l.pos_id}-->" <!--{if $l.pos_id == $val.source_id}-->selected<!--{/if}-->><!--{$l.name}--></option>
+                                  <!--{/foreach}-->
+                                </select>
+                            <!--{else}-->
+                                <select class='category Iw90' name="site[index][<!--{$val.id}-->][source_id]">
+                                  <option value="">请选择栏目</option>
+                                  <!--{foreach from=$category key=k item=l}-->
+                                  <option value="<!--{$l.id}-->" <!--{if $l.id == $val.source_id}-->selected<!--{/if}-->><!--{$l.catname}--></option>
+                                  <!--{/foreach}-->
+                                </select>
+                            <!--{/if}-->
+                            </td>
+                        </tr>
+                        <!--{/foreach}-->
+                        
+                      </table>          
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>文章列表显示信息</th>
+                      <td>
+                      <input type='hidden' value='' name='site[base][article_list_show]'/>
+                      <!--{foreach from=$article_list key=key item=val}-->
+                         <!--{if $key != 1}--> + <!--{/if}-->
+                         <input type='checkbox' name='site[base][article_list_show][]' value='<!--{$key}-->' <!--{if $val.checked == 1}--> checked <!--{/if}-->/> 
+                        <!--{$val.title}-->
+                      <!--{/foreach}-->
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>文章列表每页信息条数：</th>
+                      <td>
+                        <input id='article_list_pagesize' type='text' class="Iw90" name='site[base][article_list_pagesize]' value='<!--{$webset.article_list_pagesize}-->'/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>文章缩略图尺寸：</th>
+                      <td>
+                      宽度：<input id='article_picture_width' class="Iw90" value='<!--{$webset.article_picture_width}-->' name="site[base][article_picture_width]" type="text"/> px * 
+                      高度：<input id='article_picture_height' class="Iw90" value='<!--{$webset.article_picture_height}-->' name="site[base][article_picture_height]" type="text"/> px
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>商品列表显示信息</th>
+                      <td>
+                      <input type='hidden' value='' name='site[base][product_list_show]'/>
+                      <!--{foreach from=$product_list key=key item=val}-->
+                         <!--{if $key != 1}--> + <!--{/if}-->
+                         <input type='checkbox' name='site[base][product_list_show][]' value='<!--{$key}-->' <!--{if $val.checked == 1}--> checked <!--{/if}-->/> 
+                        <!--{$val.title}-->
+                      <!--{/foreach}-->
+                      </td>
+                      
+                    </tr>
+                    <tr>
+                      <th>商品列表每页信息条数：</th>
+                      <td>
+                        <input id='product_list_pagesize' type='text' value='<!--{$webset.product_list_pagesize}-->' class="Iw90 item_count" name='site[base][product_list_pagesize]'/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>商品缩略图尺寸：</th>
+                      <td>
+                      宽度：<input id='product_picture_width' class="Iw90" value='<!--{$webset.product_picture_width}-->' name="site[base][product_picture_width]" type="text"/> px * 
+                      高度：<input id='product_picture_height' class="Iw90" value='<!--{$webset.product_picture_height}-->' name="site[base][product_picture_height]" type="text"/> px
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>文章内容显示信息</th>
+                      <td>
+                      文章标题 + 
+                      <input type='hidden' value='' name='site[base][article_content_show]'/>
+                      <!--{foreach from=$article_content key=key item=val}-->
+                         <!--{if $key != 1}--> + <!--{/if}-->
+                         <input type='checkbox' name='site[base][article_content_show][]' value='<!--{$key}-->' <!--{if $val.checked == 1}--> checked <!--{/if}-->/> 
+                        <!--{$val.title}-->
+                      <!--{/foreach}-->
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th>文章内容分页设置</th>
+                      <td>
+                        <input class="Iw90" id='article_content_pagesize' name="site[base][article_content_pagesize]" type="text" value='<!--{$webset.article_content_pagesize}-->'/>
+                        <select name="site[base][article_content_pagetype]" class='Iw90'>
+                          <option value="1" >字符</option>
+                          <option value="2" <!--{if $webset.article_content_pagetype == 2}--> selected <!--{/if}-->>KB</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="pubTabelBot">
+                    <input type="button" onclick='checkAndSubmit()' value="确定" class="btn1" />
+                    <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/extensions/mobilesite/index'" class="btn2" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+   </div>
+  </div>
+  <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,debug:false,submitonce:true,onerror:function(msg,obj,errorlist){}});
+
+$("#name").formValidator({onshow:" ",onfocus:"请输入1-50个字符",oncorrect:"输入正确",empty:true})
+.inputValidator({min:1,max:50,onerror:"请输入1-50个字符"});
+
+$("#logo_height").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#article_content_pagesize").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#product_picture_width").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#product_picture_height").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#product_list_pagesize").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#article_picture_width").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#article_picture_height").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+
+$("#article_list_pagesize").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:false})
+.inputValidator({min:1,type:'value', onerror:"请输入正整数"})
+.regexValidator({regexp:['intege1'], datatype:"enum",onerror:"请输入正整数"});
+});
+
+
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+var h = 0;
+function add() {
+    headerObj = $('#header_STR_CATEGORY_INDEX');
+    var td = headerObj.clone().html().replace(/STR_CATEGORY_INDEX/g,h);
+    var tr = $('<tr></tr>');
+    tr.html(td);
+    $('#header').append(tr);
+    h = h+1;
+}
+
+function headerName(obj) {
+    var val = obj.val();
+    if (val != '') {
+        var field_id = obj.attr('field');
+        var text = obj.children(':selected').text();
+        text = text.replace('├', '');
+        text = text.replace(/(^\s*)|(\s*$)/g, '');
+        $('#' + field_id).val(text);
+    }
+};
+
+function del(obj) {
+    obj.parent().parent('tr').remove();
+}
+
+$('.show_order').live('blur', function () {
+    checkOrder ($(this));
+});
+
+$('.category').live('change', function () {
+    checkCategory ($(this));
+});
+
+$('.position').live('change', function () {
+    checkPosition ($(this));
+});
+
+$('.leave').live('change', function () {
+    checkLeave ($(this));
+});
+
+$('.show_words').live('blur', function () {
+    checkShowWords ($(this));
+});
+
+$('.header_name').live('blur', function () {
+    checkHeaderName ($(this));
+});
+
+$('.index_name').live('blur', function () {
+    checkIndexName ($(this));
+});
+
+$('.mobile').live('blur', function () {
+    checkPhone ($(this));
+});
+
+$('.phone').live('blur', function () {
+    checkPhone ($(this));
+});
+
+$('.item_count').live('blur', function () {
+    checkItemCount ($(this));
+});
+function checkOrder (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var show_order = obj.val();
+    rgexp = /^\d+$/;
+    if (!rgexp.test(show_order)) {
+        alert('请输入正整数');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkCategory(obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    var name = obj.attr('name');
+    if (val == '') {
+        alert('请选择栏目');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkPosition(obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    if (val == '') {
+        alert('请选择推荐位');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkLeave(obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    if (val == '') {
+        alert('请选择留言类型');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkHeaderName (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    if (val == '') {
+        alert('请输入2-40个字符');
+        //obj.focus();
+        return false;
+    }
+    var rgexp = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+    if (!rgexp.test(val)) {
+        alert('请输入字母、数字、汉字');
+        //obj.focus();
+        return false;
+    }
+    
+    var len = val.length;
+    if (len < 2 || len >40) {
+        alert('请输入2-40个字符');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkIndexName (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    if (val == '') {
+        alert('请输入2-50个字符');
+        //obj.focus();
+        return false;
+    }
+    var rgexp = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+    if (!rgexp.test(val)) {
+        alert('请输入字母、数字、汉字');
+        //obj.focus();
+        return false;
+    }
+    
+    var len = val.length;
+    if (len < 2 || len >50) {
+        alert('请输入2-50个字符');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+
+function checkShowWords (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    if (val == '') {
+        alert('请输入2-50个字符');
+        //obj.focus();
+        return false;
+    }
+    var rgexp = /^(?!_)(?!.*?_$)[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+    if (!rgexp.test(val)) {
+        alert('请输入字母、数字、汉字');
+        //obj.focus();
+        return false;
+    }
+    
+    var len = val.length;
+    if (len < 2 || len >50) {
+        alert('请输入2-50个字符');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function checkPhone (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    //var rgexp1 = /^(13|15|18)[0-9]{9}$/;
+    var rgexp2 = /^\d{8,12}$/;
+    if (!rgexp2.test(val)) {
+        alert('请输入10-12个数字 ');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+/*function checkMobile (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    var rgexp = /^(13|15|18)[0-9]{9}$/;
+    if (!rgexp.test(val)) {
+        alert('请输入正确的手机号');
+        obj.focus();
+        return false;
+    }
+    return true;
+}*/
+
+function checkItemCount (obj) {
+    if (!isChecked(obj)) {
+        return true;
+    }
+    var val = obj.val();
+    var rgexp = /^[1-9]\d*$/;
+    if (!rgexp.test(val)) {
+        alert('请输入正整数');
+        //obj.focus();
+        return false;
+    }
+    return true;
+}
+
+function isChecked (obj) {
+   var checkbox = obj.parent('td').parent('tr').find('input[type=checkbox]');
+   if (checkbox.length == 0 || checkbox == 'undefind') {
+        return true;
+   }
+   if (checkbox.attr('checked') == 'checked') {
+        return true;
+   }
+   return false;
+}
+  
+function checkForm () {
+    check_ok = true;
+    
+    //验证排序
+    $(".show_order:not(input[name='site[header][STR_CATEGORY_INDEX][show_order]'])").each(function () {
+        var result = checkOrder ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证栏目
+    $(".category:not(select[name='site[header][STR_CATEGORY_INDEX][cid]'])").each(function () {
+        var result = checkCategory ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证推荐位
+    $('.position').each(function () {
+        var result = checkPosition ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证留言分类
+    $('.leave').each(function () {
+        var result = checkLeave ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证导航名称
+    $(".header_name:not(input[name='site[header][STR_CATEGORY_INDEX][title]'])").each(function () {
+        var result = checkHeaderName ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证显示文字
+    $('.show_words').each(function () {
+        var result = checkShowWords ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证首页模块名称
+    $('.index_name').each(function () {
+        var result = checkIndexName ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证手机号
+    $('.mobile').each(function () {
+        var result = checkMobile ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证电话号码
+    $('.phone').each(function () {
+        var result = checkPhone ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    
+    if (!check_ok) {
+        return false;
+    }
+    
+    //验证显示条数
+    $('.item_count').each(function () {
+        var result = checkItemCount ($(this));
+        if (!result) {
+            check_ok = false;
+            $(this).focus();
+            return false;
+        }
+    });
+    return check_ok;;
+}
+
+
+function checkAndSubmit() {
+    var check_ok = checkForm();
+    if (!check_ok) {
+        return false;
+    }
+    $('#header_STR_CATEGORY_INDEX').remove();
+    $('#thisform').submit();
+}
+</script>
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+ <script>
+function addComment(obj)
+{
+	if(!$('#comment_content').val())
+	{
+		alert('评论内容不能为空');
+		return false;
+	}
+	else
+	{
+		$('#commentForm').submit();
+	}
+}
+</script>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar1">
+{include 'category3.html'}
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="{HOST_NAME}category/Category/list/cid/{$cid}" class="moreL">更多>></a> <span class="h_grayL">推荐物品</span>
+      <ul class="arrow_ulL">
+       {mo:goods cid='$cid' row='10' order='hits desc' type='all' return='data'}
+		{foreach $data $k $v}
+		<li {if $k==9 } class="last"{/if}><a href="{$v['url']}">{csubstr($v['goodsname'],14)}</a></li>
+		{/foreach}
+		{/mo:goods}
+      </ul>
+    </div>
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+  </div>
+<div class="container">
+    <div class="Greyborder">
+      <div class="box_detail2">
+        <h1>{$goods['goodsname']}</h1>
+        <div class="bg_line"></div>
+        <div class="box_info">
+        {php $goodsablum[0]['photo'] = isset($goodsablum[0]['photo']) ? $goodsablum[0]['photo'] : ''}
+          <div class="info_pic"><img src="{UPLOAD_PATH}/goods/{$goodsablum[0]['photo']}" onerror="this.src='{IMG_PATH}/default.jpg'"/></div>
+          <div class="info_box">
+            <table class="info_list">
+              <tr>
+                <th>品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牌：</th>
+                <td>{$goods['brandname']}</td>
+              </tr>
+              <tr>
+                <th>商品货号：</th>
+                <td><b>{$goods['goodssn']}</b></td>
+              </tr>
+              <tr>
+                <th>商品简介：</th>
+                <td>{$goods['brief']}</td>
+              </tr>
+              <tr>
+                <th>市场价格：</th>
+                <td>{$goods['marketprice']} 元</td>
+              </tr>
+              <tr>
+                <th>本店价格：</th>
+                <td><span class="fa52 f14 fbold">{$goods['shopprice']}</span> 元</td>
+              </tr>
+              <tr>
+                <th>是否再卖：</th>
+                <td>{php echo $goods['is_sell']==1?'在卖':'不在卖';}</td>
+              </tr>
+            </table>
+			<div class="touch" style="display:none;">
+				<a href="#" class="qq_big">和我联系</a>
+				<a href="#" class="ww">和我联系</a>
+			</div>
+            <div class="pic_list2"> <a href="#" class="left_btn">left</a> <a href="#" class="right_btn">right</a>
+              <div>
+                <table>
+                  <tr>
+				    {foreach $goodsablum $myk $myv}
+						{if $myk==0}
+	                    <td><img style='width:38px;height:38px;' src="{UPLOAD_PATH}/goods/{$myv['photo']}" class="on" onerror="this.src='{IMG_PATH}/default.jpg'"/></td>
+						{else}
+	                    <td><img style='width:38px;height:38px;'src="{UPLOAD_PATH}/goods/{$myv['photo']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></td>
+						{/if}
+				    {/foreach}
+                  </tr>
+                </table>
+              </div>           
+            </div>   
+            <div class="pic_list2" > <p>相关热词搜索：{$goods['keywords']}</a></p><br></div>    
+          </div>       	   
+          <div style="display:inline-block;width:710px;">
+            <ul class="detail_nav">
+              <li class="focus">商品评论</li>
+              <li>商品详情</li>
+              <li>关联商品</li>
+            </ul>
+            <div class="detail_list2" style="display:none;padding-bottom:10px;">
+              <dl>
+                <dd>
+                  <p>{$goods['content']}</p>
+                </dd>
+              </dl>
+            </div>
+            <div class="detail_list1" >
+			{mo:comment id='$id' modelid='2' pagesize='5'  return='data'}
+			  {foreach $data  $key $value}
+              <dl>
+                <dt> <span class="right">{date('Y-m-d  H:i',$value['comment_time'])}</span> <span><em class="fgreen2">“{$value['username']}”</em>说：</span> </dt>
+                <dd>
+                  <div class="msg_top"></div>
+                  <p class="msg_con">{$value['comment_content']}</p>
+                  <div class="msg_bottom"></div>
+                </dd>
+				{if $value['reply_content'] !="" }
+				<span><em class="fgreen2">“{$value['replyer']}”</em>回复：</span> </dt>
+				<dd>
+                  <div class="msg_top"></div>
+                  <p class="msg_con">{$value['reply_content']}</p>
+                  <div class="msg_bottom"></div>
+                </dd>
+				{/if}
+              </dl>
+              {/foreach}
+              <div class="pages">
+                {$pagestr}
+              </div>
+			<div class="publish_txt02">
+			  {if $GLOBALS['username']}
+			<!--评论开始-->
+			 <form action='{HOST_NAME}comment/Comment/add' method='post' id='commentForm'>
+			 <input type='hidden' name='comment_infoid' value='{$id}'/>
+			 <input type='hidden' name='comment_modelid' value='{$model}'/>
+			 <div class="publish_txt mb10"> <span>发表您的评论</span>
+                <textarea name='comment_content' id='comment_content'></textarea>
+                <div>
+                  <input type="button" {if $goods['iscomment']!=1}onclick="javacript:alert('禁止评论');"{else}onclick="javascript:addComment(this);"{/if} value="发表评论"/>
+                  <span class="publish_name">欢迎您&nbsp;&nbsp;{$GLOBALS['username']}</span> </div>
+              </div>
+			  </form>
+			 {else}
+			<form action='{HOST_NAME}user/User/login/type/1' method='post' id='c_loginForm'>
+                <div class="publish_login mb10"><span class="right f6">评论<strong class="fgreen2">23</strong>条</span><label>用户名</label><input type="text" class="login_input" id='c_username' value='{$GLOBALS["cookieUsername"]}' name='username'/>&nbsp;&nbsp;&nbsp;<label>密码</label><input type="password" class="login_input"  id='c_password' name='password'/>&nbsp;&nbsp;<input type="button" value="登 录" class="login_btn"  onclick="commentCheckLogin()" />&nbsp;<input type="button" value="注 册" oclick="window.location.href='{HOST_NAME}user/User/regist/groupid/24'" class="login_btn" /></div>
+                <textarea class="mb10"></textarea>
+                <div> 
+                  <input type="button" value="发表评论" onclick="javacript:alert('请先登录');" class="login_input02">
+                </div>
+			</form>
+			{/if}
+			<!--评论结束-->
+			</div>
+            </div>
+         	<div class="detail_list3" style="display:none;padding-bottom:10px;">
+         		 <ul>
+	                {foreach $goodsLink  $k $v}
+					   <li></li><a href='{$v["url"]}'>{$v['goodsname']}</a></li>
+					{/foreach}
+		         </ul>	
+         	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="{JS_PATH}/list.js"></script>
+{include 'footer.html'}
+
+<script>
+function commentCheckLogin()
+{
+	if(!$('#c_username').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#c_password').val())
+	{
+		alert('请输入密码');
+		
+	}
+	else
+	{
+		$('#c_loginForm').submit();
+	}
+}
+</script>

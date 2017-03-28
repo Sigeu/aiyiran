@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<meta name="keywords" content="" />
+<meta name="description" content="商业资讯网，中小企业服务，模板示范站" />
+<link href="http://jisi2.com/template/default/css/basc.css" rel="stylesheet" type="text/css"/>
+<link href="http://jisi2.com/template/default/css/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="http://jisi2.com/template/default/js/jquery-1.7.2.js"></script>
+<script src="http://jisi2.com/template/default/js/date.js"></script>
+<script src="http://jisi2.com/template/default/js/slides.js"></script>
+<script>
+	$(function(){
+		$('#slides').slides({
+			preload: true,
+			preloadImage: 'img/loading.gif',
+			play: 5000,
+			pause: 2500,
+			hoverPause: true
+		});
+	});
+</script>
+</head>                       
+<body>
+ <div class="t">
+  <div class="topBar"> <span class="right"><a target='__blank' href="/user/User/regist/groupid/24" class="ico3">免费注册</a> | <a href="/user/User/login/type/1" class="ico4">登录</a></span><a href="javascript:;" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('http://jisi2.com/')" class="ico1">设为首页</a> | <a href="javascript:;" onClick="window.external.addFavorite('http://jisi2.com/','企业资讯')" title="企业资讯" class="ico2">收藏首页</a></div>
+</div><style>
+<!--
+.selt select{border:none;width:96px;margin-top:5px;line-height:180%;}
+-->
+</style>
+<div class="logo_search">
+  <div class="logo"><a href="http://jisi2.com/" title="商业资讯网"><img src="http://jisi2.com/admin/template/images/default_logo.png" /></a></div>
+  <div class="search">
+  <script>
+  function searchSubmit()
+		{
+			var val = $('#keywords').val();
+		    if(val=="请输入关键词"||val=='')
+			{
+				alert("请输入关键词");
+				return false;
+			}
+			else
+			{ 	$("#hiddens").val(1);
+				$('#searchForm').submit();
+			}
+		}
+	</script>
+	 <form action='http://jisi2.com/search/Search/search' method='post' id='searchForm' target="_blank">
+    <input type="button" class="blueBtn1 right" value="搜 索" onclick='javascript:searchSubmit()'/>
+    <div class="inpt">
+      <div class="selt">
+        <select class="select1" name='search_type'>
+            <option value='1' name='search_type'>搜索标题</option>
+            <option value='2' name='search_type'>智能搜索</option>
+        </select>
+      </div>
+    <input type='hidden' value='0' id='hiddens' name='hiddens'>
+    <input type='hidden' value='1' id='mid' name='mid'>
+    <input type='hidden' value='0' id='cid' name='cid'>
+      <input type="text" class="input299_26 keys"  name='keywords' id='keywords' tips="请输入关键词" value="请输入关键词" />
+    </div>
+     </form>
+  </div>
+</div>
+<div class="nav"><span class="bg_spanL"></span><span class="bg_spanR"></span>
+  <div class="date"><!--2013年2月1日 星期五 农历十二月廿一--><SCRIPT>CalConv();</SCRIPT></div>
+  <ul>
+  <li><a href="http://jisi2.com/" class="focus">首页</a></li>
+      <!--$n序号，$lastIndex最后一次循环-->
+                   
+                <!--<br />
+<b>Notice</b>:  Undefined variable: lastIndex in <b>D:\WWW\jisi2\data\cache\views\default\head.cache.php</b> on line <b>50</b><br />
+-->
+               <li><a href="http://jisi2.com/category/Category/index/cid/53">关于我们</a></li>
+       <!--       -->               <!--<br />
+<b>Notice</b>:  Undefined variable: lastIndex in <b>D:\WWW\jisi2\data\cache\views\default\head.cache.php</b> on line <b>50</b><br />
+-->
+               <li><a href="http://jisi2.com/goods/Goods/index/cid/290">殡仪用品</a></li>
+       <!--       -->               <!--<br />
+<b>Notice</b>:  Undefined variable: lastIndex in <b>D:\WWW\jisi2\data\cache\views\default\head.cache.php</b> on line <b>50</b><br />
+-->
+               <li><a href="http://jisi2.com/category/Category/index/cid/68">联系我们</a></li>
+       <!--       -->             
+
+       <li style="margin-left:12px;"><a href="/special/specialList/index" >网站专题</a></li>
+  </ul>
+</div>
+<script>
+$(document).ready(function(){
+	$("input.keys").css("color","#999");
+	$("input.keys").focus(function(){
+	  if($("input.keys").val().replace(/^\s+|\s+$/g,'') == '请输入关键词'){
+		  $("input.keys").val('');
+		  $("input.keys").css("color","#222");
+	  }
+	});
+	
+	$("input.keys").blur(function(){
+		if ($("input.keys").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("input.keys").val('请输入关键词');
+			$("input.keys").css("color","#999");
+		}
+	});
+
+});
+</script> <div class="banner"><script language='javascript' src='http://jisi2.com/index/index/preview/id/61'></script></div>
+ <div class="notice"><strong>滚动新闻</strong>
+  <div class="ncInfo">
+    <div id="demo">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td id="demo1"><table>
+              <tr>
+                <td nowrap="nowrap">						</td>
+              </tr>
+            </table></td>
+          <td id="demo2"></td>
+        </tr>
+      </table>
+    </div>
+    <script language="javascript" type="text/javascript">
+	var speed = 50;
+	var demo = document.getElementById("demo");
+	var demo1 = document.getElementById("demo1");
+	var demo2 = document.getElementById("demo2");
+	demo2.innerHTML = demo1.innerHTML;
+	function marquee(){
+		with(demo){
+			if(scrollLeft>=demo1.scrollWidth){
+				scrollLeft = 0;
+			}else{
+				scrollLeft++;
+			}
+		}
+	}
+	var Mar = setInterval(marquee,speed);
+	demo.onmouseover = function(){
+		clearInterval(Mar);
+	}
+	demo.onmouseout = function(){
+		Mar = setInterval(marquee,speed);
+	}
+</script> 
+  </div>
+</div>
+<div class="w">
+  <div class="l">
+    <div id="slidBar">
+    <div id="slides">
+      <div class="slides_slidBar"> 
+                 
+     <a href="http://jisi2.com/content/Content/index/id/149" title="百度起诉360不正当竞争索赔亿元法院已立案" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{C58FAE2C-390F-E301-1C01-89DA562671EA}.jpg" alt="Slide 1"> <span>
+        <p class="p1">百度起诉360不正当竞争索赔亿元法院...</p>
+        <p class="p2">百度起诉360不正当竞争索赔亿元 法院已立案百度起诉360不正当竞争索赔亿元 法院已立案百度起诉36...[详细]</p>
+        </span> </a>
+	      
+     <a href="http://jisi2.com/content/Content/index/id/167" title="博客UC份额数据造假或为卖个好价钱" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{74842BC5-E86A-75EB-0756-36677294F992}.jpg" alt="Slide 2"> <span>
+        <p class="p1">博客UC份额数据造假或为卖个好价钱</p>
+        <p class="p2">博客UC份额数据造假或为卖个好价钱博客UC份额数据造假或为卖个好价钱博客UC份额数据造假或为卖个好价...[详细]</p>
+        </span> </a>
+	      
+     <a href="http://jisi2.com/content/Content/index/id/212" title="IEA大幅上调北美石油产量预测" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{956C8802-859F-3E41-3DE3-E6282A51B675}.jpg" alt="Slide 3"> <span>
+        <p class="p1">IEA大幅上调北美石油产量预测</p>
+        <p class="p2">IEA大幅上调北美石油产量预测IEA大幅上调北美石油产量预测IEA大幅上调北美石油产量预测IEA大幅...[详细]</p>
+        </span> </a>
+	      
+     <a href="http://jisi2.com/content/Content/index/id/358" title="纽卡斯美国经济再现强劲数据捍卫美元上涨" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{C37594B2-1439-1175-9CA1-BC918F976AA4}.jpg" alt="Slide 4"> <span>
+        <p class="p1">纽卡斯美国经济再现强劲数据捍卫美元上...</p>
+        <p class="p2">纽卡斯美国经济再现强劲数据捍卫美元上涨纽卡斯美国经济再现强劲数据捍卫美元上涨纽卡斯美国经济再现强劲数...[详细]</p>
+        </span> </a>
+	      
+     <a href="http://jisi2.com/content/Content/index/id/359" title="IMF控制社会融资增长必要时用财政赢余支撑经济" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{CE5B35FD-CFCB-5B51-1ACC-16049F8C87B0}.jpg" alt="Slide 5"> <span>
+        <p class="p1">IMF控制社会融资增长必要时用财政赢...</p>
+        <p class="p2">IMF控制社会融资增长必要时用财政赢余支撑经济IMF控制社会融资增长必要时用财政赢余支撑经济IMF控...[详细]</p>
+        </span> </a>
+	      
+     <a href="http://jisi2.com/content/Content/index/id/360" title="美国抛出40亿美元经济诱饵" target="_blank"><img src="http://jisi2.com//static/uploadfile/position/{285EB9E0-ED7C-D675-85BD-62A7A04BD7B4}.jpg" alt="Slide 6"> <span>
+        <p class="p1">美国抛出40亿美元经济诱饵</p>
+        <p class="p2">美国抛出40亿美元经济诱饵美国抛出40亿美元经济诱饵美国抛出40亿美元经济诱饵美国抛出40亿美元经济...[详细]</p>
+        </span> </a>
+	    
+    </div>
+    </div>
+</div>
+    <div class="info bder">
+      <div class="T">
+        <h3 class="h3_1">精选资料</h3>
+      </div>
+      <div class="C">
+        <ul>
+        		          <li><a href='http://jisi2.com/content/Content/index/id/369' title='国内首款牦牛婴幼儿奶粉若尔盖投产'><img src="http://jisi2.com/static/uploadfile/content/2013_07/{17FC4B8B-69D8-2200-CD56-6F09284CDABB}.jpg" width="154" height="104" />国内首款牦牛婴幼儿奶粉若尔盖投产</a></li>
+		          <li><a href='http://jisi2.com/content/Content/index/id/370' title='大连菜价继续走低粮油价格略升 '><img src="http://jisi2.com/static/uploadfile/content/2013_07/{2F50B239-FE75-C564-AECF-9B86FBCA7ECD}.jpg" width="154" height="104" />大连菜价继续走低粮油价格略升 </a></li>
+				 
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="m bder" style="height:585px;">
+    <div class="main">
+      <div class="mainOne">
+       		                <h1><a href='http://jisi2.com/content/Content/index/id/369' title='国内首款牦牛婴幼儿奶粉若尔盖投产'>国内首款牦牛婴幼儿奶粉若尔盖投产</a></h1><p>
+        		                <a href='http://jisi2.com/content/Content/index/id/370' title='大连菜价继续走低粮油价格略升 '>大连菜价继续走低粮油价格略升 </a> 
+        |        		                <a href='http://jisi2.com/content/Content/index/id/371' title='纽约时报：双汇收购面临审查风险及消费者团体反对'>纽约时报：双汇收购面临审查风险及消费者团...</a> 
+        |        		                <a href='http://jisi2.com/content/Content/index/id/372' title='国家和自治区餐饮服务食品安全示范县授牌仪式举行'>国家和自治区餐饮服务食品安全示范县授牌仪...</a> 
+        |        		                <a href='http://jisi2.com/content/Content/index/id/373' title='风险交流“短板”不补，食品安全还会“出漏”'>风险交流“短板”不补，食品安全还会“出漏...</a> 
+                				
+        </p>
+      </div>
+      <div class="mainTwo">
+        <div class="T">
+          <h3>商业要闻</h3>
+        </div>
+        <div class="C" style="margin-bottom:12px;">
+          <ul>
+                                  <li><a href='http://jisi2.com/content/Content/index/id/369' title='国内首款牦牛婴幼儿奶粉若尔盖投产'>国内首款牦牛婴幼儿奶粉若尔盖投产</a><em><a href='http://jisi2.com/content/Content/index/id/369'>26日，由省经信委、省食品安全委员会办公...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/370' title='大连菜价继续走低粮油价格略升 '>大连菜价继续走低粮油价格略升 </a><em><a href='http://jisi2.com/content/Content/index/id/370'>市价格监测中心发布信息，昨日该中心监测的...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/371' title='纽约时报：双汇收购面临审查风险及消费者团体反对'>纽约时报：双汇收购面临审查风险及消费者团体反对</a><em><a href='http://jisi2.com/content/Content/index/id/371'>据《纽约时报》报道，中国猪肉需求的增长，...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/372' title='国家和自治区餐饮服务食品安全示范县授牌仪式举行'>国家和自治区餐饮服务食品安全示范县授牌仪式举行</a><em><a href='http://jisi2.com/content/Content/index/id/372'>29日，国家和自治区餐饮服务食品安全示范...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/373' title='风险交流“短板”不补，食品安全还会“出漏”'>风险交流“短板”不补，食品安全还会“出漏”</a><em><a href='http://jisi2.com/content/Content/index/id/373'>要实现充分的食品安全风险交流，既要在制订...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/374' title='六·一将至  洋快餐遭遇儿童质疑'>六·一将至  洋快餐遭遇儿童质疑</a><em><a href='http://jisi2.com/content/Content/index/id/374'> 一条有关全球快餐业巨头麦当劳的消息在周...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/375' title='郎咸平:为何中国工资低而物价高 真相揭秘'>郎咸平:为何中国工资低而物价高 真相揭秘</a><em><a href='http://jisi2.com/content/Content/index/id/375'> 郎咸平：美国宾夕法尼亚大学沃顿商学院博...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/376' title='梅新育：欧洲陷在福利怪圈中难自拔'>梅新育：欧洲陷在福利怪圈中难自拔</a><em><a href='http://jisi2.com/content/Content/index/id/376'>海外移民与当地民众矛盾冲突已成为近十年来...</a></em></li>
+                        
+          </ul>
+        </div>
+        <div class="T">
+          <h3>企业报道</h3>
+        </div>
+        <div class="C">
+          <ul>
+                                    
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="r">
+    <div class="mainThree">
+      <div class="mT1">
+        <div class="T"><span class="more"><a href="http://jisi2.com/">更多 &gt;&gt;</a></span>
+          <h3>焦点关注</h3>
+        </div>
+        <div class="C"> 			            <a href="http://jisi2.com/content/Content/index/id/336" title='李克强：2020年人均GDP翻番 经济保持7%增长即可' class="picTxt"><img src="http://jisi2.com/static/uploadfile/content/2013_07/{C4A1FF6C-87E8-184C-DF32-223BBE85AF94}.jpg" width="160" height="120" />李克强：2020年人均GDP翻...</a>
+          <p>李克强总理出席中德工商界午宴讲话，提中国GDP发展速...<a href="http://jisi2.com/content/Content/index/id/336"  onClick="view(this);" class="fba">[详情]</a></p>
+						
+        </div>
+      </div>
+      <div class="mT2">
+        <div class="T"><span class="more"><a href="http://jisi2.com/">更多 &gt;&gt;</a></span>
+          <h3>社会视点</h3>
+        </div>
+        <div class="C">
+          <ul>
+          				 
+          </ul>
+        </div>
+      </div>
+      <div class="mT3">
+        <div class="T"><span class="more"><a href="#">更多 &gt;&gt;</a></span>
+          <h3>专题报道</h3>
+        </div>
+        <div class="C">
+          <ul>
+                                <li><a href="http://jisi2.com/content/Content/index/id/149" title="百度起诉360不正当竞争索赔亿元法院已立案" target="_blank">百度起诉360不正当竞争索赔亿元法院已立案</a></li>
+                     <li><a href="http://jisi2.com/content/Content/index/id/167" title="博客UC份额数据造假或为卖个好价钱" target="_blank">博客UC份额数据造假或为卖个好价钱</a></li>
+                     <li><a href="http://jisi2.com/content/Content/index/id/212" title="IEA大幅上调北美石油产量预测" target="_blank">IEA大幅上调北美石油产量预测</a></li>
+                     <li><a href="http://jisi2.com/content/Content/index/id/358" title="纽卡斯美国经济再现强劲数据捍卫美元上涨" target="_blank">纽卡斯美国经济再现强劲数据捍卫美元上涨</a></li>
+                     <li><a href="http://jisi2.com/content/Content/index/id/359" title="IMF控制社会融资增长必要时用财政赢余支撑经济" target="_blank">IMF控制社会融资增长必要时用财政赢余支撑经济</a></li>
+                    
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="Madvert"><script language='javascript' src='http://jisi2.com/index/index/preview/id/62'></script></div>
+<div class="wrap">
+  <div class="lWrap">
+    <div class="k bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="http://jisi2.com/">更多 &gt;&gt;</a></span>
+          <h3>消费问题</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+                                  
+          </div>
+          <div class="mainTwo">
+            <ul>
+                                    
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="line1"></div>
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="http://jisi2.com/category/Category/index/cid/58">更多 &gt;&gt;</a></span>
+          <h3>国际财经</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+                                    <div class="pic"><a href='http://jisi2.com/content/Content/index/id/369' title='国内首款牦牛婴幼儿奶粉若尔盖投产'><img src="http://jisi2.com/static/uploadfile/content/2013_07/{17FC4B8B-69D8-2200-CD56-6F09284CDABB}.jpg" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='http://jisi2.com/content/Content/index/id/369' title='国内首款牦牛婴幼儿奶粉若尔盖投产'>国内首款牦牛婴幼儿奶粉若...</a></dt>
+              <dd>26日，由省经信委、省食品安全委员会办公室、阿坝州政府共同主办的“品味有机生...<a href='http://jisi2.com/content/Content/index/id/369' class="fba">[详情]</a></dd>
+            </dl>
+                        
+          </div>
+          <div class="mainTwo">
+            <ul>
+                                      <li><a href='http://jisi2.com/content/Content/index/id/370' title='大连菜价继续走低粮油价格略升 '>大连菜价继续走低粮油价格略升 </a><em><a href='http://jisi2.com/content/Content/index/id/370'>市价格监测中心发布信息，昨日该中心监测的...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/371' title='纽约时报：双汇收购面临审查风险及消费者团体反对'>纽约时报：双汇收购面临审查风险及消费者团体反对</a><em><a href='http://jisi2.com/content/Content/index/id/371'>据《纽约时报》报道，中国猪肉需求的增长，...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/372' title='国家和自治区餐饮服务食品安全示范县授牌仪式举行'>国家和自治区餐饮服务食品安全示范县授牌仪式举行</a><em><a href='http://jisi2.com/content/Content/index/id/372'>29日，国家和自治区餐饮服务食品安全示范...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/373' title='风险交流“短板”不补，食品安全还会“出漏”'>风险交流“短板”不补，食品安全还会“出漏”</a><em><a href='http://jisi2.com/content/Content/index/id/373'>要实现充分的食品安全风险交流，既要在制订...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/374' title='六·一将至  洋快餐遭遇儿童质疑'>六·一将至  洋快餐遭遇儿童质疑</a><em><a href='http://jisi2.com/content/Content/index/id/374'> 一条有关全球快餐业巨头麦当劳的消息在周...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/375' title='郎咸平:为何中国工资低而物价高 真相揭秘'>郎咸平:为何中国工资低而物价高 真相揭秘</a><em><a href='http://jisi2.com/content/Content/index/id/375'> 郎咸平：美国宾夕法尼亚大学沃顿商学院博...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/376' title='梅新育：欧洲陷在福利怪圈中难自拔'>梅新育：欧洲陷在福利怪圈中难自拔</a><em><a href='http://jisi2.com/content/Content/index/id/376'>海外移民与当地民众矛盾冲突已成为近十年来...</a></em></li>
+                        
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="j bder">
+      <div class="T">
+        <h3>商业人生</h3>
+      </div>
+      <div class="C">
+        <div class="busLive">
+          <ul>
+                                  
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="k bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="http://jisi2.com/category/Category/list/cid/255">更多 &gt;&gt;</a></span>
+          <h3>民族传统</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+                                  <div class="pic"><a href='http://jisi2.com/content/Content/index/id/362' title='警惕！资金在脱离实体经济“空转”'><img src="http://jisi2.com/static/uploadfile/content/2013_07/{45C923D6-4DD2-B58A-DE92-BA425919F595}.jpg" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='http://jisi2.com/content/Content/index/id/362' title='警惕！资金在脱离实体经济“空转”'>警惕！资金在脱离实体经济...</a></dt>
+              <dd>资金“热”、经济“冷”是当前我国宏观经济金融运行的显著特征。一方面，今年前4...<a href='http://jisi2.com/content/Content/index/id/362' class="fba">[详情]</a></dd>
+            </dl>
+                        
+          </div>
+          <div class="mainTwo">
+            <ul>
+                                    <li><a href='http://jisi2.com/content/Content/index/id/361' title='非洲发展银行预计南部非洲今年经济增长4.4%'>非洲发展银行预计南部非洲今年经济增长4.4%</a><em><a href='http://jisi2.com/content/Content/index/id/361'>非洲发展银行28日发布的《南部非洲经济季...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/360' title='美国抛出40亿美元"经济诱饵" 巴勒斯坦国为何不买账'>美国抛出40亿美元"经济诱饵" 巴勒斯坦国为何不买账</a><em><a href='http://jisi2.com/content/Content/index/id/360'>在刚刚结束的中东北非世界经济论坛上，美国...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/359' title='IMF：控制社会融资增长 必要时用财政赢余支撑经济'>IMF：控制社会融资增长 必要时用财政赢余支撑经济</a><em><a href='http://jisi2.com/content/Content/index/id/359'>国际货币基金组织29日上午十时在北京举行...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/358' title='纽卡斯：美国经济再现强劲 数据捍卫美元上涨'>纽卡斯：美国经济再现强劲 数据捍卫美元上涨</a><em><a href='http://jisi2.com/content/Content/index/id/358'>昨天美国方面公布的经济数据表现强劲，进一...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/212' title='IEA大幅上调北美石油产量预测'>IEA大幅上调北美石油产量预测</a><em><a href='http://jisi2.com/content/Content/index/id/212'>国际能源机构(IEA)估计，今后五年，世...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/167' title='博客：UC份额数据造假或为卖个好价钱'>博客：UC份额数据造假或为卖个好价钱</a><em><a href='http://jisi2.com/content/Content/index/id/167'>
+博客：UC份额数据造假或为卖个好价钱...</a></em></li>
+                        <li><a href='http://jisi2.com/content/Content/index/id/149' title='百度起诉360不正当竞争索赔亿元 法院已立案'>百度起诉360不正当竞争索赔亿元 法院已立案</a><em><a href='http://jisi2.com/content/Content/index/id/149'>百度起诉360不正当竞争索赔亿元 法院已...</a></em></li>
+                        
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="line1"></div>
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="http://jisi2.com/">更多 &gt;&gt;</a></span>
+          <h3>科学发展</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+                                  
+          </div>
+          <div class="mainTwo">
+            <ul>
+                                    
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="j bder">
+      <div class="T">
+        <h3>会议活动</h3>
+      </div>
+      <div class="C">
+        <div class="meeting">
+          <ul>
+                                  
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rWrap">
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="http://jisi2.com/category/Category/index/cid/281">更多&gt;&gt;</a></span>
+          <h3>经济周刊</h3>
+        </div>
+        <div class="C">
+          <div class="pubTabs">
+            <ul id="card0" class="tabUlOne">
+                                                          <li class="focus">地产</li>
+                                                              <li>融资</li>
+                                                              <li>股市</li>
+                               
+            </ul>
+            <div class="tabDivOne">
+                  	        <div id="card00">
+                <div class="pic">
+        <ul>
+		        					
+        </ul>
+        </div>
+        <div class="picTxt">
+        					
+        </div>
+      </div>
+            			<div id="card01" style="display:none;">
+                <div class="pic">
+        <ul>
+		        					
+        </ul>
+        </div>
+        <div class="picTxt">
+        					
+        </div>
+      </div>
+            			<div id="card02" style="display:none;">
+                <div class="pic">
+        <ul>
+		        					
+        </ul>
+        </div>
+        <div class="picTxt">
+        					
+        </div>
+      </div>
+       
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advert"><script language='javascript' src='http://jisi2.com/index/index/preview/id/64'></script></div>
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T">
+          <h3>世界聚焦</h3>
+        </div>
+        <div class="C">
+          <div class="mT3">
+            <ul>
+            			            <li><a href="http://jisi2.com/content/Content/index/id/336" title='李克强：2020年人均GDP翻番 经济保持7%增长即可'>李克强：2020年人均GDP翻...</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/319" title='华东师范大学MBA项目综合改革'>华东师范大学MBA项目综合改革</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/315" title='美国高通公司与京东商场达成战略合作'>美国高通公司与京东商场达成战略...</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/208" title='发改委称城市生猪价格继续反弹'>发改委称城市生猪价格继续反弹</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/318" title='案例分析：阿里巴巴的投资代表性'>案例分析：阿里巴巴的投资代表性</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/210" title='北京科博会今日国展开展'>北京科博会今日国展开展</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/214" title='保监会：中介准入注册金提升至5000万元'>保监会：中介准入注册金提升至5...</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/314" title='红星美凯龙"2天"来了 铁西商场战略发布引消费升级'>红星美凯龙"2天"来了 铁西商...</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/211" title=' 市发改委：围绕“八个一” 唱响“中国梦”'> 市发改委：围绕“八个一” 唱...</a></p></li>
+			            <li><a href="http://jisi2.com/content/Content/index/id/207" title='客户未开卡被收年费 兴业银行疑违反银监会规定'>客户未开卡被收年费 兴业银行疑...</a></p></li>
+						
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advert"><script language='javascript' src='http://jisi2.com/index/index/preview/id/65'></script></div>
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T">
+          <h3>财经视线</h3>
+        </div>
+        <div class="C">
+          <div class="mT4">
+          			            <dl>
+              <dt><a href="<br />
+<b>Notice</b>:  Undefined variable: sonv in <b>D:\WWW\jisi2\data\cache\views\default\index.cache.php</b> on line <b>433</b><br />
+">风险交流“短板”不补，食...</a></dt>
+              <dd>要实现充分的食品安全风险交流，既要在制订食品安全标准和相关政策过程中广泛征求社会各方的意见，也要针对...</dd>
+            </dl>
+			            <dl>
+              <dt><a href="<br />
+<b>Notice</b>:  Undefined variable: sonv in <b>D:\WWW\jisi2\data\cache\views\default\index.cache.php</b> on line <b>433</b><br />
+">六·一将至  洋快餐遭遇...</a></dt>
+              <dd> 一条有关全球快餐业巨头麦当劳的消息在周末强势发酵。5月24日，环球网编译消息称，在麦当劳年度股东会...</dd>
+            </dl>
+					 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="friendLink bder">
+    <div class="T">
+      <h3>友情链接</h3>
+    </div>
+    <div class="C">   
+    <a href='http://cn.reuters.com/'>路透中文网</a>
+   
+    <a href='http://www.caixin.com/'>财新网</a>
+   
+    <a href='http://www.china.cnbc.com/'>CNBC中文网</a>
+   
+    <a href='http://www.iceo.com.cn/'>中国企业家网</a>
+   
+    <a href='http://www.caijing.com.cn/'>财经网</a>
+   
+    <a href='http://www.yicai.com/'>一财网</a>
+   
+    <a href='http://www.21cbh.com/'>21世纪网</a>
+   
+    <a href='http://www.eeo.com.cn/'>经济观察网</a>
+   
+    <a href='http://www.forbeschina.com/'>《福布斯》中文网</a>
+   
+    <a href='http://www.fortunechina.com/'>财富中文网</a>
+   
+    <a href='http://www.bwchinese.com/'>bwchinese中文网</a>
+   
+    <a href='http://www.chinanews.com/'>中国新闻网</a>
+   
+    <a href='http://paper.cnstock.com/html/2013-05/30/node_3.htm'>上海证券报</a>
+   
+    <a href='http://epaper.cs.com.cn/dnis/'>中国证券报</a>
+   
+    <a href='http://www.stcn.com/'>证券时报网</a>
+   
+    <a href='http://www.ennweekly.com/'>财经国家新闻网</a>
+   
+    <a href='http://www.online.sh.cn/'>上海热线</a>
+   
+    <a href='http://www.bbtnews.com.cn/'>北京商报</a>
+   
+    <a href='http://www.dfdaily.com/'>东方早报</a>
+   
+    <a href='http://www.capitalweek.com.cn/'>证券网</a>
+   
+    <a href='http://www.businessweekly.com.tw/'>商界周刊</a>
+   
+    <a href='http://www.inabr.com/'>汽车评论网</a>
+   
+    <a href='http://www.zcom.com/m/zhongguojingjizhoukan/'>中国经济周刊</a>
+   
+    <a href='http://www.baidu.com'>CCTV财经频道</a>
+   
+    <a href='http://www.b2b.cn/'>必途网</a>
+  </div>
+  </div>
+</div>
+<div class="foot">
+  <p>
+                  <a href="http://jisi2.com/content/Content/index/id/301" title="网站简介">网站简介</a>|
+            <a href="http://jisi2.com/content/Content/index/id/302" title="广告服务">广告服务</a>|
+            <a href="http://jisi2.com/content/Content/index/id/311" title="联系我们">联系我们</a>|
+            <a href="http://jisi2.com/content/Content/index/id/312" title="版权所有">版权所有</a>|
+                  <a href="/message/Message/index/id/283" title="意见和建议">意见和建议</a>|<a  href="http://jisi2.com/category/Category/index/cid/289" title="网站地图">网站地图</a></p>
+  <p class="copy">版权所有 © 2009-2013 铭万智达科技有限公司 版权归铭万所有盗用必究  | </p>
+</div><script type="text/javascript">
+var forEach = function(array, callback, thisObject){
+		if(array.forEach){
+			array.forEach(callback, thisObject);
+		}
+		else
+		{ 
+			for (var i = 0, len = array.length; i < len; i++) { callback.call(thisObject, array[i], i, array); }
+		}
+	}
+	var st = new SlideTrans("idcontainerBanner2", "idSlider2", 5, { Vertical: false });
+	var arr=ban.$('idSlider2').getElementsByTagName('td');
+	forEach(arr, function(o, i){
+		o.onmouseover = function(){st.Stop()}
+		o.onmouseout = function(){ st.Run() }
+	}) 
+	var nums = ban.$('nav_title').getElementsByTagName('li');
+	forEach(nums, function(o, i){
+		o.onmousedown = function(){ o.className = "on"; st.Auto = false; st.Run(i); }
+		o.onmouseout = function(){ o.className = ""; st.Auto = true; st.Run(); }
+	})
+		//设置按钮样式
+	st.onStart = function(){
+		forEach(nums, function(o, i){ o.className = st.Index == i ? "on" : ""; })
+	}
+	st.Run();
+</script> 
+<script src="http://jisi2.com/template/default/js/tabs.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script><script type="text/javascript">
+document.write( "<img src='"http://jisi2.com' style='display:none'/>" );//访问动态地址
+</script>

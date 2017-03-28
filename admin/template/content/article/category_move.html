@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>文章移动</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+</head>
+<body>
+<div class="pubTabel">
+           <table class="tabelLR">
+             <tr>
+               <th style='width:146px'>&nbsp; 移动到：</th>
+               <td ><select class="Iw290" style="width:300px;" id='moveCategoryId'>
+                   <option value="">--请选择栏目--</option>
+                   <!--{foreach item=item key=key from=$per}-->
+                   <option value="<!--{$item.id}-->" <!--{if !$item.flag }-->disabled<!--{/if}-->><!--{$item.catname}--></option>
+                   <!--{/foreach}-->
+                 </select>
+                 </td>
+             </tr>
+           </table>
+         <span class="warnBlue">温馨提示：必须在本模型下面的栏目之前相互移动，并且不是超级管理员的用户要有相应权限。</span>
+ </div>
+</body>
+</html>

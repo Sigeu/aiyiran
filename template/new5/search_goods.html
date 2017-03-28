@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+<div class="pubModL">
+  <div class="T">
+    <h3>{cid2name(87)}</h3>
+  </div>
+  <div class="C">
+    <div class="subNav">
+      <ul>
+      {php $cateTree = getCateTree(87,1);}
+        {foreach $cateTree $k $v}
+        {if $lastIndex}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li class="last"><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>	
+        {else}
+        <li class="last"><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {else}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>
+        {else}
+        <li><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {/if}
+        {/foreach}            
+      </ul>
+    </div>
+  </div>
+</div>
+    <div class="kefu inkefu">
+      <p class="p1">24小时服务热线</p>
+      <p class="p2">400-800-0606</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="thumb">当前位置：<a href="{HOST_NAME}">首页</a> &gt; 搜索列表</div>
+    <div class="inTrends">
+        {foreach $searchList $k $v} 
+        <div class="trendpt">
+          <div class="trendp"><a href="{$v['url']}">{if $v['thumb']['src']==''}<img src="{IMG_PATH}/defimg.png" width="94" height="94"/>{else}<img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="94" height="94"/>{/if}</a></div>
+          <dl class="trendt">
+            <dt><a href="{$v['url']}" title='{$v["title"]}'>{$v['title']}</a></dt>
+            <dd>{csubstr($v['description'],100)} <a href="{$v['url']}"  onClick="view(this);">详情>></a></dd>
+          </dl>
+        </div>
+        {/foreach}
+    </div>
+  </div>
+  <div class="clearfix"></div>  
+  <div class="page"><a href="{$pageArr['firstPageUrl']}" title="1">首页</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="$k" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['prewPageUrl']}" title="上一页">上一页</a><a href="{$pageArr['nextPageUrl']}" title="1">下一页</a><a href="{$pageArr['lastPageUrl']}" title="1">末页</a><span>共 <b>{$pageArr['pageNums']}</b> 页 <b>{$pageArr['count']}</b> 条</span></div>
+</div>
+{include 'footer.html'}

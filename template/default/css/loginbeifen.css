@@ -1,0 +1,68 @@
+@charset "utf-8";
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, q, em, ul, li, ol, dl, dt, dd, form, article, aside, embed, table, td, th, input, button, legend, fieldlset, blockquote, textarea, label, strong, img, cite { margin: 0; padding: 0; outline: none; }
+body { font-family:"微软雅黑"; font-size: 12px; line-height: 1;  margin: 0 auto; }
+h1, h2, h3, h4, h5, h6 {font-size: 100%; font-weight: 100;}
+table { border-collapse: collapse; }
+ul, li , ol, li{ list-style: none; }
+img{ border: none; vertical-align:top;}
+em, cite, address,i { font-style: normal; font-weight: normal; }
+a { text-decoration:none; outline: none;}
+input { outline:none; border:none; background-color:transparent; display: block;}
+input::-ms-clear { display:none; }
+textarea { outline:none; resize:none; ;overflow:auto;border:none;background: transparent;}
+/* 清浮动 */
+.clearfix:after,
+.clearfix:before{content: "";display: table;}
+.clearfix:after{clear: both;}
+.clearfix{*zoom:1;}
+.fl{float:left;}
+.fr{float:right;}
+/**********************/
+.login_top{ width: 100%; height: 100%; background: #ffffff; margin: 0 auto;}
+.login_cont{ width: 1200px; height: 100px; margin: 0 auto;}
+.login_cont a{ display: block;float: left;}
+.login_cont span{ font-size: 24px; color: #333; display: block;  height: 100px; margin: 0 0 0 20px; line-height: 100px; float: left; width: 100px;}
+.login_cont a.logo{ width: 143px; height: 100px;}
+.login_cont a.return_sy{ font-size: 14px; width: 65px; height: 100px; float: right; line-height: 100px; color:#666;}
+.login{ width: 100%; height: 600px; background: url(../images/login_04.jpg) no-repeat top center; position: relative;}
+/**************/
+.login_r{ width: 338px; height: 398px; border: 1px solid #eeeeee; background: #fff; position: absolute; top:50%; left: 50%; margin: -200px 0 0 -170px;}
+.login_r h3{ width: 338px; height: 65px; line-height: 60px; padding:5px 0 0; text-align: center; color: #333; font-size: 24px; font-weight: 100;}
+.inp_text{ width:300px; height: 45px; float: left;position: relative; margin: 0 0 0 20px;}
+.inp_text span{ display: block; position: absolute; left: 0; top: 0; height: 45px; width: 38px;}
+.inp_text input{width:246px; color: #333; height: 42px; line-height: 42px; border: 1px solid #dddddd; padding: 0 10px 0 40px;}
+.user_name{/* margin: 0 0 20px 20px;*/}
+.pass_word{ margin:20px 0 0 20px;}
+.inp_text span i{ display: block; width: 20px; height: 20px; margin: 12px 0 0 9px;}
+.user_name span i{background:url(../images/icont.png) no-repeat -23px -86px;}
+.pass_word span i{background:url(../images/icont.png) no-repeat -23px -113px;}
+.error_tips{ width: 300px; height: 24px; line-height: 24px; color: #f00; float: left; margin: 0 0 0 20px; text-align: right;}
+.remember{width:300px; height: 20px; float: left; margin: 10px 0 0 20px;}
+.remember span{ display: block; color: #666; cursor: pointer;}
+.remember span a{ color: #666;}
+.rem_user_n i{ display:block; width: 12px; height: 12px; margin: 0 5px 0 0; background:url(../images/icont.png) no-repeat -5px -142px;vertical-align: middle; float: left;}
+.must_login{ font-size: 16px; width: 300px; height: 48px; background:url(../images/icont.png) no-repeat -200px 0 ; color: #fff; line-height: 48px; margin: 20px 0 0 20px; float: left;}
+.therr_dl{ height: 60px; float: left; margin:20px 0 0;text-align: center; width:338px;}
+.therr_dl a{ display:inline-block; width: 60px; height: 60px; margin: 0 15px;}
+.therr_dl a.qq_dl{ background:url(../images/icont.png) no-repeat 0 -164px;}
+.therr_dl a.wb_dl{ background:url(../images/icont.png) no-repeat 0 -226px;}
+.therr_dl a.wx_dl{ background:url(../images/icont.png) no-repeat 0 -288px;}
+/*****************/
+.inp_three{ margin: 0 0 20px 20px;}
+.inp_three input{ padding: 0 10px; width:278px;}
+.register{ height: 448px; margin-top: -225px;}
+.code{ margin:  20px 0 0 19px;}
+.code .code_text{ width: 158px; padding: 0 10px; float: left;}
+.code .code_but{ width: 108px; height: 44px; line-height: 44px; background: #f5f5f5; float: left; text-align: center; padding: 0; margin: 0 0 0 10px; border-radius:5px; font-size: 14px; color: #666;}
+.footer{ width: 100%; height: 210px; background: #ffffff; margin: 0 auto;}
+.footer p{ width: 1200px; height: 80px; line-height: 80px; margin: 0 auto; text-align: center; color:#666;}
+
+
+
+
+
+
+
+
+
+

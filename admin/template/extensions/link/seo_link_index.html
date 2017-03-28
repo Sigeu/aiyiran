@@ -1,0 +1,143 @@
+<!--{include file="public/head_admin.html"}-->
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/link/index">内链关键词列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/link/add" class="last">添加内链关键词</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+			<form method="get" action="<!--{$baseurl}-->/extensions/link/index" id="search-form">
+            <div class="pubTabelTot">
+              <input type="text"  value="<!--{$search.keyword}-->" class="Iw190 f999 text-tips" tips="请输入关键字" name="keyword"> 
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5" >
+			  <input type="hidden" name="product" id="product" value="<!--{$search.product}-->"/>
+			  <input type="hidden" name="orderby" id="orderby" value="<!--{$search.orderby}-->"/>
+            </div>
+			</form>
+			<form method="get" action="<!--{$baseurl}-->/extensions/link/index" id="backup-form">
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>						   
+                  <th width="6%">选择</th>
+                  <th width="23%">关键词</th>
+                  <th width="20%">链接地址</th>
+                  <th width="18%">添加时间 
+				  <!--{if $search.orderby == asc}-->
+				  <a href="javascript:void(0)" onclick="click_times()">
+				  <img src="<!--{$imgpath}-->/up_click.gif" />
+				  </a>
+				  <!--{elseif $search.orderby == desc}-->
+				  <a href="javascript:void(0)" onclick="click_times()">
+				  <img src="<!--{$imgpath}-->/down_click.gif" />
+				  </a>
+				  <!--{else}-->
+				  <a href="javascript:void(0)" onclick="click_times()">
+				  <img src="<!--{$imgpath}-->/up_click.gif" />
+				  </a>
+				  <a href="javascript:void(0)" onclick="click_times()">
+				  <img src="<!--{$imgpath}-->/down_click.gif" />
+				  </a>
+				  <!--{/if}-->
+				  </th>
+                  <th width="12%">状态</th>   
+                  <th width="28%">操作</th>
+                </tr>
+				
+				<!--{foreach from=$list item=l}-->
+                <tr>
+                  <td>
+				   <input type="checkbox" name="ids[]" value="<!--{$l.id}-->"/>
+				  </td>
+					   <!--{if $l.link_bold == 1 and $l.link_color != null}-->
+						<td>
+						  <span style="color:<!--{$l.link_color}-->;font-weight:bold">
+						     <!--{$l.link_name|truncate_cn:10:'...':true}-->
+						  </span>
+						</td>
+						<!--{elseif $l.link_bold == 1}-->
+						<td> 
+							<span style="font-weight:bold"> 
+						     <!--{$l.link_name|truncate_cn:10:'...':true}-->
+							</span>
+						</td> 
+					  <!--{elseif $l.link_color != null}-->
+						<td> 
+							<span style="color:<!--{$l.link_color}-->"> 
+						     <!--{$l.link_name|truncate_cn:10:'...':true}-->
+							</span>
+						</td> 
+                      <!--{else}-->
+					    <td><!--{$l.link_name|truncate_cn:10:'...':true}--></td>
+					  <!--{/if}-->
+
+					  <td><!--{$l.link_address|truncate_cn:20:'...':true}--></td>
+					  <td><!--{$l.link_times|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+					  <!--{if $l.link_stat eq 2}-->
+						<td>开启</td>
+					  <!--{else if $l.link_stat eq 1}-->
+						<td>关闭</td>
+					  <!--{/if}-->
+                  <td>
+				  <a href="<!--{$baseurl}-->/extensions/link/edit/id/<!--{$l.id}-->">修改</a> | 
+				  <!--{if $l.link_stat eq 2}-->
+				  <span id="gray"> 开启</span> |
+				  <a href="<!--{$baseurl}-->/extensions/link/edit/stat/1/stat_id/<!--{$l.id}-->">关闭</a> | 
+				  <!--{else}-->
+				  <a href="<!--{$baseurl}-->/extensions/link/edit/stat/2/stat_id/<!--{$l.id}-->"  > 开启</a> |
+				  <span id="gray">关闭</span> |
+				  <!--{/if}--> 
+				  <a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$baseurl}-->/extensions/link/delete/did/<!--{$l.id}-->','确定删除？')">删除</a>
+				  </td>
+                </tr> 
+				<!--{/foreach}-->
+
+              </table>
+            </div>
+            <div class="pubOperate">
+			<span class="btn5" style="width:80px;">
+			<label>
+			<input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/>
+			全选/反选
+			</label>
+			</span>
+		
+            <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/link/delete" empty-tips="请选择要进行删除的信息！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pagestr}--></div>
+            </div>
+            <div class="notice2"><span class="notice_warnblue">备注说明：内链关键词是对网站所有信息内容页内容的全局设置，设置后内容中的相应关键词根据设置格式显示，并指向所设置的链接地址</span></div>
+			</form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+function click_times()
+{	
+	var old_orderby = jQuery('#orderby');
+	var old_val = old_orderby.val();
+
+	//old_orderby.bind("click", function(){
+		if(old_val == 'asc')
+		{
+			old_orderby.val('desc');
+		}
+		else
+		{
+			old_orderby.val('asc');
+		}
+	//}
+	
+	jQuery('#search-form').submit();
+}
+</script>

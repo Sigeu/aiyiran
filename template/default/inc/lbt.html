@@ -1,0 +1,29 @@
+<div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+                                <!--<div class="swiper-slide">-->
+                                    <!--<img src="{IMG_PATH}/banner01_yc.png">-->
+                                <!--</div>-->
+
+                                {mo:advertlist row="3" adposid="77"  return="data" }
+                                {foreach $data  $key $value}
+                                    {foreach $value['adimg'] $k $v}
+
+                                <div class="swiper-slide">
+                                    <a href="{$v['link']}" target="_blank">
+                                        <img src="/static/uploadfile/advert/{$v['img']['path']}">
+                                    </a>
+                                </div>
+                                        {/foreach}
+                                    {/foreach}
+                                    {/mo:article}
+                                </div>
+                                <div class="pagination"></div>
+                                <div class="arrow-right"><i>&gt;</i></div>
+                                <div class="arrow-left"><i>&lt;</i></div>
+                           </div>

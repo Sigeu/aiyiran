@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>商品展示</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">商品展示</a></dt>
+            <dd><a href="<!--{$baseurl}-->/modules/goods/add/categroyid/<!--{$search.categroy}-->" class="last">添加商品</a></dd>  
+			<dd class="add"><a href="<!--{$baseurl}-->/content/issue/column">发布栏目页</a></dd>
+			<dd class="add"><a href="<!--{$baseurl}-->/content/issue/content">发布内容页</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+			<form method="post" action="<!--{$baseurl}-->/modules/goods/index" enctype="multipart/form-data">
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$search.keywords}-->" class="Iw190 f999 text-tips" tips="请输入关键字" name="keywords">
+              <select class="" name="categroy">
+                <option value="">请选择栏目</option>
+				<!--{foreach from=$categroy item=l}-->
+				<option value="<!--{$l.id}-->" <!--{if $l.model neq 2}-->disabled='true' style="color:#747474"<!--{else}-->style="color:#1C1C1C"<!--{/if}--> <!--{if $l.id eq $search.categroy}-->selected<!--{/if}-->><!--{$l.catname}--></option>
+				<!--{/foreach}-->
+              </select>
+
+              <select class="" name="sortid">
+                <option value="">请选择分类</option>
+				<!--{foreach from=$sort item=l}-->
+				<option value="<!--{$l.sortid}-->" <!--{if $l.sortid eq $search.sortid}-->selected<!--{/if}-->><!--{$l.sortname}--></option>
+				<!--{/foreach}-->
+              </select>
+			  <select name="by" class="">
+				<option value="created" <!--{if $search.by eq 'created'}-->selected<!--{/if}-->>按发布时间</option>
+				<option value="goodsid" <!--{if $search.by eq 'goodsid'}-->selected<!--{/if}-->>按信息ID</option>
+				<option value="hits" <!--{if $search.by eq 'hits'}-->selected<!--{/if}-->>按点击量</option>
+				<option value="modification" <!--{if $search.by eq 'modification'}-->selected<!--{/if}-->>按更新时间</option>
+				<option value="sortnum" <!--{if $search.by eq 'sortnum'}-->selected<!--{/if}-->>按排序值</option>
+			  </select>
+              <select class="Iw290 " style="width:100px;" name="orderby">
+                <option value="desc" <!--{if $search.orderby eq 'desc'}-->selected<!--{/if}-->>降序</option>
+                <option value="asc"  <!--{if $search.orderby eq 'asc'}-->selected<!--{/if}-->>升序</option>
+              </select>
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+            </div>
+			</form>
+			<form method="post" id="backup-form" action="">
+            <div class="pubTabel">
+              <table class="tabelTB tableTB_Xtal" id="search-list"> 
+                <tr>
+                  <th width="4%">选择</th>
+                  <th width="6%">ID</th>
+                  <th width="32%">商品名称</th>
+                  <th width="10%">所属栏目</th>
+                  <th width="10%">所属分类</th>
+				  <th width="6%">点击量</th>
+                  <th width="6%">排序</th>
+                  <th width="13%">更新时间</th>
+                  <th width="12%">操作</th>
+                </tr>
+				<!--{foreach from=$plist.list item=l}-->
+                <tr>
+                  <td><input type="checkbox" name="id[]" value="<!--{$l.goodsid}-->"/></td>
+                  <td><!--{$l.goodsid}--></td>
+                  <td><a href="<!--{$smarty.const.HOST_NAME}-->index.php/goods/Goods/info/id/<!--{$l.goodsid}-->" title="<!--{$l.goodsname}-->" target="_blank"><!--{$l.goodsname|truncate_cn:18:"...":true}--></a>
+				  <!--{if $l.isbest eq 1}--><span class="f00">[精品]</span><!--{/if}--><!--{if $l.isnew eq 1}--><span class="f00">[新品]</span><!--{/if}--><!--{if $l.ishot eq 1}--><span class="f00">[热销]</span><!--{/if}--><!--{if $l.isspecial eq 1}--><span class="f00">[特卖]</span><!--{/if}-->
+				  </td>
+                  <td><!--{$l.catname|truncate_cn:7:"...":true}--></td>                 
+                  <td><!--{$l.sortname|truncate_cn:7:"...":true}--></td>
+				  <td><!--{$l.hits}--></td>
+                  <td><input type="text" style="text-align:center;" class="Iw45" name="sortnum[<!--{$l.goodsid}-->]" value="<!--{$l.sortnum}-->"></td>
+                  <td><!--{$l.modification|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td><a href="<!--{$smarty.const.HOST_NAME}-->index.php/goods/Goods/info/id/<!--{$l.goodsid}-->/isadmin/1" target="_blank">预览</a> | <a href="<!--{$baseurl}-->/modules/goods/edit/id/<!--{$l.goodsid}-->">修改</a> | 
+				  <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/modules/goods/del/id/<!--{$l.goodsid}-->','你确定删除该商品吗？')">删除</a>
+				  </td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+            </div>
+			</form>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选</label></span>
+              <input type="button" class="btn5" value="移动到分类" onclick="moveToSort()"/>
+              <input type="button" class="btn5" value="更换属性" onclick="updateAttr()"/>
+			  <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/goods/del" empty-tips="请选择要进行删除的商品！" confirm-tips="你确定要删除吗？"/>
+              <input type="button" is-selected="false" empty-tips="" form-action="<!--{$baseurl}-->/modules/goods/sortnum" container-id="search-list" form-id="backup-form" onclick="batchOperate(this)" value="更新排序" class="btn5">
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$plist.pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+/**
+ * 移动到分类
+ */
+function moveToSort ()
+{
+	$('#goodsid').val($.ext_checkSelected('search-list'));//给id几个输入框赋值
+	
+	//弹出移动到对话框
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('move_block'),//对话框内容来源
+		     id: 'move_block',
+		  title: '移动到分类',
+		 button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+						var top = art.dialog.top;// 引用顶层页面window对象
+						var sort_id = top.document.getElementById('sort').value;
+						var goods_id = top.document.getElementById('goodsid').value;
+						if(goods_id == '')
+						{
+							art.dialog.alert('请填写商品ID','warning');
+							return false;
+						}
+
+						//给出数据请求提示
+						var t1 = art.dialog.through({content:'正在请求数据，请稍后...',icon:'question',lock:true,fixed:true},function()
+						{
+							return true;
+						});
+
+						//请求后台
+						$.post('<!--{$baseurl}-->/modules/goods/movetosort',{'goodsid':goods_id,'sortid':sort_id},function(d)
+						{
+							t1.close();//关闭提示框
+							move.close();
+							if (d == 'success' || d == 'fail')
+							{
+								location.reload();
+							}
+							else 
+							{
+                                d.replace('history.back()', '');
+								art.dialog.tips(d);
+                                location.href="<!--{$baseurl}-->/modules/goods/index";
+							}										
+							return true;
+						});
+						return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+/**
+ * 跟换属性
+ */
+function updateAttr ()
+{
+	$('#goodsid_attr').val($.ext_checkSelected('search-list'));//给id几个输入框赋值
+	//弹出移动到对话框
+	var attr_dialog = art.dialog.through(
+	{
+		content: document.getElementById('attr_block'),//对话框内容来源
+		     id: 'attr_block',
+		  title: '更换属性',
+		 button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+						var top = art.dialog.top;// 引用顶层页面window对象
+						var attr = $(top.document).find(':checkbox');
+						var _attr = new Array();
+						var isbest = 2;
+						var isnew = 2;
+						var ishot = 2;
+						var isspecial = 2;
+						$.each(attr,function(i,n)
+						{
+							_n = $(n);
+							_chk = _n.attr('checked');
+							switch (_n.attr('name'))
+							{
+								case 'isbest':
+									isbest = (_chk == 'checked') ? 1 : 2;
+									break;
+								case 'isnew':
+									isnew = (_chk == 'checked') ? 1 : 2;
+									break;
+								case 'ishot':
+									ishot = (_chk == 'checked') ? 1 : 2;
+									break;
+								case 'isspecial':
+									isspecial = (_chk == 'checked') ? 1 : 2;
+									break;
+							}
+						});
+						var goods_id = top.document.getElementById('goodsid_attr').value;
+						if(goods_id == '')
+						{
+							art.dialog.alert('请填写商品ID','warning');
+							return false;
+						}
+
+						//给出数据请求提示
+						var t1 = art.dialog.through({content:'正在请求数据，请稍后...',icon:'question',lock:true,fixed:true},function()
+						{
+							return true;
+						});
+
+						//请求后台
+						$.post('<!--{$baseurl}-->/modules/goods/updateAttr',{'goodsid':goods_id,'isbest':isbest,'isnew':isnew,'ishot':ishot,'isspecial':isspecial},function(d)
+						{
+							t1.close();//关闭提示框
+							attr_dialog.content(d).title('3秒后自动关闭').time(3);//给出提示，关闭主对话框
+							location.reload();
+							return false;
+						});
+						return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+</script>
+
+<div class="notif" id="move_block" style="display:none;">
+	<div class="pubTabel">
+		<table class="tabelTB tabelTB_X">
+			<tr>
+				<td style="padding-left:10px;">分类：</td>
+				<td><select class="Iw290" id="sort" style="width:302px;">
+				<!--{foreach from=$sort item=l}-->
+				<option value="<!--{$l.sortid}-->"><!--{$l.sortname}--></option>
+				<!--{/foreach}-->
+				</select>&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="padding-left:10px;">商品ID：</td>
+				<td><input type="text" id="goodsid" value="" class="Iw290">&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<div class="notif" style="display:none;" id="attr_block">
+	<div class="pubTabel">
+		<table class="tabelTB tabelTB_X">
+			<tr>
+			<td style="padding-left:10px;">属性：</td>
+			<td><span>
+			<input type="checkbox" value="1" name="isbest"/>
+			<label>精品</label>
+			</span>&nbsp;&nbsp;<span>
+			<input type="checkbox"  value="1" name="isnew"/>
+			<label>新品</label>
+			</span>&nbsp;&nbsp;<span>
+			<input type="checkbox"  value="1" name="ishot"/>
+			<label>热销</label>
+			</span>&nbsp;&nbsp;<span>
+			<input type="checkbox"  value="1" name="isspecial"/>
+			<label>特卖</label>
+			</span></td>
+			</tr>
+			<tr>
+			<td style="padding-left:10px;">商品ID：</td>
+			<td><input type="text" id="goodsid_attr" value="" class="Iw290"></td>
+			</tr>
+		</table>
+	</div>
+</div>

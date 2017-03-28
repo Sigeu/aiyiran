@@ -1,0 +1,10 @@
+<link href='<!--{$csspath}-->mainone_ads.css' type='text/css' rel='stylesheet' />
+<div>
+<a  href='<!--{$adimg.link}-->' target='_blank' title='<!--{$adimg.fontalt}-->'>
+<!--{if $flash neq 0}-->
+<object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash'data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>
+<!--{else}-->
+<img style='border:none' src='/static/uploadfile/advert/<!--{$adimg.img.path}-->' />
+<!--{/if}-->
+</a>
+</div>

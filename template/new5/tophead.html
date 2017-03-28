@@ -1,0 +1,83 @@
+<div class="logoBar">
+  <div class="state"><a href="{getMoreUrl(294)}" class="home">English</a><a href="javascript:HomepageFavorite.Homepage()" _fcksavedurl="javascript:HomepageFavorite.Homepage()" class="home">设为主页</a><a href="javascript:HomepageFavorite.Favorite(window.location.href, document.title)" _fcksavedurl="javascript:HomepageFavorite.Favorite(window.location.href, document.title)" class="join">加入收藏</a><a href="{HOST_NAME}special/speciallist/index" {if isset($hot)}class='focus'{/if} class="join">网站专题</a></div>
+  <div class="logo"><a href="{HOST_NAME}" title="{logoAlt()}"><img src="{logo()}" alt="{logoAlt()}"/></a></div>
+</div>
+
+<div class="t" style="display:none">
+  <div class="state">
+    <div class="other">|<a href="#" class="sina">用新浪微博登录</a>|<a href="#" class="qq">用QQ账号登录</a></div>
+    <span>铭万开源平台，欢迎拍砖！</span>
+	{if $GLOBALS['username']}
+	尊敬的用户你好：{$GLOBALS['username']}
+	{else}
+    <form action='/user/User/login/type/1' method='post' id='loginForm'>
+      <label>用户名:</label>
+      <input type="text" class="userID" id='username' value='{$GLOBALS["cookieUsername"]}' name='username'/>
+      <label>密码:</label>
+      <input type="password" class="pwd" id='password' name='password'/>
+	   <input type="hidden" class="pwd"  name='dosubmit' value="1"/>
+      <input type="button" onclick="javascript:checkLogin();" value="登录" class="grayBtn1"/>
+        <a href="#" class="underline">忘记密码</a>  <a target='__blank' href="/user/User/regist/groupid/24" class="underline">注册</a>
+    </form>
+	{/if}
+  </div>
+</div>
+<script>
+function checkLogin()
+{
+	if(!$('#username').val())
+	{
+		alert('请输入用户名');
+	}
+	else if(!$('#password').val())
+	{
+		alert('请输入密码');
+		
+	}
+	else
+	{
+		$('#loginForm').submit();
+	}
+}
+</script>
+<script>
+var HomepageFavorite = {
+//设为首页
+Homepage: function () {
+if (document.all) {
+document.body.style.behavior = 'url(#default#homepage)';
+document.body.setHomePage(window.location.href);
+
+}
+else if (window.sidebar) {
+if (window.netscape) {
+try {
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+}
+catch (e) {
+alert("该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true");
+history.go(-1);
+}
+}
+var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+prefs.setCharPref('browser.startup.homepage', window.location.href);
+}
+}
+,
+
+//加入收藏
+Favorite: function Favorite(sURL, sTitle) {
+try {
+window.external.addFavorite(sURL, sTitle);
+}
+catch (e) {
+try {
+window.sidebar.addPanel(sTitle, sURL, "");
+}
+catch (e) {
+alert("加入收藏失败,请手动添加.");
+}
+}
+}
+}
+</script>

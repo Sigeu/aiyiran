@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>模型管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<style type="text/css">
+	.mydisable{color:#868686}
+</style>
+<script>
+function id_name(obj)
+{
+	var _obj = $(obj);
+	var mychecked = _obj.attr('checked');
+	var this_state = mychecked == undefined ? false : true;  
+	_obj.siblings(".tablename").attr('checked',this_state);
+	_obj.siblings(".type").attr('checked',this_state);
+}
+</script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">模型列表</a></dt>
+            <dd><a href="<!--{$urlArr.addUrl}-->" class="last">添加模型</a></dd>
+          </dl>
+        </div>
+        <form action="" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabelTot">
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">ID</th>
+                  <th width="15%">模型名称</th>
+                  <th width="15%">模型表键名</th>
+                  <th width="15%">状态</th>
+                  <th width="15%">类型</th>
+                  <th>操作</th>
+                  <th>内容</th>
+                </tr>
+                <!--{foreach item=item key=key from=$modellist}-->
+                <tr>
+                  <td> <input type="checkbox" name='tablename[]' value='<!--{$item.tablename}-->' style="display:none" class='tablename'/><!-- 名字 -->
+                  <input type="checkbox" name='type[]' value='<!--{$item.type}-->' style="display:none" class='type'/><!-- 类型  -->
+                  <input type="checkbox" value='<!--{$item.id}-->' name='id[]' onclick="javascript:id_name(this)"/></td>
+                  <td><!--{$item.id}--></td>
+                  <td title="<!--{$item.name}-->"><!--{$item.name|truncate_cn:7:"..":true}--></td>
+                  <td title="<!--{$item.tablename}-->"><!--{$item.tablename|truncate_cn:20:"...":true}--></td>
+                  <td><!--{if $item.flag eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>  
+                  <td><!--{if $item.type eq 1}-->系统模型<!--{else}-->自定义模型<!--{/if}--></td>  
+                  <td><!--{if $item.id neq 2}--><a href="<!--{$urlArr.filedUrl}-->/modelid/<!--{$item.id}-->">字段管理</a><!--{else}-->
+				  <a href="<!--{$urlArr.sxUrl}-->">属性管理</a>
+				  <!--{/if}--> | <a href="<!--{$urlArr.updateUrl}-->/id/<!--{$item.id}-->">修改</a> | <!--{if $item.id neq 2}--><a href="<!--{$urlArr.copyUrl}-->/modelid/<!--{$item.id}-->">复制</a><!--{else}-->
+				  <span  class="mydisable">复制</span>
+				  <!--{/if}--> | <a href="#" <!--{if $item.flag eq 2}-->onclick="operateOne('<!--{$urlArr.setflagUrl}-->/flag/1/id/<!--{$item.id}-->','确定开启?')"<!--{/if}-->><span <!--{if $item.flag eq 1}-->class="mydisable"<!--{/if}-->>开启</span></a> | <a href="#"  <!--{if $item.flag eq 1}-->onclick="operateOne('<!--{$urlArr.setflagUrl}-->/flag/2/id/<!--{$item.id}-->','确定关闭?')"<!--{else}-->onclick="javascript:return false;"<!--{/if}-->><span <!--{if $item.flag eq 2}-->class="mydisable"<!--{/if}-->>关闭</span></a> | <!--{if $item.type neq 1}--><a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$urlArr.delUrl}-->/id/<!--{$item.id}-->/tablename/<!--{$item.tablename}-->/type/<!--{$item.type}-->','确定删除？');">删除</a><!--{else}--><span class="mydisable">删除</span><!--{/if}--></td>
+				  <!--{if $item.id neq 2}-->
+                  <td><a href="<!--{$urlArr.ContentIndexUrl}-->/addparameter/<!--{$item.id}-->">管理内容</a></td>
+				  <!--{else}-->
+				  <td><span  class="mydisable">管理内容</span></td>
+				  <!--{/if}-->
+                </tr>
+                 <!--{foreachelse}-->
+             	<tr><td colspan=8>暂无模型！</td></tr>
+                <!--{/foreach}-->
+              </table>
+
+            </div>
+            <div class="pubOperate"><span class="btn5"><label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+              </label></span> 
+              <input type="button" class="btn5" value="开启" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.setflagUrl}-->/flag/1"  empty-tips="请选择要开启的模型！" confirm-tips="确定开启?"/>
+              <input type="button" class="btn5" value="关闭" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.setflagUrl}-->/flag/2"  empty-tips="请选择要关闭的模型！" confirm-tips="确定关闭?"/>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.delUrl}-->"             empty-tips="请选择要删除的模型！" confirm-tips="确定删除?"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"> <!--{$pagestr}--></div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+</body>
+</html>

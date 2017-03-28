@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{php $cid=297;}
+{include 'enhead.html'}
+{include 'banner.html'}
+<div class="wrap">
+<div class="thumb">{include 'enthumb.html'}</div>
+<div class="caseList" style="padding-top:15px;">
+  <div class="caseDetail">
+    <div class="caseDetail_tit">
+      <div class="right">{if $preContentUrl=='#' }<a class="case_prevbtn" style="color:#333;text-decoration:none;">Prve Case</a>{else}<a href="{$preContentUrl}"  class="case_prevbtn">Prve Case</a>{/if}{if $nextContentUrl=='#' }<a class="case_nextbtn" style="color:#333;text-decoration:none;">Next Case</a>{else}<a href="{$nextContentUrl}"  class="case_nextbtn">Next Case</a>{/if}
+      </div>
+    </div>
+    <div class="caseDetail_con">
+        <div class="caseDetail_pic right"><img src="{UPLOAD_PATH}/{$content['thumb']['src']}" style="border:#ccc solid 1px;" /></div>
+      <dl class="caseDetail_info">
+        <dt>{$content['title']}</dt>
+        <dd>Details:</dd>
+        <dd>{$content['content']}</dd>
+      </dl>
+    </div>
+  </div>
+  <div>
+  {foreach $content['caseimg'] $myk $myv}
+      <div class="caseDetail_show"><img src="{UPLOAD_PATH}/{$myv['src']}"/></div>
+  {/foreach}
+  </div>
+</div>
+</div>
+{include 'enfooter.html'}

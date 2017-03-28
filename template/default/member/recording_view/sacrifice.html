@@ -1,0 +1,73 @@
+
+		<meta charset="UTF-8">
+		<title>祭拜记录--我贡献的祭品</title>
+		<link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+		<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+    {include 'member/head_top.html'}
+
+        <div class="wrapW">
+            
+            {include 'member/recording_view/recording_inc.html'}
+            <div class="conRig_yc">
+                <h3 class="dwH3_yc">我贡献的祭品</h3>
+                <table class="table_yc">
+                    <thead>
+                        <tr>
+                            <td><span>祭品物品</span></td>
+                            <td><span>纪念馆</span></td>
+                            <td><span>贡献时间</span></td>
+                            <!-- <td><span>操作</span></td> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $lists $k $v}
+                        <tr>
+                            <td class="firstTd_yc"><img src="{$v['goods_img']}" alt="献花"><span>{$v['gname']}</span></td>
+                            <td><span>{$v['name']}</span></td>
+                            <td><span>{date('Y-m-d h:i:s', $v['addtime'])}</span></td>
+<!--                             <td>
+                                <a href="javascript:;" onclick="clearJipin({$v['id']})">撤销祭品</a>
+                            </td> -->
+                        </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <div class="pageF_yc">
+                 {$pagestr}
+                </div>
+            </div>
+        </div>
+		<div class="wrapS03_yc jbFT_yc">
+			<p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+		</div>
+	</body>
+	<script type="text/javascript" src="/template/default/member/js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="/template/default/member/js/html5shiv.js" ></script>
+	<script type="text/javascript" src="/template/default/member/js/common.js" ></script>
+</html>
+<script>
+    function clearJipin(id)
+    {
+        layer.confirm('确认撤销吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.ajax({
+                type: "Post",
+                url: "/member/Recharge/clearJipin",
+                data: {'id':id},
+                dataType: "json",
+                success: function(data) {
+                    if (data.status == 1) {
+                        layer.msg(data.msg, {icon: 1, offset: '40%'},function(){
+                             location.reload();
+                        });
+                    }else{
+                        layer.msg(data.msg, {icon: 2, offset: '40%'});
+                    }
+                }
+            });
+        }, function(){
+            layer.closeAll();
+        });
+    }
+</script>

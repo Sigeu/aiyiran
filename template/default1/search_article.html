@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+<div class="wrap">
+  <div class="lWrapL">
+    <div class="pubModL">
+      <div class="T"><span class="more"><a href="javascript:history.go(-1);">返回 &gt;</a></span>
+        <div class="f14 f3">您搜索的"<em>{$keywords}</em>"关键词，为您找到<b>{count($searchListCount)}</b>个相关结果:</div>
+      </div>
+      <div class="C">
+        <div class="UlOneList">
+          <ul>
+			{foreach $searchList $k $v}
+            <li><span>{date('Y-m-d H:i:s',$v['publishtime'])}</span>{if $v['id']==$cid }<cite>[{cid2name($cid)}]</cite>{else}<cite>[{cid2name($v['categoryid'])}]</cite>{/if}<a href="{$v['url']}" title='{$v["title"]}'>{$v['title']}</a></li>
+			{/foreach}
+          </ul>
+        </div>
+        <div class="page">{$pagestr}</div>
+      </div>
+    </div>
+  </div>
+  <div class="rWrapR">
+  { if getPid($cid)>0 && getPid($cid)!=$cid }
+   {php $thumbid=getPid($cid);}
+  {else}
+   {php $thumbid=$cid;}
+  {/if}
+    <div class="pubModR bgf7">
+      <div class="T">
+        <h4>资讯推荐</h4>
+      </div>
+      <div class="C">
+        <div class="picList rPicList">{mo:articlelist cid='$thumbid' type='all' row='2' order='hits desc' return='data'}
+			{foreach $data $k $v}
+            <a href="{$v['url']}" title='{$v["title"]}' class="imgTxt"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="120" height="90" />{$v['title']}</a>
+			{/foreach}
+			{/mo:articlelist}</div>
+        <div class="clearfix"></div>
+        <div class="pubModRR">
+          <div class="T">
+            <h5>专题资讯</h5>
+          </div>
+          <div class="C">
+            <div class="cnbusi">
+              <div class="picTxt">
+              {mo:articlelist cid='$thumbid' type='all' order='hits desc' row='1' return='data'}
+            {foreach $data $k $v}
+            <div class="pic"><a href='{$v["url"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="89" height="89"/></a></div>
+            <div class="txt">
+              <p><a href='{$v["url"]}'>{csubstr($v["title"],12)}</a></p>
+              <p>{csubstr($v["description"],30)}<a href='{$v["url"]}' class="fba" style="font-weight:100;">[详情]</a></p>
+            </div>
+            {/foreach}
+            {/mo:articlelist}
+              </div>
+            </div>
+            <div class="mT3">
+              <ul>
+               {mo:articlelist cid='$thumbid' type='all' row='4' order='hits desc' from='1' return='data'}
+           		 {foreach $data $k $v}
+           		 <li><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],20)}</a></li>
+           		 {/foreach}
+           		 {/mo:articlelist}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="pubModRR">
+          <div class="T">
+            <h5>点击排行</h5>
+          </div>
+          <div class="C">
+            <div class="rank">
+              <ul>
+              {mo:contentlist  order="hits desc" row='10' return='data'}
+                {foreach $data $k $v}
+                {php $n=$k+1}
+                {if $k<3 }
+                <li><b class="b{$n}">{$n}</b><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],20)}</a></li>
+                {else}
+                <li><b>{$n}</b><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],20)}</a></li>
+                {/if}
+                {/foreach}
+               {/mo:contentlist}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advert"><a href="#"><img src="{IMG_PATH}/advert9.png" width="310" height="104" /></a></div>
+    <div class="pubModR">
+      <div class="T">
+        <h4>企业报道</h4>
+      </div>
+      <div class="C">
+        <div class="picList rPicList">{mo:articlelist cid='$thumbid' type='all' row='4' order='publishtime desc' return='data'}
+			{foreach $data $k $v}
+            <a href="{$v['url']}" title='{$v["title"]}' class="imgTxt"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="120" height="90" />{$v['title']}</a>
+			{/foreach}
+			{/mo:articlelist}</div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="friendLink bder">
+    <div class="T">
+      <h3>友情链接</h3>
+    </div>
+    <div class="C">{include 'friendlink.html'}</div>
+  </div>
+</div>
+{include 'footer.html'}
+

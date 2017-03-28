@@ -1,0 +1,121 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#isUpload").formValidator(
+	{
+		onshow:"请上传附件",
+		onfocus:"请上传附件",
+		oncorrect:"上传正确"
+	}).inputValidator(
+	{
+		min:1,
+		onerror:"请上传附件"
+	});
+
+	$("#name").formValidator(
+	{
+		onshow:"请输入1-100个字符",
+		onfocus:"请输入1-100个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:1,
+		max:100,
+		onerror:"请输入1-100个字符"
+	});
+});
+</script>
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">
+					<dd ><a href="<!--{$baseurl}-->/content/accessory/index">附件管理</a></dd>
+					<dt class="on"><a href="javascript:void(0)" class="last">上传新附件</a></dt>
+				</dl>
+			</div>
+			<form method="post" action="<!--{$baseurl}-->/content/accessory/add" id="formid" enctype="multipart/form-data">
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th width="120px"><font>*</font> 附件名称：</th>
+									<td><input type="text" value="" name="name" class="Iw290" id="name"/></td>
+								</tr>
+
+								<tr>
+									<th><font>*</font> 媒体类型：</th>
+									<td>
+										<span><label><input type="radio" name="mediatype" value="1" checked/> 图片</label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span><label><input type="radio" name="mediatype" value="2"/> flash</label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span><label><input type="radio" name="mediatype" value="3"/> 音频/视频</label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+										<span><label><input type="radio" name="mediatype" value="4"/> 其他</label></span>
+									</td>
+								</tr>
+
+								<tr>
+									<th valign="top"><font>*</font> 上传文件：</th>
+									<td>
+										<p style="padding-bottom:5px;">
+											<input onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'accessory','self_id':'uploadButton','check_id':'isUpload'})" id="uploadButton" type="button" value="浏览上传" class="btn5" />
+											<input type="hidden" id="isUpload" value=""/>
+										</p>
+									</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="pubTabelBot">
+							<input type="submit" hidefocus="hide" value="确定" class="btn1">
+							<input type="button" hidefocus="hide" value="取消" onclick="javascript:history.go(-1)" class="btn2" >
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	<input type="hidden" id="_upload_size" value="<!--{$upload_size}-->" />
+</body>
+</html>
+
+<script type="text/javascript">
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+var _acc_option=
+{
+	upload_id:'accessory_upload',
+	title:'附件上传',
+	return_id:'accessory',
+	callFunName:'accessoryUpload',
+	setting:'<!--{$setting.setting}-->',
+	param:{}
+};
+
+$(function()
+{
+	$(':radio[name=mediatype]').bind('click',function()
+	{
+		$.post('<!--{$baseurl}-->/content/accessory/getType',{'type':$(this).val(),'setting':'<!--{$setting.setting}-->'},function(data){
+		_acc_option.setting = data;
+		});
+	});
+});
+
+
+function uploadAccessory (obj)
+{	
+	_acc_option.param = obj;
+	MainOneUpload(_acc_option);//调用统一上传方法
+}
+
+
+</script>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+
+    <div class="advertL"><a href="#"><img src="images/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="#" class="moreL">更多&gt;&gt;</a> <span class="h_grayL">最新文章</span>
+      <ul class="arrow_ulL">
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		<li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="title"> 
+        <div class="t_name"><span class="tit_green">{$special_name['name']}&nbsp;-&nbsp;{$assort_name['assort_name']}</span></div>
+      </div>
+      <table cellpadding="0" cellspacing="0" class="tablist">
+        <tr>
+          <th width="60%">标题</th>
+          <th width="20%">所属栏目</th>
+          <th width="20%">创建时间</th>
+        </tr>
+        {foreach $list $k $v}
+        <tr>
+          {if $v['publishopt'] == 1}
+          <td width="60%" class="left"><a href="{$v['static_url']}" target="_blank">{$v['title']}</a></td>
+          {else}
+          <td width="60%" class="left"><a href="/content/Content/index/id/{$v['id']}" target="_blank">{$v['title']}</a></td>
+          {/if}
+          <td width="20%">{$v['category_name']}</td>
+          <td width="20%">{date('Y.m.d',$v['publishtime'])}</td>
+        </tr>
+        {/foreach}
+      </table>
+
+        <div class="page"><a href="{$pageArr['firstPageUrl']}" title="1">首页</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="$k" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['prewPageUrl']}" title="上一页">上一页</a><a href="{$pageArr['nextPageUrl']}" title="1">下一页</a><a href="{$pageArr['lastPageUrl']}" title="1">末页</a><span>共 <b>{$pageArr['pageNums']}</b> 页 <b>{$pageArr['count']}</b> 条</span></div>
+
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+{include 'footer.html'}

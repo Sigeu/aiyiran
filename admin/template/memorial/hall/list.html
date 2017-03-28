@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+<!-- 时间日期插件 -->
+<script src="<!--{$jspath}-->/laydate/laydate.js"></script>
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/need/laydate.css" type="text/css">
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/skins/molv/laydate.css" type="text/css">
+
+
+
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">纪念馆列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/memorial/hall/addhall" class="last">添加纪念馆</a></dd>
+          </dl>
+        </div>
+        <form  method='get' action="<!--{$baseurl}-->/memorial/hall/index" id='myForm'>
+        <!-- 搜索区域 -->
+        <div class="pubTabelTot">
+              <input type="text" name='keywords' <!--{if $search.keywords}--> value="<!--{$search.keywords}-->" <!--{else}-->value="请输入关键字"<!--{/if}-->  class="Iw215 text-tips" tips="请输入关键字" >
+
+              <select class="Iw290" style="width:110px;"  name='categoryid'>
+                <option value="">请选择栏目</option>
+                <!--{foreach item=item key=key from=$catelist}-->
+                <option value="<!--{$item.id}-->"
+                  <!--{if $search.categoryid eq $item.id}--> selected='' <!--{/if}-->
+                ><!--{$item.name}--></option>
+                <!--{/foreach}-->
+              </select>
+
+              <select class="Iw290" style="width:110px;"  name='status'>
+                <option value="">选择状态</option>
+                <option value="3"  <!--{if $search.status eq 3}--> selected='' <!--{/if}-->
+                >未审核</option>
+                <option value="1"  <!--{if $search.status eq 1}--> selected='' <!--{/if}-->
+                >通过</option>
+                <option value="2"  <!--{if $search.status eq 2}--> selected='' <!--{/if}-->
+                >未通过</option>
+              </select>
+              创建时间：<input id="data1" class="laydate-icon" name="star" value="<!--{$search.star}-->" /> 至
+                        <input id="data2" class="laydate-icon" name="end" value="<!--{$search.end}-->" />
+<script>
+laydate({
+  elem: '#data1', 
+  event: 'focus',
+  format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+});
+</script>
+<script>
+laydate({
+  elem: '#data2', 
+  event: 'focus',
+  format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+});
+laydate.skin('dahong'); //皮肤
+
+</script>
+
+              <input type="button" hidefocus="hide" value="搜 索" class="btn5" onclick='formSubmit();'>
+        </div>
+        <!-- 搜索区域 -->
+        </form>
+        <form action="<!--{$baseurl}-->/memorial/hall/index" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="15%">纪念馆名称</th>
+                  <th width="10%">创建人</th>
+                  <th width="25%">所属分类</th>
+                  <th width="15%">创建时间</th>
+                  <th width="10%">状态</th>
+                  <th width="20%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td>
+                  <input type="checkbox" name="id[]" value="<!--{$item.id}-->" />
+                  </td>
+                  <td title='<!--{$item.name}-->'><!--{$item.name}--></td>
+                  <td><!--{$item.author}--></td>
+                  <td>
+                    <!--{if $item.catid == 0}-->
+                      无分类
+                    <!--{else}-->
+                      <!--{$mact[$item.catid]}-->
+                    <!--{/if}-->
+                  <td><!--{$item.createtime}--></td>
+                  <td><!--{if $item.status eq 3}-->未审核<!--{/if}--><!--{if $item.status eq 1}-->已通过<!--{/if}--><!--{if $item.status eq 2}-->未通过<!--{/if}--></td>
+                  <td>
+                   <a href="/jinian/Jinian/index/mid/<!--{$item.id}-->" target="_blank">预览</a> |
+                   <a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$item.id}-->">修改</a> |
+                   <a href="javascript:;" class="shenhe" data="<!--{$item.id}-->">审核</a> |
+                   <a href="javascript:;"  onclick="MoConfirm('<!--{$baseurl}-->/memorial/hall/deleteHall/id/<!--{$item.id}-->/name/<!--{$item.name}-->/page/<!--{$page}-->','确认删除？')">删除</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/cat/linkSort" empty-tips="请选择要进行排序的友情链接" is-selected="false" />
+			  <input type="button" class="btn5" value="删除" class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/hall/deleteHall/name/<!--{$item.name}-->/page/<!--{$page}-->" empty-tips="请选择要删除的纪念馆" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+
+<script type="text/javascript">
+  $(function(){
+    $(".shenhe").click(function(){
+      var id = $(this).attr('data');
+       var idx = layer.confirm('确认通过审核吗？', {
+            btn: ['通过','不通过'] //按钮
+                        }, function(){
+                            $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/audi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("history.go(0)",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        }, function(){
+                           $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/noaudi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("history.go(0)",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        
+            });
+    });
+
+    // 不通过
+     $(".bushenhe").click(function(){
+      var id = $(this).attr('data');
+       var idx = layer.confirm('不通过审核吗？', {
+            btn: ['确认','取消'] //按钮
+                        }, function(){
+                            $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/noaudi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("window.location.href='<!--{$baseurl}-->/memorial/Hall/index'",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        }, function(){
+                         layer.close(idx);
+            });
+    });
+  })
+</script>
+
+    </body>
+    </html>

@@ -1,0 +1,108 @@
+<!--{include file="public/head_admin.html"}-->
+<script>
+   $(function(){
+	   
+     $(".cancel").click(function(){
+	     window.location.href="<!--{$baseurl}--><!--{$url}-->";
+	 })
+	 
+   })
+</script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">全文搜索配置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div >
+            <div class="pubTabel" id='parent'> 
+             <form action='<!--{$baseurl}-->/webset/search/searchAdd' method='post' name="myForm" id='myForm'>
+              <table class="tabelLR">
+                <tr>
+                  <th  style="width:390px;"> 启用Sphinx全文搜索功能（需配置Sphinx服务器）：</th>
+                  <td>
+                    <input type="radio" name='stat' id='stat' onclick="changeit(1);"  value='1' <!--{if $stat eq 1}-->   checked=true <!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='stat' id='stat' onclick="changeit(2);"  value='2' <!--{if $stat eq 2}-->   checked=true <!--{/if}-->/>
+                    <label>否</label>
+                  </td>
+                </tr>
+              </table> 
+              <div id='showinfo' style="display:block">
+                <table class="tabelLR"> 
+                <tr>
+                  <th><!--{if $stat eq 1}--><font>*</font><!--{/if}--> Sphinx服务器主机地址：</th>
+                  <td><input class="Iw150"  type="text"  value="<!--{$dress}-->"  name="dress" id="dress"/><span id ="dname" class=""></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><!--{if $stat eq 1}--><font>*</font><!--{/if}--> Sphinx服务器端口号：</th>
+                  <td><input class="Iw150"  type="text" value="<!--{$number}-->" name="number" id="number"/><span id ="nname" class=""></span>
+                  </td>
+                </tr>
+                </table> 
+              </div>   
+              <div class="pubTabelBot">
+            	<input type='hidden' value="<!--{$url}-->" name='url'>
+              	<input type="hidden" name='show' id='show' value="<!--{$stat}-->">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id="sub">
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel" >
+              </div>
+              </form>
+            </div>
+             <div class="notice2"><span class="notice_warnblue">备注说明：Sphinx服务器配置方法请参照官方网站相关说明。</span></div>
+			</div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+/*js验证*/
+$(document).ready(function(){
+		
+	$.formValidator.initConfig({formid:"myForm",autotip:true,generalwordwide:true});
+	
+	$("#dress").formValidator({empty:false,onshow:"请输入服务器地址",onempty:"输入正确",onfocus:"请输入服务器地址",oncorrect:"输入正确"})
+	.inputValidator({min:1,max:20,onerror:"请输入服务器地址"}).defaultPassed();
+
+	$("#number").formValidator({empty:false,onshow:"请输入服务器端口",onfocus:"请输入服务器端口",oncorrect:"输入正确",onempty:"输入正确"}).inputValidator({min:1,max:4,onerror:"请输入服务器端口"}).defaultPassed();
+	
+	/*是/否隐藏显示*/
+	if($('#show').val() == 1)
+	{ 
+		showinfo.style.display="block";
+	}
+	else if($('#show').val() == 2)
+	{
+		showinfo.style.display="none";
+	}
+	
+});
+</script>
+
+
+
+<script type="text/javascript">
+/*单选按钮切换*/
+function changeit(stat)
+{
+	if(stat == 1)
+	{
+		showinfo.style.display="block";
+	}
+	else
+	{
+		showinfo.style.display="none";
+	}
+		
+}
+</script>
+

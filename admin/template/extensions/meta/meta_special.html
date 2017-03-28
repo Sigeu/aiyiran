@@ -1,0 +1,65 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/index">首页</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/category">栏目页</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/1">栏目页默认设置</a></dd>
+            <dt class="on"><a href="#">专题页</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/2">专题页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/3">专题信息列表页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/4">内容页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/5" class="last">商品页默认设置</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$baseurl}-->/extensions/meta/special" method="get" id='myForm' name="myForm">
+            <input type="hidden" name="task" value="dosubmit"/>
+            <input type="hidden" id="page" name="page" value="<!--{$pageInfo.page}-->" />
+            <div class="pubTabelTot">
+            <input type="text" value="<!--{$searchInfo.keyword}-->" class="Iw290 text-tips" tips="请输入关键字" style="width:150px;" id="keyword"  name="keyword">
+              <select class="Iw290" style="width:140px;" id="typeid" name="typeid">
+                  <option value="">所属分类</option>
+                  <!--{foreach from=$specialType key=key item=val}-->
+                  <option value="<!--{$key}-->" <!--{if $searchInfo.typeid==$key}-->selected<!--{/if}-->><!--{$val}--></option>
+                  <!--{/foreach}-->
+              </select>
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+            </div>
+            </form>
+            <div class="pubTabel">
+              <table class="tabelTB">
+                <tr>
+                  <th width="6%">专题ID</th>
+                  <th width="20%">专题名称</th>
+                  <th width="15%">所属分类</th>
+                  <th width="15%">Title</th>
+                  <th width="14">Keywords</th>
+                  <th width="20%">Description</th>
+                  <th width="10%">操作</th>
+                </tr>
+                <!--{foreach from=$specialList item=row}-->
+                <tr>
+                  <td width="6%"><!--{$row.id}--></td>
+                  <td width="20%"><!--{$row.name}--></td>
+                  <td width="15%"><!--{$specialType[$row.type_id]}--></td>
+                  <td width="15%"><!--{if $row.seo_title}--><!--{$row.seo_title|truncate_cn:10:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                  <td width="14%"><!--{if $row.seo_keywords}--><!--{$row.seo_keywords|truncate_cn:15:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                  <td width="20%"><!--{if $row.seo_description}--><!--{$row.seo_description|truncate_cn:15:"...":true}--><!--{else}--><label style="color:#808080">&lt;默认设置&gt;</label><!--{/if}--></td>
+                  <td width="10%"><a href="<!--{$baseurl}-->/extensions/meta/setspecial/sid/<!--{$row.id}-->">设置</a></td>
+                </tr>
+                <!--{/foreach}-->                
+              </table>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageInfo.pageStr}--></div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+</body>
+</html>

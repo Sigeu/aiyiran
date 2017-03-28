@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>添加内容</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" type="text/css" rel="stylesheet"></link>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/formvalidator.js"></script>
+<script src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+</head>
+<body>
+
+    <div class="pubBox" style='height:2000px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#"><!--{$name}--></a></dt>
+          </dl>
+        </div>
+        <form action="" method='post' id='myForm'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+              <!--{foreach item=item key=key from=$form}-->
+                  <!--{$item}-->
+              <!--{/foreach}-->
+              </table>
+               <div class="pubTabelBot">
+               <input type="button" hidefocus="hide" style='font-size:12px;' value="关闭预览" onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+ 
+<script src="<!--{$jspath}-->/js/pubJq.js"></script>
+<script>
+$(document).ready(function(){
+	$.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	<!--{$formvalidator}-->
+})
+ </script>
+</body>
+</html>

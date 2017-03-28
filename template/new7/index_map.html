@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+<div class="subNav">首页 &gt; 关于我们</div>
+<div class="wrap">
+  <div class="sideBar">
+    <div class="T">关于我们</div>
+    <div class="pubUl">
+      <ul>
+        {mo:articlelist cid='53' type='all' row='5' order='id' return='data'}
+        {foreach $data $k $v}
+        {if isset($v['id'])&&isset($id)&&$v['id']===$id}
+        <li><a href="{$v['url']}" class="focus">{$v['title']}</a></li>
+        {else}
+        <li><a href="{$v['url']}">{$v['title']}</a></li>
+        {/if}
+       {/foreach}
+      {mo:articlelist}
+      <li><a href="/message/Message/index/id/283"  title="意见和建议">意见和建议</a></li>
+      <li class="last"><a  href="{HOST_NAME}category/Category/index/cid/289" class='focus' title="网站地图">网站地图</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="pubBox">
+      <div class="T">
+        <h2>网站地图</h2>
+      </div>
+      <div class="C">
+        <div class="pubBox2">
+          <dl>
+            <dt><a href="{HOST_NAME}">首页</a></dt>
+            <dd><a href="{getmoreUrl(58)}">商业要闻</a><a href="{getmoreUrl(63)}">企业报道</a><a href="{getmoreUrl(78)}">社会视点</a><a href="{getmoreUrl(57)}">消费问题</a><a href="{getmoreUrl(58)}">国际财经</a><a href="{getmoreUrl(281)}">财经周刊</a><a href="{getmoreUrl(90)}">商业人生</a><a href="{getmoreUrl(255)}">经济动态</a><a href="{getmoreUrl(274)}">科技发展</a><a href="{getmoreUrl(285)}">会议活动</a><a href="{getmoreUrl(254)}">财经视线</a></dd>
+          </dl>
+    {mo:navigation order='ordernum'}             
+     {foreach $return  $v}
+         <dl>
+          <dt><a href="{$v['url']}">{$v['catname']}</a></li><dd>
+          {php $soncateTree = getCateTree($v['id'],1);}
+            {foreach $soncateTree $sonk $sonv}
+              <a href="{getMoreUrl($sonv['id'])}">{$sonv['catname']}</a>
+              <!--{php $ssoncateTree = getCateTree($sonv['id'],1)}
+              {foreach $ssoncateTree $ssonk $ssonv}
+              <a href="">{$ssonv['catname']}</a>
+              {/foreach}-->
+           {/foreach}
+              </dd>
+            </dl>
+         {/foreach}
+      {/mo:navigation}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}
+

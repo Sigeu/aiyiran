@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<!--动态调用二维码-->
+<script language='javascript' src='{HOST_NAME}index/index/qrcodePreview/id/4'></script>
+<!--静态调用二维码-->
+<script language='javascript' src='{HOST_NAME}html/qrcache/10.js'></script>
+<script src="{JS_PATH}/banner.js"></script>
+<script src="http://www.cms.loc/imc/server/Server/getsession/username/tongxinhua"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script src="http://www.cms.loc/imc/server/Server/getsession"></script>
+<!--<script type="text/javascript">
+$.getJSON("http://www.cms.loc/imc/server/Server/getsession?callback=?",
+function(msg){
+	
+	alert(msg.username);
+})
+</script>-->
+</head>                       
+<body>
+<!--手机浏览跳转提示begin-->
+{if $GLOBALS['is_mobile_open']}
+    {if $GLOBALS['is_mobile_scan']}
+        您正在用手机访问电脑版网站，为了保证最佳浏览效果，建议您 <a href='{URL_HOST}index/index/changeEdition/ed/mobile' style="color:blue">[切换至手机版]</a>
+    {/if}
+{/if}
+<!--手机浏览跳转提示end-->
+{include 'head.html'}
+{php $cateTree = getIdListByPid(0);} 
+<script language='javascript' src='{HOST_NAME}index/index/preview/id/94'></script>
+<div class="bgGreen">
+  <div class="w">
+    <div class="allBanner">
+      <div class="showimg" id="idcontainerBanner2">
+        <table id="idSlider2">
+          <tr>
+          {mo:advertlist row="5" adposid="115" order="`sort` ASC , `id` DESC" from="0" row="5" return="data" }
+          	{foreach $data  $key $value} 
+            {php $value['adimg'][0]['img']['path'] = isset($value['adimg'][0]['img']['path']) ? $value['adimg'][0]['img']['path'] : ''}
+            <td><a href="{$value['adimg'][0]['link']}"><img src="{UPLOAD_PATH}/advert/{$value['adimg'][0]['img']['path']}" alt="{$value['adimg'][0]['img']['alt']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></td>
+            {/foreach}
+          {/mo:article}
+          </tr>
+        </table>
+      </div>    
+      <div class="scrollimg" id="nav_title">
+        <ul>
+          {foreach $data  $key $value} 
+	          <li><span class="simg"></span>
+	            <div class="sort"><a href="javascript:void(0);"><strong>{$value['adtitle']}</strong></a></div>
+	          </li>
+           {/foreach}
+        </ul>  
+      </div>
+    </div>
+
+	<div class="hotNews">
+		<div class="T">热点新闻</div>
+		<div class="C">
+			<div class="sideBar">
+				<ul id="photoUl" style="position:absolute;left:0;">
+					{mo:contentlist  order="hits desc" row='3' return='data'}
+						{foreach $data $k $v}
+						<li>
+							<strong><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],15)}</a></strong>
+							<img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="88" height="58" onerror="this.src='{IMG_PATH}/default.jpg'" />
+							<p>{csubstr($v['description'],38)}<a href="{$v['url']}"  >[详细]</a></p>
+						</li>
+						{/foreach}
+					{/mo:contentlist}
+				</ul>
+				<div class="lrRow"><a href="javascript:void(0);" title="下一幅" id="next"></a><a href="javascript:void(0);" title="上一幅" id="prve"></a></div>
+			</div>
+		</div>
+	</div>
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="w">
+    <div class="l w356">
+      <div class="Gborder Gborder_h332">
+        <div class="title"> <a href="{getMoreUrl($cateTree[0]['id'])}" class="t_more right">更多&gt;&gt;</a>
+        
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[0]['id'])}</span><span class="tit_en">Beer and skittles</span></div>
+        </div>
+         {php $cate1 = getIdListByPid($cateTree[0]['id']);}
+        <div class="box_con">
+          <div class="bc bc_h132">
+            <div class="bc_pic"> 
+            {php $cid0 = $cate1[0]['id']}
+            {mo:contentlist  cid='$cid0' return='data'}
+              	{foreach $data $k $v} 
+	              	{if $n==1}   
+	                   <a href="{$v['curl']}" title="{$v['title']}" ><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a>
+	                {/if} 
+                {/foreach} 
+              {/mo:contentlist}
+              </div>            
+            <dl class="bc_txt">             
+              <dt><a href="{getMoreUrl($cate1[0]['id'])}" >{cid2name($cate1[0]['id'])}</a></dt>
+              {mo:contentlist cid='$cid0'  row='5' return='data'}
+              	{foreach $data $k $v}
+              		<dd><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],12)}</a></dd>
+                {/foreach} 
+               {/mo:contentlist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <div class="bc bc_h132">
+            <div class="bc_pic">
+            {php $cid1 = $cate1[1]['id']}
+			 {mo:articlelist cid='$cid1' type='all' return='data'}
+              	{foreach $data $k $v} 
+	                  {if $n==1}   
+	                    <a href="{$v['curl']}"  title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a>
+	                 {/if} 
+	             {/foreach} 
+               {/mo:articlelist}
+			</div>
+            <dl class="bc_txt">
+              <dt><a href="{getMoreUrl($cate1[1]['id'])}">{cid2name($cate1[1]['id'])}</a></dt>
+               {mo:articlelist cid='$cid1' row='5' type='all' return='data'}
+              	{foreach $data $k $v}
+              		<dd>[{cid2name($v['cid'])}] <a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],12)}</a></dd>
+                {/foreach} 
+               {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m w387">
+      <div class="Gborder Gborder_h332">
+        <div class="title"> <a href="{getMoreUrl($cateTree[2]['id'])}"   class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[2]['id'])}</span><span class="tit_en">Policies and regulations</span></div>
+        </div>
+        <div class="box_con">
+          <dl class="bc_txt">
+               {php $catid2 = $cateTree[2]['id']}
+              {mo:articlelist cid='$catid2' row='12'  return='data'}
+              	{foreach $data $k $v}
+				 <dd><span class="time">{date('Y-m-d',$v['updatetime'])}</span>[{cid2name($v['cid'])}] <a title="{$v['title']}" href="{$v['url']}">{csubstr($v['title'],21)}</a></dd>
+                {/foreach} 
+               {/mo:articlelist}
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="r w237">
+      <div class="Greyborder Gborder_h332 Greyborder_bg1">
+        <div class="r_tit"> <a href="{HOST_NAME}goods/Goods/topList" class="right t_more">更多&gt;&gt;</a> <span class="r_t_name icobg_01">浏览量高的商品</span> </div>
+        <div class="box_con">
+          <ul class="r_goods">
+          {mo:goods order='hits desc' row='3' return='data'}
+              {foreach $data $sonk $sonv}
+            <li>
+            {php $sonv['image'][0] = isset($sonv['image'][0]) ? $sonv['image'][0] : ''}
+              <div class="bc_pic" ><a href="{$sonv['url']}" title=""><img style='width:88px;height:88px' src="{UPLOAD_PATH}/goods/{$sonv['image'][0]}" onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+              <dl class="dl_goods">
+                <dt><a href="{$sonv['url']}">{csubstr($sonv['goodsname'],10)}</a></dt>
+                <dd class="f6 pb5">{csubstr($sonv['sortname'],10)}</dd>
+                <dd><strong class="f14">{$sonv['shopprice']}</strong>元</dd>
+              </dl> 
+             </li>
+           {/foreach}
+         {/mo:goods} 
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="w">
+    <div class="goodsList"><b></b>
+      <ul>  
+        {php $catid1 = $cateTree[1]['id']}
+        {mo:goods   cid='$catid1' type='all' row='8' return='data'}
+        {foreach $data $k $v}
+        {php $v['image'][0] = isset($v['image'][0]) ? $v['image'][0] : ''}
+        <li><a href="{$v['url']}"><img style='width:104px;height:99px' src="{UPLOAD_PATH}/goods/{$v['image'][0]}"  onerror="this.src='{IMG_PATH}/default.jpg'" /></a></li>
+        {/foreach}
+        {/mo:goods}
+      </ul>
+    </div>
+  </div>
+  <div class="w">     
+    <div class="l w356"></div>
+    <div class="m w387"></div>
+    <div class="r w236"></div>
+    <div class="l w356">
+      <div class="Gborder Gborder_h255">
+        <div class="title"> <a href="{getMoreUrl($cateTree[4]['id'])}" class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[4]['id'])}</span><span class="tit_en">Sports news</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h198">
+          {php $catid4 = $cateTree[4]['id']}
+              {mo:articlelist cid='$catid4' type='all' row='1' return='data'}
+              {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:15px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}"  onerror="this.src='{IMG_PATH}/default.jpg'" /></a></div>
+              {/foreach}
+              {/mo:articlelist}
+            <dl class="bc_txt">
+              {mo:articlelist cid='$catid4' type='all' row='8' return='data'}
+              {foreach $data $k $v}
+              {if $n==1}
+              <dt><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],'13','..')}</a></dt>
+              {else}
+              <dd><a href="{$v['url']}" title='{$v["title"]}' class="bg_dot">{csubstr($v['title'],'14','..')}</a></dd>
+              {/if}
+              {/foreach}
+              {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m w366">
+      <div class="Gborder Gborder_h255">
+        <div class="title"> <a href="{getMoreUrl($cateTree[3]['id'])}" class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name($cateTree[3]['id'])}</span><span class="tit_en">The life of a small coup</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h81">
+          {php $catid3 = $cateTree[3]['id']}
+          {mo:articlelist cid='$catid3' row='1' return='data'}
+              {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:15px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="128" height="81"  onerror="this.src='{IMG_PATH}/default.jpg'"/></a></div>
+            <dl class="bc_txt">
+              <dt><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],'10')}</a></dt>
+              <dd class="sj">{csubstr($v['description'],'27')}<a href="{$v['url']}" class="greena">
+                <详细>
+                </a></dd>
+              {/foreach}
+           {/mo:articlelist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <div class="box_con">
+            <dl class="bc_txt">
+              {mo:articlelist cid='$catid3' type='all' row='6' return='data'}
+              {foreach $data $k $v}
+              <dd><a href="{$v['url']}">[{$v['catname']}］{$v['title']}</a></dd>
+               {/foreach}
+              {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="r w257">
+    {php $position = getPositionByCatid($cateTree[0]['id']);}
+      <div class="Greyborder Gborder_h255 Greyborder_bg2">
+        <div class="r_tit" style="margin-bottom:4px;"> <a href="{getMoreUrl($position[0]['pos_id'])}" class="right t_more">更多&gt;&gt;</a> <span class="r_t_name icobg_02">{$position[0]['name']}</span> </div>
+        <div class="box_con">
+         
+          <ul class="arrow_ulL" style="margin:0;">
+          {php $posid0 = $position[0]['pos_id']}
+        {mo:position id='$posid0' return='data'}
+         {foreach $data $k $value}
+         <li><a href="{$value['info']['url']}" title="{$value['headline']}" class="right f6 uline">查看</a><a href="{$value['info']['url']}">{csubstr($value['headline'],'13','...')}</a></li>
+         {/foreach}
+        {/mo:position}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}
+
+<script type="text/javascript">
+var forEach = function(array, callback, thisObject){
+		if(array.forEach){
+			array.forEach(callback, thisObject);
+		}
+		else
+		{ 
+			for (var i = 0, len = array.length; i < len; i++) { callback.call(thisObject, array[i], i, array); }
+		}
+	}
+	
+	var st = new SlideTrans("idcontainerBanner2", "idSlider2", 5, { Vertical: false });
+	var arr=ban.$('idSlider2').getElementsByTagName('td');
+	forEach(arr, function(o, i){
+		o.onmouseover = function(){st.Stop()}
+		o.onmouseout = function(){ st.Run() }
+	}) 
+	var nums = ban.$('nav_title').getElementsByTagName('li');
+	forEach(nums, function(o, i){
+		o.onmousedown = function(){ o.className = "on"; st.Auto = false; st.Run(i); }
+		o.onmouseout = function(){ o.className = ""; st.Auto = true; st.Run(); }
+	})
+		//设置按钮样式
+	st.onStart = function(){
+		forEach(nums, function(o, i){ o.className = st.Index == i ? "on" : ""; })
+	}
+	st.Run();
+</script> 
+<script src="{JS_PATH}/photo.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>
+<!--    
+<a href="{HOST_NAME}test/test/index" title="" target="">测试</a>
+-->

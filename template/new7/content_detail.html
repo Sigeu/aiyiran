@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script src="{JS_PATH}/date.js"></script>
+</head>
+<!--提交评论-->
+ <script>
+ $(function(){
+	$('div.titleb').hide();
+	$('div.subsb').hide();
+});
+function addComment(obj)
+{
+	if(!$('#comment_content').val())
+	{
+		alert('评论内容不能为空');
+		return false;
+	}
+	else
+	{
+		$('#commentForm').submit();
+	}
+}
+function showb()
+{
+	$('div.titleb').show();
+	$('div.subsb').show();
+	$('div.titlea').hide();
+	$('div.subsa').hide();
+}
+function showa()
+{
+	$('div.titleb').hide();
+	$('div.subsb').hide();
+	$('div.titlea').show();
+	$('div.subsa').show();
+}
+</script>
+<body>
+{include 'head.html'}
+{include 'category.html'}
+<div class="wrap">
+  <div class="lWrapL">
+  <div class="advert"><script language='javascript' src='{HOST_NAME}index/index/preview/id/73'></script></div>
+    <div class="pubModL pubModLL">
+      <div class="T"><span class="moree"><script language='javascript' src='{HOST_NAME}index/index/preview/id/63'></script></span>{include 'thumb.html'}
+      </div>
+      <div class="C">
+        <div class="grayBox">
+          <div class="title titlea">
+            <h2>{$content['title']}</h2>
+            <span>时间：{date('Y-m-d H:i:s',$content['publishtime'])} 
+            {if $content['source']!=''}
+            来源：{$content['source']}
+            {/if}  
+            {if $content['username']!=''}
+            作者：{$content['username']}
+            {/if}
+            &nbsp;&nbsp;<a href="#discuss">我要评论</a></span></div>
+            <div class="title titleb">
+            <h2>{$content['title']}<a href="javascript:;" onclick="showa()">查看原文</a></h2>
+        	</div>
+          <div class="cont">
+            <div class="subsa">
+            <p>{$content['description']}</p>
+            <img src="{UPLOAD_PATH}/{$content['thumb']['src']}" />
+            {$content['content']}
+            {if $content['sourcelink']!=''}
+            <p>原文链接：<a href="{$content['sourcelink']}">{$content['sourcelink']}</a></p>
+            {/if}
+            {if get_mo_config('mo_arcautosp')=='Y'}
+                <div class="page"><a href="{$prepageurl}">上一页</a><a href="{$nextpageurl}">下一页</a></div>
+            {/if}
+            <ul class="UlTwoList">
+              <li><strong>相关阅读</strong></li>
+              {php $contid=$content['categoryid'];} 
+              {mo:articlelist cid="$contid" type='all' row='5' order='publishtime desc' return='data'}
+                {foreach $data $k $v}
+                <li><span>({date('Y-m-d H:i:s',$v['publishtime'])})</span><a href="{$v['url']}" title='{$v["title"]}'>{$v['title']}</a></li>
+                {/foreach}
+                {/mo:articlelist}
+            </ul>
+            <div class="shareTo bshare-custom icon-medium"><a class="bshare-qzone" title="分享到QQ空间"></a><a class="bshare-sinaminiblog" title="分享到新浪微博"></a><a class="bshare-renren" title="分享到人人网"></a><a class="bshare-qqmb" title="分享到腾讯微博"></a><a class="bshare-neteasemb" title="分享到网易微博"></a><a class="bshare-more bshare-more-icon more-style-addthis" title="更多平台"></a></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+            </div>
+            <div class="hotDisucss subsb">
+              <div class="hotT">
+			     {mo:comment id='$id' modelid='1' pagesize='10' pagevar='hotpage' pagenum='5' return='hot'}
+				 {php $tem = array();}
+				 {foreach $hot  $k=>$v}
+				 {if !in_array($v['username'],$tem)}
+				 {php $tem[]=$v['username'];}
+				 {/if}
+				 {/foreach}
+				{mo:comment id='$id' modelid='1' return='countComment'}
+                <div class="right"><b>{count($tem)}</b>人参与 | 评论<b>{count($countComment)}</b>条</div>
+                <ul id="card0">
+                  <li class="focus">最热评论</li>
+                  <li>最新评论</li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+              <div class="hotC">
+                <div id="card00">
+                {foreach $hot $key $value}
+                <dl>
+                    <dt><span>发表日期：{date('Y/m/d i:s',$value['comment_time'])}</span>{$value['username']}：</dt>
+                    <dd>{$value['comment_content']}</dd>
+                  </dl>
+                {/foreach}  
+                <div class="page"><a href="{$pageArr['prewPageUrl']}" title="上一页">上一页</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="{$k}" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['nextPageUrl']}" title="下一页">下一页</a></div>    
+                </div>
+                <div id="card01" style="display:none;">
+                {mo:comment id='$id' modelid='1' pagesize='10' pagevar = 'newpage' pagenum='5' return='new'}
+                {foreach $new  $key $value}
+                <dl>
+                    <dt><span>发表日期：{date('Y/m/d i:s',$value['comment_time'])}</span>{$value['username']}：</dt>
+                    <dd>{$value['comment_content']}</dd>
+                  </dl>
+                {/foreach}
+                <div class="page"><a href="{$pageArr['prewPageUrl']}" title="上一页">上一页</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="{$k}" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['nextPageUrl']}" title="下一页">下一页</a></div>
+                </div>
+              </div>
+            </div>
+            <div class="discuss"><a name="discuss" id="discuss"></a>
+            {if $GLOBALS['username']}
+			<!--评论开始-->
+			 <form action='/comment/Comment/add' method='post' id='commentForm'>
+             <input type='hidden' name='comment_infoid' value='{$id}'/>
+			 <input type='hidden' name='comment_modelid' value='{$model}'/>
+             <div class="discussTab">
+                <div class="tt"><span class="more">共<b>{count($countComment)}</b>条评论 <a href="javascript:;" onclick="showb()">[查看评论]</a></span>
+                  欢迎您&nbsp;&nbsp;{$GLOBALS['username']}
+                </div>
+                <textarea name='comment_content' class="textarea643_123" id='comment_content'></textarea>
+              </div>
+              <p>·在发布信息时，请遵守中华人民共和国有关法律、法规，并尊重网上道德；</p>
+              <p>·管理人员有权对留言内容进行删改；</p>
+              <p>·因您的言论直接或间接导致的民事或刑事法律责任由您个人承担。</p>
+              <p class="p1">
+                <input type="button"  {if $content['allowcomment']!=1}onclick="javacript:alert('禁止评论');"{else}onclick="javascript:addComment(this);"{/if} value="发表评论" class="blueBtn3"/>
+              </p>
+			  </form>
+			 {else}
+			  <script>
+				  function checkLogin()
+					{
+						if(!$('#username').val())
+						{
+							alert('请输入用户名');
+						}
+						else if(!$('#password').val())
+						{
+							alert('请输入密码');
+							
+						}
+						/*根据情况判断是否阅读*/
+						else
+						{
+							$('#loginForm').submit();
+						}
+					}
+			 </script>
+			 <form action='/user/User/login/type/2' method='post' id='loginForm'>
+		      <input type="hidden" class="pwd"  name='dosubmit' value="1"/>
+             <div class="discussTab">
+                <div class="tt"><span class="more">共<b>{count($new)}</b>条评论 <a href="javascript:;" onclick="showb()">[查看评论]</a></span>用户名
+                  <input type="text" name='username' id='username' class="input84_16" />
+                  &nbsp;&nbsp;
+                  密码
+                  <input type="password" name='password' id='password' class="input84_16" />
+                  <input type="button" class="grayBtn4" onclick="javascript:checkLogin();" value="登录"/>
+                  <input type="button" class="grayBtn4" onclick="window.location.href='/user/User/regist/groupid/24'" value="注册"/>
+                </div>
+                <textarea class="textarea643_123"></textarea>
+              </div>
+			  </forM>
+              <p>·在发布信息时，请遵守中华人民共和国有关法律、法规，并尊重网上道德；</p>
+              <p>·管理人员有权对留言内容进行删改；</p>
+              <p>·因您的言论直接或间接导致的民事或刑事法律责任由您个人承担。</p>
+              <p class="p1">
+                <input type="button" class="blueBtn3" value="发表评论"  onclick="javacript:alert('请先登录');" />
+              </p>
+			{/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rWrapR">
+    <div class="pubModR bgf7">
+      <div class="T">
+        <h4>科学资讯</h4>
+      </div>
+      <div class="C">
+        <div class="pubModRR">
+          <div class="C" style="padding-bottom:0;">
+            <div class="mT3" style="padding-left:0;">
+              <ul>
+              {mo:articlelist cid='$contid' type='all' row='7' order='hits desc' return='data'}
+                {foreach $data $k $v}
+                <li><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],25)}</a></li>
+                {/foreach}
+               {/mo:articlelist}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="T">
+        <h4>精华推荐</h4>
+      </div>
+      <div class="C">
+      {mo:articlelist cid='$contid' type='all' row='3' order='hits desc' return='data'}
+			{foreach $data $k $v}
+            <div class="cnbusi mar_b10">
+          <div class="picTxt">
+            <div class="pic"><a href="{$v['url']}" title='{$v["title"]}'><img width="89" height="89" src="{UPLOAD_PATH}/{$v['thumb']['src']}"></a></div>
+            <div class="txt">
+              <p><a href="{$v['url']}" >{csubstr($v['title'],12)}</a></p>
+              <p>{csubstr($v["description"],28)}<a style="font-weight:100;" class="fba" href="{$v['url']}">[详情]</a></p>
+            </div>
+          </div>
+        </div>
+			{/foreach}
+			{/mo:articlelist}
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="pubModRR">
+      <div class="T">
+        <h5>点击排行</h5>
+      </div>
+      <div class="C" style="padding:10px 0;">
+        <div class="rank">
+          <ul>
+            {mo:contentlist  order="hits desc" row='10' return='data'}
+                {foreach $data $k $v}
+                {php $n=$k+1}
+                {if $k<3 }
+                <li><b class="b{$n}">{$n}</b><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],20)}</a></li>
+                {else}
+                <li><b>{$n}</b><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],20)}</a></li>
+                {/if}
+                {/foreach}
+               {/mo:contentlist}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="pubModR">
+      <div class="T">
+        <h4>企业报道</h4>
+      </div>
+      <div class="C">
+        <div class="picList rPicList">{mo:articlelist cid='$contid' type='all' row='4' order='publishtime desc' return='data'}
+			{foreach $data $k $v}
+            <a href="{$v['url']}" title='{$v["title"]}' class="imgTxt"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="120" height="90" />{$v['title']}</a>
+			{/foreach}
+			{/mo:articlelist}</div>
+      </div>
+    </div>
+    <div class="advert"><script language='javascript' src='{HOST_NAME}index/index/preview/id/74'></script></div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="friendLink bder">
+    <div class="T">
+      <h3>友情链接</h3>
+    </div>
+    <div class="C">{include 'friendlink.html'}</div>
+  </div>
+</div>
+{include 'footer.html'}
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>
+<script src="{JS_PATH}/tabs.js"></script>			

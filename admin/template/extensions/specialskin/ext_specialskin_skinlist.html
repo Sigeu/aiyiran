@@ -1,0 +1,38 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">专题皮肤</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <ul class="tempX">
+               <!--{foreach from=$skin_conf item=l }-->
+                <li>
+                  <a href="javascript:void(0)" class="timg"><img src="<!--{$l.cover}-->" /></a>
+                  <span>皮肤名称：<!--{$l.name}--> (<!--{$l.folder}-->)</span>
+                  <p>
+                      专题数：<!--{$l.special_number}--> | 
+                      <a href="<!--{$baseurl}-->/extensions/specialskin/view/folder/<!--{$folder}-->/skin/<!--{$l.folder}-->">查看皮肤</a><br />
+                      <a href="<!--{$baseurl}-->/extensions/specialskin/export/folder/<!--{$folder}-->/skin/<!--{$l.folder}-->">导出皮肤</a>
+                      <!--{if $l.version eq null}-->| 
+                      <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/extensions/specialskin/del/folder/<!--{$folder}-->/skin/<!--{$l.folder}-->')">删除皮肤</a>
+                      <!--{/if}-->
+                  </p>
+                </li>
+               <!--{foreachelse}-->
+                 <li>没有可用皮肤！</li> 
+               <!--{/foreach}-->
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

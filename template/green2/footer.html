@@ -1,0 +1,23 @@
+<div class="aboutCrop">
+  <div class="friendLink">
+    <dl>
+      <dt>友情链接：</dt>
+      <dd>{mo:friendlink  return='friendlink'}
+	  {foreach $friendlink $k $v}
+	  {if($v['link_type']==1)}	  
+	  <a href="{$v['com_url']}"  title='{$v["name"]}'><img style='width:100px;height:100px' src="{UPLOAD_PATH}/frind_link/{$v['logo']}" onerror="this.src='{IMG_PATH}/default.jpg'"/></a>
+	  {else}
+	  	   <a href="{$v['com_url']}">{$v["name"]}</a>
+	  {/if}
+	  {/foreach}
+	  {/mo:friendlink}</dd>
+    </dl>
+    <div class="clearfix"></div>
+  </div>
+  <div class="adderss">
+    <p>客户服务热线：86-10-58271212转857 客户服务邮箱：service@izhancms.com </p>
+    <p class="copyright">备案编号：{beian()}</p>
+  </div><!--description();获取描述--><!--beian();备案编号-->
+</div>
+</body>
+</html>

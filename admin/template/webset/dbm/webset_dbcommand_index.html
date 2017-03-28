@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>数据库备份还原</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+					<dl class="navTab">
+						<dt class="on"><a href="#">SQL命令执行器</a></dt>	
+					</dl>
+			</div>
+			<div class="TabBoxC">
+				<div >
+                    <div class="pubTabel">
+                            <table class="tabelLR">
+                              <tr>
+                                <th width="145px"  style="vertical-align:top"> 操作数据表：</th>
+                                <td>
+								<form method="post" action="javascript:;" id="table-form">
+                                	<input class="Iw215 text-tips" tips="请输入要搜索的系统表名"  type="text" name="search_name" value="<!--{$search.name}-->"/>  <input class="btn5" type="button" value="搜  索" hideFocus="hide" onclick="batchOperate(6)"/><br/><br />
+                                    <div class="linebkL">
+                                        <select multiple="multiple" name="name[]" style="width:296px;height:130px;">
+											<!--{foreach from=$table_info item=l}-->
+                                            <option value="<!--{$l.Name}-->" <!--{if in_array($l.Name,$table)}-->selected<!--{/if}-->><!--{$l.Name}--></option>
+											<!--{/foreach}-->
+                                        </select>   
+                                    </div>    
+                                    <div class="linebkL dkForiptL" style="vertical-align:top;">
+                                        <input class="btn5" type="button" value="优化选中表" hideFocus="hide" onclick="batchOperate(1)"/>
+                                        <input class="btn5" type="button" value="优化全部表" hideFocus="hide" onclick="batchOperate(2)"/><br/>
+                                        <input class="btn5" type="button" value="修复选中表" hideFocus="hide" onclick="batchOperate(3)"/>
+                                        <input class="btn5" type="button" value="修复全部表" hideFocus="hide" onclick="batchOperate(4)"/><br/> 
+                                        <input class="btn5" type="button" value="查看表结构" hideFocus="hide" onclick="batchOperate(5)"/> 
+                                    </div> 
+                                </td>
+                              </tr>
+                              <tr>
+                                <th style="vertical-align:top"><font>*</font> 结果信息：</th>
+                                <td>
+								<textarea style="width:558px;height:105px;"><!--{$result}--><!--{foreach from=$res item=l name=myinfo}--><!--{if $smarty.foreach.myinfo.first}-->共<!--{$smarty.foreach.myinfo.total}-->条记录<!--{/if}--><!--{$br}-->----------------------------<!--{$br}--><!--{$br}--><!--{foreach from=$l key=k item=r}--><!--{$k}-->：<!--{$r}--><!--{$br}--><!--{/foreach}--><!--{/foreach}-->
+								</textarea><br /></td>
+                              </tr>                             
+                             <tr>
+                                <th style="vertical-align:top"><font>*</font> 运行SQL命令：</th>
+                                <td><textarea style="width:558px;height:105px;" name="sql" id="sql"><!--{$sql}--></textarea><br />友情提示： <br />1、命令行只接受简单的查询语句！复杂操作请登录数据库管理客户端！ <br />2、SQL语句请用分号结束！<br />3、查询语句只能查看100条数据！</td>
+                              </tr>         
+                            </table> 
+							</form>
+							 <div class="sql_subL">
+                            	 <input class="btn5" type="button" value="单行命令" hideFocus="hide" onclick="batchOperate(7)"/>
+                                 <input class="btn5" type="button" value="多行命令" hideFocus="hide" onclick="batchOperate(8)"/>
+                            </div>  
+                    </div>
+				</div>		
+			</div>
+		</div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+function batchOperate (action)
+{
+	var selected_number = $('#table-form select option:selected').length;
+	var text;
+	var baseurl = "<!--{$baseurl}-->/webset/dbcommand/";
+	switch (action)
+	{
+		case 1:
+			text = '优化';
+			$('#table-form').attr('action',baseurl+'optimize');
+			break;
+		case 2:
+			text = '优化';
+			$('#table-form').attr('action',baseurl+'optimizeall');
+			break;
+		case 3:
+			text = '修复';
+			$('#table-form').attr('action',baseurl+'repair');
+			break;
+		case 4:
+			text = '修复';
+			$('#table-form').attr('action',baseurl+'repairall');
+			break;
+		case 5:
+			text = '查看';
+			$('#table-form').attr('action',baseurl+'structure');
+			break;
+		case 6:
+			$('#table-form').attr('action',baseurl+'index');
+			break;
+		case 7:
+			$('#table-form').attr('action',baseurl+'single');
+			break;
+		case 8:
+			$('#table-form').attr('action',baseurl+'many');
+			break;
+	}
+	//点击搜索
+	if (action == 6 || action == 7 || action == 8)
+	{
+		if((action == 7 || action == 8) && $.trim($('#sql').val()) == '') 
+		{
+			art.dialog.alert('请输入sql命令！', 'warning');
+			return false;
+		}
+		$('#table-form').submit();
+			return false;
+	}
+	//点击其他操作
+	if (!selected_number && (action == 1 || action == 3 || action == 5))
+	{
+		art.dialog.alert('请选择要'+text+'的表！', 'warning');
+		return false;
+	}
+	else 
+	{
+		if (action == 5)
+		{
+			$('#table-form').submit();
+				return false;
+		}
+		art.dialog.confirm('你确定要'+text+'吗？', function()
+		{
+			$('#table-form').submit();
+			this.content('正在请求数据，请稍后...');
+			return false;
+		},
+		function()
+		{
+			//art.dialog.tips('你取消了操作！');
+		});
+	}
+}
+</script>

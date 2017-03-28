@@ -1,0 +1,55 @@
+<!--{include file="public/head_admin.html"}-->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+	
+	$("#name").formValidator({empty:false,onshow:"请输入2-50个字符",onfocus:"请输入2-50个字符",oncorrect:"输入正确"})
+	.inputValidator({min:2,max:50,onerror:"请输入2-50个字符"});
+	
+	$("#cancel").click(function(){
+		window.location.href = "<!--{$baseurl}-->/modules/message/messageModel/page/<!--{$page}-->";
+	})
+})
+</script>
+<body>
+<div class="pubBox" style='height:750px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/message/messagemodel" class="last">表单分类</a></dd>
+            <dt class="on"><a href="">添加分类</a></dt>
+          </dl>
+        </div>
+        <form action='<!--{$baseurl}-->/modules/message/<!--{if $infor.id eq ''}-->addtype<!--{else}-->editorType<!--{/if}-->' method='post' id='myform'>
+        <div class="TabBoxC">
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font>&nbsp;类别名称：</th>
+                  <td>
+                  <input type='hidden' value='<!--{$page}-->' name='page'>
+                  <input type='hidden' value="<!--{$infor.id}-->" name='id'>
+                  <input type="text" value="<!--{$infor.name}-->" class="Iw290" name='name' id='name'/>
+                  <span id='nameTip'></span></td>
+                </tr>
+                <tr>
+                  <th><font>*</font>&nbsp;状态：</th>
+                  <td>
+                    <input type='radio' name='type' value="2" <!--{if $infor.state neq 1}-->checked<!--{/if}-->>开启
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='radio' name='type' value='1' <!--{if $infor.state eq 1}-->checked<!--{/if}-->>关闭
+                  </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id='sub'>
+                <input type="button" hidefocus="hide" value="取消" class="btn2" id='cancel'>
+              </div>
+            </div>
+            </div>
+            </form>
+          </div>
+        </div>
+</body>
+</html>

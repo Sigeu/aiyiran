@@ -1,0 +1,107 @@
+{include 'head.html'}
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/index.css"/>
+<!-- layer插件 -->
+<link rel="stylesheet" href="/template/default/member/layer/skin/default/layer.css" type="text/css">
+<script src="/template/default/member/layer/layer.js"></script>
+<script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/index.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+        <style>
+            .createData li:hover{border: solid #01d590 1px;}
+        </style>
+        <div class="box_cont clearfix">
+            <div class="indexBanner">
+              <div class="fl conItem01">
+                <div class="section01">
+                        <!--banner轮播-->
+                            {include 'inc/lbt.html'}
+                    </div>
+              </div>
+              <div class="fr conItem02">
+                 <div class="cont_list cont_list4">
+                    <div class="headline">
+                        <span class="fl">最新记录<i></i></span>
+                        <!--<a href="###" class="fr">参看更多<i></i></a>-->
+                     </div>
+                    <ul class="">
+                     {mo:articlelist row="10" cid="315" return="data"}
+                            {foreach $data  $key $value}
+                        <li>
+                            <a href="{$value['id']}">{msubstr($value["title"],0,19,'utf-8')}</a>
+                            <span>{wordTime($value["publishtime"])}</span>
+                        </li>
+                           {/foreach}
+                    {/mo:articlelist}
+                    </ul>
+
+                </div>
+                  {include 'inc/inc_create.html'}
+              </div>
+             </div>
+             <div class="Search_box">
+                <div class="SearchMuseum">
+                      <form action="" method="get">
+                        <div class="input_group">
+                            <input id="searchMuseumkey" class="form-control fl" name="keywords" placeholder="输入需要查找的内容" type="text" value="{$keywords}">
+                            <span><i></i><input type="button" onclick="sousuos(2);"   class="input-group-addon fl" value="搜索" /></span>
+                        </div>
+                      </form>
+                        <p class="as_per">按字母搜索：</p>
+                        <ul class="rank">
+                            {foreach $zimu $v}
+                            <li><a href="javascript:;" onclick="sousuos2('{$v}', 2, 2);">{$v}</a></li>
+                            {/foreach}
+                        </ul>
+                    </div>
+             </div>
+             <div class="tab_cont clearfix">
+                <div class="headline">
+                <span class="fl">名人纪念馆<i></i></span>
+                <!--<a href="###" class="fr">查看更多<i></i></a>-->
+                </div>
+                <div class="hotP">
+                            <ul class="clearfix createData">
+                                {mo:memo catid="2" pagesize="20" letter="$letter" keywords="$keywords" return="data"}
+                                {if is_array($data)}
+                                {foreach $data  $key $value}
+                                <li>
+                                    <div class="hotPImg">
+                                        <img src="{$value['userpic']}" width="214" height="214">
+                                    </div>
+                                    <p class="clearfix hotP_p"><a href="/jinian/Jinian/index/mid/{$value['m_id']}" class="fl nameA">{$value['personname']}</a><a href="/jinian/Jinian/index/mid/{$value['m_id']}" class="fr quickJS" target="_blank">立即祭拜</a></p>
+                                    <div class="mainP">
+                                        <p>享年：<span>{$value['m_year']}-{$value['d_year']}</span></p>
+                                        <p class="introP">简介：<span>{csubstr($value['descript'],35)}</span></p>
+                                    </div>
+                                </li>
+                                {/foreach}
+                                 {else}
+                                没找到信息，请稍后再试
+                                {/if}
+                                {/mo:memo}
+
+                            </ul>
+                        </div>
+                <!--<div class="page">-->
+                    <!--{$pagestr}-->
+                <!--</div>-->
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+             </div>
+
+             <div class="link_exchange">
+                <span>友情链接：</span><a href="###">中国民政部</a>
+                {mo:friendlink row="100" return="data"}
+                  {foreach $data  $key $value}
+                    <a href='{$value["com_url"]}'>{$value["name"]}</a>
+                  {/foreach}
+                {/mo:friendlink}
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

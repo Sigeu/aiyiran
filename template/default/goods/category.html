@@ -1,0 +1,18 @@
+<ul class="newclass_list">{php $cateTree = getCateTree($cid,1);}
+        {foreach $cateTree $k $v}
+		<li> <a href="{getMoreUrl($v['id'])}">{$v['catname']}</a>
+		   {php $soncateTree = getCateTree($v['id'],1);}
+			<ul class="level2L">
+			 {foreach $soncateTree $sonk $sonv}
+					<li> <a href="{getMoreUrl($sonv['id'])}"><span class="level_moL level_moR">{$sonv['catname']}</span></a>
+					{php $ssoncateTree = getCateTree($sonv['id'],1)}
+					<ul>
+				    {foreach $ssoncateTree $ssonk $ssonv}
+					<li><a href="">{$ssonv['catname']}</a></li>
+				    {/foreach}</ul> 
+				</li>
+			{/foreach}
+			</ul>
+        </li>
+		{/foreach}</ul>
+<div class="bg_grL mb10" style="display:none"> <span class="h_dotL">{cid2name($cid)}</span></div>

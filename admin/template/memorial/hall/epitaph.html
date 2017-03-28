@@ -1,0 +1,53 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">     
+                  <dd><a href="<!--{$baseurl}-->/memorial/hall/index" class="last">纪念馆列表</a></dd>
+                   <dt><a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$mid}-->">逝者资料管理</a></dt>
+                 <dt><a href="<!--{$baseurl}-->/memorial/hall/biography/id/<!--{$mid}-->">传记管理</a></dt>
+                 <dt><a href="<!--{$baseurl}-->/memorial/hall/mshow/id/<!--{$mid}-->">隐私管理</a></dt>
+                 <dt><a href="<!--{$baseurl}-->/memorial/hall/eulogy/id/<!--{$mid}-->">祭文悼词管理</a></dt>
+                 <dt class="on"><a href="<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->">墓志铭管理</a></dt>
+                 <dt><a href="<!--{$baseurl}-->/memorial/hall/steleauthor/id/<!--{$mid}-->">立碑人信息</a></dt>
+				</dl>
+			</div>
+
+			<form action='<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;悼词参考范例：</th>
+									<td>
+									<select name="epitaphDemo" id="epitaphDemo">
+                                      <option value="">请选择</option>
+                                     <!--{foreach $epitaphDemo $v}-->
+                                      <option value="<!--{$v.content}-->"><!--{$v.name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+									</td>
+								</tr>
+                                <tr><th valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内容描述：</th><td colspan="3"><textarea class="Iw450 Ih80" name="epitaph" id="epitaph"><!--{$info.epitaph}--></textarea> &nbsp;&nbsp;</td></tr>
+							    <input type="hidden" name="mid" value="<!--{$mid}-->"/>
+                            </table>
+							<div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->memorial/hall/index'"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<script>
+$(function(){
+  $("#epitaphDemo").change(function(){
+    if(this.value == '' || this.value == null) return;
+    $("#epitaph").val(this.value)
+  })
+})
+</script>
+</body>
+</html>

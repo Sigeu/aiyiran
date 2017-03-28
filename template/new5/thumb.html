@@ -1,0 +1,4 @@
+当前位置：<a href="{HOST_NAME}">首页</a> { if getPid($cid)>0 && getPid($cid)!=$cid }
+     {php $thumbid=getPid($cid);}
+      &gt; <a href="{getMoreUrl($thumbid)}">{cid2name($thumbid)}</a>
+  {/if} &gt; {cid2name($cid)}

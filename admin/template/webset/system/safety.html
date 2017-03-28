@@ -1,0 +1,224 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <form method="post" id="thisform" action="<!--{$baseurl}-->/webset/safety/renew">
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">验证码设置</a></dt>         
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             	<table class="tabelLR">
+                  <tr>
+                    <th width="160px"> 启用验证码页面：</th>
+                    <td><span>
+                          <input type="checkbox" name="mo_captcha_reg" value="Y" <!--{if $row.mo_captcha_reg eq Y}--> checked="true" <!--{/if}-->/>
+                          <label>注册页</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="checkbox" name="mo_captcha_log" value="Y" <!--{if $row.mo_captcha_log eq Y}--> checked="true" <!--{/if}-->/>
+                          <label>登录页</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="checkbox" name="mo_captcha_com" value="Y" <!--{if $row.mo_captcha_com eq Y}--> checked="true" <!--{/if}-->/>
+                          <label>评论页</label>
+                          </span></td>
+                  </tr>  
+                   <tr>
+                    <th> 验证码类型：</th>
+                    <td><span>
+                          <input type="radio" name="mo_captcha_type" value="letter" <!--{if $row.mo_captcha_type eq 'letter'}--> checked="true" <!--{/if}--> />
+                          <label>字母</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_captcha_type" value="number" <!--{if $row.mo_captcha_type eq 'number'}--> checked="true" <!--{/if}--> />
+                          <label>数字</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_captcha_type" value="mix" <!--{if $row.mo_captcha_type eq 'mix'}--> checked="true" <!--{/if}--> />
+                          <label>字母 + 数字</label>
+                          </span></td>
+                  </tr>   
+                  <tr>
+                    <th> 随机颜色：</th>
+                    <td><span>
+                          <input type="radio" name="mo_color_rand" value="Y" <!--{if $row.mo_color_rand eq Y}--> checked="true" <!--{/if}--> />
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_color_rand" value="N" <!--{if $row.mo_color_rand eq N}--> checked="true" <!--{/if}--> />
+                          <label>否</label>
+                          </span></td>
+                  </tr> 
+                  <tr>
+                    <th> 随机倾斜度：</th>
+                    <td><span>
+                          <input type="radio" name="mo_lean_rand" value="Y" <!--{if $row.mo_lean_rand eq Y}--> checked="true" <!--{/if}--> />
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_lean_rand" value="N" <!--{if $row.mo_lean_rand eq N}--> checked="true" <!--{/if}--> />
+                          <label>否</label>
+                          </span></td>
+                  </tr>                                        
+                </table>                
+            </div>              
+          </div>
+        </div>         
+        </div>
+        <div class="pubtabBox mt10">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">时间设置</a></dt>         
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             	<table class="tabelLR">
+                  <tr>
+                    <th width="160px"> 日期格式：</th>
+                    <td>
+                      <select name="mo_date_format" style="width:300px;">
+                        <option value="年-月-日" <!--{if $row.mo_date_format eq '年-月-日'}-->selected <!--{/if}-->>年-月-日</option>
+                        <option value="年/月/日" <!--{if $row.mo_date_format eq '年/月/日'}-->selected <!--{/if}-->>年/月/日</option>
+                        <option value="年:月:日" <!--{if $row.mo_date_format eq '年:月:日'}-->selected <!--{/if}-->>年:月:日</option>
+                        <option value="月-日-年" <!--{if $row.mo_date_format eq '月-日-年'}-->selected <!--{/if}-->>月-日-年</option>
+                        <option value="月/日/年" <!--{if $row.mo_date_format eq '月/日/年'}-->selected <!--{/if}-->>月/日/年</option>
+                        </select>
+                    </td>
+                  </tr>  
+                   <tr>
+                    <th> 时间格式：</th>
+                    <td>
+                      <select name="mo_time_format" style="width:300px;">
+                        <option value="时:分:秒" <!--{if $row.mo_time_format eq '时:分:秒'}-->selected <!--{/if}-->>时:分:秒</option>
+                        <option value="时-分-秒" <!--{if $row.mo_time_format eq '时-分-秒'}-->selected <!--{/if}-->>时-分-秒</option>
+                        <option value="时:分" <!--{if $row.mo_time_format eq '时:分'}-->selected <!--{/if}-->>时:分</option>
+                        <option value="时-分" <!--{if $row.mo_time_format eq '时-分'}-->selected <!--{/if}-->>时-分</option>
+                        </select>
+                    </td>
+                  </tr>   
+                  <tr>
+                    <th> 当地时区：</th>
+                    <td>
+                    <select name="mo_time_zone" style="width:300px;">
+                        <option value="中国北京" <!--{if $row.mo_time_zone eq '中国北京'}-->selected <!--{/if}-->>中国北京</option>
+                        <option value="中国上海" <!--{if $row.mo_time_zone eq '中国上海'}-->selected <!--{/if}-->>中国上海</option>
+                        <option value="中国广州" <!--{if $row.mo_time_zone eq '中国广州'}-->selected <!--{/if}-->>中国广州</option>
+                        <option value="中国香港" <!--{if $row.mo_time_zone eq '中国香港'}-->selected <!--{/if}-->>中国香港</option>
+                        <option value="泰国曼谷" <!--{if $row.mo_time_zone eq '泰国曼谷'}-->selected <!--{/if}-->>泰国曼谷</option>
+                        <option value="法国巴黎" <!--{if $row.mo_time_zone eq '法国巴黎'}-->selected <!--{/if}-->>法国巴黎</option>
+                        <option value="日本东京" <!--{if $row.mo_time_zone eq '日本东京'}-->selected <!--{/if}-->>日本东京</option>
+                        <option value="新加坡" <!--{if $row.mo_time_zone eq '新加坡'}-->selected <!--{/if}-->>新加坡</option>
+                        <option value="洛杉玑" <!--{if $row.mo_time_zone eq '洛杉玑'}-->selected <!--{/if}-->>美国洛杉玑</option>
+                        <option value="美国纽约" <!--{if $row.mo_time_zone eq '美国纽约'}-->selected <!--{/if}-->>美国纽约</option>
+                        <option value="华盛顿" <!--{if $row.mo_time_zone eq '华盛顿'}-->selected <!--{/if}-->>华盛顿</option>
+                        <option value="墨西哥" <!--{if $row.mo_time_zone eq '墨西哥'}-->selected <!--{/if}-->>墨西哥</option>
+                        <option value="夏威夷" <!--{if $row.mo_time_zone eq '夏威夷'}-->selected <!--{/if}-->>夏威夷</option>
+                     </select></td>
+                  </tr>                                     
+                </table>                
+            </div>              
+          </div>
+        </div>         
+        </div>
+        <div class="pubtabBox mt10">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">IP黑名单</a></dt>         
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             	<table class="tabelLR">
+                  <tr>
+                    <th width="160px"> 启用IP禁止：</th>
+                    <td><span>
+                          <input type="radio" name="mo_ip_forbid" value="Y" <!--{if $row.mo_ip_forbid eq Y}--> checked="true" <!--{/if}--> />
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_ip_forbid" value="N" <!--{if $row.mo_ip_forbid eq N}--> checked="true" <!--{/if}--> />
+                          <label>否</label>
+                          </span>&nbsp;&nbsp;<span>注：此功能启用，会禁止此IP访问网站前台和后台</span></td>
+                  </tr>  
+                   <tr>
+                    <th style="vertical-align:top;"> 禁止IP：</th>
+                    <td><textarea class="Iw450 Ih80" name="mo_forbidden_area" id="mo_forbidden_area"><!--{$row.mo_forbidden_area}--></textarea>
+                    	<span class="warnBlue"></span></td>
+                  </tr>   
+                  <tr>
+                    <th> 禁IP段：</th>
+                    <td><input class="Iw150" name="mo_forbidden_start" type="text" id="mo_forbidden_start" value="<!--{$row.mo_forbidden_start}-->"/><span>--</span>
+                    <input class="Iw150" name="mo_forbidden_end" id="mo_forbidden_end" type="text" value="<!--{$row.mo_forbidden_end}-->"/>
+                    	<span class="warnBlue"></span></td>
+                  </tr>                             
+                </table>                
+            </div>              
+          </div>
+        </div>         
+        </div>
+        <div class="pubtabBox mt10">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">其他</a></dt>         
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             	<table class="tabelLR">
+                  <tr>
+                    <th width="160px"> 启用后台管理操作日志：</th>
+                    <td><span>
+                          <input type="radio" name="mo_admin_log" value="Y" <!--{if $row.mo_admin_log eq Y}--> checked="true" <!--{/if}--> />
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_admin_log" value="N" <!--{if $row.mo_admin_log eq N}--> checked="true" <!--{/if}--> />
+                          <label>否</label>
+                          </span></td>
+                  </tr>  
+                   <tr>
+                    <th> 保存错误日志：</th>
+                    <td><span>
+                          <input type="radio" name="mo_save_error_log" value="Y" <!--{if $row.mo_save_error_log eq Y}--> checked="true" <!--{/if}--> />
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="mo_save_error_log" value="N" <!--{if $row.mo_save_error_log eq N}--> checked="true" <!--{/if}--> />
+                          <label>否</label>
+                          </span></td>
+                  </tr>   
+                  <tr>
+                    <th> 最大失败登录次数：</th>
+                    <td><input class="Iw150" name="mo_max_logintime" id="mo_max_logintime" type="text" value="<!--{$row.mo_max_logintime}-->"/></td>
+                  </tr>                                                       
+                </table>                
+            </div>              
+          </div>
+        </div>         
+        </div>
+        <div class="pubTabelBot">
+          <input type="submit" value="确定" class="btn1" />
+          &nbsp;&nbsp;&nbsp;
+          <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/webset/safety/index'" class="btn2" />
+      </div>
+    </div>
+    </form>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#mo_forbidden_area").formValidator({onshow:"IP样式如，192.168.3.63,多个IP之间用','隔开",onfocus:"请输入IP地址",oncorrect:"输入正确",empty:true})
+.inputValidator({min:10,max:300,onerror:"请输入10-300个字符,多个IP之间用','隔开"}).regexValidator({regexp:['ip4'],datatype:"enum",onerror:"请输入10-300个字符,多个IP之间用','隔开"});
+
+$("#mo_forbidden_start").formValidator({onshow:"例如：192.168.3.0--192.168.3.56",onfocus:"请输入IP地址",oncorrect:"输入正确",empty:true})
+.inputValidator({min:10,max:300,onerror:"请输入10-300个字符,多个IP之间用','隔开"}).regexValidator({regexp:['ip4'],datatype:"enum",onerror:"请输入10-300个字符,多个IP之间用','隔开"});
+
+$("#mo_forbidden_end").formValidator({onshow:" ",onfocus:"请输入IP地址",oncorrect:"输入正确",empty:true})
+.inputValidator({min:10,max:300,onerror:"请输入10-300个字符,多个IP之间用','隔开"}).regexValidator({regexp:['ip4'],datatype:"enum",onerror:"请输入10-300个字符,多个IP之间用','隔开"});
+
+$("#mo_max_logintime").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:true}).inputValidator({min:1,onerror:"请输入正整数"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+});
+</script>

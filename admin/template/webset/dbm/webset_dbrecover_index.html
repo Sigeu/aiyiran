@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>内容列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+</head>
+<body>
+ <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">数据库还原列表</a></dt>
+            <dd>&nbsp;&nbsp;&nbsp;* 推荐使用mysqldump、phpmyadmin、navicat等专业的mysql工具来备份还原。</dd>
+			<dd class="add"><a href="javascript:;" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','ady_upload':1})">本地导入</a></dd>
+			<dd class="add"><a href="javascript:;" onclick="recoverAll()">整站还原</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabelTot">
+			<!--  搜索表单  -->
+			<form method="post" id="dbrecover-form" action="<!--{$baseurl}-->/webset/dbrecover/index">
+				<input type="text" value="<!--{$search.name}-->" name='name' class="Iw215 text-tips" tips="请输入关键字">&nbsp;&nbsp;备份时间
+				<span class="time"><input type="text" value="<!--{$search.start}-->" class="Iw90" onfocus="WdatePicker()" id="starttime" name="start"></span>&nbsp;至&nbsp;<span class="time"><input type="text" value="<!--{$search.end}-->" class="Iw90" onfocus="WdatePicker()" id="endtime" name="end"></span>
+				<input type="button" hidefocus="hide" onclick="javascript:$('#dbrecover-form').submit();" value="搜 索" class="btn5">
+			</form>
+            </div>
+			<form method="post" id="backup-form" action="javascript:;" enctype="multipart/form-data">
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="15%">文件名</th>
+                  <th width="15%">大小</th>
+                  <th width="15%">备份时间</th>
+                  <th width="15%">操作</th>
+                </tr>
+				<!--{foreach from=$file_list item=l}-->
+				 <tr>
+                  <td><input type="checkbox" name="file_name[]" value="<!--{$l.file_dir}-->@<!--{$l.file_name}-->" /></td>
+                  <td><!--{$l.file_name}--></td>
+                  <td><!--{$l.file_size}-->K</td>
+                  <td><!--{$l.filec_time}--></td>
+                  <td><a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/webset/dbrecover/recover/tbname/<!--{$l.file_dir}-->@<!--{$l.file_name}-->/<!--{$search_str}-->','你确定要还原该表吗？')">还原</a> / <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/webset/dbrecover/download/tbname/<!--{$l.file_dir}-->@<!--{$l.file_name}-->/<!--{$search_str}-->','你确定吗？','false')">下载</a> / <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/webset/dbrecover/delete/tbname/<!--{$l.file_dir}-->@<!--{$l.file_name}-->/<!--{$search_str}-->','你确定删除该备份吗？')">删除</a></td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"> 
+                <span class="btn5">
+                    <label>
+                        <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+                    </label>
+                </span>
+                <input type="button" class="btn5" value="还原" onclick="batchOperate(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/dbrecover/recover/<!--{$search_str}-->" empty-tips="请选择要进行还原的表！" confirm-tips="你确定要还原吗？"/>
+			  <!--{*    
+			  <input type="button" class="btn5" value="下载" onclick="batchOperate(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/dbrecover/download" empty-tips="请选择要进行下载的表！" confirm-tips="你确定要下载吗？"/>
+			  *}-->
+			  <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="backup-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/dbrecover/delete/<!--{$search_str}-->" empty-tips="请选择要进行删除的表！" confirm-tips="你确定要删除吗？"/>
+            </div>
+		   </form>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+/*整站还原*/
+function recoverAll ()
+{
+	$.post('<!--{$baseurl}-->/webset/dbbackup/isclose',function(d)
+	{
+		if (d == 'N')
+		{
+			art.dialog.through({content:'请先关闭网站，在进行整站还原',fixed:true,icon:'warning'},function(){});
+		}
+		else if (d == 'Y')
+		{
+			var f_tips = art.dialog.open('<!--{$baseurl}-->/webset/dbrecover/dblist', {
+			id: 'recoverID1',
+			width:500,
+			height:300,
+			ok: function () 
+			{
+				var iframe = this.iframe.contentWindow;
+				var file_name = $(iframe.document).find('input:checked').val();
+				if(file_name == undefined)
+				{
+					art.dialog.alert('请选择要还原的备份文件');
+					return false;
+				}
+				else 
+				{
+					var friend_tips = art.dialog.through({content:'正在请求数据，恢复整站可能需要更长的时间，请耐心等待...'});
+					$.post('<!--{$baseurl}-->/webset/dbrecover/recoverdb',{'file_name':file_name},function(d)
+					{
+						if(d=='success')
+						{
+							friend_tips.content('恢复成功');
+							friend_tips.time(1);
+							art.dialog({id:'recoverID1'}).close();
+						}
+						else
+						{
+							friend_tips.content('恢复失败');
+							friend_tips.time(1);
+							art.dialog({id:'recoverID1'}).close();
+						}
+						return false;
+					});
+				}
+				return false;
+			},
+			cancel: true
+			});
+		}
+	});
+}
+
+function uploadAccessory (obj)
+{	
+	$.post('<!--{$baseurl}-->/webset/dbbackup/isclose',function(d)
+	{
+		if (d == 'N')
+		{
+			art.dialog.through({content:'请先关闭网站，在进行本地导入',fixed:true,icon:'warning'},function(){});
+		}
+		else if (d == 'Y')
+		{
+			var option=
+			{
+				upload_id:'accessory_upload',
+				title:'本地导入',
+				return_id:'accessory',
+				callFunName:'LocalImport',
+				setting:'<!--{$setting.setting}-->',
+				param:obj
+			};
+			MainOneUpload(option);//调用统一上传方法
+		}
+	});
+}
+
+/**
+ * 本地导入功能
+ */
+function LocalImport ()
+{
+	var iframe = this.iframe.contentWindow;		//Iframe
+	var $iframe = $(iframe.document);           //iframe Jquery对象
+	var $data = $iframe.find('.mo-upload-data');//上传后的数据
+	var filename = $($data[0]).attr('filename');
+	if(filename == undefined)
+	{
+		art.dialog.tips('上传文件出错啦！');
+		return false;
+	}
+	else
+	{
+		var t1 = art.dialog.through({content:'正在请求数据，请稍后...',icon:'question',lock:true,fixed:true},function()
+		{
+			return true;
+		});
+
+		$.post('<!--{$baseurl}-->/webset/dbrecover/localImport',{'filename':filename},function(d)
+		{
+			t1.close();
+			art.dialog.through({content:d,title:'3秒后自动关闭',icon:'question',lock:true,fixed:true,time:3},function()
+			{
+				return true;
+			});
+		});
+	}
+}
+</script>

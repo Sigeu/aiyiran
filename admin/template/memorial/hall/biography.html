@@ -1,0 +1,63 @@
+<!--{include file="public/head_admin.html"}-->
+<body><script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+		<div class="TabBoxT">
+          <dl class="navTab">
+             <dd><a href="<!--{$baseurl}-->/memorial/hall/index" class="last">纪念馆列表</a></dd>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$mid}-->">逝者资料管理</a></dt>
+             <dt class="on"><a href="javascript:void(0);">传记管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/mshow/id/<!--{$mid}-->">隐私管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/eulogy/id/<!--{$mid}-->">祭文悼词管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->">墓志铭管理</a></dt>
+             <dt><a href="<!--{$baseurl}-->/memorial/hall/steleauthor/id/<!--{$mid}-->">立碑人信息</a></dt>
+          </dl>
+        </div>
+			<form action='<!--{$baseurl}-->/memorial/hall/biography' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th>传记标题：</th>
+									<td>
+										<input type="text" value="<!--{$info.bioname}-->" class="Iw290" name='bioname' id='bioname'/>&nbsp;<span id='nameTip'></span>
+									</td>
+								</tr>
+                                <tr>
+                                  <th>传记详情：</th>
+                                  <td><textarea class="Iw450 Ih80" id='content' name='biocontent'><!--{$info.biocontent}--></textarea></td>
+                                 </tr>
+                                </table>
+                                <input type="hidden" name="mid" value="<!--{$mid}-->"/>
+                                <input type="hidden" name="action" value="<!--{$action}-->"/>
+							<div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<script>
+CKEDITOR.replace('content',
+    		{   
+    		    width:900,
+                height:400,
+    			toolbar :
+    			[
+    				//样式       格式      字体    字体大小
+    				['Styles','Format','Font','FontSize'],
+    				//加粗     斜体，     下划线      穿过线      下标字        上标字
+    				['Bold','Italic','Underline','Strike','Subscript','Superscript'],
+    				// 数字列表          实体列表            减小缩进    增大缩进
+    				['NumberedList','BulletedList','-','Outdent','Indent'],
+    				//文本颜色     背景颜色
+    				['TextColor','BGColor'],
+    				//全屏           显示区块
+    				['Maximize', 'ShowBlocks','-', 'Source']
+    			]
+    		}
+    		);
+</script>
+</body>
+</html>

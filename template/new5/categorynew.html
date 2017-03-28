@@ -1,0 +1,27 @@
+<div class="pubModL">
+  <div class="T">
+    <h3>{cid2name(296)}</h3>
+  </div>
+  <div class="C">
+    <div class="subNav">
+      <ul>
+      {php $cateTree = getCateTree(296,1);}
+        {foreach $cateTree $k $v}
+        {if $lastIndex}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li class="last"><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>	
+        {else}
+        <li class="last"><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {else}
+        {if $v['id']===$cid or $v['id']===$pid}
+        <li><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>
+        {else}
+        <li><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+        {/if}
+        {/if}
+        {/foreach}            
+      </ul>
+    </div>
+  </div>
+</div>

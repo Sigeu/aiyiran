@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心--纪念馆管理</title>
+    <!-- <link rel="stylesheet" href="DsDialog/css/base.css"> -->
+
+</head>
+<body>
+        {include 'member/head_top.html'}
+
+    <div class="wrapW">
+            <div class="conLeft_yc">
+                <h3 class="h3Com_yc"><span></span>
+                {if $nav_title['name']}
+                    {$nav_title['name']}纪念馆管理
+                {elseif $nav_title3}
+                    我的消息
+                {else}
+                    账号设置
+                {/if}</h3>
+                <ul class="jbList_yc">
+                    {foreach $nav $k $v}
+                    <!-- 纪念馆管理导航 -->
+                    {if $v['cid']==1}
+                        <li><a href="{$v['url']}{$mid}" {if $v['id']==$sdid} class="active" {/if}>{$v['name']}</a></li>
+                    {/if}
+                    <!-- 账号设置导航 -->
+                    {if $v['cid']==2}
+                        <li><a href="{$v['url']}" {if $v['id']==$sdid} class="active" {/if}>{$v['name']}</a></li>
+                    {/if}
+                    <!-- 系统消息 -->
+                    {if $v['cid']==3}
+                        <li><a href="{$v['url']}" {if $v['id']==$sdid} class="active" {/if}>{$v['name']}</a></li>
+                    {/if}
+
+                    {/foreach}
+                </ul>
+            </div>
+<script type="text/javascript" src="/template/default/member/js/jq.js" ></script>
+<script type="text/javascript" src="/template/default/member/js/jquery.form.js" ></script>
+
+
+<!-- layer插件 -->
+<link rel="stylesheet" href="/template/default/member/layer/skin/default/layer.css" type="text/css">
+<script src="/template/default/member/layer/layer.js"></script>
+
+<!--插件-->
+<!--<link rel="stylesheet" href="/template/default/member/DsDialog/css/base.css" type="text/css">-->
+<!--<script src="/template/default/member/DsDialog/js/dsdialog.js"></script>-->
+
+<style>
+    #layui-layer1{top: 38%!important;}
+</style>

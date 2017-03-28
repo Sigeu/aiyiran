@@ -1,0 +1,41 @@
+<tr>
+	<th width="145px">&nbsp; <!--{$param.attrname}-->：</th>
+	<td>
+	<input type="text" name="attr[<!--{$param.attrid}-->]" id="attr_<!--{$param.attrid}-->" value="<!--{$param.defaultvalue}-->" <!--{if $param.maxvalue}-->maxlength="<!--{$param.maxvalue}-->"<!--{/if}--> class="Iw290"/>
+	&nbsp;&nbsp;&nbsp;<span class="warnBlue"><!--{$param.fieldtips}--></span>
+	<!--{if $param.maxvalue > $param.minvalue }-->
+	<script type="text/javascript">
+	$(function()
+	{
+		$("#attr_<!--{$param.attrid}-->").formValidator(
+		{
+			onshow:"<!--{$param.fieldtips}-->",
+			onfocus:"<!--{$param.fieldtips}-->",
+			oncorrect:"输入正确"
+		}).inputValidator(
+		{
+			min:<!--{$param.minvalue}-->,
+			max:<!--{$param.maxvalue}-->,
+			onerror:"<!--{$param.fieldtips}-->"
+		})<!--{if $param.uniqueness eq 1}-->.ajaxValidator(
+		{
+			type:"POST",
+			url : "<!--{$baseurl}-->/modules/goods/ajaxchecksole",
+			data:"attr=<!--{$param.attrid}-->",
+			success : function(data)
+			{	
+				if (data == 'found')
+					return false;
+				else 
+					return true;
+			},
+			buttons: $(".btn2"),
+			error: function(jqXHR, textStatus, errorThrown){onerror: "可能服务器忙，请重试"},
+			onerror : "该属性值已存在，请换一个",
+			onwait : "正在对属性值唯一性进行校验，请稍候..."
+		})<!--{/if}-->;
+	});
+	</script>
+	<!--{/if}-->
+	</td>
+</tr>

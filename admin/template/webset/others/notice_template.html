@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>提醒内容模板</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd class="last"><a href="<!--{$baseurl}-->/webset/notice/index">提醒设置</a></dd>
+            <dt><a href="javascript:void(0)" class="on">提醒内容模板</a></dt>
+          </dl>
+        </div>
+        <div class="height16"></div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form method="POST" action="" id="batch-form" />
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="30%">模板名称</th>
+                  <th width="30%">状态</th>
+                  <th width="30%">操作</th>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" id="posid" name="posid[]" value="<!--{$list.pos_id}-->"/></td>
+                  <td><!--{$list.name}--></td>
+                  <td><!--{$list.alter_time}--></td>
+                  <td><a href="">修改</a> | <a href="">删除</a> | <a href="javascript:void(0);">开启</a> | <a href="">关闭</a></td>
+                </tr>
+              </table>
+              </form>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+             <input type="button" class="btn5" value="开启" />
+             <input type="button" class="btn5" value="关闭" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

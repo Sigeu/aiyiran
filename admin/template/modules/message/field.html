@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>内容模型-字段管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">字段管理</a></dt>
+            <dd><a href="<!--{$baseurl}-->/modules/message/addField/modelid/<!--{$id}-->/flag/<!--{$flag}-->" <!--{if $flag eq 1}-->class='last'<!--{/if}-->>添加字段</a></dd>
+            <!--{if $flag eq 2}-->
+            <dd><a href="<!--{$baseurl}-->/modules/message/formBrowse/modelid/<!--{$id}-->/flag/<!--{$flag}-->" class="last">预览表单</a></dd>
+            <!--{/if}-->
+          </dl>
+        </div>
+        <div class="height16"></div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form action="" method='get' id="batch-form">
+              <table class="tabelTB" id="search-list" >
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">排序</th>
+                  <th width="15%">字段名称</th>
+                  <th width="10%">数据字段名</th>
+                  <th width="16%">字段类型</th>
+                  <th width="5%">必填</th>
+                  <th width="5%">搜索</th>
+                  <th width="5%">状态</th>
+                  <th width="14%">操作</th>
+                   <input type='hidden' name='flag' value="<!--{$flag}-->" >
+                </tr>
+                <!--{if $flag eq 2}-->
+                <tr>
+                 <td>
+                 <input type="checkbox" name='id[]' value="<!--{$item.id}-->" disabled/></td>
+                 <td>
+                 <input type="text" value=""  class="Iw45"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly />
+                 <input type="hidden" value="<!--{$item.id}-->" />
+                 </td>
+                 <td>用户名</td>
+                 <td>username</td>
+                 <td>单行文本</td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td>开启</td>
+                 <td style="color:#ccc;text-decoration:none">修改 | 删除 | 开启 | 关闭</td>
+                 </tr>
+                 <tr>
+                   <td>
+                 <input type="checkbox" name='id[]' value="<!--{$item.id}-->" disabled/></td>
+                 <td>
+				 <input type="text" value=""  class="Iw45"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly />
+                 <input type="hidden" value="<!--{$item.id}-->" />
+                 </td>
+                 <td>密码</td>
+                 <td>password</td>
+                 <td>单行文本</td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td>开启</td>
+                 <td style="color:#ccc;text-decoration:none">修改 | 删除 | 开启 | 关闭</td>
+                 </tr>
+                 <tr>
+                 <td>
+                 <input type="checkbox" name='id[]' value="<!--{$item.id}-->" disabled/></td>
+                 <td>
+				 <input type="text" value=""  class="Iw45"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly />
+                 <input type="hidden" value="<!--{$item.id}-->"/>
+                 </td>
+                 <td>确认密码</td>
+                 <td>reppassword</td>
+                 <td>单行文本</td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td>开启</td>
+                 <td style="color:#ccc;text-decoration:none">修改 | 删除 | 开启 | 关闭</td>
+                 </tr>
+                 <tr>
+                 <td>
+                 <input type="checkbox" name='id[]' value="<!--{$item.id}-->" disabled/></td>
+                 <td>
+				 <input type="text" value=""  class="Iw45"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly />
+                 <input type="hidden" value="<!--{$item.id}-->"/>
+                 </td>
+                 <td>电子邮箱</td>
+                 <td>email</td>
+                 <td>单行文本</td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td><span class="warnCorrect warnErrorG"></span></td>
+                 <td>开启</td>
+                 <td style="color:#ccc;text-decoration:none">修改 | 删除 | 开启 | 关闭</td>
+                 </tr>
+                <!--{/if}-->
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td><input type="checkbox" name='id[]' value="<!--{$item.id}-->" />
+                      <input type='hidden' value="<!--{$page}-->" name='page'>
+                      <input type='hidden' value='<!--{$id}-->' name='modelid'>
+                  </td>
+                  <td>
+                      <input type="text" value="<!--{$item.sort}-->" name='sort[]' class="Iw45" />
+                      <input type="hidden" value="<!--{$item.id}-->" name='ids[]'/>
+                  </td>
+                  <td><!--{$item.name}--></td>
+                  <td><!--{$item.dataname}--></td>
+                  <td><!--{$item.type}--></td>
+                  <td>
+                  <!--{if $item.isnessary eq 1}-->
+                  <span class="warnCorrect warnCorrectG"></span>
+                  <!--{else}-->
+                  <span class="warnError warnErrorG"></span>
+                  <!--{/if}-->
+                  </td>
+                  <td>
+                  <!--{if $item.issearch eq 1}-->
+                  <span class="warnCorrect warnCorrectG"></span>
+                  <!--{else}-->
+                  <span class="warnError warnErrorG"></span>
+                  <!--{/if}-->
+                  </td>
+                  <td><!--{if $item.state eq 1}-->开启<!--{else}-->关闭<!--{/if}--></td>
+                  <td>
+                  <a href="<!--{$baseurl}-->/modules/message/editorField/curid/<!--{$item.id}-->/modelid/<!--{$id}-->/p/<!--{$page}-->/flag/<!--{$flag}-->">修改</a> | 
+                  <a href="#"
+                  <!--{if $item.ismain eq 1 || $item.dataname eq 'title' || $item.dataname eq 'username'}-->
+                    style="color:#ccc;text-decoration:none"
+                  <!--{else}-->
+                     onclick="MoConfirm('<!--{$baseurl}-->/modules/message/deleteFile/id/<!--{$item.id}-->/modelid/<!--{$id}-->/flag/<!--{$flag}-->/page/<!--{$page}-->/name/<!--{$item.name}-->','确认删除？')" 
+                  <!--{/if}-->
+                  >删除</a> | 
+                  <a
+                     <!--{if $item.state eq 1 || $item.dataname eq 'title' || $item.dataname eq 'username'}--> 
+                        style='color:#ccc;text-decoration:none;'
+                     <!--{else}-->
+                        href="<!--{$baseurl}-->/modules/message/openOrClose/state/1/id/<!--{$item.id}-->/modelid/<!--{$id}-->/page/<!--{$page}-->/flag/<!--{$flag}-->/state/1/name/<!--{$item.name}-->"
+                     <!--{/if}-->
+                       >开启</a> | 
+                  <a 
+                     <!--{if $item.state eq 2 || $item.dataname eq 'title' || $item.dataname eq 'username'}-->
+                      style='color:#ccc;text-decoration:none;'
+                      <!--{else}-->
+                      href="<!--{$baseurl}-->/modules/message/openOrClose/state/2/id/<!--{$item.id}-->/modelid/<!--{$id}-->/page/<!--{$page}-->/flag/<!--{$flag}-->/state/2/name/<!--{$item.name}-->"
+                     <!--{/if}-->
+                     >关闭</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </form>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"  />
+                                          全选/反选</label>
+              </span>
+              <input type="button" class="btn5" value="开启"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/openOrClose/state/1" empty-tips="请选择要开启的分类" />
+              <input type="button" class="btn5" value="关闭"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/openOrClose/state/2" empty-tips="请选择要关闭的分类" />
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/fileSort" empty-tips="请选择要进行排序的记录！" is-selected="false" />
+              <input type="button" class="btn5" value="删除"  class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/deleteFile" empty-tips="请选择要删除的记录！" confirm-tips="确认删除?"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo">
+              <!--{$pageStr}-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

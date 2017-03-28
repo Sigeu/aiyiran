@@ -1,0 +1,241 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$urlArr.fieldUrl}-->">字段管理</a></dd>
+            <dt class="on"><a href="">添加字段</a></dt>
+            <dd><a href="<!--{$urlArr.previewUrl}-->" class="last">预览表单</a></dd>
+          </dl>
+        </div>
+         <form method='post' action="<!--{$urlArr.addsaveUrl}-->" id='myForm'>
+         <!-- 隐藏域 -->
+         <input type="hidden" name='fieldinfo[modelid]' value='<!--{$modelid}-->'/>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font> 字段名称：</th>
+                  <td><input type="text" value="" class="Iw290"  name="fieldinfo[name]" id="name"/>
+                    </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 数据字段名：</th>
+                  <td><input type="text" value="" class="Iw290"   name="fieldinfo[field]" id="field"/></td><td id='field_tips'></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 作为主表字段：</th>
+                  <td><span>
+                    <input type='hidden' name='fieldinfo[ismain]' value= '2'/>
+                    <input type="radio" name="fieldinfo[issystem]" value='1'/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio"  name="fieldinfo[issystem]" value='2' checked/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 字段类型：</th>
+                  <td>
+                  <!--{foreach item=item key=key from=$fieldArr name=fieldArr}-->
+                  <!--{if !$key|in_array:$noShow}-->
+                    <ul>
+                    <li style='display:block;float:left;width:33%'><input type="radio" name="fieldinfo[fieldtype]" value='<!--{$key}-->' <!--{if $key eq 'text'}-->checked<!--{/if}-->/>
+                    <label><!--{$item}--></label>
+                    </li></ul>
+					<!--{if $smarty.foreach.fieldArr.iteration%3 eq 0}--><br><!--{/if}-->
+                    <!--{/if}-->
+                    <!--{/foreach}--></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 字段提示：</th>
+                  <td><textarea class="Iw450 Ih80"  name="fieldinfo[tips]" id="tips"></textarea>
+                    <span class="warnBlue">显示在字段别名下方作为表单输入提示</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 默认值：</th>
+                  <td><textarea class="Iw450 Ih80"  value='' name="fieldinfo[defaultvalue]" id="defaultvalue"></textarea>
+                    <span class="warnBlue">如果定义数据类型为下拉框、多选框、单选框时，此处填写被选择的项目(用";"分开，如"男;女")。</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 字符长度取值范围：</th>
+                  <td><input type="text" value="输入最小值"  tips="输入最小值" class="Iw150 text-tips"   name="fieldinfo[minlength]" id="minlength"/>
+                    <span class="warnBlue" id='minlength_tips'>系统将在表单提交时检测数据长度范围是否符合要求，如果不想限制长度请留空</span>
+                    <div class="height16"></div>
+                    <input type="text" value="输入最大值" tips="输入最大值"  class="Iw150 text-tips"   name="fieldinfo[maxlength]" id="maxlength"/> <span id="maxlength_tips"></span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 数据校验正则：</th>
+                  <td><select class="Iw290" style="width:161px;" id='pattern_select'>
+                  	  <!--{foreach item=item key=key from=$fieldPattern}-->
+                      <option value="<!--{$item}-->"><!--{$key}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    <input type="text" value="" class="Iw290"   name="fieldinfo[pattern]" id='pattern'/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 校验未通过的提示信息：</th>
+                  <td><input type="text" value="" class="Iw290"   name="fieldinfo[errortips]" id="errortips"/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 数据值是否唯一：</th>
+                  <td><span>
+                    <input type="radio"  class="s_isunique"  name="fieldinfo[isunique]" value='1'/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio"  class="s_isunique" name="fieldinfo[isunique]" value='2' checked/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 是否作为搜索条件：</th>
+                  <td><span>
+                    <input type="radio" class="s_issearch"  name="fieldinfo[issearch]" value='1' />
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" class="s_issearch" name="fieldinfo[issearch]" value='2'  checked/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 是否必填项：</th>
+                  <td><span>
+                    <input type="radio" class="s_isnull" name="fieldinfo[isnull]" value='1' />
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" class="s_isnull" name="fieldinfo[isnull]" value='2' checked/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消" onclick='javascript:history.back();' class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+ <script>
+ $(document).ready(function(){
+	$('input[name="fieldinfo[fieldtype]"]').click(function(){
+		$.ajax({
+			  type:"POST",
+			  url:"<!--{$urlArr.setFieldUrl}-->",
+			  data:"fieldname="+$(this).val(),
+			  dataType:"json",
+			  success:function(msg)
+			  {
+				  if(msg.data.minlength) 
+					  $('#minlength').val(msg.data.minlength).css('color','#000000');
+				  else
+					  $('#minlength').val("输入最小值").css('color','#999999');
+				  if(msg.data.maxlength) 
+					  $('#maxlength').val(msg.data.maxlength).css('color','#000000');
+				  else
+					  $('#maxlength').val("输入最大值").css('color','#999999');
+				  if(msg.data.defaultvalue)
+					  $('#defaultvalue').html(msg.data.defaultvalue);
+				  else
+					  $('#defaultvalue').val("");
+
+				  if(msg.data.issearch == 2) 
+					  $('.s_issearch').attr("disabled","disabled");
+				  else
+					  $('.s_issearch').removeAttr("disabled");
+				  if(msg.data.isunique == 2) 
+					  $('.s_isunique').attr("disabled","disabled");
+				  else
+					  $('.s_isunique').removeAttr("disabled");
+				  if(msg.data.isnull == 2) 
+					  $('.s_isnull').attr("disabled","disabled");
+				  else
+					  $('.s_isnull').removeAttr("disabled");
+
+			  }
+		});
+	});
+	
+//初始化配置
+ $.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,generalwordwide:true, onError: function(msg) {}, onSuccess: function() {}});
+ $("#minlength").formValidator({tipid:"minlength_tips",onshow:"系统将在表单提交时检测数据长度范围是否符合要求，如果不想限制长度请留空",onfocus:"请输入数字类型的值",empty:true,oncorrect:"输入正确"}).functionValidator({
+	 fun: function (){
+			 if($("#minlength").val()=="输入最小值")
+	  		 {
+	  			return true; 
+	  		 }
+			 else
+			 {
+				 reg = new RegExp(/^(\d)*$/);
+				 if(reg.test($("#minlength").val()))
+				 {
+					 if(parseInt($("#maxlength").val())<parseInt($("#minlength").val()))
+					 {
+						 return '请确保输入小于最大值的数字';
+					 }
+				     return true;
+				 }
+				 else
+				 {
+					 return "请输入数字类型的值";
+				 }
+			 }	
+		 }
+ });
+ $("#maxlength").formValidator({tipid:"maxlength_tips",onshow:" ",onfocus:"请确保输入大于最小值的数字",empty:true,oncorrect:"输入正确"}).functionValidator({
+	 fun: function (){
+		 if($("#maxlength").val()=="输入最大值")
+  		 {
+  			return true; 
+  		 }
+		 else
+		 {
+			 reg = new RegExp(/^(\d)*$/);
+			 if(reg.test($("#maxlength").val()))
+			 {
+				 if(parseInt($("#maxlength").val())<parseInt($("#minlength").val()))
+				 {
+					 return '请确保输入大于最小值的数字';
+				 }
+			     return true;
+			 }
+			 else
+			 {
+				 return "请输入数字类型的值";
+			 }
+		 }	
+	 }
+ });
+$("#name").formValidator({onshow:"请输入1～100个字符，由汉字、数字、字母、符号组成",onempty:'请输入1～100个字符，由汉字、数字、字母、符号组成',onfocus:"请输入1～100个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确"}).inputValidator({min:1,max:100,onerrormin:"请输入1～100个字符，由汉字、数字、字母、符号组成",onerrormax:"请输入1～100个字符，由汉字、数字、字母、符号组成"});
+
+$("#field").formValidator({onshow:"请输入1-100个字符，由英文字母、数字和下划线组成，并且以字母开头，不以下划线结尾（如果“字段类型”选择“联动类型”，则“数据字段名”要填写对应联动菜单的“菜单标识”字段信息）。",onfocus:"请输入1-100个字符,由英文字母、数字和下划线组成,并且以字母开头,不以下划线结尾(如果字段类型是联动类型,该项应该填写联动类型的[菜单标识]).",onerror:'请输入1-100个字符,由英文字母、数字和下划线组成,并且以字母开头,不以下划线结尾(如果字段类型是联动类型,该项应该填写联动类型的[菜单标识]).',oncorrect:"输入正确"}).inputValidator({min:1,max:100,onerror:"请输入1-100个字符,由英文字母、数字和下划线组成,并且以字母开头,不以下划线结尾(如果字段类型是联动类型,该项应该填写联动类型的[菜单标识])."}).regexValidator({regexp:"^(?!_)(?!.*?_$)[a-zA-Z]+[a-zA-Z0-9_]*$",onerror:'请输入1-100个字符,由英文字母、数字和下划线组成,并且以字母开头,不以下划线结尾(如果字段类型是联动类型,该项应该填写联动类型的[菜单标识]).'})
+.ajaxValidator({
+		type:"get",
+		url : "<!--{$urlArr.checkFieldUrl}-->",
+		success : function(data)
+		{	
+			if(data==1)
+				return false;
+			else
+				return true;
+		},
+		buttons: $(".btn2"),
+		error: function(jqXHR, textStatus, errorThrown){onerror: "可能服务器忙，请重试"},
+		onerror : "该字段名已存在，请换一个",
+		onwait : "正在对表名进行合法性校验，请稍候..."
+	});
+});
+$('#pattern_select').bind('change',function(){
+    var obj=$(this).find('option:selected');
+	var pval = obj.val();
+	$('#pattern').val(pval);
+});
+
+ </script>
+</body>
+</html>

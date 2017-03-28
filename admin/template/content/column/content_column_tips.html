@@ -1,0 +1,17 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<script type="text/javascript">
+//返回父页面
+function backParent ()
+{
+	window.parent.$("#rightMain").attr('src','<!--{$baseurl}-->/content/column/index');
+}
+setTimeout("backParent()",0);
+</script>
+<center>
+<div style="margin-top:53px; color: #000000;">
+<!--{$tips}-->
+</div>
+</center>
+</body>
+</html>

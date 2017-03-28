@@ -1,0 +1,73 @@
+
+.chose_cp{ width: 1198px; height:auto; margin: 20px auto; border: 1px solid #eeeeee; background: #fff;}
+.have_sel{ width: 1160px; height: 24px; margin: 14px auto 0; padding: 0 0 10px; border-bottom: 1px dashed #dddddd;}
+.have_sel b{font-weight: 100; line-height: 24px; display: inline-block;}
+.have_sel a{ color: #01d590; display: inline-block; line-height: 22px; border: 1px solid #dddddd; position: relative; padding: 0 30px 0 15px;}
+.have_sel a i{ position: absolute; right:10px; top: 7px; width:9px; height: 9px; overflow: hidden; background-position: -12px -491px ;}
+.classify{position: relative; width: 1160px; margin: 0 auto; padding:15px 0 15px;}
+.classify b{ font-weight: 100; line-height: 24px;display: inline-block; float: left;}
+.classify p{ float: left; width: 1050px; height: auto;line-height: 24px; height: 24px; overflow: hidden;}
+.classify p.active{ height: 48px;}
+.classify a{ color: #666;margin: 0 10px;display: inline-block; }
+.classify span{ position: absolute; width: 20px; height: 20px; right: 0; top:17px; background-position:-159px -23px}
+.list_szwp{ width: 1198px; height: auto; min-height: 600px; border: 1px solid #eee; margin: 0 auto; background: #fff;}
+.wp_list{ width:1180px; height:auto;}
+.wp_list li{ width: 216px; height: 270px; float: left; margin: 20px 0 0 20px;}
+.wp_list li a{ display: block;}
+.wp_list li img{ width: 216px; height: 216px;}
+.wp_list li p{ width: auto; padding: 0 10px; line-height: 53px; border: 1px solid #dddddd; border-top:none; text-align: center; overflow: hidden; color: #666;}
+
+/***********************************************/
+.lef_min{ width: 926px; height: auto; float: left; margin: 20px 0 0;}
+.top_lb{ width: 924px; height: 398px; border: 1px solid #eee; background: #fff;}
+.top_lb .swiper-container{ float:left; margin:20px 0 0 20px;position:relative;width:358px;height:358px;cursor:default!important; border: 1px solid #ebeef2;}
+.top_lb .swiper-container .pagination{position:absolute;left:0;bottom:20px;width: 100%;text-align: center;}
+.top_lb .swiper-container .swiper-pagination-switch{display: inline-block;width:10px;height:10px;margin:0 5px;background:#99978a;border-radius:50%;cursor: pointer;vertical-align: middle;}
+.top_lb .swiper-container .swiper-active-switch{background:#01d590;}
+.top_lb .swiper-container .arrow-right,.top_lb .swiper-container .arrow-left{ text-indent:-9999px;position:absolute;top:50%;margin-top:-17px;width:34px;height:34px;border-radius:50%;line-height:34px;text-align:center;cursor: pointer;}
+.top_lb .swiper-container .arrow-right{right:23px; background-position:0 -349px;}
+.top_lb .swiper-container .arrow-left{left:23px;background-position:0 -385px;}
+.top_lb .swiper-container .arrow-right:hover{background-position:-35px -349px;}
+.top_lb .swiper-container .arrow-left:hover{background-position:-35px -385px;}
+.top_lb .swiper-container .swiper-slide img{ width: 358px; height: 358px;}
+.details_w{ width: 480px; height: 358px; float: left; margin: 20px 0 0 50px;}
+.details_w h3{ font-size: 24px; color: #333; width: 100%; margin: 55px 0 20px;}
+.w_gs{ color: #999; line-height: 24px;}
+.details_w a{ width: 140px; height: 50px; margin: 30px 0 0; display: block; background-position:-252px -294px; text-align: center; line-height: 50px; text-align: center; color: #fff}
+.bot_deatli{width: 924px;border: 1px solid #eee; background: #fff; margin: 20px 0 0;}
+.bot_deatli .headline span{ font-weight: 100; font-size: 16px;}
+.cp_deat{ width: 888px; height:auto; margin: 0 auto;}
+.cp_deat li{ width: 444px; height: 30px; line-height: 30px; float: left; font-size: 14px; color: #666;}
+.cp_deat_cont{ width: 888px; margin: 30px auto 60px; height: auto;}
+
+.right_cp_list{ width: 254px; height:auto; float: left; background: #fff; margin: 20px 0 0 18px; background:#fff; border: 1px solid #eee;}
+.right_cp_list ul{ width: 254px;}
+.right_cp_list ul li{ width: 216px; height: 270px; float: left; margin: 0 0 20px 18px;}
+.right_cp_list ul li a{ display: block;}
+.right_cp_list ul li img{ width: 216px; height: 216px;}
+.right_cp_list ul li p{ width: auto; padding: 0 10px; line-height: 53px; border: 1px solid #dddddd; border-top:none; text-align: center; overflow: hidden; color: #666;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

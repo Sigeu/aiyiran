@@ -1,0 +1,149 @@
+<!--{include file="public/head_admin.html"}-->
+
+<script type='text/javascript'>
+    var flag =true;
+    var flag1=true;
+    var reg =/^\d+$/;
+    $(document).ready(function(){
+        
+    	
+    	$("#item").focus(function(){
+    		
+    		$("#itemTip").attr('class','');
+    		$("#itemTip").addClass('onFocus');
+    		$("#itemTip").html("请输入1-20之间的整数");
+    	});
+    	
+        $("#word").focus(function(){
+    		
+    		$("#wordTip").attr('class','');
+    		$("#wordTip").addClass('onFocus');
+    		$("#wordTip").html("请输入1-1000之间的整数");
+    	});
+    	
+    	$("#item").blur(function(){
+
+    		$("#itemTip").attr('class','');
+    		if($("#item").val() != "" && (!reg.test($("#item").val()) || parseInt($("#item").val())>20)){
+    			
+    			$("#itemTip").addClass('onError');
+    			$("#itemTip").text("只能输入1-20之间的整数");
+    			flag = false;
+    		}else if($("#item").val() == ""){
+    			
+    			$("#itemTip").addClass('onCorrect');
+    			$("#itemTip").text("输入内容为空");
+    			flag = true;
+    		}else{
+    			$("#itemTip").addClass('onCorrect');
+    			$("#itemTip").text("输入正确");
+    			flag = true;
+    		}
+    	});
+    	
+    	$("#word").blur(function(){
+
+    		$("#wordTip").attr('class','');
+    		if( $("#word").val() != "" && (!reg.test($("#word").val()) ||parseInt($("#word").val())>1000)){
+    			
+    			$("#wordTip").addClass('onError');
+    			$("#wordTip").text("只能输入1-1000之间的整数");
+    			flag1 = false;
+    		}else if ($("#word").val() == "") {
+    			
+    			$("#wordTip").addClass('onCorrect');
+    			$("#wordTip").text("输入内容为空");
+    			flag1 = true;
+    		}else{
+    			$("#wordTip").addClass('onCorrect');
+    			$("#wordTip").text("输入正确");
+    			flag1 = true;
+    		}
+    	});
+    	//取消操作
+    	$(".cancel").click(function(){
+    		location.reload();
+    	})
+    });
+    
+    function check(){
+    	
+    	if(flag==false || flag1==false){
+    		obj = $(".onError").first().attr('reg');
+    		$("#"+obj).focus();
+    	}else if(flag==true && flag1==true){
+    		var parameter = "";
+    		
+     		parameter+="item="+$("#item").val();
+    		parameter+="&word="+$("#word").val();
+    		parameter +="&anony="+$("input[name=anonymity]:checked").val();
+    		parameter +="&verify="+$("input[name=verify]:checked").val();
+    		
+    		$.post('<!--{$baseurl}-->/modules/message/updateset',parameter,function(infor){
+    			Moalert(infor);
+       	     });
+    	}
+    	return false;
+    }
+</script>
+
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">自定义表单设置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div >
+            <div class="pubTabel" id='parent'> 
+            
+             <form   id="form" action='' method='post' onsubmit="return check()">
+              <table class="tabelLR">
+                <tr>
+                  <th width="200px">是否允许匿名：</th>
+                  <td><span>
+                    <input type="radio" name='anonymity' value="1" <!--{if $set.mo_isanony eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='anonymity' value="2" <!--{if $set.mo_isanony eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>是否审核：</th>
+                  <td><span>
+                    <input type="radio" name='verify' value="1" <!--{if $set.mo_isexamine eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='verify' value="2" <!--{if $set.mo_isexamine eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>每页最多条数：</th>
+                  <td><input class="Iw150"  type="text" value="<!--{$set.mo_max_num}-->" name="max" id="item"/>
+                      <label>条</label>&nbsp;&nbsp<span id="itemTip" reg="item"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>内容最多字数：</th>
+                  <td><input class="Iw150"  type="text" name="word" value="<!--{$set.mo_word_num}-->" id="word"/>
+                      <label>字</label>&nbsp;&nbsp<span id="wordTip" reg='word'></span><br/><br/>
+                      <span id="wordTip">注：指自定义表单中的默认字段“内容”，数据字段名为“mess_infor”</span>
+                  </td>
+                </tr>
+              </table>       
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id="sub">
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

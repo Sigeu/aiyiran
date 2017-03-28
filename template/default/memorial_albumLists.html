@@ -1,0 +1,93 @@
+{include 'inc/memorial_head.html'}
+
+			<div class="video_photo clearfix">
+				<div class="photo_box clearfix">
+					<div class="headline">
+					<span class="fl">相册集<i></i></span>
+					</div>	
+					<ul class="photo_list">
+						{foreach $photo_cat $k $v}
+						<li>
+							<a href="/jinian/Jinian/album/mid/{$mid}/id/{$v['id']}">
+								{if $v['cover']}
+									<img src="{$v['cover']}" />
+								{else}
+									<img src="/template/default/member/images/photo.jpg" />
+								{/if}
+								<p><span class="fl">{$v['name']}</span><em class="fr">（{$v['count']}）</em></p>
+							</a>
+						</li>
+						{/foreach}
+					</ul>
+				</div>
+		<!-- 		<div class="photo_box video_box clearfix">
+					<div class="headline">
+					<span class="fl">视频集<i></i></span>
+					</div>	
+					<ul class="photo_list">
+						<li>
+							<a href="###">
+								<img src="images/ly_03.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_09.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_11.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_05.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_07.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_09.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_07.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+						<li>
+							<a href="###">
+								<img src="images/ly_09.jpg" />
+								<p>开国大典大阅兵</p>
+								<span class="videoplay"></span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+			</div>
+		</div>	
+	<!--***************-->			
+				
+			</div>
+		</div>	
+			<!--********footer***************************************-->
+{include 'head_footer.html'}

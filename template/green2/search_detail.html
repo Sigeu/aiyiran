@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'} 
+
+<div class="wrap">
+  <div class="Greyborder">
+    <div class="sRultList">
+	   {foreach $searchList $k $v}
+		  	{if  $searchList['mid'] == 1}
+			     {$v['description']}
+			{elseif  $searchList['mid'] == 2}
+				 {$v['content']}
+		    {elseif  $searchList['mid'] == 3}
+				 {$v['content']}
+			{elseif  $searchList['mid'] == 4}
+				 {$v['content']}
+			{else}
+				 {$v['data']}
+			{/if}
+		{/foreach}
+    </div>
+  </div>
+</div>
+<div class="aboutCrop">
+  <div class="friendLink">
+    <dl>
+      <dt>友情链接：</dt>
+      <dd><a href="#">北京中共</a><a href="#">新浪娱乐</a><a href="#">哥就是个传说</a><a href="#">铭万外企</a><a href="#">上海涉外事务所</a><a href="#">主流媒体都傻逼</a><a href="#">真话我想说但不让我说</a><a href="#">这个社会已经病态了</a><a href="#">我在这里啊我在这里啊</a><a href="#">我要涨工资啊</a><a href="#">我只是来学习滴只是来学习滴</a><a href="#">道明寺</a><a href="#">没有你的日子里</a><a href="#">盛开啊上开啊</a><a href="#">吃葡萄不</a><a href="#">哇哈哈哇哈哈</a><a href="#">我的大学在河北</a></dd>
+    </dl>
+    <div class="clearfix"></div>
+  </div>
+  <div class="adderss">
+    <p>铭万全国统一客户服务热线：400-700-1818 客户服务邮箱：service@mainone.cn </p>
+    <p class="copyright">铭万版权所有&copy;2004-2011 京ICP证050659号互联网药品信息服务资格证书 证书编号：（京）-经营性-2010-0049 </p>
+  </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script> 
+<script type="text/javascript" src="js/list.js"></script>
+</body>
+</html>

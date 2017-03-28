@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>内容列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">内容列表</a></dt>
+            <dd><a href="" class="last" >添加内容</a></dd>
+			<dd class="add"><a href="<!--{$baseurl}-->/content/issue/content">发布内容页</a></dd>
+          </dl>
+        </div>
+       
+        <div class="TabBoxC">
+          <div>
+			<!--  搜索表单  -->
+			<form method="post" action="<!--{$baseurl}-->/content/othercontent/index" enctype="multipart/form-data">
+				<div class="pubTabelTot">
+					<input type="text" name='keywords' value="<!--{$search.keywords}-->" class="Iw215 text-tips" tips="请输入关键字" >
+					<select class="Iw290" style="width:110px;"  name='categoryid'>
+						<option value="">请选择栏目</option>
+						<!--{foreach from=$category item=l}-->
+						<option value="<!--{$l.id}-->" <!--{if $search.categoryid eq $l.id}-->selected<!--{/if}--> <!--{if !in_array($l.id,$_category)}-->disabled<!--{/if}-->><!--{$l._catname}--></option>
+						<!--{/foreach}-->
+					</select>
+					<select class="Iw290" style="width:140px;" id='order' name='orderfield'>
+						<option <!--{if $search.orderfield eq 'publishtime'}-->selected<!--{/if}--> value="publishtime" >按发布时间</option>
+						<option <!--{if $search.orderfield eq 'id'}-->selected<!--{/if}--> value="id" >按信息ID</option>
+						<option <!--{if $search.orderfield eq 'updatetime'}-->selected<!--{/if}--> value="updatetime" >按更新时间</option>
+						<option <!--{if $search.orderfield eq 'hits'}-->selected<!--{/if}--> value="hits" >按点击量</option>
+					</select>
+					<select class="Iw290" style="width:110px;" id='desc' name='ordertype'>
+						<option value="DESC" <!--{if $search.ordertype eq 'DESC'}-->selected<!--{/if}-->>降序</option>
+						<option value="ASC" <!--{if $search.ordertype eq 'ASC'}-->selected<!--{/if}-->>升序</option>
+					</select>
+					<input type="submit" value="搜 索" class="btn5">
+				</div>
+			</form>
+            <div class="pubTabel">
+              <table class="tabelTB"  id="search-list">
+                <tr >
+                  <th width="6%">选择</th>
+                  <th width="6%">ID</th>
+                  <th width="22%">内容标题</th>
+				  <th width="12%">所属模型</th>
+                  <th width="12%">所属栏目</th>
+                  <th width="8%">点击量</th>
+                  <th width="10%">发布人</th>
+                  <th width="10%">更新时间</th>
+                  <th width="14%">操作</th>
+                </tr>
+				<!--{foreach item=l key=key from=$list}-->
+                <tr>
+                  <td><input type="checkbox" value='<!--{$l.id}-->' onclick="javascript:id_cid(this)" name='id[]'/><input type="checkbox" style="display:none" value='<!--{$l.cid}-->' class='cid' name='cid[]'/><input type="checkbox" style="display:none"  onclick="javascript:id_cid(this)" value='<!--{$l.model}-->' class='mid' name='mid[]'/></td>
+                  <td><!--{$l.id}--></td>
+                  <td title="<!--{$l.title}-->"><!--{$l.title|truncate_cn:15:"...":true}--></td>
+                  <td title="<!--{$l.modelname}-->"><!--{$l.modelname|truncate_cn:8:"...":true}--></td>
+				  <td title="<!--{$l.catname}-->"><!--{$l.catname|truncate_cn:8:"...":true}--></td>
+                  <td><!--{$l.hits}--></td>
+                  <td><!--{$l.publishuser}--></td>
+                  <td><!--{$l.updatetime|date_format:'%Y-%m-%d'}--></td>
+                  <td><a target="_blank" href="/content/Content/index/id/<!--{$l.id}-->/isadmin/1">预览</a>
+				  <a href="<!--{$baseurl}-->/content/article/update/id/<!--{$l.id}-->/cid/<!--{$l.categoryid}-->/addparameter/<!--{$l.modelid}-->">修改</a>| 
+                  <a  style="cursor:pointer" onclick="javascript:operateOne('<!--{$baseurl}-->/content/article/del/id/<!--{$l.id}-->/cid/<!--{$l.categoryid}-->/addparameter/<!--{$l.modelid}-->','确定删除？')">删除</a>
+				  
+				  </td>
+                </tr>
+                <!--{foreachelse}-->
+             	<tr><td colspan=8>暂无内容！</td></tr>
+                <!--{/foreach}-->
+              </table>
+              <div>
+            </div>
+            <div class="pubOperate"><label><span class="btn5">
+             <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+              </span> </label>
+              <input type="button" class="btn5" value="移动到 &gt;"  onclick="moveArticle(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.moveUrl}-->/addparameter/<!--{$l.model}-->/keywords/<!--{$search.keywords}-->/categoryid/<!--{$search.categoryid}-->/order/<!--{$search.order}-->/desc/<!--{$search.desc}-->/addparameter/<!--{$search.modelid}-->"   empty-tips="请选择要移动的内容！"/>
+			  <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" container-id="search-list" form-id="myForm" form-action="<!--{$urlArr.delUrl}-->/keywords/<!--{$search.keywords}-->/categoryid/<!--{$search.categoryid}-->/order/<!--{$search.order}-->/desc/<!--{$search.desc}-->/addparameter/<!--{$search.modelid}-->"   empty-tips="请选择要删除的内容！" confirm-tips="确定删除?"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"> <!--{$pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"  src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="">积分规则管理</a></dt>
+            <dd><a href="<!--{$baseurl}-->/scores/scores/add" class="last">添加积分规则</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form method="post" action="javascript:;" id="batch-form" >
+            <div class="pubTabel">
+            <table class="tabelTB" id="search-list">
+                 <tr style="border-bottom:1px solid #CCD9E4;"><!--  表头  -->
+                  <th width="5%">选择</th>
+                  <th width="10%">ID</th>
+                  <th width="30%">兑换方向</th>
+                  <th width="25%">兑换比例</th>
+                  <th width="25%">操作</th>
+                </tr>
+                <!--{foreach from=$plist.list item=l}-->
+                <tr bgcolor='<!--{cycle values="#F7F7F7,#ffffff"}-->' class="level2">
+                    <td><input type="checkbox" name="id[]" value="<!--{$l.id}-->" /></td>
+                    <td><!--{$l.id}--></td>
+                    <td><!--{$l.appname}--> -> <!--{$l.currency}--></td>
+                    <td><!--{$l.ratio1}-->:<!--{$l.ratio2}--></td>
+                    <td><a href="<!--{$baseurl}-->/scores/scores/edit/id/<!--{$l.id}-->">修改</a> | 
+                    <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/scores/scores/del/id/<!--{$l.id}-->')">删除</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/scores/scores/del" empty-tips="请选择要删除的记录！" confirm-tips="你确定要删除吗？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>    
+</body>
+</html>

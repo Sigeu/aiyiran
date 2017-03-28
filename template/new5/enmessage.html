@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Message</title>
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$("textarea.Iw450").focus(function(){
+	  if($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == 'Please input the content of this, we will give you a reply at the first time! Thank you.'){
+		  $("textarea.Iw450").val('');
+		  $("textarea.Iw450").css("color","#222");
+	  }
+	});
+	$("textarea.Iw450").blur(function(){
+		if ($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("textarea.Iw450").val('Please input the content of this, we will give you a reply at the first time! Thank you！');
+			$("textarea.Iw450").css("color","#999");
+		}
+	});
+
+});
+function hide(a){
+	var type = a;
+	if (type == 1){
+		$('.message').hide();
+		$('.lmessage').show();
+	}
+	if (type == 0){
+		$('.lmessage').hide();
+		$('.message').show();
+	}
+}
+</script>
+</head>
+<body>
+{include 'entophead.html'}
+<div class="nav">
+  <div class="search"><script>
+		function searchSubmit()
+		{
+			var val = $('#keywords').val();
+		    if(val=="Please input your keywords"||val=='')
+			{
+				alert("Please input your keywords");
+				return false;
+			}
+			else
+			{
+				$('#searchForm').submit();
+			}
+		}
+	</script>
+	 <form action='{HOST_NAME}search/Search/index' method='post' id='searchForm' target="_blank">
+	 <input type='hidden' name='cid' value='294'/>
+      <input type="text" class="input226_30 keys" name='keywords' id='keywords' tips="Please input your keywords
+" {if isset($keywords)&&$keywords}value="{$keywords}"{else}value="Please input your keywords
+"{/if} /><input type="button" class="sBtn1" value="" onclick='javascript:searchSubmit()'/>
+	 </form>
+  </div>
+  <ul>
+		<li><a href="{getMoreUrl(294)}" {if !$cid}class="focus"{/if}>HOME</a></li>
+		{mo:category row="5" cid="294" order="ordernum desc" type="son" return="data"}
+     
+		  {foreach $data  $key $value} 
+
+			<li><a href="{getMoreUrl($value['id'])}">{$value['catname']}</a></li>    
+			 
+		  {/foreach}
+
+		{/mo:category}  
+
+        <li><a href="/message/Message/index/id/284" class='focus'>MESSAGE</a></li>
+  </ul>
+</div>
+<script>
+$(document).ready(function(){
+	
+	$("input.keys").focus(function(){
+	  if($("input.keys").val().replace(/^\s+|\s+$/g,'') == 'Please input your keywords'){
+		  $("input.keys").val('');
+		  $("input.keys").css("color","#222");
+	  }
+	});
+	
+	$("input.keys").blur(function(){
+		if ($("input.keys").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("input.keys").val('Please input your keywords');
+			$("input.keys").css("color","#999");
+		}
+	});
+
+});
+</script>
+
+<div class="wrap">
+<div class="thumb">Localtion：<a href="{getMoreUrl(294)}">Home</a> &gt; MESSAGE</div>
+<div class="tabbox message" style="padding-bottom:190px;">
+<div class="submit_btn" style="position:absolute;margin-left:800px;" onclick="hide(1)">Message List</div>
+<form action='/message/Message/add' id="messageForm" method='post'>
+<input type='hidden' name='modelid' value="{$modelid}"/>
+<input type='hidden' name='lang' value="en"/>
+  <table width="100%" class="mesg" cellpadding="0" cellspacing="0">
+    {foreach $form $key $v}
+	    {$v}
+	  {/foreach}
+      {if $hasYzm}
+      <tr>
+        <th>* Code：</th>
+        <td class="valign"><input type="text" name='code' id='code' class="input131_24" />
+          <img src="{HOST_NAME}/static/js/securimage/yzm.php" id='yzm' width="100" height="40" class="yzm captcha"/><a href="#"  onclick='yzm.src="/static/js/securimage/yzm.php?"' class="msgLink captcha">Refresh!</a></td>
+      </tr>
+	  {/if}
+    <tr>
+      <td colspan="4" align="center"><input type="button" class="submit_btn" onclick="submitCheck();" value="Submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" class="submit_btn" value="Reset" /></td>
+    </tr>
+  </table>
+  </form>
+</div>
+<div class="tabbox lmessage" style="padding-bottom:190px;display:none;">
+<div class="submit_btn" style="position:absolute;margin-left:800px;" onclick="hide(0)">Leave Message</div>
+{mo:message modelid='$modelid' pagesize='10' pagenum='5' return='data'}
+	   {foreach $data $key $value}
+        <dl class="mlist">
+          <dt>Title：{$value['title']}</dt>
+          <dd>Username：{$value['username']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Telphone：{$value['entel']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adderss：{$value['enadd']}</dd>
+          <dd>Content：{$value['mess_infor']}</dd>
+          {if $value['replayinfor']}<dd style="color:#000080;">Reply：{$value['replayinfor']}</dd>{/if}
+        </dl>
+	   {/foreach}
+	{/mo:message}
+	<div class="page"><a href="{$pageArr['firstPageUrl']}" title="1">Home</a>{foreach $pageArr['pageUrl'] $k $v}<a href="{$v}" title="$k" class="focus">{$k}</a>{/foreach}<a href="{$pageArr['prewPageUrl']}" title="上一页">Prve</a><a href="{$pageArr['nextPageUrl']}" title="1">Next</a><a href="{$pageArr['lastPageUrl']}" title="1">Last</a><span>Total <b>{$pageArr['pageNums']}</b> Page <b>{$pageArr['count']}</b> Article</span></div>
+</div>
+</div>
+<script>
+ $.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+function submitCheck()      
+{
+	if($('#code').val()=='')
+	{
+		alert("Verification code is empty, please fill in the correct verification code！");
+	}
+	else
+	{
+		$('#messageForm').submit();
+	}
+}
+</script>
+{include 'enfooter.html'}

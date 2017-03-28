@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>自定义表单信息管理 </title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt <!--{if $lstate eq 0}-->class="on"<!--{/if}-->><a href="<!--{$baseurl}-->/modules/message/index/lstate/0">表单信息</a></dt>
+            <dt <!--{if $lstate eq 1}-->class="on"<!--{/if}--> ><a href="<!--{$baseurl}-->/modules/message/index/lstate/1">未回复</a></dt>
+            <dt <!--{if $lstate eq 2}-->class="on"<!--{/if}--> ><a href="<!--{$baseurl}-->/modules/message/index/lstate/2">未审核</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+             <div class="pubTabelTot">
+              <form action="" method='get' id="batch-form">
+              <input type='hidden' name='lstate' value="<!--{$lstate}-->">
+              <input type="hidden" id="page" name="page" value="<!--{$page}-->" />
+              <input type="text" value="<!--{if $search.keyword neq ''}--><!--{$search.keyword}--><!--{else}-->请输入关键字<!--{/if}-->" class="Iw150 text-tips"  tips="请输入关键字" value="请输入关键字" name='keyword'>
+              <select class="Iw290 " style="width:140px;" name='modelid'>
+                <option value="0">请选择表单分类</option>
+                <!--{foreach item=item from = $type}-->
+                <option value="<!--{$item.id}-->" <!--{if $search.modelid eq $item.id}-->selected<!--{/if}-->><!--{$item.name}--></option>
+                <!--{/foreach}-->
+              </select>
+              <!--{if $lstate neq 2}-->
+              <select class="Iw290" style="width:140px;" name='ischeck'>
+                <option value="0">请选择审核状态</option>
+                <option value="2" <!--{if $search.ischeck eq 2}-->selected<!--{/if}--> >未审核</option>
+                <option value="1" <!--{if $search.ischeck eq 1}-->selected<!--{/if}--> >已审核</option>
+                <option value="3" <!--{if $search.ischeck eq 3}-->selected<!--{/if}--> >不通过</option>
+              </select>
+			  <!--{/if}-->
+              <!--{if $lstate neq 1 && $lstate neq 2}-->
+              <select class="Iw290" style="width:140px;" name='isreplay'>
+                <option value="0">请选择回复状态</option>
+                <option value="2" <!--{if $search.isreply eq 2}-->selected<!--{/if}-->>未回复</option>
+                <option value="1" <!--{if $search.isreply eq 1}-->selected<!--{/if}-->>已回复</option>
+              </select>
+              <!--{/if}-->
+              
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+            </div>
+            <div class="pubTabel">
+             <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="27%">标题</th>
+                  <th width="10%">类别</th>
+                  <th width="10%">提交人</th>
+                  <th width="10%">回复状态</th>
+                  <th width="10%">审核状态</th>
+                  <th width="13%">提交时间</th>
+                  <th width="20%">操作</th>
+                </tr>
+               <!--{foreach item=l from = $list}-->
+                <tr>
+                  <td><input type="checkbox" name='id[]' value="<!--{$l.id}-->"/></td>
+                  <td><!--{$l.title|truncate_cn:10:'...':true}--></td>
+                  <td><!--{$l.model}--></td>
+                  <td><!--{$l.username}--></td>
+                  <td>
+                    <!--{if $l.isreply eq 1}-->
+                                                                已回复
+                    <!--{elseif $l.isreply eq 2}--> 
+                                                               未回复
+                    <!--{/if}-->
+                  </td>
+                  <td>
+                    <!--{if $l.ischeck eq 1}-->
+                                                               已审核
+                    <!--{elseif $l.ischeck eq 2}--> 
+                                                              未审核
+                    <!--{elseif $l.ischeck eq 3}--> 
+                                                            不通过                                       
+                    <!--{/if}-->                                
+                  </td>
+                  <td><!--{$l.leavetime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td><a href="<!--{$baseurl}-->/modules/message/reply/id/<!--{$l.id}-->/page/<!--{$page}-->/lstate/<!--{$lstate}-->/ischeck/<!--{$search.ischeck}-->/keyword/<!--{$search.keyword}-->/isreplay/<!--{$search.isreply}-->/modelid/<!--{$search.modelid}-->">回复</a> | 
+                      <a href="#" onclick="MoConfirm('<!--{$baseurl}-->/modules/message/deleteMessage/id/<!--{$l.id}-->/page/<!--{$page}-->/lstate/<!--{$lstate}-->/ischeck/<!--{$search.ischeck}-->/keyword/<!--{$search.keyword}-->/isreplay/<!--{$search.isreply}-->/modelid/<!--{$search.modelid}-->')">删除</a>
+                   </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate">
+              <span class="btn5" style="width:80px;"><label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"  /> 全选/反选</label></span>
+              <!--{if $lstate neq 1}-->
+              <input type="button" class="btn5" value="审核通过"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/passCheck/state/1" empty-tips="请选择需要审核的信息" confirm-tips="确定选中信息通过审核吗？"/>
+              <input type="button" class="btn5" value="审核不通过"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/passCheck/state/3" empty-tips="请选择需要审核的信息" confirm-tips="确定选中信息不通过审核？"/>
+              <!--{/if}-->
+              <input type="button" class="btn5" value="删除"  class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/modules/message/deleteMessage" empty-tips="请选择要删除的记录！" confirm-tips="确认删除?"/>
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+            </form>
+          </div>  
+        </div>
+      </div>
+    </div>   
+</body>
+</html>

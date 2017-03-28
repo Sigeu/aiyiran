@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/banner.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="{JS_PATH}/advert.js"></script>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'} 
+<div class="wrap">
+  <div class="Greyborder">
+    <div class="title">
+      <div class="sRult">您搜索的“<em><font color='red'>{$keyword}</font></em>”关键词，为您找到 {$total} 个相关结果， {if $cid != ''}<span>栏目：<a href="{getMoreUrl($cid)}">{cid2name($cid)}</a></span>{/if}</div>
+     </div>
+    <div class="sRultList">
+         {if $cid != ''}
+		 {mo:searchlist  id="$ids" mid="$mid" cid="$cid" stat="$stat" search_type="$search_type" modelTab="$modelTab"  keyword="$keyword" pagesize='10' pagenum='5' return="data"} 
+		 {else}
+		 {mo:searchlist  id="$ids" mid="$mid" stat="$stat" search_type="$search_type" modelTab="$modelTab"  keyword="$keyword" pagesize='10' pagenum='5' return="data"} 
+  		 {/if}
+  			{foreach $data  $key $v}  
+  			      <dl>
+					  <dt><a href='{$v['url']}'>{$v['goodsname']}{$v['name']}{$v['title']}</a><span>日期：{date('Y-m-d',$v['created'])}</span><span>点击量：{$v['click']}</span></dt>
+				      <dd>{$v['guide']}{$v['brief']}{$v['subtitle']}{$v['description']}</dd>
+				  </dl>
+				  <dl><dt></dt><dd></dd></dl>
+  			{/foreach}
+		 {/mo:searchlist}  
+		 
+		<div class="pages">
+          {$pagestr}
+        </div>
+    </div>
+  </div>
+</div>
+<div class="aboutCrop">
+  <div class="friendLink">
+    <div class="clearfix"></div>
+  </div>
+ {include 'footer.html'}

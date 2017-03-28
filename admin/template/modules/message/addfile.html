@@ -1,0 +1,278 @@
+<!--{include file="public/head_admin.html"}-->
+<script type='text/javascript'>
+$(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+	
+	//发送邮件用户名称验证
+	$("#name").formValidator({empty:false,onshow:"请输入1～100个字符，由汉字、数字、字母、符号组成",onfocus:"请输入1～100个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确"})
+	.inputValidator({min:1,max:100,onerror:"请输入1～100个字符，由汉字、数字、字母、符号组成"});
+	
+	$("#dataname").formValidator({onshow:"只能由英文字母、数字和下划线组成，并且仅能字母开头，不以下划线结尾 （如果“字段类型”选择“联动类型”，则“数据字段名”要填写对应联动菜单的“菜单标识”字段信息）",onfocus:"只能由英文字母、数字和下划线组成，并且仅能字母开头，不以下划线结尾 （如果数据类型是联动类型，该项应该填写联动类型的[组名称]。）"})
+	.regexValidator({regexp:"^(?![0-9_])(?!.*?_$)[a-zA-Z0-9_u4e00-u9fa5]+$",onerror:"只能由英文字母、数字和下划线组成，并且仅能字母开头，不以下划线结尾 （如果“字段类型”选择“联动类型”，则“数据字段名”要填写对应联动菜单的“菜单标识”字段信息）"})
+	.inputValidator({min:1,max:100,onerror:"只能由英文字母、数字和下划线组成，并且仅能字母开头，不以下划线结尾 （如果“字段类型”选择“联动类型”，则“数据字段名”要填写对应联动菜单的“菜单标识”字段信息）"})
+	.ajaxValidator({
+		type: "get",
+		url : "<!--{$baseurl}-->/modules/message/check?name="+$("#dataname").val()+"&modelid="+$("input[name=modelid]").val(),
+		success : function(data){
+	       if($("input[name='id']").val() != "")
+	       {
+	    	   return true;
+	       }
+           if( data == 1)
+           {
+			   return true;
+           }else{
+        	   return false;
+           }
+		},
+		buttons: $("#button"),
+		error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+		onerror : "数据字段已被使用",
+		onwait : "正在对用户名进行合法性校验，请稍候..."
+	  });
+     $("#minlength").formValidator({empty:true,onshow:"系统将在表单提交时检测数据长度范围是否符合要求，如果不想限制长度请留空",onfocus:"请输入数字类型值",onempty:"输入内容为空"}).functionValidator({
+		 fun: function (){
+			 if($("#minlength").val()=="输入最小值")
+	  		 {
+	  			return true; 
+	  		 }
+			 else
+			 {
+				 reg = new RegExp(/^(\d)*$/);
+				 if(reg.test($("#minlength").val()))
+				 {
+					 if(parseInt($("#maxlength").val())<parseInt($("#minlength").val()))
+					 {
+						 return '请确保输入小于最大值的数字';
+					 }
+				     return true;
+				 }
+				 else
+				 {
+					 return "请输入数字类型的值";
+				 }
+			 }	
+		 }
+	 });
+	 $("#maxlength").formValidator({onshow:" ",onfocus:"请确保输入大于最小长度的数字",empty:true,onempty:'输入内容为空'}).functionValidator({
+		 fun: function (){
+			 if($("#maxlength").val()=="输入最大值")
+	  		 {
+	  			return true; 
+	  		 }
+			 else
+			 {
+				 reg = new RegExp(/^(\d)*$/);
+				 if(reg.test($("#maxlength").val()))
+				 {
+					 if(parseInt($("#maxlength").val())<parseInt($("#minlength").val()))
+					 {
+						 return '请确保输入大于最小值的数字';
+					 }
+				     return true;
+				 }
+				 else
+				 {
+					 return "请输入数字类型的值";
+				 }
+			 }	
+		 }
+	 });
+	
+	 $('#pattern_select').bind('change',function(){
+		    var pval=$(this).val();
+			$('#pattern').val(pval);
+		});
+	
+	$(".cancel").click(function(){
+		window.location.href = "<!--{$baseurl}-->/modules/message/field/id/<!--{$modelid}-->/page/<!--{$page}-->/flag/<!--{$flag}-->";
+	})
+	
+	$("input[name='fieldinfo[fieldtype]']").click(function(){
+		
+		var flag = $(this).val();
+		
+		if (flag == 'editor' || flag == 'checkbox' || flag == 'linkage' || flag == 'select') {
+	
+			$(".issearch").attr('disabled',false);
+			$(".isnessary").attr('disabled',false);
+			$("#uniqueness").attr("checked",true);
+			$(".uniqueness").attr("disabled",true);
+		}else if (flag == 'file' || flag == 'files' || flag == 'textarea' || flag == 'datetime' || flag == 'image' || flag == 'images'){
+			
+			$(".isnessary").attr('disabled',false);
+			$("#uniqueness").attr('checked',true);
+			$("#unsearch").attr('checked',true);
+			$(".uniqueness").attr('disabled',true);
+			$(".issearch").attr('disabled',true);
+		}else if (flag == 'radio'){
+			
+			$(".issearch").attr('disabled',false);
+			$("#uniqueness").attr('checked',true);
+			$("#unnessary").attr('checked',true);
+			$(".uniqueness").attr('disabled',true);
+			$(".isnessary").attr('disabled',true);
+		}else if (flag == 'text' || flag == 'float' || flag == 'int') {
+			
+			$(".issearch").attr('disabled',false);
+			$(".isnessary").attr('disabled',false);
+			$(".uniqueness").attr("disabled",false);
+		}
+	});
+})
+</script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/message/field/id/<!--{$modelid}-->/flag/<!--{$flag}-->">字段管理</a></dd>
+            <dt class="on"><a href=""><!--{if $infor.id neq ''}-->修改<!--{else}-->添加<!--{/if}-->字段</a></dt>
+            <!--{if $flag eq 2}-->
+            <dd><a href="<!--{$baseurl}-->/modules/message/formBrowse/modelid/<!--{$modelid}-->/flag/<!--{$flag}-->" class="last">预览表单</a></dd>
+            <!--{/if}-->
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+             <form action="<!--{$baseurl}-->/modules/message/<!--{if $infor.id eq ''}-->addField<!--{else}-->editorField<!--{/if}-->/page/<!--{$page}-->" method="post" id='myform'>
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font>字段名称：</th>
+                  <td>
+                  <input type='hidden' value='<!--{$modelid}-->' name='modelid'>
+                  <input type='hidden' value="<!--{$infor.id}-->" name='id'>
+                  <input type="text" value="<!--{$infor.name}-->" class="Iw290" name='name' id='name'/>
+                  <span id='nameTip'></span></td>
+                </tr>
+                <tr>
+                  <th><font>*</font>数据字段名：</th>
+                  <td>
+                    <input type='hidden' value="<!--{$infor.dataname}-->" name='oldname'></input>
+                    <input type="hidden" value="<!--{$infor.dataname}-->" class="Iw290" name='dataname'/>
+                    <input type="text" value="<!--{$infor.dataname}-->" class="Iw290" name='dataname' id='dataname' <!--{if $infor.id neq ''}--> onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly <!--{/if}--> />
+                    <span id="datanameTip"></span>
+                    </td>
+                    
+                </tr>
+                <tr>
+                  <th>&nbsp;作为主表字段：</th>
+                  <td><span>
+                    <input type='hidden' value='<!--{$flag}-->' name='flag'>
+                    <input type="radio" name='ismain' value='1' <!--{if $infor.ismain eq 1}-->checked<!--{/if}--> <!--{if $infor.id}--> disabled<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='ismain'  value='2' <!--{if $infor.ismain neq 1}-->checked<!--{/if}--> <!--{if $infor.id}--> disabled<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+				<!--{if $infor.id eq ''}-->
+                <tr>
+                  <th valign="top"><font>*</font> 字段类型：</th>
+                  <td>
+                  <!--{foreach item=item key=key from=$fieldArr name=fieldArr}-->
+                  <!--{if !$key|in_array:$noShow}-->
+                    <ul>
+                    <li style='display:block;float:left;width:33%'><input type="radio" name="fieldinfo[fieldtype]" value='<!--{$key}-->' <!--{if $key eq 'text'}-->checked<!--{/if}-->/>
+                    <label><!--{$item}--></label>
+                    </li></ul>
+					<!--{if $smarty.foreach.fieldArr.iteration%3 eq 0}--><br><!--{/if}-->
+                    <!--{/if}-->
+                    <!--{/foreach}--></td>
+                </tr>
+				<!--{else}-->
+
+				<tr>
+                  <th valign="top"><font>*</font> 字段类型：</th>
+                  <td>
+                  <!--{foreach item=item key=key from=$fieldArr name=fieldArr}-->
+					<!--{if $key==$fieldInfo.fieldtype}-->                  
+                    <input type="radio" name="fieldinfo[fieldtype]" value='<!--{$key}-->' checked disabled/>
+                    <label><!--{$item}--></label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--{if $smarty.foreach.fieldArr.iteration%3 eq 0}--></br><!--{/if}-->
+                    <!--{/if}-->
+                    <!--{/foreach}--></td>
+                </tr>
+				<!--{/if}-->
+                <tr>
+                  <th valign="top">&nbsp;字段提示：</th>
+                  <td><textarea class="Iw450 Ih80" name='fieldtips' id='fieldtips'><!--{$infor.fieldtips}--></textarea>
+                    <span class="warnBlue">显示在字段别名下方作为表单输入提示</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp;默认值：</th>
+                  <td><textarea class="Iw450 Ih80" name='defaultvalue'><!--{$infor.defaultvalue}--></textarea>
+                    <span class="warnBlue">如果定义数据类型为下拉框、多选框、单选框时，此处填写被选择的项目(用";"分开，如"男;女")。</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp;字符长度取值范围：</th>
+                  <td>
+                    <input  type="text" tips="输入最小值" id='minlength' value="<!--{if $infor.minval neq '' && $infor.minval neq 0}--><!--{$infor.minval}--><!--{else}-->输入最小值<!--{/if}-->" class="Iw150 text-tips" name='minval' />
+                    <span id="minlengthTip"></span>
+                    <div class="height16"></div>
+                    <input type="text" tips="输入最大值" id='maxlength' value="<!--{if $infor.maxval neq '' && $infor.maxval neq 0}--><!--{$infor.maxval}--><!--{else}-->输入最大值<!--{/if}-->" class="Iw150 text-tips" name='maxval'/>
+                    <span id="maxlengthTip"></span>
+                    </td>
+                </tr>
+                <tr>
+                  <th>&nbsp;数据校验正则：</th>
+                  <td>
+                    <select class="Iw290" style="width:161px;" id='pattern_select'>
+                  	  <!--{foreach item=item key=key from=$arr}-->
+                      <option value="<!--{$item}-->" <!--{if $infor.regex eq $item}-->selected<!--{/if}-->><!--{$key}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    <input type="text" value="<!--{$infor.regex}-->" class="Iw290" id='pattern' name='regex'/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp;校验未通过的提示信息：</th>
+                  <td><input type="text" value="<!--{$infor.errortips}-->" class="Iw290" name='errortips' id="errortips"/>
+                     <span id="errortipsTip"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp;数据值是否唯一：</th>
+                  <td><span>
+                    <input type="radio" value='1'  name='uniqueness' class='uniqueness' <!--{if $infor.uniqueness eq 1}-->checked<!--{/if}--> id='unique' <!--{ if $infor.dataname eq 'title' || $infor.dataname eq 'username'}-->disabled<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" value='2' name='uniqueness' class='uniqueness' <!--{if $infor.uniqueness neq 1}-->checked<!--{/if}--> id="uniqueness" <!--{ if $infor.dataname eq 'title' || $infor.dataname eq 'username'}-->disabled<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp;是否必填：</th>
+                  <td><span>
+                    <input type="radio" value='1'  name='isnessary' class='isnessary' <!--{if $infor.isnessary eq 1}-->checked<!--{/if}--> id='nessary'/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" value='2' name='isnessary' class='isnessary' <!--{if $infor.isnessary neq 1}-->checked<!--{/if}--> id='unnessary'/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp;是否作为搜索条件：</th>
+                  <td><span>
+                    <input type="radio" value='1' name='issearch' class='issearch' <!--{if $infor.issearch eq 1}-->checked<!--{/if}--> id='search'/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" value='2' name='issearch' class='issearch' <!--{if $infor.issearch neq 1}-->checked<!--{/if}--> id='unsearch'/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

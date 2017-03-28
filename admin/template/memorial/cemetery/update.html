@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"  title="basc"/>
+<link href="<!--{$csspath}-->/bascB.css" rel="alternate stylesheet" type="text/css" title="bascB"/>
+<link href="<!--{$csspath}-->/bascG.css" rel="alternate stylesheet" type="text/css" title="bascG"/>
+<link href="<!--{$csspath}-->/bascR.css" rel="alternate stylesheet" type="text/css" title="bascR"/>
+
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--{include file='public/baseurl.html'}-->
+
+<script type="text/javascript" src="<!--{$jspath}-->/styleswitch.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidator.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script src="<!--{$jspath}-->/floatcheck.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+
+<script src="<!--{$jspath}-->/city.js"></script>
+
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+<style type="text/css">
+    .pic{width: 15px; height: 15px;position: relative;left: -22px; top: -1px;
+    display: inline-block; cursor: pointer;}
+    .pic img{width: 15px; height: 15px;}
+</style>
+<body>
+    <div class="pubBox" >
+        <div class="pubtabBox">
+<script type="text/javascript">
+    $(function(){
+        $(".b").addClass("on");
+    })
+</script>
+        <!--{include file="public/cemetery_public.html"}-->
+ <script type="text/javascript">
+         $(function(){
+ var baseUrl = "<!--{$baseurl}-->/memorial/hall/area";
+  $("#originp,#brithp,#diedp").change(function(){
+    var va = $(this).val();
+    var idConn = $(this).attr("date-city");
+    //alert(idConn);
+    $.get(baseUrl,{id:va},function(date){
+      $("#"+idConn).html(date);
+    },"html");
+  });
+ })
+      </script>
+            <form action='<!--{$baseurl}-->/memorial/cemetery/update' method='post' name=form1 id='myform'>
+                <div class="TabBoxC">
+                    <div>
+                        <div class="pubTabel">
+                            <table class="tabelLR">
+                               <tr>
+                                    <th valign="top">&nbsp;&nbsp;<font>*</font>陵园照片：</th>
+                                    <td>
+                                     
+                                        <div id="img-adta-0" style="display:none"></div>
+                                        <img class="mt5" src="/static/uploadfile<!--{$updata.photo_url}-->" id="img0" onclick="uploadAccessory({'upload_id':'0','limit':'2','_switch':'ad_img','ady_upload':'1','img_data_id':'img-adta-0','img_id':'img0','hid_id':'hid0'})" width="110" height="86" style="cursor:pointer">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园名称：</th>
+                                    <td>
+                                        <input type="text" value="<!--{$updata.title}-->" class="Iw290" name='title' id='name'/>&nbsp;<span id='nameTip'></span>
+                                    </td>
+                                </tr>
+
+                            <tr>
+                                    <th>&nbsp;籍贯：</th>
+                                    <td>
+                                    <select name="province" id="originp" date-city="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $area $v}-->
+                                      <option value="<!--{$v.area_id}-->" 
+                                        <!--{if $updata.province eq $v.area_id}-->selected<!--{/if}-->
+                                      ><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <select name="city" id="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $originInfo $v}-->
+                                      <option value="<!--{$v.area_id}-->" 
+                                            <!--{if $updata.city eq $v.area_id}-->selected<!--{/if}-->
+                                      ><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    </td>
+                            </tr>
+
+                                 <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园地址：</th>
+                                    <td>
+                                        <input type="text" value="<!--{$updata.address}-->" class="Iw290" name='address' id='personname'/>&nbsp;<span id='personnameTip'></span>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th width="180px">&nbsp;&nbsp;<font>*</font>陵园电话：</th>
+                                    <td>
+                                        <input type="text" value="<!--{$updata.tel}-->" class="Iw290" name='tel' id='personname'/>&nbsp;<span id='personnameTip'></span>
+                                    </td>
+                                </tr>
+                                   <th width="180px">&nbsp;&nbsp;<font>*</font>陵园摘要：</th>
+                                    <td>
+                                        <textarea style="width: 288px; height: 50px;" name="summary"><!--{$updata.summary}--></textarea>
+                                    </td>
+                                </tr>
+                                </tr>
+                                   <th width="180px">&nbsp;&nbsp;<font>*</font>发布状态：</th>
+                                    <td>
+                                       <select name="status">
+                                         <option value="1" <!--{if $updata.status eq 1}-->selected=''<!--{/if}-->
+                                         >发布</option>
+                                         <option value="2" <!--{if $updata.status eq 2}-->selected=''<!--{/if}-->
+                                         >不发布</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <input type="hidden" name="id" value="<!--{$updata.id}-->">
+                              </table>
+                            <div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ <script>
+ /*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+var _acc_option=
+{
+    upload_id:'accessory_upload',
+    title:'附件上传',
+    return_id:'accessory',
+    callFunName:'accessoryUpload',
+    setting:'<!--{$picsetting}-->',
+    param:{}
+};
+
+function uploadAccessory (obj)
+{   
+    _acc_option.param = obj;
+    MainOneUpload(_acc_option);//调用统一上传方法
+}
+
+ </script>
+
+ <!-- 删除轮播图ajax -->
+ <script type="text/javascript">
+    $(function(){
+         $(".pic").click(function(){
+        var id = $(this).attr('data');
+        var idx = layer.confirm('确认删除吗', {
+            btn: ['确认','取消'] //按钮
+                        }, function(){
+                            $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/cemetery/delpic",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        $('.del_'+id).remove();
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        }, function(){
+                         layer.close(idx);
+            });
+    });
+    });
+     
+ </script>
+</body>
+</html>

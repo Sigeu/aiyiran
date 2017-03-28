@@ -1,0 +1,80 @@
+<link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+		<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+
+
+    {include 'member/head_left.html'}
+			<div class="conRig_yc">
+				<h3 class="dwH3_yc">纪念祭文</h3>
+				<div class="mt20"><a href="/member/memorial/eulogyAdd/mid/{$mid}" class="btnCom_yc"><i></i>添加</a></div>
+				<table class="table_yc">
+					<thead>
+						<tr>
+							<td><span>标题名称</span></td>
+							<td><span>分类名称</span></td>
+							<td><span>发布时间</span></td>
+							<td><span>操作</span></td>
+						</tr>
+					</thead>
+					<tbody>
+					{foreach $lists $k $v}
+						<tr>
+							<td><span>{$v['ename']}</span></td>
+							<td><span>
+							{foreach $catList $k $c}
+								{if $v['cid'] ==$c['id']}{$c['name']}{/if}
+							{/foreach}
+							</span></td>
+							<td><span>{$v['createtime']}</span></td>
+							<td>
+								<a href="/member/memorial/eulogyUpdate/mid/{$mid}/id/{$v['id']}">修改</a>
+								<a href="javascript:;" class="delEulogy" data="{$v['id']}"> | 删除</a>
+							</td>
+						</tr>
+					{/foreach}
+					</tbody>
+				</table>
+				<div class="pageF_yc">
+					{$pagestr}
+				</div>
+			</div>
+		</div>
+		<div class="wrapS03_yc jbFT_yc">
+			<p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+		</div>
+	</body>
+		<script type="text/javascript" src="/template/default/member/js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="/template/default/member/js/html5shiv.js" ></script>
+		<script type="text/javascript" src="/template/default/member/js/common.js" ></script>
+
+<script>
+    $(function () {
+        $(".delEulogy").click(function () {
+            var $this=$(this);
+
+            var id = $(this).attr('data');
+            layer.confirm('确认删除吗？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $.ajax({
+                    type: "Post",
+                    url: "/member/memorial/eulogyDel",
+                    data: {'id':id},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.status == 1) {
+                            layer.msg(data.msg, {icon: 1, offset: '40%'},function(){
+                                $this.parent().parent().remove();
+                            });
+                        }else{
+                            layer.msg(data.msg, {icon: 2, offset: '40%'});
+                        }
+                    }
+                });
+            }, function(){
+                layer.closeAll();
+            });
+
+        });
+    });
+</script>
+</html>

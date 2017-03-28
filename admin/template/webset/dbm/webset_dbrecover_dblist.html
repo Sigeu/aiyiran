@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+ <div class="pubBox" style="height:auto;min-height:0px">
+      <div class="pubtabBox" >
+        <div class="TabBoxC">
+          <div>
+			<form method="post" id="backup-form" action="javascript:;" enctype="multipart/form-data">
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="10%">选择</th>
+                  <th width="30%">文件名</th>
+                  <th width="30%">大小</th>
+                  <th width="30%">备份时间</th>
+                </tr>
+				<!--{foreach from=$file_list item=l}-->
+				 <tr>
+                  <td><input type="radio" name="file_name" value="<!--{$l.file_dir}-->@<!--{$l.file_name}-->" /></td>
+                  <td><!--{$l.file_name}--></td>
+                  <td><!--{$l.file_size}-->K</td>
+                  <td><!--{$l.filec_time}--></td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+            </div>
+		   </form>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div class="clearfix"></div>
+</body>
+</html>

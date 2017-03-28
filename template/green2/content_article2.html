@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+
+<div class="wrap">
+  <div class="sideBar1">
+    {include 'category3.html'}
+
+    <div class="advertL">
+      <div id="add"><a href="#"><img src="{IMG_PATH}/advert1.png" width="245" height="102"></a><a href="#"><img  src="{IMG_PATH}/advert2.png" width="245" height="101"></a></div>
+      <div id="btn"></div>
+    </div>
+    <div class="bg_grayL"> <a href="{HOST_NAME}category/Category/list/cid/{$Treeid}" class="moreL">更多>></a> <span class="h_grayL">热门文章</span>
+      <ul class="arrow_ulL">
+		{mo:articlelist row="12" cid="$Treeid" type='son' order="hits desc" return="data"}
+        	{foreach $data $k $v}
+			{if $lastIndex}
+				<li class="last"><a href="{$v['url']}">[{$v['catname']}] {$v['title']}</a></li>
+			{else}
+				<li><a href="{$v['url']}">[{$v['catname']}] {$v['title']}</a></li>
+			{/if}
+            {/foreach}
+		 {/mo:articlelist}
+	  </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="box_detail">
+        <h1>{$content['title']}</h1>
+        <div class="bg_line"></div>
+        <p class="publish_time">发表日期：{date('Y-m-d',$content['publishtime'])} 作者：{$content['username']},来源：{$content['source']}副标题：{$content['subtitle']}</p>
+        <div class="detail_con">
+          <div class="img_wrapper"><img style='width:500px;height:360px;' src="{UPLOAD_PATH}/{$content['thumb']['src']}" alt="" title="" onerror="this.src='{IMG_PATH}/default.jpg'"/></div>
+          <p class="sj">{$content['content']}</p>
+          {if get_mo_config('mo_arcautosp')=='Y'}<div class="page"><a href="{$prepageurl}" >上一页</a><a  href="{$nextpageurl}">下一页</a></div>{/if}
+        </div>
+           <p>相关热词搜索：{$content['keywords']}</a></p><br>		
+			上一篇：{$preContent}<Br>下一篇：{$nextContent}
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

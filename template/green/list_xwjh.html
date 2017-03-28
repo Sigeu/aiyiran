@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'} 
+
+<div class="wrap">
+  <div class="l w245">
+    {include 'category.html'}
+
+    <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+    <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">北京娱论</span>
+      <ul class="arrow_ulL">
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		<li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li><a href="#">多几个崔永元 多几个正能量</a></li>
+        <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="r w744">
+    <div class="Greyborder mb10" style="padding-bottom:8px;">
+      <div class="title">
+        <div class="t_name"><span class="tit_green">{cid2name($cid)}</span><span class="tit_en">Household electrical appliances</span></div>
+      </div>
+      <div class="box_con">
+        <div class="gList_three">
+          <ul>
+            {mo:goods pagesize="20" cid='$cid' return='data'}
+            {foreach $data $k $v}
+            <li><a href="{$v['url']}" class="picBox"><img src="{UPLOAD_PATH}/goods/{$v['image'][0]}" width="173" height="173" /></a>
+              <div class="tt">
+                <p><a href="{$v['url']}">{$v['goodsname']}</a></p>
+                <p><cite>{$v['shopprice']}</cite>元</p>
+              </div>
+            </li>
+			{/foreach}
+            {/mo:goods}
+          </ul>
+        </div>
+        <div class="pages">
+          {$pagestr}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

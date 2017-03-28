@@ -1,0 +1,28 @@
+
+                    {foreach $mybox $k $v}
+                        <!-- 如果祭品有纪念馆所属 -->
+                        {if $v['place']==2}
+                        <li  goods_id="{$v['goods_id']}" mid="{$mid}" onclick="fangzhi({$v['goods_id']},{$mid});">
+                            
+                        <a href="javascript:;">
+                        {else}
+                        <li goods_id="{$v['goods_id']}" mid="{$mid}" >
+                        <a href="javascript:;" style="cursor: default;">
+                        {/if}
+                                <span><img src="{$v['pic']}" width="120" height="120" /></span>
+                                <h3>{$v['gname']}</h3>
+                                <p class="jb_who">
+                                    {if $v['place']!=2}
+                                        已摆放到{$v['name']}纪念堂
+                                        <p class="reman" id="conn_">剩余时间：{$v['end_time']}</p>
+                                    {else}
+                                        未摆放
+                                    {/if}
+                                </p>
+
+                                <!-- <p class="reman">剩余时间：22天22小时55分钟26秒</p> -->
+                            </a>
+                        </li>
+                    {/foreach}
+
+

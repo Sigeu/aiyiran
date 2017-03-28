@@ -1,0 +1,85 @@
+/********************************纪念馆管理--传记管理**********************************/
+.ediUl_yc{margin-top:20px;}
+.ediUl_yc li{margin-bottom: 15px;font-size: 14px;color:#666;}
+.spanT_yc{display: inline-block;width:70px;margin-right:5px;text-align: right;}
+.inputCom_yc{width:236px;padding-left:12px;height: 38px;line-height:38px;border:1px solid #ddd;font-family: "微软雅黑";}
+.ediBox_yc{width:600px;height: 400px;margin-bottom:30px;border:1px solid #ddd;text-align: center;line-height: 400px;}
+.baoc_yc{clear: both;margin-left:75px;}
+
+/********************************纪念馆管理--纪念祭文管理**********************************/
+.radIn_yc{margin-right:8px;vertical-align: middle;}
+.jinSt_yc{margin-left:10px;}
+.slCom_yc{width:250px;padding-left:12px;height: 38px;line-height:38px;border:1px solid #ddd;font-family: "微软雅黑";font-size: 14px;color:#666;}
+.ediUl_yc li.matb{margin-top:20px;margin-bottom:25px;}
+
+/********************************纪念馆管理--逝者资料管理**********************************/
+.deadList_yc{margin-top:20px;}
+.deadList_yc li{margin-bottom: 15px;font-size: 14px;color:#666;}
+.deadS_yc{display: inline-block;width:90px;text-align: right;}
+.deadS_yc i{color:#e81c2e;}
+.ftx_yc{width:90px;height: 90px;vertical-align: middle;}
+.txBtn_yc{display: inline-block;padding:8px;border:1px solid #c1c1c1;border-radius: 3px;font-size: 12px;color:#666;}
+.deadSel_yc{padding-left:12px;height: 40px;border:1px solid #d5d5d5;font-family: "微软雅黑";font-size: 14px;color:#666;}
+.deadSel01_yc{width:440px;}
+.deadSel02_yc{width:120px;}
+.deadSel03_yc{width:100px;}
+.deadSel04_yc{width:80px;}
+.deadIn_yc{padding-left:12px;height: 38px;line-height:38px;border:1px solid #d5d5d5;font-family: "微软雅黑";font-size: 14px;color:#666;}
+.deadIn01_yc{width:426px;}
+.deadIn02_yc{width:166px;}
+.texta_yc{width:414px;padding:12px;height:104px;border:1px solid #d5d5d5;font-family: "微软雅黑";font-size: 14px;color:#666;overflow: hidden;overflow-y: auto;vertical-align: top;}
+.texta2_yc{height:154px;}
+.demoBox_yc{margin-left:10px;}
+.demoBox_yc p{width:148px;height: 38px;margin-bottom:10px;border:1px solid #d7d7d7;background: #f0f0f0;text-align: center;line-height: 38px;}
+.demoBox_yc dl{width:148px;height:116px;border:1px solid #d7d7d7;padding:6px 0;overflow: hidden;overflow-y: auto;}
+.demoBox_yc dl dd{line-height:30px;padding-left:13px;cursor:pointer;}
+.demoBox_yc dl dd:hover{background: #ddd;}
+.deadBtn_yc{margin-left:94px;padding-top: 5px;}
+
+/********************************纪念馆管理--隐私设置**********************************/
+.privacy_yc{padding:30px 0 30px 30px;border:1px solid #d5d5d5;margin-top:20px;}
+.privacy_yc label{display: block;margin-bottom: 30px;font-size: 14px;color:#666;}
+.privacy_yc label input{margin-right: 10px;}
+
+/********************************纪念馆管理--个人资料**********************************/
+.xingSt i{color:#e81c2e;}
+
+/********************************资金管理--充值记录************************************/
+.moneyDl{margin-bottom:20px;}
+.moneyDl dd{height: 38px;margin:0 20px;font-weight: bold;font-size: 14px;color:#333;line-height:38px;}
+.moneyDl dd em{font-weight: bold;}
+.greenS{color:#10cd8f;}
+.timeBox{margin-top:20px;}
+.timeBox span{font-size: 14px;color:#666;}
+.timeBox strong{position: relative;display: inline-block;}
+.moneyIn{width:168px;height: 30px;border:1px solid #ddd;padding-left:10px;line-height: 30px;font-family: "微软雅黑";font-size: 14px;color:#666;}
+.timeIcon{position:absolute;top:7px;right:7px;display: inline-block;width:18px;height: 18px;background: url(../images/icon_yc.png) no-repeat 0 -520px;cursor: pointer;}
+.timeA{color:#f24343;font-size: 14px;}
+
+/********************************资金管理--在线充值************************************/
+.zhP{margin:25px 0;font-size: 14px;color:#666;}
+.ybUl li{float:left;margin:0 15px 20px 0;}
+.ybBox{position: relative;border:1px solid #ddd;cursor: pointer;}
+.ybXZ{display:none;position: absolute;top:-13px;right:-11px;width:32px;height: 32px;background: url(../images/icon_yc.png) no-repeat 0 -544px;}
+.ybImg{width:238px;height: 288px;}
+.ybImg img{width:100%;}
+.ybBox.active{border:1px solid #10cd8f;}
+.ybBox.active .ybXZ{display: block;}
+.notice{font-size: 14px;color:#666;height: 58px;border:1px solid #ffca6f;background: #fffce7;line-height: 58px;padding-left:20px;}
+.notice span{margin-right:20px;color:#ff0000;font-weight: bold;}
+.payBox{margin-top:20px;}
+.payP{margin-bottom:20px;font-size: 14px;color:#666;}
+.hankDl{margin-bottom:20px;}
+.hankDl dd{position: relative;float:left;margin-right: 10px;border:1px solid #ddd;}
+.hankDl dd a{display: block;width:168px;height: 48px;background: #f8f8f8;}
+.hankDl dd.active,.hankUl li.active{border:1px solid #ffca6f;}
+.hankDl dd.active a{background: #fff;}
+.hankA{font-size: 14px;color:#666;text-align: center;line-height: 48px;}
+.zfbA img{width: 100%;}
+.xzI{display:none;position: absolute;bottom:0;right:0;width:23px;height:17px;background: url(../images/icon_yc.png) no-repeat -60px 0;}
+.hankDl dd.active .xzI,.hankUl li.active .xzI{display: block;}
+.hankUl{display: none;width:840px;margin-bottom: 10px;}
+.hankUl li{position: relative;float:left;border:1px solid #e6e6e6;margin:0 10px 10px 0;}
+.hankUl li a{display: block;width:198px;height: 48px;}
+.hankUl li a img{width:100%;}
+

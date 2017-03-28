@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<SCRIPT src="{JS_PATH}/topbanner.js"></SCRIPT>
+</head>                       
+<body>
+ {include 'enhead.html'}
+ <div class="banner"> 
+
+<script>
+
+$(function(){
+   $('#bSlider').loopedSlider({
+	  autoStart: 4000
+	  });
+	  
+	  	$("textarea.Iw450").focus(function(){
+	  if($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == 'Please input the content of this, we will give you a reply at the first time! Thank you.'){
+		  $("textarea.Iw450").val('');
+		  $("textarea.Iw450").css("color","#222");
+	  }
+	});
+	$("textarea.Iw450").blur(function(){
+		if ($("textarea.Iw450").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("textarea.Iw450").val('Please input the content of this, we will give you a reply at the first time! Thank you.！');
+			$("textarea.Iw450").css("color","#999");
+		}
+	});
+
+});</script>
+  <div id="bSlider">
+    <div class="ulImg">
+      <ul class="slides">
+      {mo:position id='74' row='3' return='hot_other'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}" title="{$value['pos_info']}"><img {if $value['info']['thumb']=='' } src="{IMG_PATH}/defimg.png" {else} src="{UPLOAD_PATH}/{$value['info']['thumb']['src']}" {/if} width="226" height="100"/></a></li>
+	{/foreach}
+    {/mo:position} 
+      </ul>
+    </div>
+    <ul class="pagination">
+      {mo:position id='74' row='3' return='hot_other'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}">{$value['headline']}</a></li>
+	{/foreach}
+    {/mo:position} 
+    </ul>
+  </div>
+</div>
+<div class="notice"><span class="bg_spanL"></span><span class="bg_spanR"></span><strong>Notice:</strong>
+  <ul class="sttongg">
+  {mo:articlelist cid='296' type='all' row='8' return='data'}
+    {foreach $data $k $v}
+  <li><a href="{$v['url']}">{$v['title']}</a></li>
+    {/foreach} 
+   {/mo:articlelist}
+  </ul>
+  <ul class="swap">
+  </ul>
+</div>
+<div class="wrap">
+  <div class="L">
+    <div class="pubMod">
+      <div class="T"><span class="more"><a href="{getMoreUrl(296)}">More+</a></span>
+        <h3>{cid2name(296)}</h3>
+      </div>
+      <div class="C">
+      {mo:articlelist cid='296' type='all' row='3' order='mid desc' return='data'}
+			{foreach $data $k $v}
+            <div class="trendpt">
+              <div class="trendp"><a href="{$v['url']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="94" height="94" alt="{if $v['thumb']['alt']!=''}{$v['thumb']['alt']}{else}{$v['title']}{/if}"/></a></div>
+              <dl class="trendt">
+                <dt><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],50)}</a></dt>
+                <dd>{csubstr($v['description'],200)} <a href="{$v['url']}"  onClick="view(this);">Details>></a></dd>
+              </dl>
+            </div>
+			{/foreach}
+			{/mo:articlelist}
+      </div>
+    </div>
+  </div>
+  <div class="R">
+    <div class="pubMod">
+      <div class="T"><span class="more"><a href="{getMoreUrl(297)}">More+</a></span>
+        <h3>{cid2name(297)}</h3>
+      </div>
+      <div class="C">
+        <div class="bigImgSlid"><a href="javascript:void(0);" title="Prve" id="prve"></a><a href="javascript:void(0);" title="Next" id="next"></a>
+          <div class="bigSlidUl">
+            <ul id="photoUl" style="position:absolute;left:0;">
+            {mo:articlelist cid='297' type='all' row='5' return='data'}
+			{foreach $data $sonk $sonv}
+            <li><a href="{$sonv['url']}"><img src="{UPLOAD_PATH}/{$sonv['thumb']['src']}" width="304" height="199" alt="{if $sonv['thumb']['alt']!=''}{$sonv['thumb']['alt']}{else}{$sonv['title']}{/if}"/></a></li>
+			{/foreach}
+		    {/mo:articlelist}
+             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="kefu">
+      <p class="p1">24 hour service hotline</p>
+      <p class="p2">400-800-0606</p>
+    </div>
+  </div>
+  <div class="picpic">
+    <ul>
+    {mo:position id='75' return='hot_other' row='4'}
+     {foreach $hot_other $k $value}
+    <li><a href="{$value['info']['url']}" title="{$value['pos_info']}"><img {if $value['info']['thumb']=='' } src="{IMG_PATH}/defimg.png" {else} src="{UPLOAD_PATH}/{$value['info']['thumb']['src']}" {/if} width="226" height="100"/></a><span><a href="{$value['info']['url']}">{$value['headline']}</a></span></li>
+	{/foreach}
+    {/mo:position} 
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="bt">
+  <div class="aboutUs">
+    <div class="boxOne"><strong>{cid2name(295)}</strong>
+      <p>{mo:article id='505' return='content'}
+        {csubstr($content['content'],'620')}
+        {/mo:article}</p>
+      <p style="text-align:right;"><a href="{$content['url']}" class="grayBtn1">MORE</a></p>
+    </div>
+    <div class="boxTwo">
+        <form action='/message/Message/add' id="messageForm" method='post'>
+<input type='hidden' name='modelid' value="284"/>
+  <table width="100%" cellpadding="0" class="homeform" cellspacing="0">
+	 <input type='hidden' name='lang' value="en"/>
+      {php $hasYzm = hasYzm('mo_captcha_message');}
+      {php $ContentForm = new MessageForm(284);}
+	  {php $form = $ContentForm->get(1,284);}
+	  {php $formvalidator = $ContentForm->formValidator;}
+      {foreach $form $key $v}
+	    {$v}
+	  {/foreach}
+    <tr>
+      <td colspan="4" align="right" class="valign">{if $hasYzm=true}
+      <input type="text" name='code' id='code' class="input131_24" />
+          <img src="{HOST_NAME}/static/js/securimage/yzm.php" old-src="{HOST_NAME}/static/js/securimage/yzm.php" id='yzm' width="60" height="24" class="yzm captcha"/>&nbsp;<a href="javascript:void(0)"  onclick='refreshAuthcode()' class="msgLink captcha">Refresh</a>
+	  {/if}&nbsp;&nbsp;<input type="button" class="grayBtn1" onclick="submitCheck();" value="Submit" /></td>
+    </tr>
+  </table>
+  </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+function refreshAuthcode ()
+{
+    var authcode = jQuery('#yzm');
+    var old_src = authcode.attr('old-src');
+    authcode.attr('src',old_src+'?'+Math.random());
+}
+
+function b(){	
+	t = parseInt(x.css('top'));
+	y.css('top','35px');	
+	x.animate({top: t - 35 + 'px'},'slow');	
+	if(Math.abs(t) == h-35){ 
+		y.animate({top:'0px'},'slow');
+		z=x;
+		x=y;
+		y=z;
+	}
+	setTimeout(b,6000);
+}
+$(function(){
+	$('.swap').html($('.sttongg').html());
+	x = $('.sttongg');
+	y = $('.swap');
+	h = $('.sttongg li').length * 35; 
+	setTimeout(b,6000);
+})
+</script> 
+<script>
+ $.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+function submitCheck()      
+{
+	if($('#code').val()=='')
+	{
+		alert("Verification code is empty, please fill in the correct verification code！");
+	}
+	else
+	{
+		$('#messageForm').submit();
+	}
+}
+</script>
+{include 'enfooter.html'}
+ <script src="{JS_PATH}/bigphoto.js"></script> 
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>

@@ -1,0 +1,207 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#attrname").formValidator(
+	{
+		onshow:"请输入1至20个字符",
+		onfocus:"请输入1至20个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:1,
+		max:20,
+		onerror:"请输入1至20个字符"
+	});
+
+	$("#minvalue").formValidator(
+	{
+		onshow:" ",
+		onfocus:"请输入数字",
+		oncorrect:"输入正确",
+		onempty:'输入内容为空',
+		empty:true
+	}).inputValidator(
+	{
+		min:0,
+		max:5,
+		onerror:"最小值长度错误"
+	}).regexValidator(
+	{
+		regexp:["num1"],
+		datatype:"enum",
+		onerror:"请输入整数"
+	});
+
+	$("#maxvalue").formValidator(
+	{
+		onshow:" ",
+		onfocus:"请输入数字",
+		oncorrect:"输入正确",
+		onempty:'输入内容为空',
+		empty:true
+	}).inputValidator(
+	{
+		min:0,
+		max:5,
+		onerror:"最大值长度错误"
+	}).regexValidator(
+	{
+		regexp:["num1"],
+		datatype:"enum",
+		onerror:"请输入整数"
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var min_val = parseInt($('#minvalue').val());
+			val = parseInt(val);
+			if (min_val > val)
+			{
+				return '最大值必须大于最小值';
+			}
+			if ((min_val == val) && (val != 0))
+			{
+				return '最大值和最小值不能相等';
+			}
+			return true;
+		 }
+	});
+
+	$("#defaultvalue").formValidator(
+	{
+		onshow:" ",
+		onfocus:"请输入默认值",
+		oncorrect:"输入正确"
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var attrname = $('input:radio:checked').val();
+			if (attrname == '4' || attrname == '5' || attrname == '6')
+			{
+				if($.trim($('#defaultvalue').val()) == '')
+					return '请填写默认值';
+			}
+			return true;
+		 }
+	});
+
+	//唯一值和搜索条件状态设置
+	jQuery('#field-type :radio').bind('click',function()
+	{
+		var _this = jQuery(this); //当前单选按钮
+		var _val = _this.val();   //当前单选按钮的值
+		if((_val == 3) || (_val == 4) || (_val == 5) || (_val == 6))
+		{
+			jQuery('#uniqueness :radio').attr('disabled','disabled');
+			jQuery('#uniqueness :radio:eq(1)').attr('checked','checked');
+		}
+		else
+		{
+			jQuery('#uniqueness :radio').removeAttr('disabled');
+		}
+
+		if((_val == 3))
+		{
+			jQuery('#issearch :radio').attr('disabled','disabled');
+			jQuery('#issearch :radio:eq(1)').attr('checked','checked');
+		}
+		else
+		{
+			jQuery('#issearch :radio').removeAttr('disabled');
+		}
+	});
+
+	var fide_type = "<!--{$info.fieldtype}-->";
+	var fide_index = parseInt(fide_type)-1;
+	jQuery('#field-type :radio:eq('+fide_index+')').click();
+});
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">修改字段</a></dt>
+          </dl>
+        </div>
+		<form method="post" id="formid" action="<!--{$baseurl}-->/modules/goodsfield/edit" enctype="multipart/form-data">
+		<input type="hidden" name="attrid" value="<!--{$info.attrid}-->" />
+		<input type="hidden" name="typeid" value="<!--{$info.typeid}-->" />
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font> 字段名称：</th>
+                  <td><input type="text" value="<!--{$info.attrname}-->" name="attrname" id="attrname" class="Iw290"/></td>
+                </tr>
+                <tr>
+                  <th valign="top"><font>*</font> 字段类型：</th>
+                  <td  id="field-type">
+				    <span><input type="radio" name="fieldtype" value="1" <!--{if $info.fieldtype eq 1}-->checked<!--{/if}-->/><label>单行文本</label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><input type="radio" name="fieldtype" value="2" <!--{if $info.fieldtype eq 2}-->checked<!--{/if}-->/><label>多行文本</label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><input type="radio" name="fieldtype" value="3" <!--{if $info.fieldtype eq 3}-->checked<!--{/if}-->/><label>HTML文本</label></span><br />
+					<span><input type="radio" name="fieldtype" value="4" <!--{if $info.fieldtype eq 4}-->checked<!--{/if}-->/><label>单选框</label></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><input type="radio" name="fieldtype" value="5" <!--{if $info.fieldtype eq 5}-->checked<!--{/if}-->/><label>多选框</label></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><input type="radio" name="fieldtype" value="6" <!--{if $info.fieldtype eq 6}-->checked<!--{/if}-->/><label>下拉框</label></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				  </td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 字段提示：</th>
+                  <td><textarea class="Iw450 Ih80" name="fieldtips"><!--{$info.fieldtips}--></textarea>
+                    <span class="warnBlue">显示在字段别名下方作为表单输入提示</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 默认值：</th>
+                  <td><textarea class="Iw450 Ih80" name="defaultvalue" id="defaultvalue"><!--{$info.defaultvalue}--></textarea>
+                    <span class="warnBlue">如果定义数据类型为下拉框、多选框、单选框时，此处填写被选择的项目(使用英文逗号隔开)。</span></td>
+                </tr>
+                <tr>
+                  <th valign="top">&nbsp; 字符长度取值范围：</th>
+                  <td>
+					<div>
+					<span><input type="text" value="<!--{if $info.minvalue}--><!--{$info.minvalue}--><!--{/if}-->" name="minvalue" class="Iw150" id="minvalue"/>
+                    </span><span class="warnBlue">系统将在表单提交时检测数据长度范围是否符合要求，如果不想限制长度请留空</span>
+					</div>
+                    <div class="height16"></div>
+                    <input type="text" value="<!--{if $info.maxvalue}--><!--{$info.maxvalue}--><!--{/if}-->" name="maxvalue" class="Iw150" id="maxvalue"/></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 数据值是否唯一：</th>
+                  <td id="uniqueness"><span>
+                    <input type="radio" name="uniqueness" value="1" <!--{if $info.uniqueness eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="uniqueness" value="2" <!--{if $info.uniqueness eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 是否作为搜索条件：</th>
+                  <td id="issearch"><span>
+                    <input type="radio" name="issearch" value="1" <!--{if $info.issearch eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="issearch" value="2" <!--{if $info.issearch eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.go(-1);" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+		</form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{foreach $dian $k $v}
+                        <li data="{$v['id']}" mid="{$mid}">
+                            <a href="###">
+                            <img src="{$v['pic']}" />
+                            <h4>{$v['gname']}</h4>
+                            <p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+                            </a>
+                            <div class="goods_info">
+                                <h3>{$v['gname']}</h3>
+                                <p>{$v['summary']}</p>
+                                <span>价格：{$v['price']}元宝</span>
+                                <em>时效：{$v['gtime']}天</em>
+                            </div>
+                        </li>
+                        {/foreach}

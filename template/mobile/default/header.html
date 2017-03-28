@@ -1,0 +1,50 @@
+<!--手机站头部-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8"/>
+  <!--seo信息 begin-->
+  <title>{$seo['title']}</title>
+  <meta name="keywords" content="{$seo['keywords']}" />
+  <meta name="description" content="{$seo['description']}" />
+  <!--seo信息 end-->
+  <meta name="viewport" content="width=device-width,user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="email=no">
+  <link rel="stylesheet" type="text/css" href="{CSS_PATH}/style.css"/>
+  <!--[if IE]><link rel="stylesheet" type="text/css" href="{CSS_PATH}/style_ie.css"/><![endif]-->
+  <script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script>
+  <script type="text/javascript" src="{JS_PATH}/logo_fix_height.js"></script>
+</head>
+<body>
+  <!--header begin-->
+  <div class="header">
+    <div class="header_logo">
+        <span>
+            <a href="{URL_HOST}mobile">
+                {php $imgpath = HOST_NAME . 'admin/template/images';}
+                <img src="{$base_set['logo']}" onerror="javascript:this.src='{$imgpath}/default_logo.png';"/>
+            </a>
+            <a href="{URL_HOST}mobile">{$base_set['name']}</a>
+        </span>
+    </div>
+  </div>
+  <!--header end-->
+  <!--导航 begin-->
+  <div class="navbar">
+    <a href="{URL_HOST}mobile" class="home {if $hid==0}on{/if}">
+        <img src="{IMG_PATH}/nav_home.png" />
+    </a>
+    <div class="nav">
+      <ul>
+      {foreach $header_set $k $v}
+        <li>
+            <a href="{$v['url']}" class="{if $v['cid']==$hid}on{/if}">{$v['title']}</a>
+        </li>
+      {/foreach}
+      </ul>
+    </div>
+  </div>
+  <!--导航 end-->

@@ -1,0 +1,10 @@
+<div class="foot">
+  <p>
+      {mo:articlelist cid='53' type='all' row='4' order='id' return='data'}
+      {foreach $data $k $v}
+      <a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a>|
+      {/foreach}
+      {mo:articlelist}
+      <a href="/message/Message/index/id/283" title="意见和建议">意见和建议</a>|<a  href="{HOST_NAME}category/Category/index/cid/289" title="网站地图">网站地图</a></p>
+  <p class="copy">{powerby()} | {beian()}</p>
+</div>

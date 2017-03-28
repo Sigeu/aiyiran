@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"  src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/pubJq.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="<!--{$baseurl}-->/members/level/index">级别列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/members/level/add" class="last">添加级别</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$baseurl}-->/members/level/index" method="get" id="myForm" name="myForm">
+            <input type="hidden" id="page" name="page" value="<!--{$pageInfo.page}-->" />
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$searchInfo.keyword}-->" class="Iw290 text-tips" tips="请输入关键字" style="width:150px;" id="keyword" name="keyword">
+              <select class="Iw290" style="width:150px;" id="groupid" name="groupid">
+                <option value="">请选择所属会员组</option>
+                 <!--{foreach from=$pageInfo.allGroup key=id item=name}-->
+                 <option value="<!--{$id}-->"  <!--{if $searchInfo.groupid==$id}-->selected<!--{/if}-->><!--{$name}--></option>
+                 <!--{/foreach}-->
+              </select>
+              <select class="Iw290" style="width:130px;" id="status" name="status">
+                <option value="">请选择级别状态</option>
+                <option value="1" <!--{if $searchInfo.status eq 1}-->selected<!--{/if}-->>开启</option>
+                <option value="2" <!--{if $searchInfo.status eq 2}-->selected<!--{/if}-->>关闭</option>
+              </select>&nbsp;&nbsp;
+              <input type="button" hidefocus="hide" value="搜 索" class="btn5" onclick="formSubmit();">
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">ID</th>
+                  <th width="15%">级别名称</th>
+                  <th width="10%">会员数量</th>
+                  <th width="10%">积分小于</th>
+                  <th width="5%">状态</th>
+                  <th width="15%">所属会员组</th>
+                  <th width="25%">操作</th>
+                </tr>
+                <!--{foreach from=$levelList item=row}-->
+                <tr>
+                  <td><input type="checkbox" id="levelid" name="levelid[]" value="<!--{$row.id}-->"  /></td>
+                  <td><!--{$row.id}--></td>
+                  <td title="<!--{$row.levelname}-->"><!--{$row.levelname|truncate_cn:"8":"...":'utf8'}--></td>
+                  <td><!--{$row.membernum}--></td>
+                  <td><!--{$row.point}--></td>
+                  <td><!--{$pageInfo.status[$row.status]}--></td>
+                  <td title="<!--{$pageInfo.allGroup[$row.groupid]}-->"><!--{$pageInfo.allGroup[$row.groupid]|truncate_cn:"8":"...":'utf8'}--></td>
+                  <td><!--{if $row.groupstatus eq 2}--><a href="#" id="gray">修改</a><!--{else}--><a href="<!--{$baseurl}-->/members/level/edit/id/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/group/<!--{$searchInfo.groupid}-->/kw/<!--{$searchInfo.keyword}-->/st/<!--{$searchInfo.status}-->">修改</a><!--{/if}--> | 
+                  <!--{if $row.status eq 1}--><a href="#" id="gray">开启</a><!--{else}--><a href="<!--{$baseurl}-->/members/level/isable/state/1/levelid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/groupid/<!--{$searchInfo.groupid}-->/keyword/<!--{$searchInfo.keyword}-->/status/<!--{$searchInfo.status}-->">开启</a><!--{/if}--> | 
+                  <!--{if $row.status eq 2}--><a href="#" id="gray">关闭</a><!--{else}--><a href="<!--{$baseurl}-->/members/level/isable/state/2/levelid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/groupid/<!--{$searchInfo.groupid}-->/keyword/<!--{$searchInfo.keyword}-->/status/<!--{$searchInfo.status}-->">关闭</a><!--{/if}--> | 
+                  <a href="<!--{$baseurl}-->/members/member/index/groupid/<!--{$row.groupid}-->/levelid/<!--{$row.id}-->">管理会员</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>                 
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="开启"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/level/isable/state/1" empty-tips="请选择要开启的级别！" confirm-tips="确定开启？"/>
+              <input type="button" class="btn5" value="关闭"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/level/isable/state/2" empty-tips="请选择要关闭的级别！" confirm-tips="确定关闭？"/>
+              <input type="button" class="btn5" value="删除"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/level/delete" empty-tips="请选择您要删除的级别！" confirm-tips="级别下没有会员才能删除，确定删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>    
+</body>
+</html>

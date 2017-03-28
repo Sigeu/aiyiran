@@ -1,0 +1,32 @@
+<script type="text/javascript" src="{JS_PATH}/list.js"></script>
+
+{php $Treeid=$cid;}
+{ if getPid($cid) > 0  }
+{php $Treeid=getPid($cid);}
+{/if}
+<div class="bg_grL mb10">
+	<span class="h_dotL">{cid2name($Treeid)}</span>
+	<ul class="js_list">
+{php $cateTree = getCateTree($Treeid,1);} 
+{foreach $cateTree $k $v}
+		<li>
+			<strong class="level_1L"><span><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></span></strong>
+			<ul class="level2L">
+             {php $soncateTree = getCateTree($v['id'],1);}
+               {foreach $soncateTree $sonk $sonv}
+				<li>
+					<a href="{getMoreUrl($sonv['id'])}"><span class="level_moL level_moR">{$sonv['catname']}</span></a>
+					<ul>{php $ssoncateTree = getCateTree($sonv['id'],1)}
+				        {foreach $ssoncateTree $ssonk $ssonv}
+						<li>
+					        <a href="{getMoreUrl($ssonv['id'])}">{$ssonv['catname']}</a>
+                        </li>
+						{/foreach}
+					</ul>
+				</li>
+              {/foreach}
+			</ul>
+		</li>
+{/foreach}
+	</ul>
+</div>

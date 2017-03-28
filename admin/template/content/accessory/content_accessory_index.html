@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+ <div class="pubBox">
+      <div class="pubtabBox">
+		<div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:;">附件管理</a></dt>
+            <dd><a href="<!--{$baseurl}-->/content/accessory/add" class="last">上传新附件</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+			<div class="pubTabelTot">
+				<!--  搜索表单  -->
+				<form method="post" action="<!--{$baseurl}-->/content/accessory/index">
+					<input type="text" value="<!--{$search.name}-->" name='name' class="Iw215 text-tips" tips="请输入附件名称关键字">&nbsp;&nbsp;
+
+					<select name="type">
+						<option value="0" <!--{if $search.type eq 0}-->selected<!--{/if}-->>请选择附件类型</option>
+						<option value="1" <!--{if $search.type eq 1}-->selected<!--{/if}-->>图片</option>
+						<option value="2" <!--{if $search.type eq 2}-->selected<!--{/if}-->>flash</option>
+						<option value="3" <!--{if $search.type eq 3}-->selected<!--{/if}-->>音频/视频</option>
+						<option value="4" <!--{if $search.type eq 4}-->selected<!--{/if}-->>其他</option>
+					</select>
+
+					&nbsp;&nbsp;上传时间
+					<span class="time"><input type="text" value="<!--{$search.start}-->" class="Iw90" onfocus="WdatePicker()" id="starttime" name="start"></span>&nbsp;至&nbsp;<span class="time"><input type="text" value="<!--{$search.end}-->" class="Iw90" onfocus="WdatePicker()" id="endtime" name="end"></span>
+					<input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+				</form>
+			</div>
+			<!--  列表批量操作  -->
+			<form method="post" id="batch-form" action="javascript:;" enctype="multipart/form-data">
+            <div class="pubTabel">
+			   <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="10%">ID</th>
+                  <th width="40%">附件名称</th>
+                  <th width="10%">附件大小</th>
+                  <th width="10%">附件媒体类型</th>
+                  <th width="15%">上传时间</th>
+                  <th width="10%">操作</th>
+                </tr>
+				<!--{foreach from=$plist.list item=l}-->
+                <tr>
+                  <td><input type="checkbox" name="id[]" value="<!--{$l.id}-->"/></td>
+                  <td><!--{$l.id}--></td>
+                  <td><!--{$l.ext_name|truncate_cn:60:"...":true}--></td>
+                  <td><!--{$l.size}--> Kb</td>
+                  <td>
+				  <!--{if $l.mediatype eq 1}-->图片
+				  <!--{elseif $l.mediatype eq 2}-->flash
+				  <!--{elseif $l.mediatype eq 3}-->音频/视频
+				  <!--{elseif $l.mediatype eq 4}-->其他
+				  <!--{/if}-->
+				  </td>
+                  <td><!--{$l.created|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td>
+				  <a href="<!--{$baseurl}-->/content/accessory/edit/id/<!--{$l.id}-->">修改</a> |
+				  <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/content/accessory/del/id/<!--{$l.id}-->','确定删除？')">删除</a>
+				  </td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+            </div>
+			</form>
+            <div class="pubOperate"> <span class="btn5"><label>
+             <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+              </label></span>
+			  <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/content/accessory/del" empty-tips="请选择要删除的记录！" confirm-tips="确定删除？"/>
+            </div>
+			<div class="pubTabelBot">
+             <div class="pageGo"><!--{$plist.pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div class="clearfix"></div>
+</body>
+</html>

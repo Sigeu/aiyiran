@@ -1,0 +1,53 @@
+<!--留言-->
+
+{include 'header.html'}
+<script src="{JS_PATH}/formvalidator.js"></script>
+<link href="{CSS_PATH}/validator.css" rel="stylesheet" type="text/css"/>
+<!--表单样式-->
+<style type="text/css">
+    input[type=text]{width:100%; height:30px; line-height:30px; background:url(images/input_repeat.png) repeat-x; border:#c5c5c5 solid 1px; padding-left:5px;}
+    input[type=checkbox]{ vertical-align:-2px;}
+    select{ width:200px; height:25px; line-height:25px;}
+    textarea{width:100%; height:123px; background:#fff url(images/input_repeat.png) repeat-x; border:#c5c5c5 solid 1px; padding:5px 0 0 5px;}
+    font{color:red;}
+</style>
+  <div class="content">
+    <div class="company">
+      <div class="pubTit"><h3>{$name}</h3></div>
+      <div class="tab01">
+      <!--表单 begin-->
+      <form action='/mobile/index/addMessage' id="messageForm" method='post'  enctype="multipart/form-data">
+        <table border="0" cellpadding="0" cellspacing="0" class='table_1'>
+          {foreach $form $key $v}
+             {$v}
+          {/foreach}
+          <tr>
+            <th width="80" style="background:none"></th>
+            <td>
+            <input type='hidden' value='{$modelid}' name="info[model_id]"/>
+            <input type="submit" class="input03" value="提 交" />
+            </td>
+          </tr>
+        </table>
+      </form>
+      <!--表单 end-->
+      </div>
+    </div>
+  </div>
+  {include 'footer.html'}
+
+<!--表单验证-->  
+<script type='text/javascript'>
+$.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+
+//设置留言页面表单 标题的样式
+$('.tab01 th').css('width', '100px').css('background', 'none');
+//设置留言页面表单 文本框的样式
+$('.tab01 td').each(function(){
+    var content = $(this).html().replace("&nbsp;&nbsp;", "");
+    $(this).html(content);
+    
+    $(this).find('span').css('display', 'none');
+});
+</script>

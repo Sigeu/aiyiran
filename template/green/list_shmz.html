@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+ 
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+      {include 'category.html'}
+
+      <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">北京娱论</span>
+        <ul class="arrow_ulL">
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+		  <li class="last"><a href="#">[健康]被毒蛇要上怎么办？...</a></li>
+	    </ul>
+      </div>
+    </div>
+    <div class="right w744">
+      <div class="Greyborder mb10" style="padding-bottom:8px;">
+        <div class="title">
+          <div class="t_name"><span class="tit_green">健康</span><span class="tit_en">Health</span></div>
+        </div>
+        <div class="box_con">
+          <div class="gList_one">
+			{mo:articlelist pagesize='10' cid='$cid' type='all' order='publishtime desc' return='data'}
+			{foreach $data $k $v}
+			<dl>
+              <dt><a href="#">{$v['title']}</a></dt>
+              <dd class="summary">{$v['description']}<a href="{$v['url']}"> <阅读全文> </a></dd>
+              <dd class="blockquit">
+                <div class="date">发表于：<span>{date('y-m-d',$v['publishtime'])}</span></div>
+                <div class="click">点击：<span>{$v['hits']}次</span></div>
+                <div class="discu">评论：<span>13</span></div>
+              </dd>
+            </dl>
+			{/foreach}
+			{/mo:articlelist}
+          </div>
+          <div class="pages">
+            {$pagestr}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}
+

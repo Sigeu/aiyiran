@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>广告模块-添加广告</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/fileprogress.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--{include file='public/baseurl.html'}-->
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+<!--  上传插件  -->
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/swfupload.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/swfupload.queue.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/fileprogress.js"></script>
+<script language="JavaScript" type="text/javascript" src="<!--{$jspath}-->/swfupload/mo_handlers.js"></script>
+
+<script type="text/javascript">
+var swfu;
+window.onload = function()
+{
+	var mo_param = 
+	{
+		upload_url  : '<!--{$baseurl}-->/dialog/upload/upload',
+		post_param  : {'setting':'<!--{$setting.setting}-->'},
+		allow_size  : '<!--{$setting.size}-->',
+		str_type    : '<!--{$setting.str_type}-->',
+		limit       : '<!--{$setting.limit}-->',
+		flash_url   : '<!--{$smarty.const.HOST_NAME}-->static/js/swfupload/swfupload.swf',
+		flash9_url  : '<!--{$smarty.const.HOST_NAME}-->static/js/swfupload/swfupload_fp9.swf'
+	}
+
+	var option = 
+	{
+		flash_url:mo_param.flash_url,
+		flash9_url:mo_param.upload9_url,
+		upload_url:mo_param.upload_url,
+		post_params:mo_param.post_param,
+		file_post_name : "uploadFile",
+		file_size_limit:mo_param.allow_size,
+		file_types:mo_param.str_type,
+		file_types_description:"All Files",
+		file_upload_limit:mo_param.limit,
+		custom_settings : {progressTarget : "fsUploadProgress",cancelButtonId : "btnCancel"},
+		
+		debug:false,
+
+		button_width: 75,
+		button_height: 28,
+		button_text: "选择文件",
+		button_text_top_padding: 3,
+		button_text_left_padding: 10,
+		button_placeholder_id: "mybutton",
+		button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+		button_cursor: SWFUpload.CURSOR.HAND,
+		button_action:SWFUpload.BUTTON_ACTION.SELECT_FILES,
+		button_image_url: "<!--{$jspath}-->/swfupload/swfu_bgimg.jpg",
+
+		file_queued_handler : fileQueued,
+		file_queue_error_handler : fileQueueError,
+		upload_start_handler : uploadStart,
+		upload_progress_handler : uploadProgress,
+		upload_error_handler : uploadError,
+		upload_success_handler : uploadSuccess,
+		upload_complete_handler : uploadComplete,
+		queue_complete_handler : queueComplete
+	};
+	swfu = new SWFUpload(option);
+	
+};
+
+/*
+*  -------------------------------------------------
+*   水印参数添加
+*  -------------------------------------------------
+*/
+function check_wartermark(obj)
+{
+	if($(obj).attr('checked')) 
+		swfu.addPostParam('iswatermark', '1');
+	else 
+		swfu.removePostParam('iswatermark');
+}
+</script>
+</head>
+<body>
+	<div class="notif">
+		<div class="layoutBox">
+			<div class="layout">
+				<dl class="laytab">
+					<dt class="focus"><a href="javascript:void(0)">本地上传</a></dt>
+					<!--{if $setting.local}-->
+					<dt><a href="<!--{$baseurl}-->/content/accessory/local/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">本地图库</a></dt>
+					<!--{/if}-->
+					<!--{if $setting.folder}-->
+					<dt><a href="<!--{$baseurl}-->/content/accessory/folder/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">目录浏览 </a></dt>
+					<!--{/if}-->
+				</dl>
+			</div>
+
+			<div class="layoutC">
+				<div>
+					<table class="tabelLR" style="margin:10px 0;">
+						<tr>
+							<td>	
+							<span class="c_pic"><span id="mybutton"  ></span></span>&nbsp;&nbsp;
+							<input type="button" hidefocus="hide" value="开始上传" class="btn5" onclick="swfu.startUpload()" style="vertical-align:top">
+							<input type="hidden" id="flag" name="flag" value="<!--{$flag}-->"/>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="pTB">
+							<span class="warnBlueL">
+							<!--{if $setting.str_type}-->
+							支持上传<!--{$setting.str_type}--> 格式的文件，
+							<!--{/if}-->
+							
+							<!--{if !($flag == 'editImages' || $flag == 'goodsedit') }-->
+							<!--{if $setting.limit}-->
+							最多可以上传<!--{$setting.limit}-->个文件。
+							<!--{/if}-->
+							<!--{else}-->
+							只能上传一个文件
+							<!--{/if}-->
+							</span>
+                            </td>
+						</tr>
+
+						<!--{if $setting.iswatermark}-->
+						<tr>
+							<td class="f333">
+                            <span>
+                            <input type="checkbox" name='watermark' value='1' onclick="javacript:check_wartermark(this);"/>
+                            </span>&nbsp;
+                            <label>添加水印</label>&nbsp;&nbsp;&nbsp;
+                            <label class="warnBlueL">
+							支持为*.jpg;*.png;*.gif格式的文件添加水印
+							</label>
+                            </td>
+						</tr>
+						<!--{/if}-->
+
+						<tr>
+							<td>
+								<fieldset>
+									<legend>上传的文件</legend>
+									<div  id='fsUploadProgress'><ul class="Lpic"></ul></div>
+								</fieldset>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+//页面加载完毕后 自动清理临时文件夹里的内容
+(function(){$.post('<!--{$baseurl}-->/content/accessory/clearfile');})()
+</script>

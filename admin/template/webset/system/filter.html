@@ -1,0 +1,141 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+    <div class="notif width445" id="so" style="display:none;" >
+      <div class="Ncon">
+        <div class="Ncont">
+          <textarea name="mo_replacer" id="mo_replacer" class="mtb5"><!--{$filter.mo_replacer}--></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">文字过滤设置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+          <form method="POST" id="thisform" action="<!--{$baseurl}-->/webset/Filter/correct" >
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px" style="vertical-align:top"><font>*</font> 敏感词：</th>
+                  <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td width="45%" valign="top" rowspan="2" style="border-bottom:0px;">
+                                <textarea name="mo_replacestr" id="mo_replacestr" style="height:120px;" class="Iw450 Ih80"><!--{$filter.mo_replacestr}--></textarea></td>
+                                <td valign="top"  style="border-bottom:0px;"><span class="warnBlue" id="mo_replacestrTip"></span></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="border-bottom:0px;"><span id="single-upload"></span>
+                                <input class="btn5" type="button" value="敏感词导入" name="accessory" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'brand','self_id':'uploadButton','ady_upload':1,
+                  'dis_place':'single-upload'});" handle="single-upload" id="uploadButton"/>
+                  <br /><br />（导入文件格式要求：txt文本，每行一个敏感词）
+                            </td>
+                                </tr>         
+                        </tbody>
+                    </table>
+                    </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align:top;"> 过滤方式：</th>
+                  <td><span>
+                    <input type="radio" value="1" checked="true" name="mo_replace_type" <!--{if $filter.mo_replace_type eq 1}--> checked="true" <!--{/if}-->/>
+                    <label>替换成"<!--{$filter.mo_replacer}-->"显示</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<a class="Cf60" href="javascript:void(0)" onclick="go();">编辑替换文本</a><br/>
+                    <span>
+                    <input type="radio" value="2" name="mo_replace_type" <!--{if $filter.mo_replace_type eq 2}--> checked="true" <!--{/if}-->/>
+                    <label>直接去除不显示</label>
+                    </span><br/>
+                    <span>
+                    <input type="radio" value="3" name="mo_replace_type" <!--{if $filter.mo_replace_type eq 3}--> checked="true" <!--{/if}-->/>
+                    <label>不能提交，提示有非法字符</label>
+                    </span></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1" />
+                <input type="button" onclick="location.href='<!--{$baseurl}-->/webset/Filter/index'" value="取消" class="btn2" />
+              </div>
+            </div>   
+           </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'文本上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#mo_replacestr").formValidator({onshow:"多个敏感词之间用';'隔开",onfocus:"多个敏感词之间用';'隔开",oncorrect:"输入正确"})
+.inputValidator({min:2,max:300,onerror:"请输入2-300个字符，多个敏感词之间用';'隔开"});
+});
+
+function go ()
+{	
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('so'),
+		     id: 'yellow',
+		  title: '编辑替换文本',
+            width:'100px',
+            height:'60px',
+		 button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+                        var top = art.dialog.top;
+                        var reg = new RegExp("[\\u4E00-\\u9FA5\\uF900-\\uFA2D]+","ig");
+						var ther = top.document.getElementById("mo_replacer").value;
+                        if(!reg.test(ther) && ther.length < 301 && ther.length > 1)
+                        {
+                            $.post('<!--{$baseurl}-->/webset/Filter/replacer',{'ther':ther},function(d)
+						    {
+                            window.top.art.dialog.alert('操作成功');
+							move.close();
+							location.reload();
+							return true;
+						    });
+                        }else {
+                            window.top.art.dialog.alert('请输入2-300个字符，由数字、字符组成');
+                        }
+                        return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+</script>

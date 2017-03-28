@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+
+</head>
+<body
+{include 'head.html'}
+{include 'banner.html'}
+
+<script type="text/javascript">
+	$(function(){
+		$('#add').cycle({ 
+				fx:'scrollLeft',
+				pager:'#btn'
+		});
+	})
+</script>
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+      {include 'category.html'}
+
+      <div class="advertL">
+        <div id="add"><a href="#"><img src="{IMG_PATH}/advert1.png" width="245" height="102"></a><a href="#"><img  src="{IMG_PATH}/advert2.png" width="245" height="101"></a></div>
+        <div id="btn"></div>
+      </div>
+      <div class="bg_grayL"> <span class="h_grayL">点击排行</span>
+        <ul class="arrow_ulL2">
+        {mo:articlelist row="12" cid="53" type='son' order="hits desc" return="data"}
+        	{foreach $data $k $v}
+			{if $lastIndex}
+          <li><span class="li_num">{$v['hits']}次</span><span class="num_b">{$n}</span><a href="{$v['url']}">{$v['title']}</a></li>
+			{else}
+          <li class="last"><span class="li_num">{$v['hits']}次</span><span class="num_g">{$n}</span><a href="{$v['url']}">{$v['title']}</a></li>
+       		{/if}
+       {/foreach}
+		{/mo:articlelist}
+        </ul>
+      </div>
+    </div>
+    <div class="m w498">
+      <div class="Greyborder">
+        <div class="title"> <a href="{getMoreUrl(58)}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">吃喝</span><span class="tit_en">Eat and drink</span></div>
+        </div>
+        <div class="box_con">
+         {mo:articlelist cid='58'  row='2' order='publishtime' return='data'}
+		  {foreach $data $k $v}
+          <div class="bg_line"></div>
+          <div class="bc bc_h95">
+            <div class="bc_pic" style="margin-right:8px;"><a href="#" title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="134" height="95" /></a></div>
+            <dl class="bc_txt">
+              <dt><a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a></dt>
+              <dd class="f6" style="line-height:20px;">{csubstr($v['description'],65)}<a href="{$v['url']}" class="greena">
+                <全文>
+                </a></dd>
+            </dl>
+          </div>
+		  {/foreach}
+		  {/mo:articlelist}
+        </div>
+      </div>
+      <div class="advertM"><a href="#"><img src="{IMG_PATH}/advert4.png" width="498" height="89"/></a></div>
+      <div class="Greyborder">
+        <div class="title"> <a href="{getMoreUrl(60)}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">玩乐</span><span class="tit_en">Play</span></div>
+        </div>
+        <div class="box_con">
+		{mo:articlelist row='1' cid='60' type='son' return='data'}
+		  {foreach $data $k $v}
+          <div class="bc bc_h95">
+            <div class="bc_pic" style="margin-right:8px;"><a href="#" title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="134" height="95" /></a></div>
+            <dl class="bc_txt">
+              <dt><a href="{$v['url']}" title="{$v['title']}">{$v['title']}</a></dt>
+              <dd class="f6" style="line-height:20px;">{csubstr($v['description'],65)}<a href="{$v['url']}" class="greena">
+                <详情>
+                </a></dd>
+            </dl>
+          </div>
+		  {/foreach}
+		  {/mo:articlelist}
+          <div class="bg_line"></div>
+          <dl class="bc_txt bc_txt24 l bg_lineS">
+			{mo:articlelist row='10' cid='60' type='son' return='data'}
+			{foreach $data $k $v}
+            <dd style='width:220px;'><a href="{$v['url']}" class="bg_dot" >{$v['title']}</a></dd>
+		     {/foreach}
+		     {/mo:articlelist}
+          </dl>
+		  <dl class="bc_txt bc_txt24 l">
+			{mo:articlelist row='10' from='10' cid='60' type='son' return='data'}
+			{foreach $data $k $v}
+            <dd><a href="{$v['url']}" class="bg_dot">{$v['title']}</a></dd>
+		     {/foreach}
+		     {/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="r w237">
+      <div class="Greyborder Greyborder_bg1">
+        <div class="r_tit"> <a href="#" class="right t_more">更多>></a> <span class="r_t_name icobg_02">推荐美食</span> </div>
+        <div class="box_con">
+          <ul class="arrow_ulL" style="margin:0;">
+            <li><span class="time">07-20</span><a href="#">大食客酱骨头炖菜馆…</a></li>
+            <li><span class="time">07-20</span><a href="#">戈拿旺巴西烤肉(朝外…</a></li>
+            <li><span class="time">07-20</span><a href="#">叫板！比萨(双井店)</a></li>
+            <li><span class="time">07-20</span><a href="#">九头鹰酒家(立水桥店…</a></li>
+            <li><span class="time">07-20</span><a href="#">乐蛙蛙大钟寺店</a></li>
+            <li><span class="time">07-20</span><a href="#">汉拿山（潘家园店）</a></li>
+            <li class="last"><span class="time">07-20</span><a href="#">女子个人200米混合泳叶诗文再...</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="advertR"><a href="#"><img src="{IMG_PATH}/advert3.png" width="239" height="110" /></a></div>
+      <div class="Greyborder Greyborder_bg1" style="padding-bottom:4px;">
+        <div class="r_tit"> <a href="{getMoreUrl(61)}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name(61)}</span> </div>
+        <div class="box_con">
+          <dl class="bc_txt">
+            {mo:articlelist row='4' cid='61'  return='data'}
+			{foreach $data $k $v}
+            <dd><span class="time">{date('m-d',$v['publishtime'])}</span><a href="#">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+        <div class="bg_linesolid"></div>
+        <div class="r_tit"> <a href="{getMoreUrl(62)}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name(62)}</span> </div>
+        <div class="box_con">
+          <dl class="bc_txt">
+            {mo:articlelist row='4' cid='62'  return='data'}
+			{foreach $data $k $v}
+            <dd><span class="time">{date('m-d',$v['publishtime'])}</span><a href="#">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+        <div class="bg_linesolid"></div>
+        <div class="r_tit"> <a href="{getMoreUrl(63)}" class="right t_more">更多>></a> <span class="r_t_name icobg_01">{cid2name(63)}</span> </div>
+        <div class="box_con">
+          <dl class="bc_txt">
+            {mo:articlelist row='4' cid='63'  return='data'}
+			{foreach $data $k $v}
+            <dd><span class="time">{date('m-d',$v['publishtime'])}</span><a href="#">{$v['title']}</a></dd>
+			{/foreach}
+		    {/mo:articlelist}
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

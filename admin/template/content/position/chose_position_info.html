@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>添加推荐信息</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="notif">
+      <div class="Ncon">
+        <div class="Ncont">
+         <form action="<!--{$baseurl}-->/content/position/chosePositionInfo" method="get" >
+          <div class="pubTabelTot">关键词：
+            <input type="text" name="keyword" class="Iw215 text-tips" tips="请输入关键字" value="<!--{$keyword}-->"/>
+            <input type="hidden" name="id" value="<!--{$posid}-->" />
+            <input type="hidden" name="catid" value="<!--{$catid}-->" />
+            <input type="submit" value="搜 索" class="btn5" />
+          </div>
+         </form>
+         </div>
+      <form action="<!--{$baseurl}-->/content/position/addPositionInfo" method="get" id="myForm" name="myForm" >
+         <input type="hidden" name="id" value="<!--{$posid}-->" />
+        <input type="hidden" name="catid" value="<!--{$catid}-->" />
+        <div class="Ncont">
+          <div class="pubTabel">
+            <table class="tabelTB" id="search_list">
+              <tr>
+                <th width="10%">选择</th>
+                <th>标题</th>
+              </tr>
+              <!--{foreach from=$info item=list}-->
+              <tr>
+               <td><input type='checkbox' name='pos_ids[]' value="<!--{$list.id}-->"/></td>
+               <td><!--{$list.headline}--></td>
+              </tr>
+              <!--{/foreach}-->
+            </table>
+          </div>
+          <div class="pubOperate">
+              <span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search_list" /> 全选/反选</label></span>
+          </div>
+        </div>
+       </form>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+      </div>
+    </div>
+</body>
+</html>

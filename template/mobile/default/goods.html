@@ -1,0 +1,79 @@
+<!--商品详情-->
+
+{include 'header.html'}
+  <div class="content">
+	<div class="company">
+		<div class="com_tit">
+            <span class="paget_btn">
+                <a href="{$prev_link}" class="paget_prev"></a>
+                <a href="{$next_link}" class="paget_next"></a>
+            </span>{$product_info['goodsname']}
+        </div>
+	</div>
+	<div class="tab_nav">
+		<ul>
+			<li class="on"><a href="javascript:void(0)">简介</a></li>
+			<li><a href="javascript:void(0)">详情</a></li>
+			<li><a href="javascript:void(0)">属性</a></li>
+		</ul>
+	</div>
+    <div class="company js_nav_con">
+    <!--商品简介 begin-->
+      <div class="pro_info">
+		<div class="pro_pic">
+			<div class="pro_ps">
+				<ul class="pic_list">
+                {foreach $goods_picture $key $val}
+					<li><img src="{URL_STATIC_UPLOAD}goods/{$val['photo']}"/></li>
+                {/foreach}
+				</ul>
+                <a href="javascript:void(0)" class="pro_prev"></a>
+                <a href="javascript:void(0)" class="pro_next"></a>
+			</div>
+			<ul class="pic_node">
+                {foreach $goods_picture $key $val}
+					<li>&nbsp;</li>
+                {/foreach}
+			</ul>
+	    </div>
+		<table>
+			<tr>
+				<th>市场价：</th>
+				<td><em>{$product_info['marketprice']}元</em></td>
+			</tr>
+			<tr>
+				<th>优惠价：</th>
+				<td><em>{$product_info['shopprice']}元</em></td>
+			</tr>
+			<tr>
+				<th>计量单位：</th>
+				<td>{$product_info['unit']}</td>
+			</tr>
+			<tr>
+				<th>商品品牌：</th>
+				<td>{$product_info['brandname']}</td>
+			</tr>
+		</table>
+	  </div>
+      <!--商品简介 end-->
+      <!--商品详情 begin-->
+	  <div class="pro_detail">
+		{$product_info['content']}
+	  </div>
+      <!--商品详情 end-->
+      <!--商品属性 begin-->
+      <div class="pro_detail">
+		<div class="tab02">
+            {foreach $product_info['attr'] $name $attr}
+            <div>
+                <span>{$name}：</span>&nbsp;&nbsp;{$attr}
+            </div>
+            {/foreach}
+        </div>
+	  </div>
+      <!--商品属性 end-->
+	</div>
+    {include 'interact.html'}
+  </div>
+ <script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script>
+ {include 'footer.html'}

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"  title="basc"/>
+<link href="<!--{$csspath}-->/bascB.css" rel="alternate stylesheet" type="text/css" title="bascB"/>
+<link href="<!--{$csspath}-->/bascG.css" rel="alternate stylesheet" type="text/css" title="bascG"/>
+<link href="<!--{$csspath}-->/bascR.css" rel="alternate stylesheet" type="text/css" title="bascR"/>
+
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--{include file='public/baseurl.html'}-->
+
+<script type="text/javascript" src="<!--{$jspath}-->/styleswitch.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidator.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script src="<!--{$jspath}-->/floatcheck.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+
+<script src="<!--{$jspath}-->/city.js"></script>
+
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+ <script type="text/javascript">
+         $(function(){
+ var baseUrl = "<!--{$baseurl}-->/memorial/hall/area";
+  $("#originp,#brithp,#diedp").change(function(){
+    var va = $(this).val();
+    var idConn = $(this).attr("date-city");
+    //alert(idConn);
+    $.get(baseUrl,{id:va},function(date){
+      $("#"+idConn).html(date);
+    },"html");
+  });
+ })
+      </script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <form action='<!--{$baseurl}-->/memorial/cemetery/add' method='post' name=form1 id='myform' enctype="multipart/form-data">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:;">陵园信息管理</a></dt>
+            <dt><a href="javascript:;">关于陵园</a></dt>
+            <dt><a href="javascript:;">陵园景观</a></dt>
+            <dt><a href="javascript:;">陵园服务</a></dt>
+            <dt><a href="javascript:;">地理位置</a></dt>
+            <!-- <dt><a href="javascript:;">陵园资讯</a></dt> -->
+          </dl>
+        </div>
+        <div class="TabBoxC">
+            <!--  陵园基本信息  -->
+            <div>
+                <div class="pubTabel">
+                    <table class="tabelLR">
+                                   <!--{$form.tupian}-->
+                        <tr>
+                            <th width="145px"><font>*</font> 陵园名称：</th>
+                            <td colspan="3"><input type="text" name="title" class="Iw290" value=""/></td>
+                        </tr>
+
+                        <tr>
+                                    <th>&nbsp;籍贯：</th>
+                                    <td>
+                                    <select name="province" id="originp" date-city="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $area $v}-->
+                                      <option value="<!--{$v.area_id}-->"><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    <select name="city" id="originc">
+                                     <option value="">省份</option>
+                                     <!--{foreach $originInfo $v}-->
+                                      <option value="<!--{$v.area_id}-->" ><!--{$v.area_name}--></option>
+                                     <!--{/foreach}-->
+                                    </select>
+                                    </td>
+                        </tr>
+
+                            <th>&nbsp; 陵园地址：</th>
+                            <td colspan="3"><input type="text" name="address" class="Iw290" value=""/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp; 陵园电话：</th>
+                            <td colspan="3"><input type="text" name="tel" class="Iw290" value=""/></td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp; 陵园摘要：</th>
+                            <td colspan="3"><textarea name="summary" style="width: 288px; height: 50px;"></textarea></td>
+                        </tr>
+                        </tr>
+                                   <th>发布状态：</th>
+                                    <td  colspan="3">
+                                       <select name="status">
+                                         <option value="1"
+                                         >发布</option>
+                                         <option value="2"
+                                         >不发布</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--  关于陵园  -->
+            <div style="display:none;">
+                <div class="pubTabel">
+                    <table>
+                         <tr>
+                            <th width="145px"><font>*</font> 陵园简介：</th>
+                            <td ><div class="edit_box" style="height:auto"><textarea name="summary" id="content1"></textarea></div></td>
+                        </tr>
+                        <tr>
+                            <th width="145px"><font>*</font> 陵园荣誉：</th>
+                            <td ><div class="edit_box" style="height:auto"><textarea name="honor" id="content2"></textarea></div></td>
+                        </tr>
+                        <tr>
+                            <th width="145px"><font>*</font> 陵园文化：</th>
+                            <td ><div class="edit_box" style="height:auto"><textarea name="culture" id="content3"></textarea></div></td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!--  陵园景观  -->
+            <div style="display:none;">
+                <div class="pubTabel">
+                     <table>
+                                   <!--{$form.tupian2}-->
+                    </table>
+                </div>
+            </div>
+
+            <!--  陵园服务  -->
+            <div style="display:none;">
+                <div class="pubTabel">
+                     <table>
+                         <tr>
+                            <th width="145px"><font>*</font> 陵园服务：</th>
+                            <td ><div class="edit_box" style="height:auto"><textarea name="server" id="content4"></textarea></div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 地理位置 -->
+            <div style="display:none;">
+                <div class="pubTabel">
+                     <table>
+                         <tr>
+                            <th width="145px"><font>*</font> 生成地图</th>
+                            <td ><input type="text" name="map_name" value=""></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="pubTabelBot">
+           <input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'">
+        </div>
+        </form>
+      </div>
+    </div>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+
+<script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/iniEditor.js"></script>
+<script>$(document).ready(function(){init("content1", "加载失败");})</script>
+<script>$(document).ready(function(){init("content2", "加载失败");})</script>
+<script>$(document).ready(function(){init("content3", "加载失败");})</script>
+<script>$(document).ready(function(){init("content4", "加载失败");})</script>
+
+</body>
+</html>

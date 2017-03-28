@@ -1,0 +1,71 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">sphinx全文索引配置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div >
+            <div class="pubTabel" id='parent'> 
+            
+             <form   id="form" action='' method='post'>
+              <table class="tabelLR">
+                <tr>
+                  <th><font>*</font> 是否启用sphinx全文索引：</th>
+                  <td><span>
+                    <input type="radio" name='sendstyle' value="1" />
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='sendstyle' value="2" />
+                    <label>否</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>&nbsp;&nbsp;使用mail函数发送时请确保您的系统上有支持发送邮件的邮件服务软件 &nbsp;请谨慎使用</span>
+                    </td>
+                </tr>
+                <tr>
+                  <th>&nbsp;&nbsp;发送邮件用户名称：</th>
+                  <td><input class="Iw150"  type="text" value="<!--{$mail.mo_send_user}-->" name="name" id="name"/>
+                  <span id="nameTip"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> SMTP服务器：</th>
+                  <td><input class="Iw150"  type="text" value="<!--{$mail.mo_service}-->" name="smtpserver" id="smtpserver"/>
+                      <span id="smtpserverTip"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> SMTP服务器端口：</th>
+                  <td><input class="Iw150"  type="text" name="port" value="<!--{$mail.mo_service_port}-->" id="port"/>
+                      <span id="portTip"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th> <font>*</font> 发送邮件邮箱账号：</th>
+                  <td><input class="Iw150"  type="text" name="mail" value="<!--{$mail.mo_mail_account}-->" id="mail"/>
+                  <span id="mailTip"></span></td>
+                </tr>
+                <tr>
+                  <th> <font>*</font> 发送邮件邮箱密码：</th>
+                  <td><input class="Iw150"  type="password" name="password" value="请输入您的密码" id="password"/>
+                  <input type="hidden" value="<!--{$mail.mo_mail_password}-->" class='hidpwd' name='hidpwd'></input>
+                  <span id="passwordTip"></span>
+                  </td>
+                </tr>
+              </table>       
+              <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" value="确定" class="btn1" id="sub">
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

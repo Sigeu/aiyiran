@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">
+					<dt class="on"><a href="javascript:void(0)">升级日志</a></dt>
+				</dl>
+			</div>
+			<div class="pubTabelTot">当前版本号：<!--{$version}--></div>
+			<div class="TabBoxC">
+				<div>
+					<div class="pubTabel">
+						<table class="tabelTB">
+							<tr>
+								<th width="10%">版本号</th>
+								<th width="50%">描述</th>
+								<th width="40%">更新时间</th>
+							</tr>
+							<!--{foreach from=$plist.list item=l}-->				
+							<tr>
+								<td><!--{$l.version}--></td>
+								<td><!--{$l.description}--></td>
+								<td><!--{$l.upgrade_time|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+							</tr>
+							<!--{/foreach}-->
+						</table>
+					</div>
+				</div>
+				<div class="pubTabelBot"><div class="pageGo"><!--{$plist.pagestr}--></div></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

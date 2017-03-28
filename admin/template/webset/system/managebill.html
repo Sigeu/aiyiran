@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>管理子菜单</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd class="on"><a href="<!--{$baseurl}-->/webset/Linkage/index">联动菜单列表</a></dd>
+            <dd class="on"><a href="javascript:void(0)" onclick="addChildren();" class="addmain">添加顶级栏目</a></dd> 
+            <dd><strong>[温馨提示]：</strong><span>建议最多可添加10级。请谨慎填写，尽量不要删除</span></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             <form method="POST" action="javascript:;" id="batch-form" enctype="multipart/form-data">
+              <table class="tabelTBL" id="search-list">
+                <tr style="border-bottom:1px solid #CCD9E4;">
+                  <th width="6%">选择</th>                 
+                  <th width="10%">ID</th>
+                  <th width="34%" class="tal">分类名称</th>
+                  <th width="10%">联动菜单标识</th>
+                  <th width="10%">组内排序</th>
+                  <th width="30%">操作</th>
+                </tr>
+                <tr>
+                <!--{foreach from=$bill item=l}-->
+                    <tr class="<!--{$l.class}-->" bgcolor='<!--{cycle values="#FFFFFF,#FFFFFF"}-->' levelid="<!--{$l.level}-->" selfid="<!--{$l.id}-->" parentid="<!--{$l.pid}-->" style="border-bottom:1px dashed #CCD9E4;">
+                      <td width="6%"><input type="checkbox" name="ids[]" value="<!--{$l.id}-->"/></td>
+                      <td width="10%"><!--{$l.id}--></td>
+                      <input type="hidden" name="never" value="<!--{$l.id}-->">
+                      <input type="hidden" name="always" value="<!--{$l.lin_id}-->">
+                      <td width="34%" class="tal">
+                      <div class="<!--{$l.flag}-->" style="margin-left:<!--{$l.margin_left}-->px"><!--{$l.name}--></div>
+                      </td>                             
+                      <td width="10%"><!--{$l.lname}--></td>
+                      <td width="10%"><input class="Iw45" type="text" value="<!--{$l.ordernum}-->" name="ordernum[<!--{$l.id}-->]" class="Iw45" style="text-align:center;"/></td>
+                      <td width="30%"><a href="javascript:void(0)" onclick="red(<!--{$l.lin_id}-->,<!--{$l.id}-->,'<!--{$l.name}-->');">添加子菜单</a> | <a href="<!--{$baseurl}-->/webset/Linkage/updateOrder/id/<!--{$l.id}-->/lin/<!--{$l.lin_id}-->">更新</a> | <a href="#" class="delbill" onclick="MoConfirm('<!--{$baseurl}-->/webset/Linkage/delChildren/id/<!--{$l.id}-->/lin/<!--{$l.lin_id}-->')">删除</a> | <a href="javascript:void(0)" onclick="god(<!--{$l.id}-->,'<!--{$l.name}-->');">修改</a></td>
+                    </tr>
+                <!--{/foreach}-->
+                </tr>
+              </table>
+             </form>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list"/> 全选/反选</label></span>
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list" form-action="<!--{$baseurl}-->/webset/Linkage/updateOrder/lin/<!--{$linkage_id}-->" is-selected="false" empty-tips="请选择要进行更新的信息"/>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list" form-action="<!--{$baseurl}-->/webset/Linkage/delete/id/<!--{$linkage_id}-->" empty-tips="请选择要删除的记录！" confirm-tips="你确定要删除吗？"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+
+<!--添加子菜单-->
+    <div class="notif width390r" id="red" style="display:none; margin-left:-154px;">
+        <div class="Ncont">
+          <div class="pubTabel">
+            <table class="tabelTB tabelTB_X">
+              <tr>
+                <td style="padding-left:10px;">所属类别：</td>
+                <td><input type="text"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly  id="prev" class="Iw290"></td>
+              </tr>
+              <tr>
+                <td style="padding-left:10px;"><font>*</font>子菜单名称：</td>
+                <td><input type="text" id="cname" class="Iw290"></td>
+              </tr>
+            </table>
+          </div>
+      </div>
+    </div>
+
+<!--修改子菜单-->
+    <div class="notif width390r" id="god" style="display:none; margin-left:-154px;">
+        <div class="Ncont">
+          <div class="pubTabel">
+            <table class="tabelTB tabelTB_X">
+              <tr>
+                <td style="padding-left:10px;"><font>*</font>子菜单名称：</td>
+                <td><input type="text" id="chname" class="Iw290"></td>
+              </tr>
+            </table>
+          </div>
+      </div>
+    </div>
+
+<!--添加顶级栏目-->
+    <div class="notif width390r" id="main" style="display:none;margin-left:-154px;">
+      <div class="Ncon">
+          <div class="pubTabel">
+            <table class="tabelTB tabelTB_X">
+              <tr>
+                <td style="padding-left:10px;">所属类别：</td>
+                <td><input type="text"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly  value="顶级目录" class="Iw290"></td>
+              </tr>
+              <tr>
+                <td style="padding-left:10px;"><font>*</font> 菜单名称：</td>
+                <td><input type="text" id="main_name" class="Iw290"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+    </div>
+<!--end-->
+
+<input type="hidden" id="linkage_id" value="<!--{$linkage_id}-->"/>
+</body>
+</html>
+<script type="text/javascript">
+//添加顶级栏目
+function addChildren ()
+{	
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('main'),
+		    id: 'yellow',
+		    title: '添加顶级栏目',
+            width:'420px',
+            height:'180px',
+		    button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+                        var top = art.dialog.top;
+                        var linkage_id = document.getElementById("linkage_id").value;
+                        var main_name = top.document.getElementById("main_name").value;
+                        if(linkage_id && main_name !=null && main_name !='' && main_name.length > 0 && main_name.length < 21)
+                        {
+                            $.post('<!--{$baseurl}-->/webset/Linkage/addChildren',{'prev':linkage_id,'name':main_name},function(d)
+                            {
+                                window.top.art.dialog.alert('操作成功');
+                                move.close();
+                                location.reload();
+                                return true;
+                            });
+                        }
+						return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+//添加子菜单
+function red (s,m,n)
+{
+    document.getElementById("prev").value = n;
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('red'),
+		    id: 'green',
+		    title: '添加子菜单',
+            width:'420px',
+            height:'180px',
+		    button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+                        var top = art.dialog.top;
+                        var nn = top.document.getElementById("cname").value;
+                        if(m && nn !=null && nn !='' && nn.length > 0 && nn.length < 21)
+                        {
+                            $.post('<!--{$baseurl}-->/webset/Linkage/addChildren',{'prev':s,'parentid':m,'name':nn},function(d)
+                            {
+                                window.top.art.dialog.alert('操作成功');
+                                move.close();
+                                location.reload();
+                                return true;
+                            });
+                        }
+						return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+//修改子菜单
+function god (m,n)
+{
+    document.getElementById("chname").value = n;
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('god'),
+		    id: 'blue',
+		    title: '修改子菜单',
+            width:'420px',
+            height:'80px',
+		    button: 
+			[
+				{
+					name: '确定',
+					callback: function () 
+					{
+                        var top = art.dialog.top;
+                        var nn = top.document.getElementById("chname").value;
+                        if(m && nn !=null && nn !='' && nn.length > 0 && nn.length < 21)
+                        {
+                            $.post('<!--{$baseurl}-->/webset/Linkage/editChildren',{'id':m,'name':nn},function(d)
+                            {
+                                window.top.art.dialog.alert('操作成功');
+                                move.close();
+                                location.reload();
+                                return true;
+                            });
+                        }
+						return false;
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function () 
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+//收起，折叠效果
+$(function()
+{
+    $("#search-list tr:gt(0)").find('td:eq(2)').bind('click',function()
+    {
+        var tr = $(this).parent('tr');//被点击的TR
+        var s_index = tr.index();//被点击TR的索引号
+
+        var s_level = tr.attr('levelid');//TR的ID
+        var tr_s_id = tr.attr('selfid');//TR的ID
+
+        var child_tr = $('#search-list tr[parentid="'+tr_s_id+'"]');//TR子级元素，不包括孙子级元素
+        if(child_tr.length == 0) return false;
+
+        var div = $(this).find('div');//折叠符所在元素
+        var s_class = div.attr('class');//折叠符所在元素last class 
+        var n_class = (s_class == 'open') ? 'clos' : 'open';//折叠符所在元素new class 
+
+        div.removeClass(s_class).addClass(n_class);//切换样式
+        if (n_class == 'open')
+            tr.attr('bgcolor','#FFF7F2');
+        else
+            tr.attr('bgcolor','#F7F7F7');
+        
+        var fellow_tr = $('#search-list tr:gt('+s_index+')');//被点击行以下的所有元素
+        $.each(fellow_tr,function(i,n)
+        {
+            var _tr = $(n);
+            var _tr_level_id = _tr.attr('levelid');
+            var flag = _tr_level_id <= s_level;//终止循环条件
+            if(flag) return false;
+            var _div = _tr.find('td:eq(2)').find('div');
+
+            var _s_class = _div.attr('class');
+            if (n_class == 'open')
+            {
+                _tr.show();
+            }
+            else
+            {
+                _tr.hide();
+            }
+            if (_s_class != 'no')
+                _div.removeClass().addClass(n_class);
+        });
+    });
+});
+
+</script>

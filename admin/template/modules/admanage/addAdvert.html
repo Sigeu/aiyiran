@@ -1,0 +1,139 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script>
+   $(function(){
+	   
+	   $(".cancel").click(function(){
+		   var url ="<!--{$baseurl}-->"+"<!--{$backUrl}-->";
+		   window.location.href =url;
+	   })
+   })
+</script>
+<body>
+    <div class="pubBox" style='height:1800px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/admanage/advert/adpos/<!--{$adpos}-->" class="last">广告列表</a></dd>
+            <dt class="on"><a href="">添加广告</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+		<form method="post" action="<!--{$baseurl}-->/modules/admanage/addAdvert" enctype="multipart/form-data" id='myform'>
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR" >
+                <tr>
+                  <th width="145px"><font>*</font> 广告标题：</th>
+                  <td>
+                  <input type='hidden' value='<!--{$adpos}-->' name='adpos'></input>
+                  <input type="text" value="" class="Iw290" name='adtitle' id='adtitle' />
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告类型：</th>
+                  <td><select disabled="" class="Iw290" style="width:302px;">
+                        <option value="" ><!--{$infor.adname}--></option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 投放栏目：</th>
+                  <td><select disabled="" class="Iw290" style="width:302px;">
+                        <option value=""><!--{$infor.clumnname}--></option>
+                    </select></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告内容类型：</th>
+                  <td><span>
+                    <input type="radio" <!--{if in_array('1',$type)}-->checked<!--{/if}--> disabled/>
+                    <label>图片</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" <!--{if in_array('2',$type)}-->checked<!--{/if}--> disabled/>
+                    <label>flash</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" <!--{if in_array('3',$type)}-->checked<!--{/if}--> disabled/>
+                    <label>文字</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 时间限制：</th>
+                  <td><span>
+                    <input type="radio"  value='1' id='time' name='timetype' <!--{if $curinfor.timetype neq 2}-->checked<!--{/if}-->/>
+                    <label>永不限制</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio"  value='2' name='timetype' <!--{if $curinfor.timetype eq 2}-->checked<!--{/if}-->/>
+                    <label>在设定时间内有效</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告投放时间</th>
+                  <td>从&nbsp;<span class="time">
+                  <input type="text" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id='startTime' name='starttime' readonly class="Iw150">
+                  </span>&nbsp;到&nbsp;
+                  <span class="time"><input type="text" value="" name='endtime' readonly onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id='endTime' class="Iw150">
+                  </span></td>
+                </tr>
+              </table>
+            </div>
+
+			<div class="pubTabel">
+				<div class="theme"><!--{if in_array('3',$type)}-->文字<!--{else}-->图片<!--{/if}-->设置</div> 
+				<table class="tableX">
+					<!--{section name=foo start=0 loop=$infor.adnum step=1}-->
+					<tr>
+						<th width="145">链接地址：</th>
+						<td><input type="text" value="http://" class="Iw290" id='link' name='adimg[<!--{$smarty.section.foo.index}-->][link]'/></td>
+					</tr>
+					<tr class="border">
+						<th valign="top">文字提示：</th>
+						<td>
+							<input name='adimg[<!--{$smarty.section.foo.index}-->][font]' id='font' type="text" value="" class="Iw290 font" />
+							<input name="adimg[<!--{$smarty.section.foo.index}-->][img]" id="hid<!--{$smarty.section.foo.index}-->" value="" type="hidden" /><br />
+							<div id="img-adta-<!--{$smarty.section.foo.index}-->" style="display:none"></div>
+							<!--{if $infor.typefilename neq 'word'}-->
+							<img class="mt5" src="/admin/template/images/img_downl.png" id="img<!--{$smarty.section.foo.index}-->" onclick="uploadAccessory({'upload_id':'<!--{$smarty.section.foo.index}-->','limit':'<!--{$setting.limit}-->','_switch':'ad_img','ady_upload':'1','img_data_id':'img-adta-<!--{$smarty.section.foo.index}-->','img_id':'img<!--{$smarty.section.foo.index}-->','hid_id':'hid<!--{$smarty.section.foo.index}-->'})" width='110' height='86' style="cursor:pointer"/>
+							<!--{/if}-->
+						</td>
+					</tr>
+					<!--{/section}-->
+				</table>
+			</div>
+
+            <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+          </div>
+		  </form>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+function uploadAccessory (obj)
+{
+	var option=
+	{
+		upload_id:'accessory_upload'+obj.upload_id,
+		title:'广告图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+$(function()
+{
+	$.formValidator.initConfig({formid:"myform",autotip:true,generalwordwide:true});
+	$("#adtitle").formValidator({empty:false,onshow:"请输入1-50个字符",onfocus:"请输入1-50个字符",oncorrect:"输入正确"})
+	.inputValidator({min:1,max:50,onerror:"请输入1-50个字符"});
+
+	 $(".cancel").click(function(){
+		   var url ="<!--{$baseurl}-->"+"<!--{$backUrl}-->";
+		   window.location.href =url;
+	 })
+});
+</script>
+</body>
+</html>

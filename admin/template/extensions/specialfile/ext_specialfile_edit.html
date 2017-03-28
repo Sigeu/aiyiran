@@ -1,0 +1,113 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+		    <dd><a href="<!--{$baseurl}-->/extensions/specialfile/filelist/folder/<!--{$folder}-->" class="last">模板文件</a></dd>
+            <dt class="on"><a href="#">编辑模板文件</a></dt>
+          </dl>
+        </div>
+        <form method='post' action="<!--{$baseurl}-->/extensions/specialfile/edit" id='myForm'>
+            <!-- 隐藏域  -->
+            <div class="TabBoxC">
+                <div>
+                    <div class="pubTabel">
+                        <table class="tabelLR">
+                            <tr>
+                                <th width="145"><font>*</font> 文件名称：</th>
+                                <td><input type="text" value="<!--{$file}-->" name='filename' id='filename' class="Iw290"/></td>
+                            </tr>
+                            <tr>
+                                <th valign="top"><font>*</font> 文件描述：</th>
+                                <td><input type="text" value="<!--{$file_conf.describe}-->" id='describe' name='describe' class="Iw290"/></td>
+                            </tr>
+                            <tr>
+                                <th valign="top"><font>*</font> 参考标签：</th>
+                                <td>
+                                <!--{foreach from=$tages item=l key=k}-->
+                                <span style='width:100px;display:block;float:left'>
+                                <input type="button" value="<!--{$l|rtrim:'.php'}-->" class="btn2" onclick='showTagHelp("<!--{$l|rtrim:'.php'}-->")'>
+                                </span>
+                                <!--{if ($k+1)%4 eq 0}--><div class="height16"></div><!--{/if}-->
+                                <!--{/foreach}-->
+                                </td>
+                            </tr>
+                            <!-- 标签帮助 开始-->
+                            <tr id='taghelp'></tr>
+                            <!-- 标签帮助 结束-->
+                            <tr>
+                                <th valign="top"><font>*</font> 模板代码：</th>
+                                <td><textarea class="Iw450 Ih80" style="height:220px;" name='content' id='content' value=''><!--{$filecontent|escape:"html"}--></textarea></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="pubTabelBot">
+                        <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                        <input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.back();" class="btn2">
+                        <input type="hidden" name="folder" value="<!--{$folder}-->" />
+                        <input type="hidden" name="old_file" value="<!--{$file}-->" />
+                    </div>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+ <script src="<!--{$jspath}-->/pubJq.js"></script>
+ 
+<script type="text/javascript">
+$(document).ready(function() { 
+	 //验证
+	 $.formValidator.initConfig({autotip:true,formid: "myForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	 $("#describe").formValidator({onshow:"请输入2～30个字符，由汉字、数字、字母、符号组成",onfocus:"请输入2～30个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确",empty:false}).inputValidator({min:2,max:30,onerror:"请输入2～30个字符，由汉字、数字、字母、符号组成"}).defaultPassed();
+	 $("#content").formValidator({onshow:"请输入模板内容",onfocus:"请输入模板内容",onempty:'请输入模板内容',oncorrect:"输入正确"}).inputValidator({min:1,onerror:"请输入模板内容"}).defaultPassed();
+	 
+     //文件名验证
+     $("#filename").formValidator({onshow:"请输入2～30个字符，由数字、字母、符号组成的html文件",onfocus:"请输入2～30个字符，由数字、字母、符号组成的html文件",onempty:'请输入2～30个字符，由数字、字母、符号组成的html文件',oncorrect:"输入正确"}).inputValidator({min:2,max:30,onerror:"请输入2～30个字符，由数字、字母、符号组成的html文件"}).regexValidator({regexp:"^(\\w)+(\\.html)$"})
+	 .ajaxValidator({
+					type:"get",
+					url : "<!--{$baseurl}-->/extensions/specialfile/checkfilename/oldfile/<!--{$file}-->/folder/<!--{$folder}-->",
+					success : function(data)
+					{	
+						if(data==1)
+							return false;
+						else
+							return true;
+					},
+					buttons: $(".btn2"),
+					error: function(jqXHR, textStatus, errorThrown){onerror: "可能服务器忙，请重试"},
+					onerror : "该文件已被占用，请换一个",
+					onwait : "正在对文件名进行合法性校验，请稍候..."
+				}).defaultPassed();
+});
+
+//显示帮助标签
+function showTagHelp(tagname)
+{
+    var TAGS_CONF   = <!--{$tages_conf}-->;
+    var current_tag = TAGS_CONF[tagname];
+    if(current_tag != undefined)
+    {
+        var conf_arr = new Array();
+        conf_arr.push('<th valign="top">&nbsp; <b>标签说明</b>：</th>');
+        conf_arr.push('<td>');
+        conf_arr.push('<div class="pubTabelBot">');
+        conf_arr.push('<b>标签名称</b>：'+current_tag.name+'<br><br>');
+        conf_arr.push('<b>标签功能</b>：'+current_tag.describe+'<br><br>');
+        conf_arr.push('<b>使用实例</b>：<textarea readonly="" style="height:100px;" class="Iw450 Ih80">'+current_tag.example+'</textarea><br><br>');
+        conf_arr.push('<b>参数说明</b>：<br>');
+        jQuery.each(current_tag.params,function(i,n)
+        {
+             conf_arr.push(i);
+             conf_arr.push(n);
+             conf_arr.push('<br />');
+        });
+        conf_arr.push('</div>');
+        conf_arr.push('</td>');
+        jQuery('#taghelp').html(conf_arr.join(''));
+    }
+}
+</script>
+</body>
+</html>

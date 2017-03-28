@@ -1,0 +1,134 @@
+<!--{if $setting.setting}-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<style type="text/css">
+	.local-table{margin:0 auto;}
+	.local-table tr td{text-align:center;vertical-align: top;word-wrap:break-word;padding:10px 0px 10px 5px}
+	.check_file
+	{
+		 left: -15px;
+		 position: relative;
+		 top: -2px;
+	}
+	.local-txt{width: 101px;text-align: left;}
+	.Lpic td{cursor:pointer}
+</style>
+</head>
+<body>
+	<div class="notif">
+		<div class="layoutBox">
+			<div class="layout">
+				<dl class="laytab">
+				   <input type="hidden" id="flag" name="flag" value="<!--{$flag}-->"/>
+					<dt><a href="<!--{$baseurl}-->/dialog/upload/index/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">本地上传</a></dt>
+					<dt><a href="<!--{$baseurl}-->/content/accessory/local/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->" class="focus">本地图库</a></dt>
+					<dt><a href="<!--{$baseurl}-->/content/accessory/folder/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">目录浏览 </a></dt>
+				</dl>
+			</div>
+
+			<div class="layoutC">
+				<div style="padding:0">
+					<form method="post" action="<!--{$baseurl}-->/content/accessory/local/?setting=<!--{$setting.setting}-->" enctype="multipart/form-data">
+					<div class="pubTabelTot mt10 f333" style="padding:0;">
+						名称:<input type="text" name="selfname" class="Iw90 f999 text-tips" tips="请输入关键字" value="<!--{$search.selfname}-->" />&nbsp;&nbsp;上传时间:<input type="text" class="Iw90" onfocus="WdatePicker()" id='startTime' name='start' value="<!--{$search.start}-->"/>&nbsp;至&nbsp;<input type="text" class="Iw90"  onfocus="WdatePicker()" id='endTime' name='end' value="<!--{$search.end}-->"/>&nbsp;&nbsp;<input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+					</div>
+					</form>
+					<div class="Ltuku" style="height:auto;overflow-y:hidden;">
+						<table class="local-table">
+							<!--{foreach from=$plist._list item=pl}-->
+							<tr>
+								<!--{foreach from=$pl item=l}-->
+								<!--{if $l.id}-->
+								<td><img src="<!--{$l.http_url}-->" width="100" height="82" class="check-file" img_id="<!--{$l.id}-->" onerror="this.src='<!--{$baseurl}-->/template/images/default/missing.png';var _this = $(this);var id = _this.attr('img_id');$('input[img_id='+id+']').remove();$('img[img_id='+id+']').after('<div class=\'check_file\' style=\'width:14px;height:14px\'></div>');$('#upload_'+id+'').remove();"/><input type="checkbox" class="check_file" img_id="<!--{$l.id}-->"/><div class="local-txt"><a href="<!--{$l.http_url}-->" target="_blank"><!--{$l.name}-->_<!--{$l.selfname}--></a></div></td>
+								<!--{else}-->
+								<td><div style="height:82px;width:107px;"></div></td>
+								<!--{/if}-->
+								<!--{/foreach}-->
+							</tr>
+							<!--{/foreach}-->
+						</table>
+					</div>
+					<div class="pageGo"><!--{$plist.pagestr}--></div>
+						<!--{foreach from=$plist.list item=l}-->
+						<div id="upload_<!--{$l.id}-->" filename='<!--{$l.file_path}-->' selfname="<!--{$l.selfname}-->" size="<!--{$l.size}-->" iswatermark="0" isimage="1" path="<!--{$l.file_path}-->"></div>
+						<!--{/foreach}-->
+				</div>
+			</div>
+		</div>
+	</div>
+ 
+	
+</body>
+</html>
+<!--{/if}-->
+
+<script type="text/javascript">
+/*
+*  -------------------------------------------------
+*   选择图片数量限制
+*  -------------------------------------------------
+*/
+$(function()
+{
+	/*$('.local-table tr td img').error(function()
+	{
+		var _this = $(this);var id = _this.attr('img_id');$('input[img_id='+id+']').remove();$('img[img_id='+id+']').after('<div class=\'check_file\' style=\'width:14px;height:14px\'></div>');$('#upload_'+id+'').remove();
+	});*/
+	var limit = parseInt('<!--{$setting.limit}-->');//限制数
+    
+	if ('<!--{$flag}-->' == 'editImages' || '<!--{$flag}-->' == 'goodsedit') {
+		limit = 1;
+	}
+	
+	//点击图片
+	$('.check-file').bind('click',function()
+	{
+		var img_id = $(this).attr('img_id');
+		var _chk = $(this).next();
+		var cur_state = _chk.attr('checked');
+		(cur_state == 'checked') ? (_chk.removeAttr('checked') && (cancelFile(img_id))) : (_chk.attr('checked','checked') && selectFile(img_id));
+		var check_length = parseInt($('.local-table input:checkbox:checked').length);//已经选择的个数
+		if(check_length > limit)
+		{
+			art.dialog.tips('您最多能选'+limit+'个。');
+			_chk.removeAttr('checked');
+			cancelFile(img_id);
+		}
+	});
+
+	//点击复选框
+	$('.check_file').bind('click',function()
+	{
+		var img_id = $(this).attr('img_id');//图片ID
+		var cur_state = $(this).attr('checked');
+		(cur_state == 'checked') ? selectFile(img_id) : cancelFile(img_id);
+		var check_length = parseInt($('.local-table input:checkbox:checked').length);//已经选择的个数
+		if(check_length > limit)
+		{
+			art.dialog.tips('您最多能选'+limit+'个。');
+			$(this).removeAttr('checked');
+			cancelFile(img_id);
+		}
+	})
+
+	//选中文件
+	function selectFile (img_id)
+	{	
+		$('#upload_'+img_id).addClass('mo-upload-data');
+	}
+
+	//取消文件
+	function cancelFile (img_id)
+	{
+		$('#upload_'+img_id).removeClass('mo-upload-data');
+	}
+})
+</script>

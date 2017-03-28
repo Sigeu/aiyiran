@@ -1,0 +1,103 @@
+{include 'head.html'}
+
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}/bzyp.css" />
+<script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+<script type="text/javascript">
+    $(function(){
+        $(".classify span").click(function(){
+            $(".classify p").toggleClass("active")
+        });
+        // banner轮播
+        var banSwiper = new Swiper('.top_lb .swiper-container',{
+//                  pagination: '.top_lb .swiper-container .pagination',
+            loop:true,
+            grabCursor: true,
+            paginationClickable: true,
+            autoplay : 7000,
+            speed:1000,
+            autoplayDisableOnInteraction: false
+        });
+        $('.top_lb .arrow-left').on('click', function(e){
+            e.preventDefault()
+            banSwiper.swipePrev();
+        });
+        $('.top_lb .arrow-right').on('click', function(e){
+            e.preventDefault()
+            banSwiper.swipeNext();
+        });
+        $(".top_lb").hover(function(){
+            banSwiper.stopAutoplay();
+        },function(){
+            banSwiper.startAutoplay();
+        });
+
+
+    })
+</script>
+
+        <!--**************************************-->       
+        <div class="box_cont_w clearfix">
+            <div class="w_1200 clearfix">
+                <div class="lef_min">
+                    <div class="top_lb">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                            {foreach $goodsablum $k $v}
+                                <div class="swiper-slide">
+                                    <img src="{$v['photo']}">
+                                </div>
+                              {/foreach}
+                            </div>
+                            <div class="arrow-right"><i>&gt;</i></div>
+                            <div class="arrow-left"><i>&lt;</i></div>
+                       </div>
+                       <div class="details_w">
+                        <h3>{$goods['goodsname']}</h3>
+                        <div class="w_gs">{$goods['brief']}</div>
+                        <a href="/category/Category/index/cid/53/id/568" target="_blank">在线联系</a>
+                       </div>
+                    </div>
+                    <div class="bot_deatli">
+                        <div class="headline">
+                        <span class="fl">产品详情<i></i></span>
+                        <!--<a href="###" class="fr">参看更多<i></i></a>-->
+                        </div>
+                        <ul class="cp_deat clearfix">
+
+                            {foreach $goods['attr'] $k $v}
+                            <li>{$k}:  {$v}</li>
+                            {/foreach}
+                            
+                        </ul>
+                        <div class="cp_deat_cont">{$goods['content']}</div>
+                    </div>
+                </div>
+                <div class="right_cp_list">
+                    <div class="headline">
+                    <span class="fl">其他产品<i></i></span>
+                    </div>
+                    <ul>
+                    {mo:goods   pagesize="3"  order="brandid"  return="data"}
+                    {if !empty($data)}
+                    {foreach $data  $key $value} 
+                        <li>
+                        <a href="{$value['url']}">
+                            <img src="/static/uploadfile/goods/{$value['photo'][0]['photo']}" alt="{$value["goodsname"]}" title="{$value["goodsname"]}" />
+                            <p>{$value["goodsname"]}</p>
+                        </a>
+                        </li>
+                 {/foreach}
+                        {else}
+                      没找到信息，请稍后再试
+                     {/if}
+                {/mo:goods}
+                    </ul>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <!--**************************************-->       
+{include 'head_footer.html'}

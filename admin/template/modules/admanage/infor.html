@@ -1,0 +1,161 @@
+<!--{include file="public/head_admin.html"}-->
+<script>
+  $(function(){
+     $.formValidator.initConfig({formid:"form",autotip:true,generalwordwide:true});
+     $("#typename").formValidator({empty:false,onshow:"请输入1-100个字符",onfocus:"请输入1-100个字符",oncorrect:"输入正确"})
+	.inputValidator({min:1,max:100,onerror:"请输入1-100个字符"}).defaultPassed();
+
+     $(".cancel").click(function(){
+	    window.location.href = "<!--{$baseurl}-->/modules/admanage/index";
+	 })
+  })
+</script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#"><!--{$infor.typename}--></a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div >
+            <div class="pubTabel" id='parent'> 
+             <form   id="form" action='<!--{$baseurl}-->/modules/admanage/updateSet' method='post'>
+              <table class="tabelLR">
+                <tr>
+                  <th width="200px"><font>*</font> 广告位文件名：</th>
+                  <td>
+                  <input type='hidden' name='id' value='<!--{$infor.id}-->'>
+                  <input type='hidden' name='typefilename' value='<!--{$infor.typefilename}-->'>
+                  <input type="text" name='typefilename' value="<!--{$infor.typefilename}-->" class="Iw290"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly /></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 广告位名称：</th>
+                  <td><input type="text" value="<!--{$infor.typename}-->" name='typename' id='typename' class="Iw290"/></td>
+                </tr>
+                <!--{if $infor.attribute neq 0}-->
+                <tr>
+                  <th><font>*</font> 属性：</th>
+                  <td><span>
+                    <input type="radio" value='1' name='attribute' <!--{if $infor.attribute eq 1}-->checked<!--{/if}-->/>
+                    <label>固定位置</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='attribute' value='2' <!--{if $infor.attribute eq 2}-->checked<!--{/if}-->/>
+                    <label>随屏滚动</label>
+                    </span></td>
+                </tr>
+                <!--{/if}-->
+                <!--{if $infor.adposition neq 0}-->
+                <tr>
+                  <th>&nbsp; 是否设置广告位位置：</th>
+                  <td><span>
+                    <input type="radio" name='adposition' value='1' <!--{if $infor.adposition eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='adposition' value='2' <!--{if $infor.adposition eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <!--{/if}-->
+                <!--{if $infor.wordnum neq 0}-->
+                <tr>
+                  <th>&nbsp; 是否设置文字广告显示字数：</th>
+                  <td><span>
+                    <input type="radio" name='wordnum' value='1' <!--{if $infor.wordnum eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='wordnum' value='2' <!--{if $infor.wordnum eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <!--{/if}-->
+                <!--{if $infor.wordeffect neq 0}-->
+                <tr>
+                  <th>&nbsp; 文字广告效果：</th>
+                  <td><span>
+                    <input type="radio" name='wordeffect' value='1' <!--{if $infor.wordeffect eq 1}-->checked<!--{/if}-->/>
+                    <label>轮播</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='wordeffect' value='2' <!--{if $infor.wordeffect eq 2}-->checked<!--{/if}-->/>
+                    <label>无效果</label>
+                    </span></td>
+                </tr>
+                <!--{/if}-->
+                <!--{if $infor.closeeffect neq 0}-->
+                <tr>
+                  <th>&nbsp; 关闭后效果：</th>
+                  <td><span>
+                    <input type="radio" name='closeeffect' value='1' <!--{if $infor.closeeffect eq 1}-->checked<!--{/if}-->/>
+                    <label>嵌入</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='closeeffect' value='2' <!--{if $infor.closeeffect eq 2}-->checked<!--{/if}-->/>
+                    <label>翻卷</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>
+                    <input type="radio" name='closeeffect' value='3' <!--{if $infor.closeeffect eq 3}-->checked<!--{/if}-->/>
+                    <label>弹窗</label></span>
+                    </td>
+                </tr>
+                <!--{/if}-->
+                <tr>
+                  <th>&nbsp; 是否设置广告尺寸：</th>
+                  <td><span>
+                    <input type="radio" name='adsize' value='1' <!--{if $infor.adsize eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='adsize' value='2' <!--{if $infor.adsize eq 2}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告位下的广告：</th>
+                  <td><span>
+                    <input type="radio" name='adtime'  value='2' <!--{if $infor.adtime eq 2}-->checked<!--{/if}--> />
+                    <label>手动更改</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='adtime'  value='1' <!--{if $infor.adtime eq 1}-->checked<!--{/if}--> />
+                    <label>按上架时间显示一个</label>
+                    </span>&nbsp;&nbsp;<span class="warnBlue">温馨提示：全部列出适用于图片轮播类型的广告位，仅显示一张会根据广告位列表的广告下架时间自动替换。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告位可使用类型：</th>
+                  <td><span>
+                    <input type="checkbox" name='adtype[]' disabled value='1' <!--{if  in_array('1',$types)}-->checked<!--{/if}-->/>
+                    <label>图片</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="checkbox" name='adtype[]' disabled value='2' <!--{if in_array('2',$types)}-->checked<!--{/if}-->/>
+                    <label>flash</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="checkbox" name='adtype[]' disabled value='3' <!--{if in_array('3',$types)}-->checked<!--{/if}-->/>
+                    <label>文字</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 一次最多添加广告图片数量：</th>
+                  <td><input type="text" value="<!--{$infor.adnum}-->" name='adnum' class="Iw45" <!--{if $infor.typefilename!='change' and $infor.typefilename!='word'}-->disabled<!--{/if}-->>&nbsp;张</td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 状态：</th>
+                  <td><span>
+                    <input type="radio" name='state'  value='1' <!--{if $infor.state eq 1}-->checked<!--{/if}-->/>
+                    <label>开启</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name='state'  value='2' <!--{if $infor.state eq 2}-->checked<!--{/if}-->/>
+                    <label>关闭</label>
+                    </span></td>
+                </tr>
+              </table>      
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id="sub">
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

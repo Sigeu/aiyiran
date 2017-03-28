@@ -1,0 +1,66 @@
+/* CSS Document */
+.list_L {margin-left:14px;}
+.tdNoneBorL tr {padding-bottom:10px;}
+.tdNoneBorL td {border:none;padding:0;}
+.tdNoneBorL .td1_L {background-color:#e0f0f9;width:65px;text-align:center;}
+.tdNoneBorL .gapL {height:20px;}
+.linebkL{display:inline-block;*display:inline;zoom:1;}
+.dkForiptL{margin-left:25px;}
+.dkForiptL input {margin:0 5px 10px 0;}
+.sql_subL {position:relative;top:-1px;padding-left:145px;background:white url(none);margin-bottom:10px;}
+.tabelTBL th{background-color:#eef3f7;line-height:44px;height:44px;padding:0;}
+.tabelTBL td {text-align:center;line-height:44px;height:44px;padding:0;border:none;}
+.tabelTBL .tal {text-align:left;}
+/*
+.tabelTBL .level{background:url(../images/tr_div.png) 0 bottom  repeat-x;}
+.tabelTBL .level1on {background:#fff7f2 url(../images/tr_div.png) 0 bottom  repeat-x;}
+.tabelTBL .level1off {background:url(../images/tr_div.png) 0 bottom  repeat-x;}
+.tabelTBL .level2 {background:url(../images/tr_div.png) 0 bottom  repeat-x;}
+*/
+.tabelTBL .level,.tabelTBL .level1on,.tabelTBL .level1off,.tabelTBL .level2{border-bottom:1px dashed #CCCCCC;}
+.tabelTBL .level1on .tal div img,.tabelTBL .level1off .tal div img{vertical-align:-1px;cursor:pointer;}
+.tabel_clr{background-color:#f7f7f7}
+.tabelTBL .tal div {cursor:pointer;}
+.level1 .tal div.open{background:url(../images/open.png) -1px center no-repeat;padding-left:47px;}
+.level1 .tal div.clos{background:url(../images/add.png) -1px center no-repeat;padding-left:47px;}
+.level1 .tal div.no{background:none;padding-left:47px;}
+.level2 .tal div.open,.level3 .tal div.open,.level4 .tal div.open,.level5 .tal div.open,.level6 .tal div.open{background:url(../images/level2.png) -4px 0 no-repeat;padding-left:47px;}
+.level2 .tal div.clos,.level3 .tal div.clos,.level4 .tal div.clos,.level5 .tal div.clos,.level6 .tal div.clos{background:url(../images/level4.png) -1px center no-repeat;padding-left:47px;}
+.level2 .tal div.no,.level3 .tal div.no,.level4 .tal div.no,.level5 .tal div.no,.level6 .tal div.no {background:url(../images/level3.png) -1px 0 no-repeat;padding-left:35px;}
+.level2 .tal div {margin-left:0px;}
+.level3 .tal div {margin-left:37px;}
+.level4 .tal div {margin-left:73px;}
+.level5 .tal div {margin-left:108px;}
+.level6 .tal div {margin-left:145px;}
+.col {float:left;border:none;border-right:1px solid #ebebeb;text-align:left;padding-top:10px;height:580px;}
+.col a {padding-left:6px;margin:0 9px;}
+.col dt a {font-size:14px;color:white;background-color:#5590c8;display:inline-block;width:110px;height:24px;line-height:24px;}
+.col dd dt a {background:none;color:#333;font-size:12px;}
+.col dd dd a {background:#fff url(../images/arrow.png) 6px 0 no-repeat;color:#45596c;font-size:12px;padding-left:16px;}
+.col dd dd a:hover{color:#78930a;}
+.add_daily {margin:20px 0 0 20px;}
+.add_daily .no_active,.add_daily .active  {position:relative;background:url(../images/add_daily1.png) no-repeat;width:78px;height:23px;line-height:23px;border:1px solid #c4c4c4;margin:0 15px 15px 0;text-align:center;cursor:pointer;}
+.add_daily .active {background:url(../images/add_daily2.png) no-repeat;border:1px solid #158abb;color:#fff;padding-left:15px;width:63px;}
+.add_daily .no_active a {background:url(../images/add2.png) no-repeat;width:12px;height:12px;position:absolute;text-decoration:none;overflow:hidden;text-indent:10em;top:-4px;right:-4px;}
+.add_daily .active a {display:none;}
+.error_img {float:left;padding-left:130px;}
+.error_404 {background:url(../images/error.png) no-repeat;padding:28px 0 0 120px;width:337px;margin:80px auto 0;}
+.error_404 p {color:#a7a7a7;font-size:18px;line-height:30px;font-family:'Œ¢»Ì—≈∫⁄';}
+.error_404 .db,.error_404 .db:hover {display:block;text-align:center;text-decoration:none;}
+.error_detail1 {width:366px;margin:25px auto;padding:5px 45px;border-top:1px dashed #999;}
+.error_detail1 li {background:url(../images/dot.png) no-repeat 0 6px;line-height:18px;font-size:14px;padding-left:15px;margin-top:10px;}
+.error_detail2{width:760px;margin:20px auto 0;border-top:1px dashed #999;}
+.error_detail2 dl{font-family:'Arial';}
+.error_detail2 dt {padding:10px 0;}
+.error_detail2 dd {height:450px;overflow:scroll;}
+/* ÷ª˙’æ‘§¿¿*/
+.big_pic_box {/*background:url(../images/moble_bg.jpg) no-repeat;*/border:4px solid black;width:360px;height:500px;position:relative;float:left;margin:20px 0 0 66px;}
+.big_pic_box div {position:absolute;width:360px;height:500px;left:0px;top:0px;overflow:hidden;}
+.big_pic_box img {width:210px;}
+.sml_pic_box {float:left;position:relative;margin:80px 0 0 40px;}
+.sml_pic_box {width:96px;height:368px;}
+.phone_box {position:absolute;top:0;left:-4px;width:102px;height:132px;background:url(../images/phone_box.jpg) no-repeat;z-index:2;}
+.phone_min {/*position:relative;left:6px;top:11px;*/margin-top:11px;margin-left:6px;width:90px;height:116px;overflow:hidden;}
+.phone_min img {width:90px;}
+.phone_box .phont_mask {position:absolute;z-index:99;width:102px;height:132px;top:0;left:0;cursor:pointer;background:url(about:blank);}
+.ercode_box {width:110px;margin:20px 0 0 50px;}

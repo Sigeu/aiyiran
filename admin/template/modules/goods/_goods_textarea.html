@@ -1,0 +1,25 @@
+<tr>
+<th width="145px">&nbsp; <!--{$param.attrname}-->：</th>
+<td>
+<textarea name="attr[<!--{$param.attrid}-->]" id="attr_<!--{$param.attrid}-->" class="Iw450 Ih80" <!--{if $param.maxvalue}-->maxlength="<!--{$param.maxvalue}-->"<!--{/if}-->><!--{$param.defaultvalue}--></textarea>
+&nbsp;&nbsp;&nbsp;<span class="warnBlue"><!--{$param.fieldtips}--></span>
+<!--{if $param.maxvalue > $param.minvalue }-->
+<script type="text/javascript">
+$(function()
+{
+	$("#attr_<!--{$param.attrid}-->").formValidator(
+	{
+		onshow:"<!--{$param.fieldtips}-->",
+		onfocus:"<!--{$param.fieldtips}-->",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:<!--{$param.minvalue}-->,
+		max:<!--{$param.maxvalue}-->,
+		onerror:"<!--{$param.fieldtips}-->"
+	});
+});
+</script>
+<!--{/if}-->
+</td>
+</tr>

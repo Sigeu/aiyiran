@@ -1,0 +1,78 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">修改模型</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+        <form method='post' action="" id='myForm'>
+        <!-- 隐藏域 -->
+        <input type="hidden" value="<!--{$modelInfo.id}-->" class="Iw290" name='id' id='id'/>
+          <!-- 隐藏域 --> 
+           <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font> 模型名称：</th>
+                  <td><input type="text" value="<!--{$modelInfo.name}-->" class="Iw290" name='modelName' id='modelName'/>
+                    </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 模型表键名：</th>
+                  <td><input type="text"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly  value="<!--{$modelInfo.tablename}-->"  class="Iw290" name='show_tableName' id='show_tableName'/>
+				  <input type="hidden"  value="<!--{$modelInfo.tablename}-->" readonly class="Iw290" name='tableName' id='tableName'/></td>
+                </tr>
+ 
+                <tr>
+                  <th>&nbsp; 栏目首页模板：</th>
+                  <td><select class="Iw290" style="width:161px;" name='category_template'>
+                      <!--{foreach item=item key=key from=$index_list}-->
+                      <option value="<!--{$item}-->" <!--{if $item eq $modelInfo.category_template}-->selected<!--{/if}-->><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                       </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <th>&nbsp; 栏目列表页模板：</th>
+                  <td><select class="Iw290" style="width:161px;" name='list_template'>
+                      <!--{foreach item=item key=key from=$list_list}-->
+                      <option value="<!--{$item}-->" <!--{if $item eq $modelInfo.list_template}-->selected<!--{/if}-->><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <th>&nbsp; 内容页模板：</th>
+                  <td><select class="Iw290" style="width:161px;"  name='content_tempalte'>
+                      <!--{foreach item=item key=key from=$content_list}-->
+                      <option value="<!--{$item}-->" <!--{if $item eq $modelInfo.content_template}-->selected<!--{/if}-->><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                  <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	//初始化配置
+	 $.formValidator.initConfig({autotip:true,formid: "myForm",generalwordwide:true, debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	$("#modelName").formValidator({onshow:"请输入1-100个字符，由汉字、数字、字母、符号组成",onempty:'请输入1-100个字符，由汉字、数字、字母、符号组成',onfocus:"请输入1-100个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确"}).inputValidator({min:1,max:100,onerror:"请输入1-100个字符，由汉字、数字、字母、符号组成"}).defaultPassed();
+	$("#tableName").formValidator({onshow:"提示:模型表键名不能修改",onfocus:"提示:模型表键名不能修改"});
+	
+});
+</script>
+</body>
+</html>

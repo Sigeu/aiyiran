@@ -1,0 +1,1091 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>专题管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css" />
+<!--{if $special_info.skin eq 1}-->
+<link href="<!--{$csspath}-->/style.css" rel="stylesheet" type="text/css" />
+<!--{elseif $special_info.skin eq 3}-->
+<link href="<!--{$csspath}-->/style2.css" rel="stylesheet" type="text/css" />
+<!--{elseif $special_info.skin eq 2}-->
+<link href="<!--{$csspath}-->/style3.css" rel="stylesheet" type="text/css" />
+<!--{elseif $special_info.skin eq 4}-->
+<link href="<!--{$csspath}-->/style4.css" rel="stylesheet" type="text/css" />
+<!--{elseif $special_info.skin eq 5}-->
+<link href="<!--{$csspath}-->/style5.css" rel="stylesheet" type="text/css" />
+<!--{/if}-->
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/common.js"></script>
+<script src="<!--{$jspath}-->/cycle.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<style type="text/css">
+.visual-shade{display:none;position: absolute;opacity:.6;background:#888888;z-index:999}
+.visual-shade .visual-text{margin:7px 0 0 7px;font-weight:bold;}
+.visual-shade .visual-text span{color:#FFF;cursor:pointer}
+body {position:relative; background:url('/static/uploadfile/<!--{$special_info.back_img}-->');}
+</style>
+</head>
+<body class="edit">
+
+<div class="sets">
+    <span><a href="javascript:void(0)" onclick="go();" class="on">页面设置</a>&nbsp;&middot;&nbsp;
+    <a href="/special/Special/index/id/<!--{$specialid}-->/unavailable/1" target="_blank">页面预览</a></span>
+</div>
+
+<!--{if $special_info.banner_img}-->
+<div class="pic_booth" data="pic_booth"><img width="960px" src="/static/uploadfile/<!--{$special_info.banner_img}-->"></div>
+<!--{/if}-->
+
+<!--{if $$banner_list}-->
+<div class="nav" data="nav">
+    <ul>
+        <!--{foreach from=$banner_list item=l}-->
+        <li><a href="javascript:void(0)"><!--{$l.banner}--></a></li>
+        <!--{/foreach}-->
+    </ul>
+</div>
+<!--{else}-->
+<div style="margin-bottom:10px;"></div>
+<!--{/if}-->
+
+<!--{foreach from=$section item=list}-->
+<!--{if $list.section_type eq 1}-->
+<div class="one_colum" id="<!--{$list.id}-->">
+
+    <div class="scroll_pic js_scroll_pic3 visual-manager" data="one_1" node_id="<!--{$list.info_list.0.node_conf.aid}-->" assort_name="<!--{$list.info_list.0.node_conf.assort_name}-->" change_type="<!--{$list.info_list.0.node_conf.change_type}-->" category_id="<!--{$list.info_list.0.node_conf.category_id}-->" keywords="<!--{$list.info_list.0.node_conf.keywords}-->" show_number="<!--{$list.info_list.0.node_conf.number}-->" idlist="<!--{$list.info_list.0.node_conf.idlist}-->" order_style="<!--{$list.info_list.0.node_conf.order_style}-->" order_type="<!--{$list.info_list.0.node_conf.order_type}-->" is_banner="<!--{$list.info_list.0.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.0.node_conf.banner}-->" img_width="<!--{$list.info_list.0.node_conf.img_wid}-->" img_height="<!--{$list.info_list.0.node_conf.img_hei}-->" title_number="<!--{$list.info_list.0.node_conf.title_number}-->" brief_number="<!--{$list.info_list.0.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.0.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.0.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+        <ul class="pics">
+            <!--{foreach from=$list.info_list.0.info_list item=l}-->
+            <li><a href="#"><img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/></a></li>
+		    <!--{/foreach}-->
+        </ul>
+        <div class="txts txts3">
+            <div class="scroll_pci_mask scroll_pci_mask2"></div>
+            <div class="txt_con txt_con2">
+                <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+                <ul>
+                    <!--{foreach from=$list.info_list.0.info_list item=l}-->
+                    <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+		            <!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="colum colum_big visual-manager" data="one_2" node_id="<!--{$list.info_list.1.node_conf.aid}-->" assort_name="<!--{$list.info_list.1.node_conf.assort_name}-->" change_type="<!--{$list.info_list.1.node_conf.change_type}-->" category_id="<!--{$list.info_list.1.node_conf.category_id}-->" keywords="<!--{$list.info_list.1.node_conf.keywords}-->" show_number="<!--{$list.info_list.1.node_conf.number}-->" idlist="<!--{$list.info_list.1.node_conf.idlist}-->" order_style="<!--{$list.info_list.1.node_conf.order_style}-->" order_type="<!--{$list.info_list.1.node_conf.order_type}-->" is_banner="<!--{$list.info_list.1.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.1.node_conf.banner}-->" img_width="<!--{$list.info_list.1.node_conf.img_wid}-->" img_height="<!--{$list.info_list.1.node_conf.img_hei}-->" title_number="<!--{$list.info_list.1.node_conf.title_number}-->" brief_number="<!--{$list.info_list.1.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.1.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.1.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+        <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.1.node_conf.assort_name}--></span></h2>
+        <div class="colum_con">
+            <ul>
+                <!--{foreach from=$list.info_list.1.info_list item=l}-->
+                <li class="top">
+                    <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                    <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3>
+                    <p><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--><a href="#">[详情]</a></p>
+                </li>
+		        <!--{/foreach}-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="colum colum_big visual-manager" data="one_3" node_id="<!--{$list.info_list.2.node_conf.aid}-->" assort_name="<!--{$list.info_list.2.node_conf.assort_name}-->" change_type="<!--{$list.info_list.2.node_conf.change_type}-->" category_id="<!--{$list.info_list.2.node_conf.category_id}-->" keywords="<!--{$list.info_list.2.node_conf.keywords}-->" show_number="<!--{$list.info_list.2.node_conf.number}-->" idlist="<!--{$list.info_list.2.node_conf.idlist}-->" order_style="<!--{$list.info_list.2.node_conf.order_style}-->" order_type="<!--{$list.info_list.2.node_conf.order_type}-->" is_banner="<!--{$list.info_list.2.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.2.node_conf.banner}-->" img_width="<!--{$list.info_list.2.node_conf.img_wid}-->" img_height="<!--{$list.info_list.2.node_conf.img_hei}-->" title_number="<!--{$list.info_list.2.node_conf.title_number}-->" brief_number="<!--{$list.info_list.2.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.2.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.2.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+      <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.2.node_conf.assort_name}--></span></h2>
+       <!--{foreach from=$list.info_list.2.info_list item=l}-->
+        <div class="colum_con">
+            <dl><dt><img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/></dt><dd><h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3><div><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--></div></dd></dl>
+        </div>
+      <!--{/foreach}-->
+    </div>
+
+    <div class="pic_pin visual-manager" data="one_4" node_id="<!--{$list.info_list.3.node_conf.aid}-->" 
+    assort_name="<!--{$list.info_list.3.node_conf.assort_name}-->" change_type="<!--{$list.info_list.3.node_conf.change_type}-->" category_id="<!--{$list.info_list.3.node_conf.category_id}-->" keywords="<!--{$list.info_list.3.node_conf.keywords}-->" show_number="<!--{$list.info_list.3.node_conf.number}-->" idlist="<!--{$list.info_list.3.node_conf.idlist}-->" order_style="<!--{$list.info_list.3.node_conf.order_style}-->" order_type="<!--{$list.info_list.3.node_conf.order_type}-->" is_banner="<!--{$list.info_list.3.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.3.node_conf.banner}-->" img_width="<!--{$list.info_list.3.node_conf.img_wid}-->" img_height="<!--{$list.info_list.3.node_conf.img_hei}-->" title_number="<!--{$list.info_list.3.node_conf.title_number}-->" brief_number="<!--{$list.info_list.3.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.3.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.3.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+        <h2><!--{$list.info_list.3.node_conf.assort_name}--></h2>
+        <div class="pic_pin_con">
+            <ul>
+             <!--{foreach from=$list.info_list.3.info_list item=l}-->
+                <li>
+                <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                    <strong><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></strong>
+                </li>
+            <!--{/foreach}-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--{elseif $list.section_type eq 2}-->
+<div class="two_colum" id="<!--{$list.id}-->">
+    <div class="two_colum_left">
+
+      <div class="scroll_pic js_scroll_pic visual-manager" data="two_1" node_id="<!--{$list.info_list.0.node_conf.aid}-->" assort_name="<!--{$list.info_list.0.node_conf.assort_name}-->" change_type="<!--{$list.info_list.0.node_conf.change_type}-->" category_id="<!--{$list.info_list.0.node_conf.category_id}-->" keywords="<!--{$list.info_list.0.node_conf.keywords}-->" show_number="<!--{$list.info_list.0.node_conf.number}-->" idlist="<!--{$list.info_list.0.node_conf.idlist}-->" order_style="<!--{$list.info_list.0.node_conf.order_style}-->" order_type="<!--{$list.info_list.0.node_conf.order_type}-->" is_banner="<!--{$list.info_list.0.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.0.node_conf.banner}-->" img_width="<!--{$list.info_list.0.node_conf.img_wid}-->" img_height="<!--{$list.info_list.0.node_conf.img_hei}-->" title_number="<!--{$list.info_list.0.node_conf.title_number}-->" brief_number="<!--{$list.info_list.0.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.0.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.0.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <ul class="pics">
+                <!--{foreach from=$list.info_list.0.info_list item=l}-->
+                <li><a href="#"><img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/></a></li>
+                <!--{/foreach}-->
+            </ul>
+            <div class="txts">
+                <div class="scroll_pci_mask"></div>
+                <div class="txt_con">
+                    <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+                    <ul>
+                        <!--{foreach from=$list.info_list.0.info_list item=l}-->
+                        <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+                        <!--{/foreach}-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+       <div class="two_colum_box visual-manager" data="two_2" node_id="<!--{$list.info_list.1.node_conf.aid}-->" assort_name="<!--{$list.info_list.1.node_conf.assort_name}-->" change_type="<!--{$list.info_list.1.node_conf.change_type}-->" category_id="<!--{$list.info_list.1.node_conf.category_id}-->" keywords="<!--{$list.info_list.1.node_conf.keywords}-->" show_number="<!--{$list.info_list.1.node_conf.number}-->" idlist="<!--{$list.info_list.1.node_conf.idlist}-->" order_style="<!--{$list.info_list.1.node_conf.order_style}-->" order_type="<!--{$list.info_list.1.node_conf.order_type}-->" is_banner="<!--{$list.info_list.1.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.1.node_conf.banner}-->" img_width="<!--{$list.info_list.1.node_conf.img_wid}-->" img_height="<!--{$list.info_list.1.node_conf.img_hei}-->" title_number="<!--{$list.info_list.1.node_conf.title_number}-->" brief_number="<!--{$list.info_list.1.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.1.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.1.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <ul class="line">
+              <!--{foreach from=$list.info_list.1.info_list item=l}-->
+              <li class="top">
+              <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a>
+              </h3><p><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--><a href="#">[详情]</a></p>
+              </li>
+              <!--{/foreach}-->
+            </ul>
+        </div>
+
+       <div class="two_colum_box visual-manager" data="two_3" node_id="<!--{$list.info_list.2.node_conf.aid}-->" assort_name="<!--{$list.info_list.2.node_conf.assort_name}-->" change_type="<!--{$list.info_list.2.node_conf.change_type}-->" category_id="<!--{$list.info_list.2.node_conf.category_id}-->" keywords="<!--{$list.info_list.2.node_conf.keywords}-->" show_number="<!--{$list.info_list.2.node_conf.number}-->" idlist="<!--{$list.info_list.2.node_conf.idlist}-->" order_style="<!--{$list.info_list.2.node_conf.order_style}-->" order_type="<!--{$list.info_list.2.node_conf.order_type}-->" is_banner="<!--{$list.info_list.2.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.2.node_conf.banner}-->" img_width="<!--{$list.info_list.2.node_conf.img_wid}-->" img_height="<!--{$list.info_list.2.node_conf.img_hei}-->" title_number="<!--{$list.info_list.2.node_conf.title_number}-->" brief_number="<!--{$list.info_list.2.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.2.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.2.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <ul>
+              <!--{foreach from=$list.info_list.2.info_list item=l}-->
+                <li class="top">
+                    <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                    <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3>
+                    <p><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--><a href="#">[详情]</a></p>
+                </li>
+              <!--{/foreach}-->
+            </ul>
+        </div>
+
+       <div class="two_colum_box2 visual-manager" data="two_4" node_id="<!--{$list.info_list.3.node_conf.aid}-->" assort_name="<!--{$list.info_list.3.node_conf.assort_name}-->" change_type="<!--{$list.info_list.3.node_conf.change_type}-->" category_id="<!--{$list.info_list.3.node_conf.category_id}-->" keywords="<!--{$list.info_list.3.node_conf.keywords}-->" show_number="<!--{$list.info_list.3.node_conf.number}-->" idlist="<!--{$list.info_list.3.node_conf.idlist}-->" order_style="<!--{$list.info_list.3.node_conf.order_style}-->" order_type="<!--{$list.info_list.3.node_conf.order_type}-->" is_banner="<!--{$list.info_list.3.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.3.node_conf.banner}-->" img_width="<!--{$list.info_list.3.node_conf.img_wid}-->" img_height="<!--{$list.info_list.3.node_conf.img_hei}-->" title_number="<!--{$list.info_list.3.node_conf.title_number}-->" brief_number="<!--{$list.info_list.3.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.3.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.3.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><!--{$list.info_list.3.node_conf.assort_name}--></h2>
+            <ul>
+               <!--{foreach from=$list.info_list.3.info_list item=l}-->
+               <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+			   <!--{/foreach}-->
+            </ul>
+        </div>
+    </div>
+    <div class="two_colum_right">
+
+      <div class="bulletin visual-manager" data="two_5" node_id="<!--{$list.info_list.4.node_conf.aid}-->" assort_name="<!--{$list.info_list.4.node_conf.assort_name}-->" change_type="<!--{$list.info_list.4.node_conf.change_type}-->" category_id="<!--{$list.info_list.4.node_conf.category_id}-->" keywords="<!--{$list.info_list.4.node_conf.keywords}-->" show_number="<!--{$list.info_list.4.node_conf.number}-->" idlist="<!--{$list.info_list.4.node_conf.idlist}-->" order_style="<!--{$list.info_list.4.node_conf.order_style}-->" order_type="<!--{$list.info_list.4.node_conf.order_type}-->" is_banner="<!--{$list.info_list.4.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.4.node_conf.banner}-->" img_width="<!--{$list.info_list.4.node_conf.img_wid}-->" img_height="<!--{$list.info_list.4.node_conf.img_hei}-->" title_number="<!--{$list.info_list.4.node_conf.title_number}-->" brief_number="<!--{$list.info_list.4.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.4.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.4.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+          <div class="bulletin_con">
+                <h3><span>专题导读</span></h3>
+                <p><!--{$special_info.guide}--></p>
+          </div>
+        </div>
+
+      <div class="colum visual-manager" data="two_6" node_id="<!--{$list.info_list.5.node_conf.aid}-->" assort_name="<!--{$list.info_list.5.node_conf.assort_name}-->" change_type="<!--{$list.info_list.5.node_conf.change_type}-->" category_id="<!--{$list.info_list.5.node_conf.category_id}-->" keywords="<!--{$list.info_list.5.node_conf.keywords}-->" show_number="<!--{$list.info_list.5.node_conf.number}-->" idlist="<!--{$list.info_list.5.node_conf.idlist}-->" order_style="<!--{$list.info_list.5.node_conf.order_style}-->" order_type="<!--{$list.info_list.5.node_conf.order_type}-->" is_banner="<!--{$list.info_list.5.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.5.node_conf.banner}-->" img_width="<!--{$list.info_list.5.node_conf.img_wid}-->" img_height="<!--{$list.info_list.5.node_conf.img_hei}-->" title_number="<!--{$list.info_list.5.node_conf.title_number}-->" brief_number="<!--{$list.info_list.5.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.5.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.5.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><span><!--{$list.info_list.5.node_conf.assort_name}--></span></h2>
+            <!--{foreach from=$list.info_list.5.info_list item=l}-->
+             <div class="colum_con">
+                <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3>
+                <div><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--></div>
+              </div>
+			 <!--{/foreach}-->
+        </div>
+
+      <div class="colum visual-manager" data="two_7" node_id="<!--{$list.info_list.6.node_conf.aid}-->" assort_name="<!--{$list.info_list.6.node_conf.assort_name}-->" change_type="<!--{$list.info_list.6.node_conf.change_type}-->" category_id="<!--{$list.info_list.6.node_conf.category_id}-->" keywords="<!--{$list.info_list.6.node_conf.keywords}-->" show_number="<!--{$list.info_list.6.node_conf.number}-->" idlist="<!--{$list.info_list.6.node_conf.idlist}-->" order_style="<!--{$list.info_list.6.node_conf.order_style}-->" order_type="<!--{$list.info_list.6.node_conf.order_type}-->" is_banner="<!--{$list.info_list.6.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.6.node_conf.banner}-->" img_width="<!--{$list.info_list.6.node_conf.img_wid}-->" img_height="<!--{$list.info_list.6.node_conf.img_hei}-->" title_number="<!--{$list.info_list.6.node_conf.title_number}-->" brief_number="<!--{$list.info_list.6.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.6.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.6.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.6.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+                <ul>
+                  <!--{foreach from=$list.info_list.6.info_list item=l}-->
+                  <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+			      <!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--{elseif $list.section_type eq 3}-->
+
+<div class="three_colum" id="<!--{$list.id}-->">
+    <div class="three_colum_son">
+
+      <div class="scroll_pic js_scroll_pic2 visual-manager" data="three_1" node_id="<!--{$list.info_list.0.node_conf.aid}-->" assort_name="<!--{$list.info_list.0.node_conf.assort_name}-->" change_type="<!--{$list.info_list.0.node_conf.change_type}-->" category_id="<!--{$list.info_list.0.node_conf.category_id}-->" keywords="<!--{$list.info_list.0.node_conf.keywords}-->" show_number="<!--{$list.info_list.0.node_conf.number}-->" idlist="<!--{$list.info_list.0.node_conf.idlist}-->" order_style="<!--{$list.info_list.0.node_conf.order_style}-->" order_type="<!--{$list.info_list.0.node_conf.order_type}-->" is_banner="<!--{$list.info_list.0.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.0.node_conf.banner}-->" img_width="<!--{$list.info_list.0.node_conf.img_wid}-->" img_height="<!--{$list.info_list.0.node_conf.img_hei}-->" title_number="<!--{$list.info_list.0.node_conf.title_number}-->" brief_number="<!--{$list.info_list.0.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.0.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.0.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <ul class="pics">
+                 <!--{foreach from=$list.info_list.0.info_list item=l}-->
+                <li><a href="#"><img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/></a></li>
+			     <!--{/foreach}-->
+            </ul>
+            <div class="txts txts2">
+                <div class="scroll_pci_mask"></div>
+                <div class="txt_con">
+                    <div class="page"><a class="prev">&lt;</a><a class="next">&gt;</a></div>
+                    <ul>
+                        <!--{foreach from=$list.info_list.0.info_list item=l}-->
+                        <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+			            <!--{/foreach}-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+      <div class="colum visual-manager" data="three_2" node_id="<!--{$list.info_list.1.node_conf.aid}-->" assort_name="<!--{$list.info_list.1.node_conf.assort_name}-->" change_type="<!--{$list.info_list.1.node_conf.change_type}-->" category_id="<!--{$list.info_list.1.node_conf.category_id}-->" keywords="<!--{$list.info_list.1.node_conf.keywords}-->" show_number="<!--{$list.info_list.1.node_conf.number}-->" idlist="<!--{$list.info_list.1.node_conf.idlist}-->" order_style="<!--{$list.info_list.1.node_conf.order_style}-->" order_type="<!--{$list.info_list.1.node_conf.order_type}-->" is_banner="<!--{$list.info_list.1.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.1.node_conf.banner}-->" img_width="<!--{$list.info_list.1.node_conf.img_wid}-->" img_height="<!--{$list.info_list.1.node_conf.img_hei}-->" title_number="<!--{$list.info_list.1.node_conf.title_number}-->" brief_number="<!--{$list.info_list.1.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.1.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.1.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.1.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+              <ul>
+                <!--{foreach from=$list.info_list.1.info_list item=l}-->
+                <li class="left">							
+                    <a href="#"><img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/><strong><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></strong></a>
+                </li>
+                <!--{/foreach}-->
+              </ul>
+            </div>
+        </div>
+
+      <div class="colum visual-manager" data="three_3" node_id="<!--{$list.info_list.2.node_conf.aid}-->" assort_name="<!--{$list.info_list.2.node_conf.assort_name}-->" change_type="<!--{$list.info_list.2.node_conf.change_type}-->" category_id="<!--{$list.info_list.2.node_conf.category_id}-->" keywords="<!--{$list.info_list.2.node_conf.keywords}-->" show_number="<!--{$list.info_list.2.node_conf.number}-->" idlist="<!--{$list.info_list.2.node_conf.idlist}-->" order_style="<!--{$list.info_list.2.node_conf.order_style}-->" order_type="<!--{$list.info_list.2.node_conf.order_type}-->" is_banner="<!--{$list.info_list.2.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.2.node_conf.banner}-->" img_width="<!--{$list.info_list.2.node_conf.img_wid}-->" img_height="<!--{$list.info_list.2.node_conf.img_hei}-->" title_number="<!--{$list.info_list.2.node_conf.title_number}-->" brief_number="<!--{$list.info_list.2.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.2.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.2.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.2.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+                <ul>
+					<!--{foreach from=$list.info_list.2.info_list item=l}-->
+                    <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+					<!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="three_colum_son son2">
+		
+      <div class="bulletin visual-manager" data="three_4" node_id="<!--{$list.info_list.3.node_conf.aid}-->" assort_name="<!--{$list.info_list.3.node_conf.assort_name}-->" change_type="<!--{$list.info_list.3.node_conf.change_type}-->" category_id="<!--{$list.info_list.3.node_conf.category_id}-->" keywords="<!--{$list.info_list.3.node_conf.keywords}-->" show_number="<!--{$list.info_list.3.node_conf.number}-->" idlist="<!--{$list.info_list.3.node_conf.idlist}-->" order_style="<!--{$list.info_list.3.node_conf.order_style}-->" order_type="<!--{$list.info_list.3.node_conf.order_type}-->" is_banner="<!--{$list.info_list.3.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.3.node_conf.banner}-->" img_width="<!--{$list.info_list.3.node_conf.img_wid}-->" img_height="<!--{$list.info_list.3.node_conf.img_hei}-->" title_number="<!--{$list.info_list.3.node_conf.title_number}-->" brief_number="<!--{$list.info_list.3.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.3.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.3.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <div class="bulletin_con">
+                <h3 class="left"><span>专题导读:</span></h3>
+                <p><!--{$special_info.guide}--></p>					
+            </div>
+        </div>
+
+      <div class="colum visual-manager" data="three_5" node_id="<!--{$list.info_list.4.node_conf.aid}-->" assort_name="<!--{$list.info_list.4.node_conf.assort_name}-->" change_type="<!--{$list.info_list.4.node_conf.change_type}-->" category_id="<!--{$list.info_list.4.node_conf.category_id}-->" keywords="<!--{$list.info_list.4.node_conf.keywords}-->" show_number="<!--{$list.info_list.4.node_conf.number}-->" idlist="<!--{$list.info_list.4.node_conf.idlist}-->" order_style="<!--{$list.info_list.4.node_conf.order_style}-->" order_type="<!--{$list.info_list.4.node_conf.order_type}-->" is_banner="<!--{$list.info_list.4.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.4.node_conf.banner}-->" img_width="<!--{$list.info_list.4.node_conf.img_wid}-->" img_height="<!--{$list.info_list.4.node_conf.img_hei}-->" title_number="<!--{$list.info_list.4.node_conf.title_number}-->" brief_number="<!--{$list.info_list.4.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.4.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.4.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.4.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+                <ul>
+                   <!--{foreach from=$list.info_list.4.info_list item=l}-->
+                    <li class="top">
+                       <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                       <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3>
+                       <p><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--><a href="#">[详情]</a></p>
+                    </li>
+					<!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+
+      <div class="colum visual-manager" data="three_6" node_id="<!--{$list.info_list.5.node_conf.aid}-->" assort_name="<!--{$list.info_list.5.node_conf.assort_name}-->" change_type="<!--{$list.info_list.5.node_conf.change_type}-->" category_id="<!--{$list.info_list.5.node_conf.category_id}-->" keywords="<!--{$list.info_list.5.node_conf.keywords}-->" show_number="<!--{$list.info_list.5.node_conf.number}-->" idlist="<!--{$list.info_list.5.node_conf.idlist}-->" order_style="<!--{$list.info_list.5.node_conf.order_style}-->" order_type="<!--{$list.info_list.5.node_conf.order_type}-->" is_banner="<!--{$list.info_list.5.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.5.node_conf.banner}-->" img_width="<!--{$list.info_list.5.node_conf.img_wid}-->" img_height="<!--{$list.info_list.5.node_conf.img_hei}-->" title_number="<!--{$list.info_list.5.node_conf.title_number}-->" brief_number="<!--{$list.info_list.5.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.5.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.5.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.5.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+                <ul>
+                    <!--{foreach from=$list.info_list.5.info_list item=l}-->
+                    <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+					<!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="three_colum_son son3">
+
+      <div class="colum visual-manager" data="three_7" node_id="<!--{$list.info_list.6.node_conf.aid}-->" assort_name="<!--{$list.info_list.6.node_conf.assort_name}-->" change_type="<!--{$list.info_list.6.node_conf.change_type}-->" category_id="<!--{$list.info_list.6.node_conf.category_id}-->" keywords="<!--{$list.info_list.6.node_conf.keywords}-->" show_number="<!--{$list.info_list.6.node_conf.number}-->" idlist="<!--{$list.info_list.6.node_conf.idlist}-->" order_style="<!--{$list.info_list.6.node_conf.order_style}-->" order_type="<!--{$list.info_list.6.node_conf.order_type}-->" is_banner="<!--{$list.info_list.6.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.6.node_conf.banner}-->" img_width="<!--{$list.info_list.6.node_conf.img_wid}-->" img_height="<!--{$list.info_list.6.node_conf.img_hei}-->" title_number="<!--{$list.info_list.6.node_conf.title_number}-->" brief_number="<!--{$list.info_list.6.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.6.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.6.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.6.node_conf.assort_name}--></span></h2>
+            <!--{foreach from=$list.info_list.6.info_list item=l}-->
+              <div class="colum_con">
+                <img src="/static/uploadfile/<!--{$l.thumb.src}-->" width="<!--{$l.img_wid}-->" height="<!--{$l.img_hei}-->"/>
+                <h3><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></h3>
+                <div><!--{$l.description|truncate_cn:$l.brief_number:'...':true}--></div>
+              </div>
+            <!--{/foreach}-->
+        </div>
+
+      <div class="colum visual-manager" data="three_8" node_id="<!--{$list.info_list.7.node_conf.aid}-->" assort_name="<!--{$list.info_list.7.node_conf.assort_name}-->" change_type="<!--{$list.info_list.7.node_conf.change_type}-->" category_id="<!--{$list.info_list.7.node_conf.category_id}-->" keywords="<!--{$list.info_list.7.node_conf.keywords}-->" show_number="<!--{$list.info_list.7.node_conf.number}-->" idlist="<!--{$list.info_list.7.node_conf.idlist}-->" order_style="<!--{$list.info_list.7.node_conf.order_style}-->" order_type="<!--{$list.info_list.7.node_conf.order_type}-->" is_banner="<!--{$list.info_list.7.node_conf.is_banner}-->" banner_name="<!--{$list.info_list.7.node_conf.banner}-->" img_width="<!--{$list.info_list.7.node_conf.img_wid}-->" img_height="<!--{$list.info_list.7.node_conf.img_hei}-->" title_number="<!--{$list.info_list.7.node_conf.title_number}-->" brief_number="<!--{$list.info_list.7.node_conf.brief_number}-->">
+
+		<div class="visual-shade">
+			<div class="visual-text">
+            	<!--{if $list.info_list.7.node_conf.is_show eq 1}-->
+				<span><a href="javascript:void(0)" onclick="control(this);"><font>管理</font></a></span>&nbsp;|
+				<span><a href="javascript:void(0)" onclick="disappear(this);"><font>隐藏</font></a></span>
+                <!--{else if $list.info_list.7.node_conf.is_show eq 2}-->
+                &nbsp;<span><a href="javascript:void(0)" onclick="show(this);"><font>显示</font></a></span>
+                <!--{/if}-->
+			</div>
+		</div>
+
+            <h2><a href="#">更多&gt;&gt;</a><span><!--{$list.info_list.7.node_conf.assort_name}--></span></h2>
+            <div class="colum_con">
+                <ul>
+                    <!--{foreach from=$list.info_list.7.info_list item=l}-->
+                    <li><a href="#"><!--{$l.title|truncate_cn:$l.title_number:'...':true}--></a></li>
+                    <!--{/foreach}-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--{/if}-->
+<!--{/foreach}-->
+
+<!--页面设置-->
+<div class="notif " id="so" style="display:none;width:470px;" >
+	<div class="Ncon" >
+		<div class="pubTabel" style="padding:0 20px;">
+			<div class="Ncont">
+				<table class="tab_tab02">
+					<tr>
+						<th width="85" style="vertical-align:top; padding-top:15px;">页面版式：</th>
+						<td>
+							<table class="tab_inner" id="current">
+								<tr>
+									<th>ID</th>
+									<th>版块类型</th>
+									<th>排序</th>
+									<th>删除</th>
+								</tr>
+                            <!--{foreach from=$section item=l}-->
+								<tr>
+									<td><!--{$l.id}--></td>
+									<td><!--{if $l.section_type eq 1}-->一栏版块<!--{elseif $l.section_type eq 2}-->两栏版块<!--{elseif $l.section_type eq 3}-->三栏版块<!--{/if}--></td>
+									<td><input type="text" value="<!--{$l.sortby}-->" name="sortby[]" style="width:30px;"></td>
+									<td><a href="javascript:void(0)" onclick="getids(this)" >删除</a></td>
+								</tr>
+                            <!--{/foreach}-->
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<th width="85" style="vertical-align:top; padding-top:15px;">添加版块：</th>
+						<td>
+                            <select class="Iw290" style="width:194px;" name="section_type" id="section_type">
+                                <!--<option value="0">请选择版块</option>-->
+                                <option value="1">一栏版块</option>
+                                <option value="2">两栏版块</option>
+                                <option value="3">三栏版块</option>
+                            </select>&nbsp;
+						  <input class="btn5" type="button" onclick="addsection();" value="添加版块">
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--节点管理-->
+<div class="notif" id="sos" style="display:none;" >
+	<div class="Ncon">
+		<div class="pubTabel" style="padding:0 25px;">
+			<table class="tab_tab">
+				<tr>
+					<th width="85">节点说明：</th>
+					<td>文章（图片 + 标题 + 简介）列表节点</td>
+				</tr>
+				<tr>
+					<th width="85">节点ID：<span id="node_id"></span></th>
+					<td>节点标题：&nbsp;<input type="text" ID="assort_name" class="Iw290" style="width:180px;"></td>
+				</tr>
+				<tr>
+					<th style="padding-top:17px; vertical-align:top">节点内容：</th>
+					<td>
+						<span>
+						<input type="radio" name="comeinfo" value="1" checked="true" >
+						<label>固定栏目</label>
+						</span>&nbsp;
+						<select class="Iw290" style="width:194px;" id="category">
+                        <option value="0">请选取栏目</option>
+                        <!--{foreach from=$cat item=item}-->
+                        <option value="<!--{$item.id}-->"><!--{$item.catname}--></option>
+                        <!--{/foreach}-->
+						</select><br/>
+						<span>
+						<input type="radio" name="comeinfo" value="2">
+						<label>自动获取</label>
+						</span>&nbsp;
+						<input type="text" tips="请输入关键字" id="keys" class="Iw290 text-tips" style="width:180px;"><br/>
+						<span style="padding-top:15px;">
+						<input type="radio" name="comeinfo" value="3">
+						<label>自主选择</label>
+						</span>&nbsp;
+						<textarea style="width:300px; height:50px;" id="DIY"></textarea>
+						<span style="padding-top:15px;display:inline-block;*display:inline;zoom:1;vertical-align:bottom;">
+                        <input type="button" value="选取" onclick="chose();" class="btn4"/>&nbsp;&nbsp;（多个id之间用","隔开）</span>
+					</td>
+				</tr>
+				<tr>
+					<th width="85">显示条数：</th>
+					<td><input type="text" ID="number" style="width:55px;">&nbsp;&nbsp;&nbsp;
+						显示排序：
+						<select class="Iw290" style="width:100px;" id="order_style">
+                            <option value="hits">按点击量</option>
+                            <option value="publishtime">按发布时间</option>
+                            <option value="id" selected >按信息ID</option>
+                            <option value="updatetime">按更新时间</option>
+						</select>
+						<select class="Iw290" style="width:100px;" ID="order_type">
+                            <option value="desc" selected>降序</option>
+                            <option value="asc">升序</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<em>是否在专题导航显示：</em>
+						<span>
+						<input type="radio" checked="checked" value="1" name="is_banner" >
+						<label>是</label>
+						</span>&nbsp;&nbsp;&nbsp;&nbsp;
+						<span>
+						<input type="radio" value="2" name="is_banner" >
+						<label>否</label>
+						</span>
+					</td>					
+				</tr>
+				<tr>
+					<th width="85">导航名称：</th>
+					<td><input type="text" id="banner" tips="默认为节点标题" class="Iw290 text-tips" style="width:180px;"></td>
+				</tr>
+				<tr>
+					<th style="vertical-align:top;padding-top:17px;">图片显示设置：</th>
+					<td>缩略图&nbsp;&nbsp;&nbsp;&nbsp;
+						高度：<input type="text" ID="img_hei" class="Iw45">&nbsp;px
+						&nbsp;&nbsp;
+						宽度：<input type="text" ID="img_wid" class="Iw45">&nbsp;px&nbsp;&nbsp;<br/>
+						<span class="C999">图片显示说明：上传图片自动拉伸为设置尺寸显示
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th style="vertical-align:top;padding-top:17px;">文本显示设置：</th>
+					<td>标题&nbsp;&nbsp;&nbsp;
+						字符数
+						<input type="text" ID="title_number" class="Iw45"><br/>
+						简介&nbsp;&nbsp;&nbsp;
+						字符数
+						<input type="text" ID="brief_number" class="Iw45">
+						<span style="position:relative;top:-15px;">（文本显示说明:超出部分省略号"..."显示）</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<input type="hidden" id="specialid" value="<!--{$specialid}-->"/> <!--专题ID-->
+<input type="hidden" id="willdelete" value="0"/> <!--准备删除的版块ID合集-->
+<input type="hidden" id="willadd" value="0"/> <!--准备添加的版块类型合集-->
+<input type="hidden" id="delete_number"/> <!--准备删除的版块ID数量-->
+<input type="hidden" id="soon_number"/> <!--准备添加的版块数量-->
+<input type="hidden" id="section_number" value="<!--{$section_number}-->"/> <!--当前专题版块数量-->
+<input type="hidden" id="inside_list" value="<!--{$section_list}-->"/> <!--节点已设置内容的版块列表-->
+</body>
+</html>
+<script type="text/javascript">
+
+/* 将需要删除的ID记录保存 */
+function getids(tt)
+{    
+    var arr = new Array();
+    var hidd = document.getElementById("willdelete").value;
+    arr = hidd.split(',');
+    arr.push(tt.parentNode.parentNode.cells[0].innerHTML);
+    hidd = arr;
+    document.getElementById("willdelete").value = hidd;
+    document.getElementById("delete_number").value = hidd.length -1;
+    tt.parentNode.parentNode.style.display = "none";
+}
+
+/* 将需要添加的版块类型预保存 */
+function addsection()
+{
+    var point = document.getElementById("section_type").value;
+    var add = document.getElementById("willadd").value;
+    if (point == 1) {
+        $("#current").append("<tr><td>1</td><td>一栏版块</td><td><input type='text' value='0' name='sortby[]' style='width:30px;'></td><td><a href='javascript:void(0)' onclick='correct(this)'>删除</a></td></tr>");
+    }else if (point == 2){
+        $("#current").append("<tr><td>2</td><td>两栏版块</td><td><input type='text' value='0' name='sortby[]' style='width:30px;'></td><td><a href='javascript:void(0)' onclick='correct(this)'>删除</a></td></tr>");
+    }else if (point == 3) {
+        $("#current").append("<tr><td>3</td><td>三栏版块</td><td><input type='text' value='0' name='sortby[]' style='width:30px;'></td><td><a href='javascript:void(0)' onclick='correct(this)'>删除</a></td></tr>");
+    }
+
+    var arr = new Array();
+    arr = add.split(',');
+    arr.push(point);
+    add = arr;
+    document.getElementById("willadd").value = add;
+    document.getElementById("soon_number").value = add.length -1;
+}
+
+/* 剔除过渡添加数据 */
+function correct(bing)
+{
+    var str = document.getElementById("willadd").value;
+
+    var arr = new Array();
+    arr = str.split(","); 
+
+    var the = bing.parentNode.parentNode.cells[0].innerHTML;
+
+    for (var i=0; i<arr.length; i++)
+    {
+        if (arr[i] == the) 
+        {
+            arr.splice(i,1);
+            break;
+        }
+    }
+    
+    str = arr;
+
+    document.getElementById("willadd").value = str;
+
+    document.getElementById("soon_number").value = str.length -1;
+
+    bing.parentNode.parentNode.style.display = "none";
+}
+
+/* 页面设置 */
+function go ()
+{
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('so'),
+		    id: 'blue',
+		    title: '页面设置',
+            width:'560px',
+            height:'380px',
+		    button: 
+			[
+				{
+					name: '确定',
+					callback: function ()
+					{
+                        var top = art.dialog.top;
+                        var sort = top.document.getElementsByName('sortby[]'); //版块排序值
+                        var arr = new Array;
+                        for(var i=0; i<sort.length; i++){
+                            arr.push(sort[i].value);
+                        }
+                        var reorder = arr.join(",");  //版块ID值
+                 
+       					var sid = document.getElementById("specialid").value;   //专题ID
+    					var ther = document.getElementById("willadd").value; //将要添版块IDs
+                        var will = document.getElementById("willdelete").value;  //需要删除的版块IDs
+                        var inside = document.getElementById("inside_list").value;  //节点已设置内容所在版块IDs
+                        var passive = document.getElementById("delete_number").value;  //将要删除的版块个数
+                        var initiative = document.getElementById("section_number").value;  //当前专题版块数
+                        var soon = document.getElementById("soon_number").value;  //将要添加的版块个数
+             
+                        var strs1 = new Array();
+                        var strs2 = new Array();
+                        var strs3 ="";
+                        strs1 = will.split(","); 
+                        strs2 = inside.split(",");
+                        for(var i=0; i<strs1.length; i++){    
+                           for(var j=0;j<strs2.length; j++){
+                            if(strs1[i] == strs2[j]){
+                                strs3 = strs3 + strs1[i];
+                            }
+                           }
+                        }
+
+                        if (initiative + soon - passive < 1)
+                        {
+                            window.top.art.dialog.alert('专题页面版块不允许为空');
+                            return false;
+                        }
+                        else if(strs3 != 0 && strs3 != null)
+                        {
+                            window.top.art.dialog.confirm('版块下节点信息不为空，确认删除此版块及版块中的节点？', function () 
+                            {
+                                $.post('<!--{$baseurl}-->/extensions/Special/addSection',{'ther':ther,'sid':sid,'will':will,'reorder':reorder},function(d)
+                                {
+                                    window.top.art.dialog.alert('操作成功');
+                                    move.close();
+                                    location.reload();
+                                    return true;
+                                });
+
+                            }, function () 
+                            {
+                                window.top.art.dialog.tips('取消操作');
+                                location.reload();
+                            });
+
+                        }
+                        else if (ther != 0 || will != 0)
+                        {
+                            $.post('<!--{$baseurl}-->/extensions/Special/addSection',{'ther':ther,'sid':sid,'will':will,'reorder':reorder},function(d)
+                            {
+                                window.top.art.dialog.alert('操作成功');
+                                move.close();
+                                location.reload();
+                                return true;
+                            });
+                        }
+                        else 
+                        {
+                            $.post('<!--{$baseurl}-->/extensions/Special/addSection',{'sid':sid,'reorder':reorder},function(d)
+                            {//alert(d);
+                                window.top.art.dialog.alert('排序成功');
+                                move.close();
+                                location.reload();
+                                return true;
+                            });
+                        }
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function ()
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+/* 节点管理 */
+function control (obj)
+{
+    var _this = jQuery(obj);
+	var node_id = _this.parent().parent().parent().parent().attr('node_id'); //节点ID --- The Key
+    var assort_name = _this.parent().parent().parent().parent().attr('assort_name');  //节点名称
+    var change_type = _this.parent().parent().parent().parent().attr('change_type');  //选取文章的类型
+    var category_id = _this.parent().parent().parent().parent().attr('category_id');  //获取固定栏目ID
+    var keywords = _this.parent().parent().parent().parent().attr('keywords');  //选取文章关键字
+    var idlist = _this.parent().parent().parent().parent().attr('idlist');  //IDs列表
+    var show_number = _this.parent().parent().parent().parent().attr('show_number');  //显示条数
+    var order_style = _this.parent().parent().parent().parent().attr('order_style');  //排序类型
+    var order_type = _this.parent().parent().parent().parent().attr('order_type');  //排序方式
+    var is_banner = _this.parent().parent().parent().parent().attr('is_banner');  //是否导航显示
+    var banner_name = _this.parent().parent().parent().parent().attr('banner_name');  //导航名称
+    var img_width = _this.parent().parent().parent().parent().attr('img_width');  //缩略图宽
+    var img_height = _this.parent().parent().parent().parent().attr('img_height');  //缩略图高
+    var title_number = _this.parent().parent().parent().parent().attr('title_number');  //标题截取
+    var brief_number = _this.parent().parent().parent().parent().attr('brief_number');  //简介截取
+    
+    /* 
+     ========================
+     *----- 赋值到弹窗------ 
+     *=======================
+     */
+
+    $('#node_id').text(node_id);  //节点ID
+    if (assort_name.length > 0) {
+        $('#assort_name').val(assort_name);  //节点名称
+    }
+    if (change_type ==1){
+        $("input[name='comeinfo'][value=1]").attr("checked",true); //固定栏目
+        $("#category").val(category_id);  //固定栏目ID
+    }else if (change_type ==2){
+        $("input[name='comeinfo'][value=2]").attr("checked",true); //关键字搜索
+        $('#keys').val(keywords);  //搜索关键字
+    }else if (change_type ==3) {
+        $("input[name='comeinfo'][value=3]").attr("checked",true); //自主选取
+            $('#DIY').text(idlist);  //id列表
+    }
+    $('#number').val(show_number);  //显示条数
+    if (show_number ==0) {
+        $('#number').val(5);  //默认值  5条
+    }
+    $("#order_style").val(order_style);  //排序方式
+    $("#order_type").val(order_type);  //排序类型
+    if (is_banner ==1){ //是否导航
+        $("input[name='is_banner'][value=1]").attr("checked",true); //显示
+    }else{
+        $("input[name='is_banner'][value=2]").attr("checked",true); //不显示
+    }
+    if (banner_name.length > 0) {
+        $('#banner').val(banner_name);  //导航名称
+    }
+    $('#img_wid').val(img_width); //图宽
+    $('#img_hei').val(img_height);  //图高
+    $('#title_number').val(title_number); //标题
+    if (title_number ==0) {
+        $('#title_number').val(25); //默认值  25个字符
+    }
+    $('#brief_number').val(brief_number);  //简介
+    if (brief_number ==0) {
+        $('#brief_number').val(100);  //默认值 100个
+    }
+
+    /* --赋值结束-- */
+
+	var move = art.dialog.through(
+	{
+		content: document.getElementById('sos'),
+		     id: 'yellow',
+		    title: '节点管理',
+            width:'600px',
+            height:'400px',
+		    button: 
+			[
+				{
+					name: '确定',
+					callback: function ()
+					{
+                        var top = art.dialog.top;
+                        var assort = top.$('#assort_name').val(); //节点名称
+                        var radioo = top.$("input[name=comeinfo]:checked").val(); //选取文章方式
+                        if (radioo ==1) //固定栏目
+                        {
+                            var category = top.$('#category').val();
+                        } 
+                        else if (radioo ==2) //关键词选取
+                        {
+                            var keyword = top.$('#keys').val();  
+                        } 
+                        else if (radioo ==3) //自主选择
+                        {
+                            var diy = top.$('#DIY').val();
+                        }
+                        var numbers = top.$('#number').val(); //显示条数
+                        var order_s = top.$('#order_style').val(); //排序方式
+                        var order_t = top.$('#order_type').val(); //排序类型
+                        var banners = top.$("input[name=is_banner]:checked").val(); //是否导航显示
+                        var banner = top.$('#banner').val();  //导航名称
+                        if (banner.length == 0 || banner == '默认为节点标题') 
+                        {
+                            var banner = assort;
+                        }
+                        var img_hei = top.$('#img_hei').val(); //缩略图高度
+                        var img_wid = top.$('#img_wid').val(); //缩略图宽度
+                        var titles = top.$('#title_number').val(); //标题字符数
+                        var brief = top.$('#brief_number').val(); //简介字符数
+
+                        if(assort == '' || assort == null || assort == " " )
+                        {
+                            window.top.art.dialog.alert('请完善节点标题');
+                            return false;
+                        }
+                        else if((typeof(category) == 'undefined' || category == 0) && (typeof(keyword) == 'undefined' || keyword.length < 1 || keyword == '请输入关键字') && (typeof(diy) == 'undefined' || diy.length < 1))
+                        {
+                            window.top.art.dialog.alert('请完善节点内容信息后再提交');
+                            return false;
+                        }
+                        else 
+                        {
+                            $.post('<!--{$baseurl}-->/extensions/Special/assort',{'assort_id':node_id,'assort_name':assort,'change_type':radioo,'category':category,'keyword':keyword,'diy':diy,'number':numbers,'order_style':order_s,'order_type':order_t,'is_banner':banners,'banner':banner,'img_hei':img_hei,'img_wid':img_wid,'title_number':titles,'brief_number':brief},function(d)
+						    {//alert(d);
+                                window.top.art.dialog.alert('操作成功');
+                                move.close();
+                                location.reload();
+                                return true;
+						    });
+                        }
+					},
+					focus: true
+				},
+				{
+					name: '取消',
+					callback: function ()
+					{
+						return true;
+					}
+				}
+			]
+	});
+}
+
+/* 节点之自主选取内容 */
+function chose()
+{
+	window.top.art.dialog.open('<!--{$baseurl}-->/extensions/Special/select',{
+            title:'自主选择节点内容',
+            id:'green',
+            width:'700px',
+            height:'450px',
+            lock:true,
+            ok:function(){
+                var arr = new Array();
+                var str = '';
+                var win = art.dialog.open.origin;
+                var iframe = this.iframe.contentWindow;
+                var checked_ids = $(iframe.document).find('#search_list input:checkbox:checked');
+                $.each(checked_ids,function(i,n){
+                    arr.push($(n).val());
+                })
+                var str = arr.join(',');
+
+			    //$(win.document).find('#DIY').val(str);
+
+                top.$('#DIY').val(str);
+
+                window.top.art.dialog({id:'green'}).close();
+            },
+            cancel:function(){
+                window.top.art.dialog({id:'green'}).close();
+            }
+    });
+}
+
+/*
+ * 节点 - 管理、隐藏 
+*/
+function disappear (obj)
+{	var _this = jQuery(obj);
+	var node_id = _this.parent().parent().parent().parent().attr('node_id');
+    if (node_id != null && node_id !=0)
+    {
+        $.post('<!--{$baseurl}-->/extensions/Special/disappear',{'node_id':node_id},function(d)
+        {
+            location.reload();
+            return true;
+        });
+    }
+}
+
+/*
+ * 节点 - 管理、显示
+*/
+function show (obj)
+{	var _this = jQuery(obj);
+	var node_id = _this.parent().parent().parent().parent().attr('node_id');
+    if (node_id != null && node_id !=0)
+    {
+        $.post('<!--{$baseurl}-->/extensions/Special/show',{'node_id':node_id},function(d)
+        {
+            location.reload();
+            return true;
+        });
+    }
+}
+
+/*
+ *  隐藏、显示 代码
+ */
+jQuery(function()
+{
+	jQuery("div.visual-manager").bind('mouseover',function()
+	{
+		var _this  = jQuery(this);
+		var padding_top = parseInt(_this.css("padding-top"));
+		var padding_left = parseInt(_this.css("padding-left"));
+		var visual_shade = _this.find("div.visual-shade");
+		(padding_top > 0) && (visual_shade.css("margin-top",padding_top*-1));
+		(padding_left > 0) && (visual_shade.css("margin-left",padding_left*-1));
+		visual_shade.css("display","block");
+		visual_shade.height(_this.outerHeight()).width(_this.outerWidth());
+	}).bind("mouseout",function()
+	{
+		jQuery(this).find("div.visual-shade").css("display","none");
+	});
+});
+
+
+
+</script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+  <div class="pubBox">
+        <form action="<!--{$baseurl}-->/webset/mailset/mailTemplate" method='post'>
+        <div class="pubTabelTot">
+           <input type="text" value="<!--{if $search.keyword neq ''}--><!--{$search.keyword}--><!--{else}-->请输入关键字<!--{/if}-->" class="Iw150 text-tips" tips="请输入关键字" name='keyword'>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 发送时间：
+		    <span class="time">
+			  <input type="text" value="<!--{$search.starttime}-->" onfocus="WdatePicker()" id='startTime' name='starttime' readonly class="Iw150">
+            </span>
+            至
+           <span class="time">
+		    <input type="text" value="<!--{$search.endtime}-->" name='endtime' readonly onfocus="WdatePicker()" id='endTime' class="Iw150">
+           </span>
+           <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+        </div>
+        </form>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%">ID</th>
+                  <th width="50%">邮件模板名称</th>
+                  <th width="20%">创建时间</th>
+                  <th width="10%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td><!--{$item.id}--></td>
+                  <td><!--{$item.theme}--></td>
+                  <td><!--{$item.createtime|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td><input type='hidden' id='hidid' value="<!--{$item.id}-->"></input><a href="<!--{$baseurl}-->/webset/mailset/updateTemplate?id=<!--{$item.id}-->">修改</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <!--div class="pubOperate"><span class="btn5">
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+              <label>全选/反选</label>
+              </span> 
+              <input type="button" class="btn5" value="删除" />
+            </div-->
+            <div class="pubTabelBot">
+            </div>           
+           </div>
+          </div>
+        </div>
+</div>

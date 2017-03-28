@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>专题分类管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">专题分类</a></dt>
+			<dd><a href="<!--{$baseurl}-->/extensions/Specialassort/add" class="last">添加分类</a></dd>            
+          </dl>
+        </div>
+        <div class="TabBoxC">
+		   <div>
+            <div class="pubTabel">
+			<form method="POST" action="<!--{$baseurl}-->/extensions/Specialassort/index" id="batch-form" >
+              <table class="tabelTB tableTB_Xtal mt10" id="search-list">
+                <tr style="border-bottom:1px solid #CCD9E4;">
+                  <th width="5%">选择</th>
+				  <th width="10%">ID</th>
+				  <th width="10%">排序</th>
+				  <th width="40%">分类名称</th> 
+				  <th width="10%">专题数量</th>
+                  <th width="25%">操作</th>
+                </tr>
+				<!--{foreach from=$sort_tree item=l}-->
+				<tr class="<!--{$l.class}-->" style="display:<!--{$l.show_hide}-->" child_count="<!--{$l.child_count}-->">
+					<td><input type="checkbox" name="sort[]" value="<!--{$l.id}-->" /></td>
+					<td><!--{$l.id}--></td>
+					<td style="text-align:center"><input type="text" style="text-align:center;" class="Iw45" name="ordernum[<!--{$l.id}-->][<!--{$l.ordernum}-->]" value="<!--{$l.ordernum}-->"></td>
+					<td class="tal"><div class="<!--{$l.flag}-->" style="margin-left:<!--{$l.margin_left}-->px"><!--{$l.type_name}--></div></td>
+					<td style="text-align:center"><!--{$l.special_numbers}--></td>
+					<td style="text-align:center">
+					<a href="<!--{$baseurl}-->/extensions/Specialassort/add/id/<!--{$l.id}-->">添加子分类</a> | 
+					<!--{if $l.isdefault eq 1}--><span style="color:#A5A5A5">修改</span><!--{else}--><a href="<!--{$baseurl}-->/extensions/Specialassort/edit/id/<!--{$l.id}-->">修改</a><!--{/if}--> | 
+					<!--{if $l.isdefault eq 1}--><span style="color:#A5A5A5">删除</span><!--{else}--><a href="#" onclick="MoConfirm('<!--{$baseurl}-->/extensions/Specialassort/delete/id/<!--{$l.id}-->')">删除</a><!--{/if}-->
+					</td>
+				</tr>
+				<!--{/foreach}-->
+              </table>
+             </form>
+            </div>
+             <div class="pubOperate"><span class="btn5">
+              <label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/>全选/反选</label></span> 
+              <input type="button" class="btn5" value="更新排序" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list" form-action="<!--{$baseurl}-->/extensions/Specialassort/updateOrder" empty-tips="请选择要进行排序的记录！" is-selected="false"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">	
+$(function()
+{
+    $("#search-list tr:gt(0)").find('td:eq(3)').bind('click',function()
+    {
+        var tr = $(this).parent('tr');
+        var c_index = tr.index();
+        var c_child = parseInt(tr.attr('child_count'));
+        if(c_child == '0') return;
+        var div = $(this).find('div');
+        var s_class = div.attr('class'); 
+        var n_class = (s_class == 'open') ? 'clos' : 'open'; 
+        div.removeClass(s_class).addClass(n_class);
+
+        if (n_class == 'open')
+            tr.attr('bgcolor','#FFF7F2');
+        else
+            tr.attr('bgcolor','#F7F7F7');
+
+        for (var i=1;i<= c_child;i++)
+        {
+            var _tr = $("#search-list tr:eq("+(c_index+i)+")");
+            var _div = _tr.find('td:eq(3)').find('div');
+            var _s_class = _div.attr('class');
+            if (n_class == 'open')
+                _tr.show();
+            else
+                _tr.hide();
+            if (_s_class != 'no')
+                _div.removeClass().addClass(n_class);
+        }
+    });
+});
+</script>

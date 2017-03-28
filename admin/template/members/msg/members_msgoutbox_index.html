@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发件箱列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+ <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:;">发件箱列表</a></dt>
+			<dd><a href="<!--{$baseurl}-->/members/msgsend/index" class="last">发送站内信</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabelTot">
+			<!--  搜索表单  -->
+			<form method="post" action="<!--{$baseurl}-->/members/msgoutbox/index">
+              <input type="text" value="<!--{$search.title}-->" name='title' class="Iw215 text-tips" tips="请输入主题关键字">
+			  &nbsp;&nbsp;发送时间
+			  <span class="time"><input type="text" value="<!--{$search.start}-->" class="Iw90" onfocus="WdatePicker()" id="starttime" name="start"></span>&nbsp;至&nbsp;<span class="time"><input type="text" value="<!--{$search.end}-->" class="Iw90" onfocus="WdatePicker()" id="endtime" name="end"></span>
+              <input type="submit" hidefocus="hide" value="搜 索" class="btn5">
+			</form>
+            </div>
+			<!--  列表批量操作  -->
+			<form method="post" id="list-form" action="javascript:;" enctype="multipart/form-data">
+            <div class="pubTabel">
+			   <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="">信件主题</th>
+                  <th width="10%">收件人</th>
+                  <th width="20%">发件时间</th>
+                  <th width="10%">操作</th>
+                </tr>
+				<!--{foreach from=$plist.list item=l}-->
+				 <tr>
+                  <td><input type="checkbox" name="id[]" value="<!--{$l.id}-->"/></td>
+                  <td><!--{$l.title|truncate_cn:40:"...":true}--></td>
+                  <td><!--{$l.username}--></td>
+                  <td><!--{$l.created|date_format:"%Y-%m-%d %H:%M:%S"}--></td>
+                  <td><a href="<!--{$baseurl}-->/members/msgoutbox/view/id/<!--{$l.id}-->">查看</a> | <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/members/msgoutbox/del/id/<!--{$l.id}-->','你确定删除吗？')">删除</a></td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"> 
+              <span class="btn5">
+                <label>
+                    <input type="checkbox" class="Check-All-Toggle" container-id="search-list" style="position: relative; top: 3px; width: 15px;"/> 全选/反选
+                </label>
+              </span>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)"  
+			  form-id="list-form" 
+			  form-action="<!--{$baseurl}-->/members/msgoutbox/del" 
+			  container-id="search-list"  
+			  empty-tips="请选择要删除的信息！" 
+			  confirm-tips="你确定要删除?"/>
+            </div>
+			</form>
+			<div class="pubTabelBot">
+              <div class="pageGo"><!--{$plist.pagestr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<div class="clearfix"></div>
+</body>
+</html>

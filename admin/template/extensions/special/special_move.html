@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>专题移动到分类</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+</head>
+<body>
+	<div class="pubTabel">
+		<table class="tabelTB tabelTB_X">
+			<tr>
+				<td style="padding-left:10px;">专题分类：</td>
+				<td><select class="Iw290" ID="moveSpecialId" style="width:302px;">
+				<!--{foreach from=$sort_tree item=l}-->
+				<option value="<!--{$l.id}-->"><!--{$l.type_name}--></option>
+				<!--{/foreach}-->
+				</select>&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

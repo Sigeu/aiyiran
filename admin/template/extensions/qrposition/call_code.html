@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>二维码调用代码 </title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" rel="stylesheet" href="<!--{$csspath}-->/validator.css">
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script>
+$(function(){
+	$("#copy1").click(function(){
+		copyToClipboard($("input[name='action']").val());
+	})
+	$("#copy2").click(function(){
+		copyToClipboard($("input[name='static']").val());
+	})
+})
+function copyToClipboard(txt) {
+	if(window.clipboardData) {
+		window.clipboardData.clearData();
+		clipboardData.setData("Text", txt);
+		alert("复制成功！");
+		
+	} else if(navigator.userAgent.indexOf("Opera") != -1) {
+		window.location = txt;
+	} else if (window.netscape) {
+		try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+		} catch (e) {
+		alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将 'signed.applets.codebase_principal_support'设置为'true'");
+		}
+	var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+	if (!clip) return;
+		var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+	if (!trans) return;
+		trans.addDataFlavor('text/unicode');
+		var str = new Object();
+		var len = new Object();
+		var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+		var copytext = txt;
+		str.data = copytext;
+		trans.setTransferData('text/unicode',str,copytext.length*2);
+		var clipid = Components.interfaces.nsIClipboard;
+		if (!clip)
+		return false;
+		clip.setData(trans,null,clipid.kGlobalClipboard);
+		alert('复制成功');
+    }
+}
+</script>
+</head>
+<body>
+    <div class="pubBox" style='height:550px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">调用代码</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+             <form action="<!--{$baseurl}-->/modules/admanage/savePosition" id='myform' method='post'>
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"></th>
+                  <td>
+                   <span style='color:#FF9966'>温馨提示：两种二维码调用方法：方法一动态调取二维码，消耗资源，但可以获得二维码的点击数量；方法二静态调取。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>方法一动态调取：</th>
+                  <td><input class="Iw450"  name='action' type="text" value="<script language='javascript' src='{HOST_NAME}index/index/qrcodePreview/id/<!--{$pid}-->'></script>"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="btn6" type="button" hidefocus="hide" value="复制到剪切板" id='copy1'>
+                  </td>
+                </tr>
+                <tr>
+                  <th>方法二静态调取：</th>
+                  <td><input class="Iw450"  name='static' type="text" value="<!--{if $id neq 0}--><script language='javascript' src='{HOST_NAME}html/qrcache/<!--{$id}-->.js'></script><!--{/if}-->"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input class="btn6" type="button" hidefocus="hide" value="复制到剪切板" id='copy2'>
+                  </td>
+                </tr>
+              </table>
+            </div>
+           </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+    </html>

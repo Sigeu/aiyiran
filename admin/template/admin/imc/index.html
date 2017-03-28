@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>CMS首页</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css" title="basc"/>
+<link href="<!--{$csspath}-->/bascB.css" rel="alternate stylesheet" type="text/css" title="bascB"/>
+<link href="<!--{$csspath}-->/bascG.css" rel="alternate stylesheet" type="text/css" title="bascG"/>
+<link href="<!--{$csspath}-->/bascR.css" rel="alternate stylesheet" type="text/css" title="bascR"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script src="<!--{$jspath}-->/floatcheck.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/styleswitch.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#rightMain").attr('src', "<!--{$pageInfo.defRightUrl}-->");
+})
+/*导航菜单*/
+function _MM(menuid) {
+    window.location.href = "<!--{$baseurl}-->/admin/index/init?menuid="+menuid;   
+}
+/*导航菜单*/
+function _SP(menuid,rightUrl){
+	$("#rightMain").attr('src', rightUrl);
+	$('.submenu').removeClass('focus');
+    $('#'+menuid).addClass("focus");
+    $('#current_pos').html($('#'+menuid).html());
+    
+}
+
+/*常用操作跳转*/
+function _SC(menuid,targetUrl,topmenu)
+{
+    var bigmenu='';
+    if(topmenu=='' || topmenu==undefined){
+        bigmenu=1;
+    }else{
+        bigmenu=topmenu;
+    }
+        
+    window.location.href = "<!--{$baseurl}-->/admin/index/init?menuid="+bigmenu+"&submenu="+menuid+"&rightUrl="+targetUrl; 
+}
+//clientHeight-0; 空白值 iframe自适应高度
+function SetCwinHeight(){   
+    var iframeid=document.getElementById("rightMain"); //iframe id  
+    if (document.getElementById){    
+        if (iframeid && !window.opera){     
+            if (iframeid.contentDocument && iframeid.contentDocument.body.offsetHeight){     
+                iframeid.height = iframeid.contentDocument.body.offsetHeight;     
+                }else if(iframeid.Document && iframeid.Document.body.scrollHeight){     
+                    iframeid.height = iframeid.Document.body.scrollHeight;     
+                    }    
+            }   
+        }  
+    }
+</script>
+</head>
+<body>
+<div  id='maker'></div>
+<div id='parent'>
+</div>
+<div class="logo_Nav">
+  <div class="mainone">
+    <a href="<!--{$hostname}-->" target="_blank"><div class="logo"></div></a>
+    <div class="guide"><a href="#" class="guideA"></a>
+     <!--{include file='public/top_left_nav.html'}-->
+    </div>
+  </div>
+  <div class="state">
+    <div class="headPic">
+      <p>Hi! <!--{$pageInfo.username}--> <!--{$pageInfo.rolename}--></p>
+      <p>[<a href="<!--{$baseurl}-->/admin/login/loginout">退出</a>]&nbsp;[<a href="#" onclick="editPassword();">修改密码</a>]</p>
+    </div>
+  </div>
+  <div class="mainNav">
+    <ul><!--{$topMenuStr}--></ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="handle">
+  <dl>
+    <dt>常用操作</dt>
+    <!--{foreach from=$pageInfo.shortcut item=row}-->
+    <dd><a href="javascript:_SC('<!--{$row.parentid}-->','<!--{$row.linkURL}-->','<!--{$row.moduleid}-->')"><!--{$row.name}--></a></dd>
+    <!--{/foreach}-->
+    <dd><a href="#" class="last" onclick="shortcut();"><b>+</b> 增加</a></dd>
+  </dl>
+</div>
+<div class="wrap">
+  <div class="thumb">
+    <div class="skin"><a class="skin1 styleswitch" href="#" rel="basc"></a><a class="skin2 styleswitch" href="#" rel="bascB"></a><a class="skin3 styleswitch" href="#" rel="bascG"></a><a class="skin4 styleswitch" href="#" rel="bascR"></a></div>
+    <s></s>当前位置：<span>IMCenter</span> -> <span id="current_pos">用户管理</span></div>
+  <div class="sideNav" id="leftMain">
+    <dl class="act">
+      <dt><a href="#">用户管理</a></dt>
+      <dd><a id="_S1" href="#" class="submenu focus" onclick="_SP('_S1','<!--{$url_imc}-->/members/member/index')">用户管理</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">应用管理</a></dt>
+      <dd><a id="_S2"   href="#" class="submenu focus" onclick="_SP('_S2','<!--{$url_imc}-->/app/App/index')">应用管理</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">日志管理</a></dt>
+      <dd><a id="_S3" href="#" class="submenu" onclick="_SP('_S3','<!--{$url_imc}-->/journal/Journal/index')">日志管理</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">积分规则</a></dt>
+      <dd><a id="_S4" href="#" class="submenu" onclick="_SP('_S4','<!--{$url_imc}-->/scores/scores/index')">积分规则</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">缓存更新</a></dt>
+      <dd><a id="_S5" href="#" class="submenu" onclick="_SP('_S5','<!--{$url_imc}-->/cache/cache/index')">缓存更新</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">注册设置</a></dt>
+      <dd><a id="_S6" href="#" class="submenu" onclick="_SP('_S6','<!--{$url_imc}-->/register/register/index')">注册设置</a></dd>
+    </dl>
+    <dl>
+      <dt><a href="#">修改密码</a></dt>
+      <dd><a id="_S7" href="#" class="submenu" onclick="_SP('_S7','<!--{$url_imc}-->/index/index/editpwd')">修改密码</a></dd>
+    </dl>
+   </div>
+  <div class="openClose"><span class="closeBtn"></span> </div>
+  <div class="container" style='position:relative;'>
+    <iframe name="right" id="rightMain" src="" frameborder="0" scrolling="auto"  width="100%" height="100%" onload="javascript:SetCwinHeight()"  ></iframe>
+    <div class="foot"><!--{include file='public/copyright.html'}--></div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+
+
+</body>
+</html>                                                                                                                                                                                                                                                                                                 

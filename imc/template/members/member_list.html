@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>IMC-用户管理列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript"  src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/pubJq.js"></script>
+<script type="text/javascript"  src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<style type="text/css">
+ #gray{color:#ccc;text-decoration:none;}
+</style>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="">用户列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/members/member/add" class="last">添加用户</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$baseurl}-->/members/member/index" method="get" id="myForm" name="myForm">
+            <input type="hidden" id="page" name="page" value="<!--{$pageInfo.page}-->" />
+            <div class="pubTabelTot">
+              <select class="Iw290" style="width:110px;" id="type" name="type">
+                <option value="1" <!--{if $searchInfo.type eq 1}-->selected<!--{/if}-->>按用户名</option>
+                <option value="2" <!--{if $searchInfo.type eq 2}-->selected<!--{/if}-->>按电子邮件</option>
+              </select>
+              <input type="text" value="<!--{$searchInfo.keyword}-->" class="Iw290" style="width:150px;" id="keyword" name="keyword">
+              <select class="Iw290" style="width:110px;" id="status" name="status">
+                <option value="">请选择状态</option>
+                <option value="1" <!--{if $searchInfo.status eq 1}-->selected<!--{/if}-->>开通</option>
+                <option value="2" <!--{if $searchInfo.status eq 2}-->selected<!--{/if}-->>冻结</option>
+              </select>
+              注册时间：<span class="time"><input type="text" value="<!--{$searchInfo.starttime}-->" class="Iw150" onfocus="WdatePicker()" id="starttime" name="starttime"></span>&nbsp;至&nbsp;<span class="time"><input type="text" value="<!--{$searchInfo.endtime}-->" class="Iw150" onfocus="WdatePicker()" id="endtime" name="endtime"></span>
+              <input type="button" hidefocus="hide" value="搜索" class="btn5" onclick="formSubmit();">
+            </div>
+            <div class="pubTabel">
+            <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="5%">选择</th>
+                  <th width="5%">ID</th>
+                  <th width="10%">用户名</th>
+                  <th width="15%">电子邮件</th>
+                  <th width="5%">应用</th>
+                  <th width="5%">状态</th>
+                  <th width="15%">注册时间</th>
+                  <th width="10%">注册IP</th>
+                  <th width="15%">最后登录</th>
+                  <th>操作</th>
+                </tr>
+                <!--{foreach from=$memberList item=row}-->
+                <tr>
+                  <td><input type="checkbox" id="userid" name="userid[]" value="<!--{$row.id}-->" /></td>
+                  <td><!--{$row.id}--></td>
+                  <td title="<!--{$row.username}-->"><!--{$row.username|truncate_cn:"10":"...":'utf8'}--></td>
+                  <td title="<!--{$row.email}-->"><!--{$row.email|truncate_cn:"15":"...":'utf8'}--></td>
+                  <td title="<!--{$row.appname}-->"><!--{$row.appname|truncate_cn:"10":"...":'utf8'}--></td>
+                  <td><!--{$pageInfo.status[$row.status]}--></td>
+                  <td><!--{$row.regdate|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td><!--{$row.regip}--></td>
+                  <td><!--{$row.lastdate|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td><a href="<!--{$baseurl}-->/members/member/edit/userid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/keyword/<!--{$searchInfo.keyword}-->/type/<!--{$searchInfo.type}-->/status/<!--{$searchInfo.status}-->/starttime/<!--{$searchInfo.starttime}-->/endtime/<!--{$searchInfo.endtime}-->">修改</a></td> 
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="开通"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/member/enable" empty-tips="请选择要开通的用户！" confirm-tips="确认开通？"/>
+              <input type="button" class="btn5" value="冻结"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/member/disable" empty-tips="请选择要冻结的用户！" confirm-tips="确认冻结？"/>
+              <input type="button" class="btn5" value="删除"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/members/member/delete" empty-tips="请选择要删除的用户！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>    
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+        <link rel="stylesheet" type="text/css" href="css/public.css"/>
+        <link rel="stylesheet" type="text/css" href="css/ly.css"/>
+        <script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+        <script type="text/javascript">
+            $(function(){
+                $(".left_menu ul li:last").css("border","none")
+            })
+        </script>
+{include 'cemetery/head_cemetery.html'}
+
+        <!--********************************************-->
+        <div class="box_cont_w clearfix">
+            <div class="w_1200 clearfix">
+                <div class="left_menu clearfix">
+                    <h3>陵园资讯</h3>
+                    <ul class="clearfix">
+                        <li {if $info==1}class="active"{/if}><a href="/content/Content/information/id/40/info/1">-购墓须知</a></li>
+                        <li {if $info==2}class="active"{/if}><a href="/content/Content/information/id/40/info/2">-陵园通告</a></li>
+                    </ul>
+                </div>
+                <div class="right_cont">
+                {if $info==1}
+                    <ul class="lyzx_list clearfix">
+                {mo:cemeinfo   pagesize="8" cemeid="$id" categoryid="329" return="data"}
+                        {if !empty($data)}
+                        {foreach $data  $key $v}
+                        <li><a href="/content/Content/index/id/{$v['id']}">· {$v['title']}</a><span>{date('Y-m-d',$v["publishtime"])}</span></li>
+                         {/foreach}
+                        {else}
+                            没找到信息，稍后再试
+                        {/if}
+                {/mo:cemeinfo}
+                    </ul>
+                {else}
+                    <ul class="lyzx_list clearfix">
+                    {mo:cemeinfo   pagesize="8" cemeid="$id" categoryid="330" return="data"}
+                            {if !empty($data)}
+                            {foreach $data  $key $v}
+                            <li><a href="/content/Content/index/id/{$v['id']}">· {$v['title']}</a><span>{date('Y-m-d',$v["publishtime"])}</span></li>
+                             {/foreach}
+                            {else}
+                                没找到信息，稍后再试
+                            {/if}
+                    {/mo:cemeinfo}
+                        </ul>
+                {/if}
+                    <div class="page">
+                    {$pagestr}
+                    </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+                </div>
+            </div>
+        </div>
+
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

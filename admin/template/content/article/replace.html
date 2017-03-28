@@ -1,0 +1,144 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+   <div class="pubtabBox">
+     <div class="TabBoxT">
+       <dl class="navTab">
+         <dt class="on"><a href="#">生成内容页</a></dt>
+       </dl>
+     </div>
+     <div class="TabBoxC">
+       <div>
+       <form action='' method='post' id='myForm'>
+         <div class="pubTabel">
+           <table class="tabelLR" id='notall'>
+             <tr>
+               <th width="160px">按照模型更新：</th>
+               <td><select class="Iw290" id='modelid' name='info[modelid]'>
+                   <!--{if !$modelid}--><option value="" onclick="changeForm(0);">请选择模型</option><!--{/if}-->
+                   <!--{foreach item=item key=key from=$modelList}-->
+                   <option value="<!--{$item.id}-->" onclick="changeForm(<!--{$item.id}-->)" <!--{if $item.id eq $modelid}-->disabled selected<!--{/if}-->><!--{$item.name}--></option>
+                   <!--{/foreach}-->
+                 </select></td>
+             </tr>
+             <tr id='catHtml'>
+               <th valign="top">选择栏目范围：</th>
+               <td><select name='info[categoryid][]' id='categoryid' class="Iw290" style="width:448px;height:100px" multiple>
+                   <option value="">不限栏目</option>
+                   <!--{foreach item=item key=key from=$categoryList}-->
+                   <option value="<!--{$item.id}-->" ><!--{$item.catname}--></option>
+                   <!--{/foreach}-->
+                 </select></td>
+             </tr>
+             <tr>
+               <th>每轮更新条数：</th>
+               <td><input type="text" class="Iw290" /></td>
+             </tr>
+             <tr>
+               <th>按最新发布信息数更新：</th>
+               <td><input type="text" class="Iw290" />
+                 <input type="button" hidefocus="hide" value="开始更新" class="btn5" /></td>
+             </tr>
+             <tr>
+               <th>按发布时间更新：</th>
+               <td><span class="time"><input type="text" id='starttime' onfocus="WdatePicker()" value="" class="Iw150">&nbsp;&nbsp;</a></span> 至 <span class="time"><input type="text" onfocus="WdatePicker()" value="" id='endtime' class="Iw150">&nbsp;&nbsp;</a></span>
+                 <input type="button" hidefocus="hide" value="开始更新"  class="btn5" /></td>
+             </tr>
+             <tr>
+               <th>按ID更新：</th>
+               <td><input type="text" value="" class="Iw150">
+                 至
+                 <input type="text" value="" class="Iw150">
+                 <input type="button" hidefocus="hide" value="开始更新" class="btn5" /></td>
+             </tr>
+           </table>
+           <table class="tabelLR" id='all'>
+             <tr>
+               <th width="160px">按照模型更新：</th>
+               <td><select class="Iw290" id='modelid'>
+                   <!--{if !$modelid}--><option value="" onclick="changeForm(0);">请选择模型</option><!--{/if}-->
+                   <!--{foreach item=item key=key from=$modelList}-->
+                   <option value="<!--{$item.id}-->" onclick="changeForm(<!--{$item.id}-->)" <!--{if $item.id eq $modelid}-->disabled selected<!--{/if}-->><!--{$item.name}--></option>
+                   <!--{/foreach}-->
+                 </select></td>
+             </tr>
+             <tr id='catHtml'>
+               <th valign="top">选择栏目范围：</th>
+               <td><select class="Iw290" style="width:448px;height:100px" multiple>
+                   <option value="">不限栏目</option>
+                   <!--{foreach item=item key=key from=$categoryList}-->
+                   <option value="<!--{$item.id}-->" ><!--{$item.catname}--></option>
+                   <!--{/foreach}-->
+                 </select></td>
+             </tr>
+             
+             <tr>
+                  <th>是否更新子栏目：</th>
+                  <td><span>
+                    <input type="radio"/>
+                    <label>更新子栏目</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio"/>
+                    <label>只更新子栏目</label>
+                    </span></td>
+                </tr>
+                <tr>
+                  <th>每轮更新条数：</th>
+                  <td><input type="text" class="Iw290" />
+                    <input type="button" hidefocus="hide" value="更新全部信息" class="btn6"></td>
+                </tr>
+           </table>
+         </div>
+         <input type='hidden' value='1' name='dosubmit'></input>
+         </form>
+          <div class="pubTabelBot">
+             <input type="button" hidefocus="hide" value="确定" onclick='formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消" onclick='history.back();' class="btn2">
+           </div>
+       </div>
+     </div>
+   </div>
+ </div>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script>
+	function changeForm(id)
+	{
+		if(id)
+		{
+			$('#notall').show();
+			$('#all').hide();
+			$.each($("#modelid option"),function(){ 
+	            if($(this).val() == id)
+	            {
+	                $(this).attr('selected',true);	
+	            }
+	        });
+		}
+		else
+		{
+			$('#notall').hide();
+			$('#all').show();
+			$.each($("#modelid option"),function(){ 
+	            if(!$(this).val())
+	            {
+	                $(this).attr('selected',true);	
+	            }
+	        });
+			
+		}
+		$.ajax({
+			  type:"POST",
+			  url:"<!--{$urlArr.changeCategory}-->",
+			  data:"changeId="+id,
+			  success:function(msg){
+				  $("#catHtml").html(msg);  
+				  //alert($("#catHtml").html());
+			  }
+		 });
+     
+	}
+	$(document).ready(function(){
+		changeForm(<!--{$modelid}-->);
+	});
+</script>
+</body>
+</html>

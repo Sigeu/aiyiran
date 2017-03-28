@@ -1,0 +1,79 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/iniEditor.js"></script>
+<script>
+ $(function(){
+    $(".cancel").click(function(){
+	   window.location.href = "<!--{$baseurl}-->/webset/mailset/mailTemplate";
+	})
+	
+	$("#sub").click(function(){
+		
+		 var Content=CKEDITOR.instances.tplcontent.getData(); 
+		 
+         var reg=new RegExp("&nbsp;","g");
+         str = Content.replace(reg,"");
+         str = str.replace(/<[^>].*?>/g,"");
+         str = str.replace(/\s/g,"");
+ 
+         if ( str.length == 0 || str.length == "") {
+        	 
+        	 art.dialog.alert('邮件模板内容不可为空','error'); 
+        	
+         } else if (str.length > 0) {
+        	  
+        	 $("#myform").submit();
+         }
+	})
+ })
+</script>
+<body>
+<div class="pubBox" style="height:800px;">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+					<dl class="navTab">
+						<dt class="on"><a href="#">邮件状态详情</a></dt>	
+					</dl>
+			</div>
+			<div class="TabBoxC">
+				<div >
+                    <div class="pubTabel">
+                           <form action="<!--{$baseurl}-->/webset/mailset/updateTemplate" method='post' id='myform'>
+                            <table class="tabelLR">
+                              <tr>
+                                <th width="145px"> <font>*</font>邮件主题：</th>
+                                <td>
+                                <input type='hidden' value="<!--{$infor.id}-->" name='curid'>
+                                <input type='hidden' value="<!--{$infor.flag}-->" name='flag'>
+								 <input  type="hidden" value="<!--{$infor.theme}-->" id='theme' name='theme'>
+                                <input class="Iw290" type="text" value="<!--{$infor.theme}-->"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly >
+                                </td>
+                              </tr>  
+                               <tr>
+                                <th><font>*</font> 邮件内容：</th>
+                                <td><textarea id='tplcontent' name='content'><!--{$infor.content}--></textarea>
+                                <span id='fail' style="color:#ff0000; margin-left:100px"></span>
+                                <input type='hidden' value='<!--{$infor.content}-->' id='hidcon'>
+                                </td>
+                              </tr>   
+                            </table>
+                            <div class="pubTabelBot">
+                                <input class="btn1" type="button" id='sub' hidefocus="hide" value="确定">
+                                <input class="btn2 cancel" type="button" hidefocus="hide" value="取消">
+                            </div>
+                           </form>
+                        </div>
+                    </div>
+				</div>		
+			</div>
+		</div>        
+    </div>
+    <script type="text/javascript">
+      document.ready = init('tplcontent', 'fail');
+      
+      if($('#hidcon').val() == ""){
+    	  $("#tplcontent").val('');
+      }
+   </script>
+</body>
+</html>

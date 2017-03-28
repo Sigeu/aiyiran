@@ -1,0 +1,22 @@
+<script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script> 
+<script type="text/javascript" src="{JS_PATH}/list.js"></script>
+{mo:category id="1" return="data"}{/mo:category}
+      <div class="bg_grL mb10"> <span class="h_dotL">{cid2name($cid)}</span>
+       <ul class="js_list">
+		{foreach $data $key2 $val2}
+		<li>
+			<strong class="level_1L"><span>{$val2['catname']}</span></strong>
+			{if($val2['child'])}
+			<ul class="level2L">
+				{foreach $val3['child'] $key3 $val3}
+				<li>
+					<a href="#"><span class="level_moL level_moR">{$val3['catname']}</span></a>
+					
+				</li>
+				{/foreach}
+			</ul>
+			{/if}
+		</li>
+		{/foreach}
+	   </ul>
+      </div>

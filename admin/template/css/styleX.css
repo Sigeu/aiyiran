@@ -1,0 +1,52 @@
+/* CSS Document */
+.edit_box{ width:654px; height:344px;}
+.mb5{ margin-bottom:5px;}
+.topboxX{ background-color:#ffe; border:#fb8 solid 1px; padding:5px 6px; margin:10px 0;}
+.linebkX{display:inline-block;*display:inline;zoom:1;}
+.boxP{ overflow:hidden; padding-bottom:50px;}
+.cenFun{ width:75px; text-align:center; margin:10px 18px 0; overflow:hidden; vertical-align:top;}
+.cenFun input{ margin-bottom:5px;}
+.linebkX,.cenFun,.cenFunT{ float:left;}
+.cenFunT textarea{ font-size:12px;}
+.pubTabel tr.blue{ height:29px; line-height:15px; background-color:#eef3f7; border-bottom: 1px solid #CCD9E4; font-size:14px;}
+.tabelTB td a.addX{ width:11px; height:11px; background:url(../images/add.png) no-repeat left top; display:inline-block; margin-right:14px;}
+.tableTB_Xtal td{ text-align:left; text-indent:24px;}
+.showAll{ height:19px; line-height:19px; background-color:#fffff3; border:#fda solid 1px; color:#ff6600; position:absolute; top:20px; left:125px; padding:0 5px;}
+.js_show a:hover{ color:#78930a;}
+.tabelTB_X td{ text-align:left; border-bottom:#E6EFF4 solid 1px; color:#666;}
+.pubTabelBot_X{ padding:6px;}
+.theme{ height:29px; font-size:14px; line-height:29px; border-bottom:#CCD2D5 solid 1px; background-color:#eef3f7; padding-left:35px;}
+.tableX{}
+.tableX tr.border{ border-bottom:#ccc dashed 1px;}
+.tableX th{ text-align:left; text-indent:36px;}
+.tableX td{ border:0; padding:6px 0;}
+.pubTabelBot_X span{width:74px; display:inline-block; padding:0 4px; *margin-right:6px; vertical-align:-1px; *vertical-align:3px;}
+.tableXS{ text-align:center;}
+.tableXS th{ color:#666;}
+.tableXS td{ color:#999;}
+.tableXS th,.tableXS td{padding: 10px 0 8px;  border-bottom: 1px dashed #ccc;}
+.themeXS{ height:29px; background-color:#eef3f7; border-bottom:1px solid #CCD9E4; text-indent:24px; line-height:29px;}
+.themeXS a{ text-decoration:underline;}
+.tempX{ padding:20px 0 30px 10px; overflow:hidden;}
+.tempX li{ width:213px; float:left; margin-right:17px; margin-bottom:10px;}
+.tempX li a.timg{ width:213px; height:257px; background:url(../images/muban_bg.png) no-repeat; display:block;}
+.tempX li a.timg img{ width:206px; height:246px; margin:2px 0 0 2px;}
+.tempX li span{ height:18px; line-height:18px; color:#333; display:block; text-align:center;width:200px;overflow:hidden;}
+.tempX li p a,.tempX li p{ height:30px; color:#666; text-align:center;}
+.tempX li p a:hover,.tempX li p a.on{ color:#f60; text-decoration:none;}
+.taL{ text-align:left;}
+/*tree*/
+.tree_boxX {}
+.tree_boxX input {}
+.tree_boxX span {line-height:20px;height:20px;display:inline-block;*display:line;zoom:1;vertical-align:top;}
+.treeX li{line-height:20px;}
+.tree_node_OX,.tree_node_CX,.tree_branchX,.tree_spaceX,.tree_lineX {display:inline-block;*display:inline;zoom:1;width:20px;height:20px;}
+.tree_node_OX {background:url(../images/tree1.png) no-repeat;}
+.tree_node_CX {background:url(../images/tree2.png) no-repeat;}
+.tree_branchX {background:url(../images/tree3.png) no-repeat;}
+.tree_spaceX {background:url(../images/tree4.png) no-repeat;}
+.tree_lineX {background:url(../images/tree5.png) no-repeat;}
+
+
+
+

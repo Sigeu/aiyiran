@@ -1,0 +1,54 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxC">
+				<div>
+					<div class="pubTabel">
+						<table class="tabelLR">
+							<tr>
+								<th width=""><font>*</font> 模板名称：</th>
+								<td>
+								<input type="hidden" name="id" value="<!--{$info.id}-->" />
+								<!--{$info.tpl_name}-->
+								<input type="hidden" name="tpl_path" value="<!--{$info.tpl_path}-->" />
+								</td>
+							</tr>
+							<tr>
+								<th valign="top"><font>*</font> 模板内容：</th>
+								<td><textarea name="content" id="tpl_content" name="tpl_content" rows="15" cols="50"><!--{$content}--></textarea>&nbsp;<br /><br /><span class="warnBlue" id="tpl_contentTip"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="pubTabelBot">
+					<input type="button" onclick="submitForm()" hidefocus="hide" value="确定" class="btn1">
+					<input type="button" hidefocus="hide" onclick="backParent()" value="取消" class="btn2">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+function submitForm ()
+{
+	var id = '<!--{$info.id}-->';
+	var tpl_path = '<!--{$info.tpl_path}-->';
+	var content = $('#tpl_content').val();
+	if ($.trim(content) == '')
+	{
+		art.dialog.alert('内容不能为空','warning');
+		return false;
+	}
+	$.post('<!--{$baseurl}-->/webset/remind/edit',{'id':id,'tpl_path':tpl_path,'content':content},function(){
+		backParent();
+	});
+}
+
+//返回父页面
+function backParent ()
+{
+	window.parent.$("#rightMain").attr('src','<!--{$baseurl}-->/webset/remind/tpl');
+}
+</script>

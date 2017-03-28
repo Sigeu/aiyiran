@@ -1,0 +1,163 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+<div class="pubBox">
+  <div class="pubtabBox">
+    <div class="TabBoxT">
+      <dl class="navTab">
+        <dt class="on"><a href="<!--{$baseurl}-->/extensions/mobileSite/index">APP应用设置</a></dt>
+      </dl>
+    </div>
+    
+    <form method="post" id="thisform" action="<!--{$baseurl}-->/extensions/mobileSite/appset" enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div class="pubtabBox">
+            <div class="TabBoxC">
+              <div>
+                <div class="pubTabel mt10">
+                  <table class="tabelLR">
+                    <tr>
+                        <th width="160px"><font>*</font> APP名称：</th>
+                        <td><input type="text" name="name" id="name" class="Iw290" value="<!--{if $app}--><!--{$app.name}--><!--{/if}-->" /></td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="160px"><font>*</font> <input type="text" value="<!--{if $app}--><!--{$app.index_name}--><!--{else}-->首页<!--{/if}-->" name="index_name" class="Iw90"/>：</th>
+                        <td><input type="text" name="index" id="index" readonly="readonly" class="Iw290" value="http://<!--{$domain_name}-->/mobile?m=app"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="160px"><font>*</font> <input type="text" value="<!--{if $app}--><!--{$app.sort_name}--><!--{else}-->栏目<!--{/if}-->" name="sort_name" class="Iw90"/>：</th>
+                        <td><input type="text" name="sort" id="sort" class="Iw290" value="<!--{if $app}--><!--{$app.sort}--><!--{else}--><!--{$hostname}-->category/Category/index/cid/289<!--{/if}-->" /></td>
+                    </tr>
+
+                    <tr>
+                        <th width="160px"><font>*</font> <input type="text" value="<!--{if $app}--><!--{$app.cart_name}--><!--{else}-->留言<!--{/if}-->" name="cart_name" class="Iw90"/>：</th>
+                        <td><input type="text" name="cart" id="cart" class="Iw290" value="<!--{if $app}--><!--{$app.cart}--><!--{else}--><!--{$hostname}-->message/Message/index/id/283<!--{/if}-->" /></td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="160px"><font>*</font> <input type="text" value="<!--{if $app}--><!--{$app.center_name}--><!--{else}-->一键拨打<!--{/if}-->" name="center_name" class="Iw90"/>：</th>
+                        <td><input type="text" name="center" id="center" class="Iw290" value="<!--{if $app}--><!--{$app.center}--><!--{else}-->400-700-1818<!--{/if}-->" /></td>
+                    </tr>
+                    
+                    <tr>
+                      <th width="160px">APP icon上传：</th>
+                      <td>
+                        <!--{if $appimage}-->
+                        <span id="form_old<!--{$appimage.id}-->">
+                            <input name="oldids[]" value="<!--{$appimage.id}-->" type="hidden"/>
+                        </span>
+                        <input type="text" readonly="readonly" id="imagename_old<!--{$appimage.id}-->" value="<!--{$appimage.name}-->" size="35px"/>&nbsp;&nbsp;&nbsp;
+                        <input type="button" hidefocus="hide" value="图片上传" class="btn5" onclick="uploadAccessory({'limit':'2','_switch':'app', 'index':'old<!--{$appimage.id}-->', 'type':'1', 'update_id':'<!--{$appimage.id}-->'})"/>
+                        <input type="button" hidefocus="hide" value="删除" class="btn5" onclick="deleteIcon('old<!--{$appimage.id}-->')" />
+                        <!--{else}-->
+                            <span id="form_0"></span>
+                            <input type="text" id="imagename_0" value size="35px"/>&nbsp;&nbsp;&nbsp;
+                            <input type="button" hidefocus="hide" value="图片上传" class="btn5" onclick="uploadAccessory({'limit':'2','_switch':'app', 'index':'0', 'type':'1'})"/>
+                            <input type="button" hidefocus="hide" value="删除" class="btn5" onclick="deleteIcon('0')" />
+                        <!--{/if}-->
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th width="160px">启动界面图片：</th>
+                      <td>
+                        <!--{if $startimage}-->
+                        <span id="form_old<!--{$startimage.id}-->">
+                            <input name="oldids[]" value="<!--{$startimage.id}-->" type="hidden"/>
+                        </span>
+                        <input type="text" readonly="readonly" id="imagename_old<!--{$startimage.id}-->" value="<!--{$startimage.name}-->" size="35px"/>&nbsp;&nbsp;&nbsp;
+                        <input type="button" hidefocus="hide" value="图片上传" class="btn5" onclick="uploadAccessory({'limit':'2','_switch':'app', 'index':'old<!--{$startimage.id}-->', 'type':'3', 'update_id':'<!--{$startimage.id}-->'})"/>
+                        <input type="button" hidefocus="hide" value="删除" class="btn5" onclick="deleteIcon('old<!--{$startimage.id}-->')" />
+                        <!--{else}-->
+                            <span id="form_s"></span>
+                            <input type="text" id="imagename_s" value size="35px"/>&nbsp;&nbsp;&nbsp;
+                            <input type="button" hidefocus="hide" value="图片上传" class="btn5" onclick="uploadAccessory({'limit':'2','_switch':'app', 'index':'s', 'type':'3'})"/>
+                            <input type="button" hidefocus="hide" value="删除" class="btn5" onclick="deleteIcon('s')" />
+                        <!--{/if}-->
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <th width="160px">APP 引导图：</th>
+                      <td>
+                        <!--{foreach from=$leadimages item=l}-->
+                        <div style="margin:5px 5px 5px 0px;" id="image_old<!--{$l.id}-->">
+                            <span id="form_old<!--{$l.id}-->">
+                                <input name="oldids[]" value="<!--{$l.id}-->" type="hidden"/>
+                            </span>
+                            <input type="text" readonly="readonly" id="imagename_old<!--{$l.id}-->" value="<!--{$l.name}-->" size="35px"/>&nbsp;&nbsp;&nbsp;
+                            <input type="button" hidefocus="hide" value="图片上传" class="btn5" onclick="uploadAccessory({'limit':'2', '_switch':'app', 'index':'old<!--{$l.id}-->', 'type':'2', 'update_id':'<!--{$l.id}-->'})"/>
+                            <input type="button" hidefocus="hide" value="删除" class="btn5" onclick="deleteImage('old<!--{$l.id}-->')"/>
+                        </div>
+                        <!--{/foreach}-->
+                        <input type="button" hidefocus="hide" value="添加" class="btn5" onclick="addAccessory({'limit':'<!--{$setting.limit}-->','_switch':'app_add','self_id':'uploadButton'})" id="uploadButton"/>
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                        <th width="160px"> APP生成状态：</th>
+                        <td><!--{$status_show}--></td>
+                    </tr>
+                  </table>
+                  <div class="pubTabelBot">
+                    <input type="submit" value="确定" class="btn1"/>
+                    <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/extensions/mobilesite/index'" class="btn2"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </form>
+   </div>
+  </div>
+  <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+function addAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+function deleteImage (id) {
+    $('#image_' + id).remove();
+}
+
+function deleteIcon (id) {
+    $('#form_' + id).html('');//清除表单
+    $('#imagename_' + id).val('');//清除显示name
+}
+</script>
+

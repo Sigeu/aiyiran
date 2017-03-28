@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>空间详情</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+					<dl class="navTab">
+						<dt class="on"><a href="#">空间详情</a></dt>	
+					</dl>
+			</div>
+			<div class="TabBoxC">
+				<div >
+                    <div class="pubTabel mt10">
+                      <table class="tabelTB">
+                        <tr>
+                          <th width="25%">内容</th>
+                          <th width="25%">总量</th>
+                          <th width="25%">使用情况</th>
+                          <th width="25%">剩余情况</th>
+                        </tr>
+                        <tr>                       
+                          <td>空间</td>                         
+                          <td><!--{if $web.ts}--><!--{$web.ts}--> G<!--{else}-->无权限获取<!--{/if}--></td>
+                          <td><!--{if $web.ts and $web.ts}--><!--{$web.ts-$web.sf}--> G<!--{else}-->无权限获取<!--{/if}--></td>
+                          <td><!--{if $web.ts}--><!--{$web.sf}--> G<!--{else}-->无权限获取<!--{/if}--></td>
+                        </tr>      
+                      </table>
+            		</div>
+				</div>		
+			</div>
+		</div>
+        <div class="pubtabBox mt10">
+			<div class="TabBoxT">
+					<dl class="navTab">
+						<dt class="on"><a href="#">详细使用情况</a></dt>	
+					</dl>
+			</div>
+			<div class="TabBoxC">
+				<div >
+                    <div class="pubTabel mt10">
+                      <table class="tabelTB">
+                        <tr>
+                          <th width="25%">内容</th>
+                          <th width="25%">空间占用总量</th>                    
+                          <th width="25%"></th>                    
+                        </tr>
+                        <tr>                       
+                          <td>图片</td>                         
+                          <td><!--{$web.image_size|default:"无权限获取"}-->M</td>  
+                          <td></td>  
+                        </tr>   
+                      </table>
+            		</div>
+				</div>		
+			</div>
+		</div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

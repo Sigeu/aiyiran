@@ -1,0 +1,54 @@
+/***********************************纪念馆管理--创建新馆*********************************************/
+body{background: #f5f5f5;}
+.wrapCon_yc{margin:70px 10px 60px;background: #fff;}
+.tabUl_yc{margin-left: 20px;}
+.tabUl_yc li{float:left;}
+.tabUl_yc li a{display: block;padding:16px 25px;margin-right:10px;border:1px solid #d5d5d5;color:#333;font-size: 18px;}
+.add_yc{display: inline-block;background: url(../images/icon_yc.png) no-repeat 0 -241px;width:16px;height: 16px;margin-right: 4px;}
+.tabUl_yc li a.active{background:#10cd8f;color:#fff;border:1px solid #10cd8f;}
+.tabUl_yc li a.active .add_yc{background: url(../images/icon_yc.png) no-repeat 0 -149px;}
+/*中间内容*/
+.form_yc{margin:20px 0 0 10px;}
+.titS_yc{display: inline-block;width:100px;margin-right:3px;text-align: right;font-size: 14px;color:#666;}
+.inputCom_yc{width:236px;padding-left:12px;height: 38px;line-height:38px;border:1px solid #ddd;font-size: 14px;color:#666;font-family: "微软雅黑";}
+.formList_yc{margin-bottom: 15px;}
+.slCom_yc{margin-left:5px;width:250px;padding-left:12px;height: 38px;line-height:38px;border:1px solid #ddd;font-size: 14px;color:#666;font-family: "微软雅黑";}
+.egEm_yc{margin-left:5px;color:#999;font-size: 14px;}
+.jinSt_yc{margin-left:10px;font-size: 14px;color:#666;font-weight: normal;}
+.mobile_yc{width:1050px;height: 430px;max-height: 430px;overflow-y: auto;}
+.mobile_yc li{float:left;margin-right:8px;width:250px;}
+.agree_yc{clear: both;}
+.boxD_yc{position: relative;width:250px;}
+.imgDiv_yc{width:100%;height: 165px;overflow: hidden;}
+.imgDiv_yc img{width:100%;}
+.mask_yc{display:none;position: absolute;left:0;top:0;width:248px;height: 163px;border:1px solid #ddd;background:#000;opacity:0.6;filter:alpha(opacity=60);}
+.mask_yc i{display: inline-block;width: 40px;height: 40px;background: url(../images/icon_yc.png) no-repeat 0 -195px;margin:62px 0 0 105px;}
+.textP_yc{padding:13px 10px 23px 13px;overflow: hidden;}
+.textP_yc span{color:#666;font-size: 14px;}
+.textP_yc span a{color:#999;}
+/*弹层*/
+.mobile_yc li.active .mask_yc{display: block;}
+.mobile_yc li.active a.borA_yc{display: none;}
+
+/*预览的弹层*/
+.picB_yc{position:fixed;top:50%;left:50%;z-index:102;width:750px;height:502px;margin-left:-375px;margin-top:-251px;background:#fff;}
+.imgBox_yc{position:relative;width:730px;height: 482px;margin:10px;overflow: hidden;}
+.imgBox_yc img{width:100%;}
+.imgBox_yc .close_yc{position:absolute;top:10px;right:10px;display: inline-block;width:22px;height:22px;background: url(../images/icon_yc.png) no-repeat 0 -263px;cursor:pointer;}
+/*协议and按钮*/
+.agree_yc{margin:15px 0 30px 104px;font-size: 14px;color:#666;}
+.agree_yc input{margin-right: 7px;vertical-align: middle;}
+.sucesD_yc{margin:0 0 145px 104px;}
+
+
+/***********************************纪念馆管理--我的纪念馆*********************************************/
+.memList_yc{margin:20px 0 10px;}
+.memList_yc li{float:left;width:272px;margin:0 20px;}
+.yx_yc{width:270px;height:270px;border:1px solid transparent;cursor: pointer;}
+.yx_yc:hover{border:1px solid #10cd8f;}
+.yx_yc img{width:100%;}
+.nameP_yc{margin:10px 0 20px;}
+.nameP_yc span{display: inline-block;margin-top:12px;font-size: 14px;color:#666;}
+.nameP_yc em a{margin-left: 10px;}
+
+

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>注册</title>
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/login.css"/>
+
+    </head>
+    <body>
+        <div class="login_top">
+            <div class="login_cont">
+                <a href="###" class="logo fl"><img src="{IMG_PATH}/login_02.jpg"/></a>
+                <span class=" fl">欢迎注册</span>
+                <a href="/" class="return_sy fr">返回首页</a>
+            </div>
+        </div>
+        <div class="login">
+            <form action="/user/User/regist" class="demoform"  method="post">
+            <div class="login_r register">
+                        <h3>账号注册</h3>
+                        <div class="inp_text user_name">
+                            <input type="text" name="username" id="username"  placeholder="邮箱/手机"
+                             required />
+                            <span><i></i></span>
+                        </div>
+                        <!-- <p class="error_tips" for="username">不能为空</p> -->
+                        <div class="inp_text  pass_word">
+                            <input type="text" name="password"  placeholder="请输入密码" 
+                             required id="password" minlength="6"    data-msg-minlength="密码最少6个字符！" />
+                            <span><i></i></span>
+                        </div>
+                        <!-- <p class="error_tips" style=" display: none;">密码不能为空</p> -->
+                        <div class="inp_text  pass_word">
+                            <input type="text" name="confirm_password" id="conform_pwd" value="" placeholder="确认密码"
+                             required equalTo="#password" minlength="6"  data-msg-minlength="密码最少6个字符！"
+                             />
+                            <span><i></i></span>
+                        </div>
+                        <!-- <p class="error_tips" style=" display: none;">用户名错误</p> -->
+                        <div class="inp_text code">
+                            <input type="text" class="code_text" name="code" id=""   placeholder="请输入验证码"  />
+                            <img src="/static/js/securimage/yzm.php" alt="" id="yzm" onclick="huan()">
+                            <input type="text" class="code_but" name="" id="getCode" value="获取验证码" />
+                        </div>
+                        <!-- <p class="error_tips" style=" display: none;">用户名错误</p> -->
+                        <div class="remember">
+                            <span class="fl rem_user_n"><input type="checkbox" name="is_read" value="1">我已阅读并接受<a href="###">《爱依然用户协议》<a></a></span>
+                            <span class="fr">
+                            <a href="###">立即登录</a>
+                            </span>
+                        </div>
+
+                        <input type="hidden" class="pwd"  name='dosubmit' value="1"/>
+        <input type="hidden" class="groupid"  name='groupid' value="{$groupid}"/>
+
+                        <input type="submit" name="" id="" value="立即注册" class="must_login" />
+                    </div>
+            </form>
+        </div>
+                    
+<script type="text/javascript" src="{JS_PATH}/jquery-1.11.0.min.js" ></script>
+<script type="text/javascript" src="{JS_PATH}/validform/jquery.validate.js" ></script>  
+<script type="text/javascript">
+    function huan() {
+        var time = new Date().getTime();//当前时间
+        $('#yzm').attr("src" , "/static/js/securimage/yzm.php?t=" + time);//验证码切换
+    }
+
+$(function(){
+    $("#getCode").click(function(){
+        // 获取账号
+        var code = $("#username").val();
+        $.ajax({
+              type: "Post",
+              url: "/user/User/ismail",
+              contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+              data: {"code":code},
+              dataType: "json",
+              async:true,
+              success: function(data) {
+                  if (data.status == 1) {
+                    alert('手机');
+                  } else if(data.status==2){
+                    alert('邮箱');
+                  }else{
+                    alert('都不是，从新输入');
+                  }
+              }
+            });
+    });
+        
+})
+
+
+
+
+</script>
+
+        <div class="footer">
+        <p>Copyright © 2016爱依然纪念网. All Rights Reserved  </p>    
+        </div>
+    </body>
+</html>

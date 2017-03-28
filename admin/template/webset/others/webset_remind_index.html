@@ -1,0 +1,44 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+  <div class="pubtabBox">
+	<div class="TabBoxT">
+	  <dl class="navTab">
+		<dt class="on"><a href="javascript:void(0)">提醒设置</a></dt>
+		<dd><a href="<!--{$baseurl}-->/webset/remind/tpl" class="last">提醒内容模板</a></dd>
+	  </dl>
+	</div>
+	<form method="post" action="<!--{$baseurl}-->/webset/remind/index">
+	<div class="TabBoxC">
+	  <div >
+		<div class="pubTabel">
+		  <table class="tabelLR">
+			<tr>
+			  <th width="145px"> 提醒方式：</th>
+			  <td>
+				  <!--{foreach from=$remind_type item=l}-->
+				  <span><input type="radio" name="mo_notice_type" value="<!--{$l.value}-->" <!--{if $parameter.mo_notice_type eq $l.value}-->checked<!--{/if}--> /><label><!--{$l.name}--></label></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				  <!--{/foreach}-->
+			 </td>
+			</tr>
+			<tr>
+			  <th style="vertical-align:top">提醒内容模板：</th>
+			  <td>
+				  <!--{foreach from=$remind_tpl item=l}-->
+				  <span><input type="checkbox" name="remind_type[<!--{$l.id}-->]" value="1" <!--{if $l.status eq 1}-->checked<!--{/if}--> /><label><!--{$l.tpl_name}--></label></span>&nbsp;&nbsp;&nbsp;&nbsp; 
+				  <!--{/foreach}-->
+			  </td>
+			</tr>
+		  </table>
+		  <div class="pubTabelBot mt160">
+			<input type="submit" value="确定" class="btn1">
+			<input type="button" value="取消" class="btn2" onclick="location.href='<!--{$baseurl}-->/webset/remind/index'">
+		  </div>
+		</div>
+	  </div>
+	</div>
+	</form>
+  </div>
+</div>
+</body>
+</html>

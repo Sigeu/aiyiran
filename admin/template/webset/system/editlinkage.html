@@ -1,0 +1,70 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <form method="POST" id="thisform" action="<!--{$baseurl}-->/webset/Linkage/insertLinkage">
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">修改联动菜单</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>            
+            <div class="pubTabel mt10">
+             	<table class="tabelLR">
+                  <tr>
+                    <th><font>*</font> 菜单标识：</th>
+                    <td><input class="Iw290" name="style" id="style" type="text" value="<!--{$here.style}-->"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly  /></td>
+                    </td>
+                  </tr>  
+                  <tr>
+                    <th><font>*</font> 菜单名称：</th>
+                    <td><input class="Iw290" name="name" id="name" type="text" value="<!--{$here.name}-->"/></td>
+                    </td>
+                  </tr>  
+                   <tr>
+                    <th width="200px"><font>*</font> 系统项：</th>
+                    <td><span>
+                          <input type="radio" name="isglobal" value="1" <!--{if $here.isglobal eq 1}-->checked="true"<!--{/if}-->/>
+                          <label>是</label>
+                          </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                          <input type="radio" name="isglobal" value="0" <!--{if $here.isglobal eq 0}-->checked="true"<!--{/if}-->/>
+                          <label>否</label>
+                          </span></td>
+                  </tr>   
+                  <tr>
+                    <th> 描述：</th>
+                    <td><textarea name="description" id="description" class="Iw450 Ih80"><!--{$here.description}--></textarea></td>
+                  </tr>    
+                </table>           
+            </div>              
+          </div>
+        </div>         
+        </div>
+        <div class="pubTabelBot">
+          <input type="submit" value="确定" class="btn1">
+          <input type="hidden" value="<!--{$here.linkageid}-->" name="act">
+          &nbsp;&nbsp;&nbsp;
+          <input type="button" onclick="location.href='<!--{$baseurl}-->/webset/Linkage/index'" value="取消" class="btn2">
+      </div>
+    </div>
+    </form>
+    <div class="clearfix"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"thisform",autotip:true,generalwordwide:true});
+
+$("#style").formValidator({onshow:"请输入2-30个字符，由数字、字母组成",onfocus:"请输入2-30个字符，由数字、字母组成",oncorrect:"输入正确"})
+.inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由数字、字母组成"}).regexValidator({regexp:['numberLetter'],datatype:"enum",onerror:"请输入2-30个字符，由数字、字母组成"}).defaultPassed();
+
+$("#name").formValidator({onshow:"请输入2-30个字符，由数字、字母、汉字组成",onfocus:"请输入2-30个字符，由数字、字母、汉字组成",oncorrect:"输入正确"})
+.inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由数字、字母、汉字组成"}).regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-30个字符，由数字、字母、汉字组成"}).defaultPassed();
+
+$("#description").formValidator({onshow:"请输入2-500个字符",onfocus:"请输入菜单描述",oncorrect:"输入正确",onempty:'输入内容为空',empty:true})
+.inputValidator({min:2,max:500,onerror:"请输入2-500个字符"}).defaultPassed();
+
+});
+</script>

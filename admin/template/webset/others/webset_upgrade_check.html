@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	$.post('<!--{$baseurl}-->/webset/upgrade/getPacthList',{'testpatch':'<!--{$testpatch}-->'},function(d)
+	{
+		var base_url = '<!--{$baseurl}-->/webset/upgrade/update/patch/';
+		var patch_state = $('#patch-list');
+		if(d == '')
+		{
+			patch_state.html('当前是最新版本，没有可用的升级补丁包');
+		}
+		else
+		{
+			var _html = '<table class="tabelTB"><tr><th width="10%">可用版本</th><th width="40%">操作</th></tr>';
+			for (i in d)
+			{
+				_html += '<tr><td>'+d[i]+'</td><td><a href="javascript:;" url="'+base_url+d[i]+'" onclick="upgradePatch(this);">升级</a></td></tr>';
+			}
+			_html += '</table>';
+			patch_state.html(_html);
+		}
+	},'json');
+});
+
+/*执行升级程序*/
+function upgradePatch (obj)
+{
+	var _this = $(obj);
+	var url = _this.attr('url');
+	var td = _this.parent('td');
+	td.html('升级中...');
+	$.post(url,{},function(d)
+	{
+		if (d == 'success')
+		{
+			td.html('升级完成').parent('tr').fadeOut('slow');	
+		}
+		else 
+		{
+			td.html('升级失败，'+d);	
+		}
+	});
+} 
+</script>
+</head>
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">
+					<dt class="on"><a href="javascript:;" class="last">新版本检测</a></dt>
+				</dl>
+			</div>
+			<div class="pubTabelTot">当前版本号：<!--{$version}--></div>
+			<div class="TabBoxC">
+				<div>
+					<div class="pubTabel" id="patch-list" style="width:100%;height:200px;line-height:180px;text-align:center">
+						正在检测升级补丁包，请稍后...	
+					</div>
+				</div>
+				<div class="pubTabelBot"><div class="pageGo"></div></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

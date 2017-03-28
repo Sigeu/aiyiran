@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台登录</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#captcha').click(function(){
+        $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        return false;
+    });
+    
+    
+    $("#username_imc").blur(function(){
+     if($(this).val()=="" || $(this).val()=="请输入用户名")
+     {
+        $("#uname_imc").html("用户名不能为空！");
+        $("#uname_imc").addClass("error");
+        $("#username_imc").addClass("errorRed");        
+     }else
+     {
+         $("#uname_imc").html("");
+         $("#uname_imc").removeClass("error");
+         $("#username_imc").removeClass("errorRed"); 
+     }
+    });
+    
+    $("#password_imc").blur(function(){
+     if($(this).val()=="")
+     {
+        $("#pwd_imc").html("密码不能为空！");
+        $("#pwd_imc").addClass("error");
+        $("#password_imc").addClass("errorRed");        
+     }else
+     {
+         $("#pwd_imc").html("");
+         $("#pwd_imc").removeClass("error");
+         $("#password_imc").removeClass("errorRed"); 
+     }
+    });
+    
+    $("#captcha_imc").blur(function(){
+     if($(this).val()=="" || $(this).val()=="请输入验证码")
+     {
+        $("#code_imc").html("验证码不能为空！");
+        $("#code_imc").addClass("error");
+        $("#captcha_imc").addClass("errorRed");        
+     }else
+     {
+         $("#code_imc").html("");
+         $("#code_imc").removeClass("error");
+         $("#captcha_imc").removeClass("errorRed"); 
+     }
+    });
+    
+});
+
+document.onkeydown=function(event){
+     var e = event || window.event || arguments.callee.caller.arguments[0];
+     if(e && e.keyCode==13){ // enter 键
+         loginsubmit();
+         return false;
+    }
+}; 
+
+
+//后台登录表单验证
+function loginsubmit()
+{
+    var numbers  = Math.random();
+    var username = $("#username_imc").val();
+    var password = $("#password_imc").val();
+    var captcha  = $("#captcha_imc").val();
+    var isremember = $("#isremember_imc").attr('checked');
+    
+    if(username=='' || username=='请输入用户名')
+    {
+        $("#uname_imc").html("用户名不能为空！");
+        $("#uname_imc").addClass("error");
+        $("#username_imc").addClass("errorRed");
+        return false;
+    }
+    if(password=='')
+    {
+        $("#pwd_imc").html("密码不能为空！");
+        $("#pwd_imc").addClass("error");
+        $("#password_imc").addClass("errorRed");  
+        return false;
+    }
+    if(captcha=='' || captcha=="请输入验证码")
+    {
+        $("#code_imc").html("验证码不能为空！");
+        $("#code_imc").addClass("error");
+        $("#captcha_imc").addClass("errorRed"); 
+        return false;
+    }
+    $.post("<!--{$baseurl}-->/index/index/checklogin",{task:'dosubmit',username_imc:username,password_imc:password,captcha_imc:captcha,isremember_imc:isremember,number:numbers},function(data){
+    	//alert(data);
+    	if(data == 1)
+        {
+            $("#code_imc").html("请输入正确的验证码");
+            $("#code_imc").addClass("error");
+            $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        }else if(data==2)
+        {
+	          $("#uname_imc").html("用户不存在 ");
+	          $("#uname_imc").addClass("error");
+	          $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+	          }else if(data==3)
+	          {
+	              $("#uname_imc").html("非IMC管理员，不能登录 ");
+	              $("#uname_imc").addClass("error");
+	          }else if(data==4)
+	          {
+                  $("#pwd_imc").html("密码错误  ");
+                  $("#pwd_imc").addClass("error");
+                  $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+	          }else if(data==10)
+	          {
+	              window.location.href="<!--{$baseurl}-->/members/member/index";
+	          }
+        });
+}
+</script>
+</head>
+<body>
+<div class="login_con">
+  <div class="login_contaier">
+    <div class="login_info">
+     <form action="" method="post" id="myForm" name="myForm">
+        <ul>
+          <li>
+            <span class="login_input01"><input id="username_imc" name="username_imc" value="<!--{$username_imc}-->" type="text" class="login_intxt text-tips" tips="请输入用户名" style="padding-left:45px;" /></span><span id ="uname_imc" class=""></span>
+          </li>
+          <li>
+            <span class="login_input02"><input id="password_imc" name="password_imc" value="" type="password" class="login_inpwd" style="padding-left:45px;" /></span><span id ="pwd_imc" class=""></span>
+          </li>
+          <li>
+            <span><input id="captcha_imc" name="captcha_imc" type="text" class="login_input03 text-tips" tips="请输入验证码" value=""/></span>
+            <span class="yzm"><img id="captcha" src="<!--{$hostname}-->static/js/securimage/securimage_show.php" class="yzm"/></span><span id ="code_imc" class=""></span>
+          </li>
+          <li><span><input type="button" name="dosubmit" value="登录" onclick="loginsubmit();" class="login_btn" /></span>&nbsp;&nbsp;&nbsp;<span class="logininfo"><input type="checkbox" style="vertical-align:-2px;" id="isremember_imc" name="isremember_imc" value="1" checked />&nbsp;<span class="f999">记住用户名</span></span></li>
+        </ul>
+     </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

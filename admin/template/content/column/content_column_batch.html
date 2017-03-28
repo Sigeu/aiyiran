@@ -1,0 +1,423 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript"> 
+
+function checkChildLength (str)
+{
+	var str = str.split('|');
+	for (i in str)
+	{
+		var len = $.formValidator._getLength(str[i]);
+		if(len <= 1 || len >60)
+			return '第'+(parseInt(i)+1)+'个子栏目名称长度有误';
+	}
+	return true;
+}
+
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	//模型必选验证
+	$("#model").formValidator(
+	{
+		onshow:"请选择内容模型",
+		onfocus:"请选择内容模型",
+		oncorrect:"选择正确"
+	}).inputValidator(
+	{
+		min:1,
+		onerror: "请选择内容模型"
+	});
+
+	/*栏目名称验证*/
+	var tr_obj = $('#batch_form tr:gt(0)');
+	$.each(tr_obj,function(i,n)
+	{
+		var _tr = $(n);//当前行
+		 parent_input = _tr.find('td input:eq(1)');
+		 child_input = _tr.find('td input:eq(2)');
+
+		var catname_id = parent_input.attr('id');
+		var child_id = child_input.attr('id');
+		
+		$("#"+catname_id).formValidator(
+		{
+			onshow:"请输入2至60个字符",
+			onfocus:"请输入2至60个字符",
+			empty:true
+		}).inputValidator(
+		{
+			min:2,
+			max:60,
+			onerror: "请输入2至60个字符"
+		});
+	});
+	
+	$("#child_0").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_0').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_1").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_1').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_2").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_2').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_3").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_3').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_4").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_4').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_5").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_5').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_6").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_6').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_7").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_7').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_8").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_8').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+	$("#child_9").formValidator(
+	{
+		onshow:"请输入子栏目名称",
+		onfocus:"请输入子栏目名称",
+		oncorrect:"输入正确",
+		empty:true,
+		onempty:'输入内容为空'
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var parent_val = $.trim($('#parent_9').val());
+			var child_val = val;
+			if(parent_val == '' && child_val == '')
+				return true;
+			else if (parent_val == '' && child_val != '')
+				return '请输入顶级栏目';
+			else if (parent_val != '' && child_val == '')
+				return true;
+			else
+			{
+				return checkChildLength(child_val);
+			}
+		 }
+	});
+
+	
+});
+</script>
+<body>
+<form method="post" action="<!--{$baseurl}-->/content/column/batch" id="formid" enctype="multipart/form-data">
+<div class="pubBox">
+  <div class="pubtabBox">
+	<div class="TabBoxT">
+	  <dl class="navTab">
+		<dd><a class="last" href="<!--{$baseurl}-->/content/column/index">栏目列表</a></dd>
+		<dd><a class="last" href="<!--{$baseurl}-->/content/column/add">添加栏目</a></dd>
+		<dt><a class="on" href="javascript:;">批量增加栏目</a></dt>
+	  </dl>
+	</div>
+	<div class="TabBoxC">
+	  <div>
+		<div class="pubTabel">
+		  <table class="tabelLR">
+			<tbody><tr>
+			  <th width="145px">&nbsp; 目录保存位置：</th>
+			  <td><span>
+				<input type="radio" name="base[dirpath]" value="1" checked>
+				<label>上级目录</label>
+				</span>&nbsp;&nbsp;<span>
+				<input type="radio" name="base[dirpath]" value="2">
+				<label>CMS根目录</label>
+				</span>&nbsp;&nbsp;<span>
+				<input type="radio" name="base[dirpath]" value="3">
+				<label>站点根目录</label>
+				</span></td>
+			</tr>
+			<tr>
+			  <th><font>*</font> 内容模型：</th>
+			  <td>
+				<select name="base[model]" id="model">
+					<option value="">请选择模型</option>
+					<!--{foreach from=$model item=l}-->
+					<option value="<!--{$l.id}-->"><!--{$l.name}--></option>
+					<!--{/foreach}-->
+				</select>
+			</td>
+			</tr>
+			<tr>
+			  <th>&nbsp; 栏目页选项：</th>
+			  <td>   
+				<span>
+				<input type="radio" name="base[columnoption]" value="1" >
+				<label>链接到栏目首页静态页</label>
+				</span>&nbsp;&nbsp;
+				<span>
+				<input type="radio" name="base[columnoption]" value="3" checked>
+				<label>链接到栏目首页动态页</label>
+				</span>&nbsp;&nbsp;
+				<span>
+				<input type="radio" name="base[columnoption]" value="2">
+				<label>链接到栏目列表第一页</label>
+				</span>		
+				</td>
+			</tr>
+
+			<tr>
+                  <th>&nbsp; 栏目首页模板：</th>
+                  <td><select class="Iw290" style="width:302px;" name="base[indextpl]">
+					  <!--{foreach from=$index_tpl item=l}-->
+                      <option value="<!--{$l}-->"><!--{$l}--></option>
+					  <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 栏目列表页模板：</th>
+                  <td><select class="Iw290" style="width:302px;" name="base[columntpl]">
+                      <!--{foreach from=$list_tpl item=l}-->
+                      <option value="<!--{$l}-->"><!--{$l}--></option>
+					  <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 内容页模板：</th> 
+                  <td><select class="Iw290" style="width:302px;" name="base[contenttpl]">
+                     <!--{foreach from=$content_tpl item=l}-->
+                      <option value="<!--{$l}-->"><!--{$l}--></option>
+					 <!--{/foreach}-->
+                    </select></td>
+                </tr>
+
+		  </tbody></table>
+		</div>
+		<div class="height16"></div>
+		<div class="pubTabel">
+		  <table class="tabelTB" id="batch_form">
+			<tbody><tr>
+			  <th width="5%">排序</th>
+			  <th width="24%">顶级栏目名称</th>
+			  <th width="30%">子栏目(多个栏目单用<strong> | </strong>隔开)</th>
+			  <th width="5%">操作</th>
+			</tr>
+			<!--{foreach from=$for item=l key=k}-->
+			<tr>
+			  <td><input type="text" class="Iw45" name="base[other][<!--{$l}-->][ordernum]" value=""></td>
+			  <td><input type="text" class="Iw150" name="base[other][<!--{$l}-->][catname]" value=""  id="parent_<!--{$k}-->"></td>
+			  <td><input type="text" class="Iw215" name="base[other][<!--{$l}-->][child]" value="" id="child_<!--{$k}-->"></td>
+			  <td><a href="javascript:;" onclick="javascript:$(this).parent().parent().remove()">删除</a></td>
+			</tr>
+			<!--{/foreach}-->
+		  </tbody></table>
+		</div>
+		 <div class="pubTabelBot">
+			<input type="submit" class="btn1" value="确定" hidefocus="hide"><input type="button" class="btn2" value="取消" hidefocus="hide"  onclick="javascript:history.go(-1);" />
+		  </div>
+	  </div>
+	</div>
+  </div>
+</div>
+<div class="clearfix"></div>
+</form>
+</body>
+</html>

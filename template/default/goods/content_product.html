@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>{$seo['title']}</title>
+
+<meta name="keywords" content="{$seo['keywords']}" />
+
+<meta name="description" content="{$seo['description']}" />
+
+<link href="{CSS_PATH}/../basc.css" rel="stylesheet" type="text/css"/>
+
+<link href="{CSS_PATH}/../styleG.css" rel="stylesheet" type="text/css"/>
+
+<link href="{CSS_PATH}/../styleX.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="{JS_PATH}/jquery-1.7.2.js"></script>
+
+<script type="text/javascript" src="{JS_PATH}/base.js"></script>
+
+</head>
+
+<body>
+
+<div class="tBg"></div>
+
+<div class="mBg">
+
+{include 'goods/head.html'}
+
+  <div class="BN">
+
+    <div class="bannerBar"><img src="{IMG_PATH}/../images/banner.png" width="943" height="110" /></div>
+
+  </div>
+
+  <div class="wrap wbg">
+
+    <div class="sideBar">
+
+      <div class="pubModL">
+
+        <div class="T">
+
+          <h4>产品展厅</h4>
+
+        </div>
+
+        <div class="C">
+
+          <ul>
+
+		{include 'goods/category.html'}
+
+          </ul>
+
+        </div>
+
+      </div>
+
+      <div class="tel"><img src="{IMG_PATH}/../images/bg_Intel.png"/></div>
+
+    </div>
+
+    <div class="container">
+
+      <div class="proDetail">
+
+        <div id="preview">
+
+          <div class="jqzoom" id="spec-n1" onClick="window.open('http://www.alixixi.com/')"><img src="{IMG_PATH}/../images/defimg.png" jqimg="{IMG_PATH}/../images/defimg.png" width="239" height="239"/> </div>
+
+        </div>
+
+        <div class="price">
+
+          <h2>{$goods['goodsname']}{if $goods['isnew']==1}<b class="newIco"></b>{/if}</h2>
+
+          <p>市 场 价：<cite>￥{$goods['marketprice']}</cite></p>
+
+          <p>优 惠 价：<em>￥{$goods['shopprice']}</em></p>
+
+          <p>商品品牌：<span>{$goods['brandname']}</span></p>
+
+          <div id="spec-n5">
+
+            <div class="control" id="spec-left"> <img src="{IMG_PATH}/../images/rowL.png" /> </div>
+
+            <div id="spec-list">
+
+              <ul class="list-h">
+
+              {foreach $goodsablum $k $v}
+
+    <li><a href="javascript:;"><img src="{UPLOAD_PATH}/goods/{$v['photo']}" alt="{$goods['goodsname']}" text="{$goods['goodsname']}"></a></li>
+
+    {/foreach}
+
+              </ul>
+
+            </div>
+
+            <div class="control" id="spec-right"> <img src="{IMG_PATH}/../images/rowR.png" /> </div>
+
+            <script type=text/javascript>
+
+	$(function(){			
+
+	   $(".jqzoom").jqueryzoom({
+
+			xzoom:239,
+
+			yzoom:239,
+
+			offset:10,
+
+			position:"right",
+
+			preload:1,
+
+			lens:1
+
+		});
+
+		$("#spec-list").jdMarquee({
+
+			deriction:"left",
+
+			width:395,
+
+			height:82,
+
+			step:2,
+
+			speed:4,
+
+			delay:10,
+
+			control:true,
+
+			_front:"#spec-right",
+
+			_back:"#spec-left"
+
+		});
+
+		$("#spec-list img").bind("mouseover",function(){
+
+			var src=$(this).attr("src");
+
+			$("#spec-n1 img").eq(0).attr({
+
+				src:src.replace("\/n5\/","\/n1\/"),
+
+				jqimg:src.replace("\/n5\/","\/n0\/")
+
+			});
+
+			$(this).css({
+
+				"border":"1px solid #ff6600",
+
+				"padding":"0"
+
+			});
+
+		}).bind("mouseout",function(){
+
+			$(this).css({
+
+				"border":"1px solid #ccc",
+
+				"padding":"0"
+
+			});
+
+		});				
+
+	})
+
+	</script> 
+
+          </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="proDTxt">
+
+          <ul id="card0" class="ulOne">
+
+            <li class="focus">产品详情</li>
+
+          </ul>
+
+          <div class="ulOneD">
+
+            <div id="card00">
+
+              <div class="dTxt">
+
+                <p>{$goods['content']}</p>
+
+				<p>相关热搜标签：{if $goods['keywords']!='' }{$goods['keywords']}{else}暂无{/if}</p>
+
+                <div class="dTimg"><img src="{IMG_PATH}/../images/banner.png" /></div>
+
+                <div class="share"><div class="bshare-custom"><div class="bsPromo bsPromo2"></div><a title="分享到腾讯微博" class="bshare-qqmb" href="javascript:void(0);"></a><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="分享到电子邮件" class="bshare-email" href="javascript:void(0);"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span style="float: none;" class="BSHARE_COUNT bshare-share-count">17.8K</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script></div>
+
+              </div>
+
+            </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div>
+
+</div>
+
+{include 'goods/footer.html'}
+
+<script type="text/javascript" src="{JS_PATH}/libTwo.js"></script>
+
+<script type="text/javascript" src="{JS_PATH}/libOne.js"></script>
+
+<script type="text/javascript" src="{JS_PATH}/tabs.js"></script>
+
+</body>
+
+</html>

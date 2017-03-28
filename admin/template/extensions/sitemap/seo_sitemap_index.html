@@ -1,0 +1,182 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+  <div class="container">
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">Sitemap设置</a></dt>
+          </dl>
+        </div>
+        
+        <div class="TabBoxC">
+          <div>
+          <form action="<!--{$baseurl}-->/extensions/Sitemap/create"  method="post" >
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 最大网址数量：</th>
+                  <td colspan="3"><input type="text" value="<!--{$url_count}-->" class="Iw290" style="width:180px;" id="url_count" name="url_count" />
+                  <span class="warnBlue warnBlue_bg">(最大50000)</span></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 更新频率：</th>
+                  <td colspan="3">
+                  <select class="Iw290" style="width:194px;" id="changefreq" name="changefreq" >
+                      <option value="Always" <!--{if $changefreq == "Always"}-->selected="selected"<!--{/if}-->>Always</option>
+					  <option value="Hourly" <!--{if $changefreq == "Hourly"}-->selected="selected"<!--{/if}-->>Hourly</option>
+                      <option value="Daily" <!--{if $changefreq == "Daily"}-->selected="selected"<!--{/if}-->>Daily</option>
+                      <option value="Weekly" <!--{if $changefreq == "Weekly"}-->selected="selected"<!--{/if}-->>Weekly</option>
+					  <option value="Monthly" <!--{if $changefreq == "Monthly"}-->selected="selected"<!--{/if}-->>Monthly</option>
+					  <option value="Yearly" <!--{if $changefreq == "Yearly"}-->selected="selected"<!--{/if}-->>Yearly</option>
+					  <option value="Never" <!--{if $changefreq == "Never"}-->selected="selected"<!--{/if}-->>Never</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th valign="miaddle" rowspan="5" style="border-right:#ccc dashed 1px;">&nbsp; 页面权重：</th>
+                  <td colspan="3">
+                  	<table>
+                      <tr>
+                   	    <th width="90">首页</th>
+                        <td><select class="Iw290" style="width:194px;" id="shouye" name="shouye" >
+                              <option value="0.1" <!--{if $shouye == "0.1"}-->selected="selected"<!--{/if}-->>0.1</option>
+                              <option value="0.2" <!--{if $shouye == "0.2"}-->selected="selected"<!--{/if}-->>0.2</option>
+                              <option value="0.3" <!--{if $shouye == "0.3"}-->selected="selected"<!--{/if}-->>0.3</option>
+							  <option value="0.4" <!--{if $shouye == "0.4"}-->selected="selected"<!--{/if}-->>0.4</option>
+                              <option value="0.5" <!--{if $shouye == "0.5"}-->selected="selected"<!--{/if}-->>0.5</option>
+                              <option value="0.6" <!--{if $shouye == "0.6"}-->selected="selected"<!--{/if}-->>0.6</option>
+							  <option value="0.7" <!--{if $shouye == "0.7"}-->selected="selected"<!--{/if}-->>0.7</option>
+                              <option value="0.8" <!--{if $shouye == "0.8"}-->selected="selected"<!--{/if}-->>0.8</option>
+                              <option value="0.9" <!--{if $shouye == "0.9"}-->selected="selected"<!--{/if}--> >0.9</option>
+							  <option value="1.0" <!--{if $shouye == "1.0"}-->selected="selected"<!--{/if}-->>1.0</option>
+                            </select></td>
+                      </tr>
+                      <tr>
+                   	    <th>栏目首页</th>
+                        <td><select class="Iw290" style="width:194px;" id="lanmu" name="lanmu" >
+                              <option value="0.1" <!--{if $lanmu == "0.1"}-->selected="selected"<!--{/if}-->>0.1</option>
+                              <option value="0.2" <!--{if $lanmu == "0.2"}-->selected="selected"<!--{/if}-->>0.2</option>
+                              <option value="0.3" <!--{if $lanmu == "0.3"}-->selected="selected"<!--{/if}-->>0.3</option>
+							  <option value="0.4" <!--{if $lanmu == "0.4"}-->selected="selected"<!--{/if}-->>0.4</option>
+                              <option value="0.5" <!--{if $lanmu == "0.5"}-->selected="selected"<!--{/if}-->>0.5</option>
+                              <option value="0.6" <!--{if $lanmu == "0.6"}-->selected="selected"<!--{/if}-->>0.6</option>
+							  <option value="0.7" <!--{if $lanmu == "0.7"}-->selected="selected"<!--{/if}--> >0.7</option>
+                              <option value="0.8" <!--{if $lanmu == "0.8"}-->selected="selected"<!--{/if}-->>0.8</option>
+                              <option value="0.9" <!--{if $lanmu == "0.9"}-->selected="selected"<!--{/if}-->>0.9</option>
+							  <option value="1.0" <!--{if $lanmu == "1.0"}-->selected="selected"<!--{/if}-->>1.0</option>
+                            </select></td>
+                      </tr>
+                      <tr>
+                   	    <th>列表页</th>
+                        <td><select class="Iw290" style="width:194px;" id="liebiao" name="liebiao">
+                              <option value="0.1" <!--{if $liebiao == "0.1"}-->selected="selected"<!--{/if}-->>0.1</option>
+                              <option value="0.2" <!--{if $liebiao == "0.2"}-->selected="selected"<!--{/if}-->>0.2</option>
+                              <option value="0.3" <!--{if $liebiao == "0.3"}-->selected="selected"<!--{/if}-->>0.3</option>
+							  <option value="0.4" <!--{if $liebiao == "0.4"}-->selected="selected"<!--{/if}-->>0.4</option>
+                              <option value="0.5" <!--{if $liebiao == "0.5"}-->selected="selected"<!--{/if}-->>0.5</option>
+                              <option value="0.6" <!--{if $liebiao == "0.6"}-->selected="selected"<!--{/if}-->>0.6</option>
+							  <option value="0.7" <!--{if $liebiao == "0.7"}-->selected="selected"<!--{/if}-->>0.7</option>
+                              <option value="0.8" <!--{if $liebiao == "0.8"}-->selected="selected"<!--{/if}-->>0.8</option>
+                              <option value="0.9" <!--{if $liebiao == "0.9"}-->selected="selected"<!--{/if}-->>0.9</option>
+							  <option value="1.0" <!--{if $liebiao == "1.0"}-->selected="selected"<!--{/if}-->>1.0</option>
+                            </select></td>
+                      </tr>
+                      <tr>
+                   	    <th>内容页</th>
+                        <td><select class="Iw290" style="width:194px;" id="neirong" name="neirong" >
+                              <option value="0.1" <!--{if $neirong == "0.1"}-->selected="selected"<!--{/if}-->>0.1</option>
+                              <option value="0.2" <!--{if $neirong == "0.2"}-->selected="selected"<!--{/if}-->>0.2</option>
+                              <option value="0.3" <!--{if $neirong == "0.3"}-->selected="selected"<!--{/if}-->>0.3</option>
+							  <option value="0.4" <!--{if $neirong == "0.4"}-->selected="selected"<!--{/if}-->>0.4</option>
+                              <option value="0.5" <!--{if $neirong == "0.5"}-->selected="selected"<!--{/if}--> >0.5</option>
+                              <option value="0.6" <!--{if $neirong == "0.6"}-->selected="selected"<!--{/if}-->>0.6</option>
+							  <option value="0.7" <!--{if $neirong == "0.7"}-->selected="selected"<!--{/if}-->>0.7</option>
+                              <option value="0.8" <!--{if $neirong == "0.8"}-->selected="selected"<!--{/if}-->>0.8</option>
+                              <option value="0.9" <!--{if $neirong == "0.9"}-->selected="selected"<!--{/if}-->>0.9</option>
+							  <option value="1.0" <!--{if $neirong == "1.0"}-->selected="selected"<!--{/if}-->>1.0</option>
+                            </select></td>
+                      </tr>
+                      <tr>
+                   	    <th>专题页</th>
+                        <td><select class="Iw290" style="width:194px;" id="zhuanti" name="zhuanti">
+                              <option value="0.1" <!--{if $zhuanti == "0.1"}-->selected="selected"<!--{/if}-->>0.1</option>
+                              <option value="0.2" <!--{if $zhuanti == "0.2"}-->selected="selected"<!--{/if}-->>0.2</option>
+                              <option value="0.3" <!--{if $zhuanti == "0.3"}-->selected="selected"<!--{/if}-->>0.3</option>
+							  <option value="0.4" <!--{if $zhuanti == "0.4"}-->selected="selected"<!--{/if}-->>0.4</option>
+                              <option value="0.5" <!--{if $zhuanti == "0.5"}-->selected="selected"<!--{/if}-->>0.5</option>
+                              <option value="0.6" <!--{if $zhuanti == "0.6"}-->selected="selected"<!--{/if}-->>0.6</option>
+							  <option value="0.7" <!--{if $zhuanti == "0.7"}-->selected="selected"<!--{/if}-->>0.7</option>
+                              <option value="0.8" <!--{if $zhuanti == "0.8"}-->selected="selected"<!--{/if}-->>0.8</option>
+                              <option value="0.9" <!--{if $zhuanti == "0.9"}-->selected="selected"<!--{/if}-->>0.9</option>
+							  <option value="1.0" <!--{if $zhuanti == "1.0"}-->selected="selected"<!--{/if}-->>1.0</option>
+                            </select></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+              	<input type="submit" hidefocus="hide" value="开始更新" class="btn1" id="btn1" >
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="help_notice">
+              	<strong>使用说明：</strong>
+                <span>1.您的网站的Sitemap 访问地址为：<!--{$urlhost}-->sitemaps.xml<br />
+                	  2.CMS可自动生成网站的Sitemap文件，但是您还需要向google或者baidu提交Sitemap的访问地址，提交地址如下：<br />
+                        &nbsp;&nbsp;百度sitemap提交地址：<a href="#">http://zhanzhang.baidu.com/</a><br />
+                  		&nbsp;&nbsp;谷歌sitemap提交地址：<a href="#">http://www.google.com/webmasters/tools/?hl=zh_CN</a>
+                </span>
+              </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+<script src="../../js/pubJq.js"></script>
+<script type="text/javascript">
+$(function(){
+  $('#tabX').find('tr:gt(0)').hide();
+	$('#selX').change(function(){
+		if($(this).find('option:selected').text()=='选项2'){
+			$('#tabX').find('tr:gt(0)').show();
+		}else{
+			$('#tabX').find('tr:gt(0)').hide();
+		}
+	})
+
+});
+$(document).ready(function() {
+	$('#btn1').bind('click' , function() {
+		var url_count = $('#url_count').val();
+		var changefreq = $('#changefreq').val();
+		var email = $('#email').val();
+		var shouye = $('#shouye').val();
+		var lanmu = $('#lanmu').val();
+		var liebiao = $('#liebiao').val();
+		var neirong = $('#neirong').val();
+		var zhuanti = $('#zhuanti').val();
+		
+		$.ajax({
+			type : 'post' ,
+			url : '<!--{$baseurl}-->/extensions/Sitemap/create' ,
+			data : 'url_count=' + url_count + '&changefreq=' + changefreq + '&email=' + email + '&shouye=' + shouye + '&lanmu=' + lanmu + '&liebiao=' + liebiao + '&neirong=' + neirong
+			 + '&zhuanti=' + zhuanti,
+			success : function(msg) {
+				if (msg)  {
+					location.href = '<!--{$baseurl}-->/extensions/Sitemap/success?sitemapsSize=' + msg;
+				}
+				else {
+					location.href = '<!--{$baseurl}-->/extensions/Sitemap/error?sitemapsSize=' + msg;
+				}
+			}
+		});
+	});
+});
+
+</script>
+</body>
+</html>

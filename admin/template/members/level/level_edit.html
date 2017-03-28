@@ -1,0 +1,77 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/members/level/index" class="last">级别列表</a></dd>
+            <dt class="on"><a href="#">编辑级别</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+            <input type="hidden" id="groupid" name="groupid" value="<!--{$levelInfo.groupid}-->" />
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th><font>*</font> 所属会员组：</th>
+                  <td><select class="Iw290" style="width:302px;" disabled>
+                      <!--{foreach from=$groupList key=id item=name}-->
+                      <option value="<!--{$id}-->"  <!--{if $levelInfo.groupid eq $id}-->selected<!--{/if}-->><!--{$name}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 级别名称：</th>
+                  <td><input type="text" value="<!--{$levelInfo.levelname}-->" class="Iw290" id='levelname' name="levelname"/></td>
+                </tr>
+                <tr>
+                  <th width="145"><font>*</font> 积分小于：</th>
+                  <td><input type="text" value="<!--{$levelInfo.point}-->" class="Iw290" id='point' name="point"/>&nbsp;&nbsp;<span id="pt"></span>                  
+                    <span class="tabelLR" style="margin-left:-10px;"><strong>[温馨提示]：</strong></span><span style='color:#999999'>会员积分小于此值则属于此会员级别，请按会员级别谨慎输入积分值</span></td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 状态：</th>
+                  <td><span>
+                    <input type="radio" id='status' name="status" value="1" <!--{if $levelInfo.status eq 1}-->checked<!--{/if}--> />
+                    <label>开启</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" id='status' name="status" value="2" <!--{if $levelInfo.status eq 2}-->checked<!--{/if}-->/>
+                    <label>关闭</label>
+                    </span></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1"><input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back();">
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#levelname").formValidator({onshow:"请输入2-30个字符，由汉字、字母、数字、符号组成",onfocus:"请输入2-30个字符，由汉字、字母、数字、符号组成"}).inputValidator({min:2,max:30,onerror:"请输入2-30个字符，由汉汉字、字母、数字、符号组成",onerrormax:"最多输入30个字符"}).ajaxValidator({
+        url:"<!--{$baseurl}-->/admin/ajax/chklevelname",
+        type:"post",
+        data:"oldvalue=<!--{$levelInfo.levelname}-->",
+        other:['groupid'],
+        success : function(data){
+            //alert(data);
+            if(data==1) return true;
+            if(data==2) return false;
+            return false;
+        },
+        buttons: $("#dosubmit"),
+        error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+        onerror : "同一会员组下级别名称不能重复，请重新输入",
+        onwait : "正在对级别名称进行合法性校验，请稍候..."
+        }).defaultPassed();
+    $("#point").formValidator({tipid:"pt",onshow:"请输入正整数",onfocus:"请输入正整数"}).regexValidator({regexp:"^\\d+$",onerror:"请输入正整数"}).defaultPassed();
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/webset/adminuser/index" class="last">管理员列表</a></dd>
+            <dt class="on"><a href="">编辑管理员</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id='myForm' name="myForm">
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145"> 用户ID：</th>
+                  <td><input type="text" value="<!--{$userInfo.id}-->" class="Iw290"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly /></td>
+                </tr>
+                <tr>
+                  <th width="145"> 用户名：</th>
+                  <td><input type="text" value="<!--{$userInfo.username}-->" class="Iw290"  onfocus=this.blur() style='background-color:#eee;color:#aaa' readonly /></td>
+                </tr>
+                <tr>
+                  <th width="145"> 登录密码：</th>
+                  <td><input type="password" value="" class="Iw290" id="password" name="password"/></td>
+                </tr>
+                <tr>
+                  <th width="145"> 确认密码：</th>
+                  <td><input type="password" value="" class="Iw290" id="password2" name="password2"/></td>
+                </tr>
+                <tr>
+                  <th width="145"> 电子邮箱：</th>
+                  <td><input type="text" value="<!--{$userInfo.email}-->" class="Iw290" id="email" name="email"/></td>
+                </tr>
+                <tr>
+                  <th width="145"> 手机号码：</th>
+                  <td><input type="text" value="<!--{$userInfo.mobile}-->"" class="Iw290" id="mobile" name="mobile"/></td>
+                </tr>
+                <tr>
+                  <th> 所属角色：</th>
+                  <td><select class="Iw290" id="roleid" name="roleid" style="width:302px;" <!--{if $userInfo.id eq 1}-->disabled<!--{/if}-->>
+                      <!--{foreach from=$roleList key=roleid item=rolename}-->
+                          <option value="<!--{$roleid}-->" <!--{if $userInfo.roleid==$roleid}-->selected<!--{/if}-->><!--{$rolename}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr>
+                  <th> 状态：</th>
+                  <td><span>
+                    <input type="radio"id="status" name="status" value="1" <!--{if $userInfo.status eq 1}-->checked<!--{/if}-->  <!--{if $userInfo.id eq 1}-->disabled<!--{/if}-->/>
+                    <label>开通</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" id="status" name="status" value="2" <!--{if $userInfo.status eq 2}-->checked<!--{/if}--> <!--{if $userInfo.id eq 1}-->disabled<!--{/if}-->/>
+                    <label>关闭</label>
+                    </span></td>
+                </tr> 
+                <tr>
+                  <th width="145">创建时间：</th>
+                  <td><!--{$userInfo.createtime|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                </tr>               
+                <tr>
+                  <th width="145">最后登录时间：</th>
+                  <td><!--{$userInfo.lastlogintime|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                </tr>               
+                <tr>
+                  <th width="145">最后登录IP：</th>
+                  <td><!--{$userInfo.lastloginip}--></td>
+                </tr>               
+                <tr>
+                  <th width="145">登录次数：</th>
+                  <td><!--{$userInfo.loginnum}--> 次</td>
+                </tr>               
+                
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="button" hidefocus="hide" value="确定" class="btn1" onclick="formSubmit();">
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="formCancel();" >
+              </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#password").formValidator({empty:true,onshow:"若不修改密码则置空",onfocus:"请输入4-20个字符，由字母、数字、符号组成"}).inputValidator({min:4,max:20,onerror:"请输入4-20个字符，由字母、数字、符号组成",onerrormax:"最多输入20个字符"});
+    $("#password2").formValidator({empty:true,onshow:"若不修改密码则置空",onfocus:"请输入4-20个字符，由字母、数字、符号组成",oncorrect:"两次输入的密码一致"}).inputValidator({min:4,max:20,onerror:"请输入4-20个字符，由字母、数字、符号组成",onerrormax:"最多输入20个字符"}).compareValidator({desid:"password",operateor:"=",onerror:"两次输入的密码不一致"});
+    $("#email").formValidator({onshow:"请输入正确的邮箱，例：example@example.com",onfocus:"请输入正确的邮箱，例：example@example.com"}).inputValidator({min:6,max:100,onerror:"请输入正确的邮箱，例：example@example.com"}).regexValidator({regexp:"^([\\w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([\\w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$",onerror:"输入的邮箱格式不正确"});
+    $("#mobile").formValidator({empty:true,onshow:"请输入正确的手机号码",onfocus:"请输入正确的手机号码"}).inputValidator({min:0,max:100,onerror:"请输入正确的手机号码"}).regexValidator({regexp:"^(13|15|18)[0-9]{9}$",onerror:"输入的手机号码不正确"});
+    
+    })
+</script>
+    </body>
+    </html>

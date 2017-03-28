@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>添加专题</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidator.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/mo_upload.js"></script>
+</head>
+<body>
+	<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">基本信息</a></dt>
+            <dt><a href="#">权限设置</a></dt>
+            <dt><a href="#">SEO设置</a></dt>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/extensions/Special/add" method="POST" id="myForm" enctype="multipart/form-data">
+          <input type="hidden" id="add" name="act" value="add"/>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>*</font> 所属分类：</th>
+                  <td colspan="3">
+					<select class="Iw290" name="type_id" id="type_id" style="width:302px;">
+                      <option value="0">请选择内容</option>
+					  <!--{foreach from=$sort_tree item=l}-->
+					  <option value="<!--{$l.id}-->" <!--{if $l.id eq 1 }-->selected<!--{/if}-->><!--{$l.type_name}--></option>
+					  <!--{/foreach}-->
+                    </select>
+                </tr>
+                <tr>
+                  <th><font>*</font> 专题名称：</th>
+                  <td colspan="3"><input type="text" ID="name" name="name" value="" class="Iw290"/></td>
+                </tr>
+				<tr>
+                  <th>&nbsp; 专题导读：</th>
+                  <td colspan="3"><textarea class="Iw450 Ih80" name="guide"></textarea></td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 专题缩略图：</th>
+                  <td colspan="3">
+					<span id="single_upload_1"><input type="text" name="thumb_img" readonly value="" class="Iw290" /></span>
+					<input type="button" value="浏览" class="btn5" onclick="uploadAccessory({'limit':'10','_switch':'brand','self_id':'upload-Button1','ady_upload':1,'dis_place':'single_upload_1'});" id="upload-Button1"/>
+                    </td>
+                </tr>
+				<tr>
+                  <th>&nbsp; 专题banner图片：</th>
+				  <td colspan="3">
+					<span id="single_upload_2"><input type="text" name="banner_img" readonly value="" class="Iw290" /></span>
+					<input type="button" value="浏览" class="btn5" onclick="uploadAccessory2({'limit':'10','_switch':'brand','self_id':'upload-Button2','ady_upload':1,'dis_place':'single_upload_2'});"  id="upload-Button2">
+                    </td>
+                </tr>
+				<tr>
+                  <th>&nbsp; 专题页面背景图片：</th>
+                  <td colspan="3">
+					<span id="single_upload_3"><input type="text" name="back_img" readonly value="" class="Iw290" /></span>
+					<input type="button" value="浏览" class="btn5" onclick="uploadAccessory3({'limit':'10','_switch':'brand','self_id':'upload-Button3','ady_upload':1,'dis_place':'single_upload_3'});" id="upload-Button3">
+                    </td>
+                </tr>				
+                <tr>
+                  <th><font>*</font> 文件保存目录：</th>
+                  <td colspan="3"><input type="text" value="" id="save_catalog" name="save_catalog" class="Iw290"/>
+                    <span>
+                    <input type="checkbox" checked="true" name="pinyin" value="1" />
+                    <label>拼音</label>
+                    </span>
+			        </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 点击量：</th>
+                  <td colspan="3"><input type="text" value="" id="click_num" name="click_num" class="Iw290" style="width:180px;"/></td>
+                </tr> 
+                <tr>
+                	<th>&nbsp; 排序方式：</th>
+                    <td colspan="3">
+                    <select class="Iw290" style="width:190px;" name="stick" >
+                      <option value="0">默认排序</option>
+                      <option value="1">置顶一周</option>
+                      <option value="2">置顶一月</option>
+                      <option value="3">置顶三月</option>
+                      <option value="4">置顶半年</option>
+                      <option value="5">置顶一年</option>
+                    </select></td>
+                </tr>              
+                <tr>
+                  <th>&nbsp; 发布选项：</th>
+                  <td colspan="3"><span>
+                    <input type="radio" name="publishopt" value="1" />
+                    <label>生成HTML</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" name="publishopt" checked="true" value="2" />
+                    <label>仅动态浏览</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;<span>注：如需做前台权限控制，请勿选择"生成HTML",否则权限无效!</span></td>
+                </tr>
+				<tr>
+                  <th>&nbsp; 发布时间：</th>
+                  <td colspan="3"><span class="time">
+                    <input class="Iw150" type="text" name="created" onfocus="WdatePicker()" readonly value="<!--{$smarty.now|date_format:'%Y-%m-%d'}-->"></span></td>
+                </tr>
+                <tr>
+                	<th> 页面皮肤：</th>
+                    <td colspan="3">
+                    <select class="Iw290" style="width:190px;" name="skin" >
+                      <!--{foreach from=$skin_conf item=l}-->
+                      <option value="<!--{$l.version}-->"><!--{$l.name}--></option>
+				      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/extensions/Special/index'" class="btn2">
+              </div>
+            </div>
+          </div>
+
+          <div style="display:none;">
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="20%"><strong>管理员权限：</strong></th>
+                </tr>
+				<!--{foreach from=$admin_role item=l}-->				
+                <tr>
+                  <th><!--{$l.rolename}-->：</th>
+                  <td><span>
+                    <input type="checkbox" name="info[power][admin][<!--{$l.id}-->][]" value="1" checked/>
+                    <label>信息管理</label>
+                    </span></td>
+                </tr>
+				<!--{/foreach}-->
+                <tr>
+                  <th><strong>会员权限：</strong></th>
+                  <td></td>
+                </tr>
+				<!--{foreach from=$member_group item=l}-->
+                <tr>
+                  <th><!--{$l.groupname}-->：</th>
+                  <td>
+					<span><input type="checkbox" name="info[power][member][<!--{$l.id}-->][]" value="1" checked/><label>&nbsp;允许访问</label></span>&nbsp;&nbsp;
+					<span><input type="checkbox" name="info[power][member][<!--{$l.id}-->][]" value="2" checked/><label>&nbsp;允许评论</label></span>
+				   </td>
+                </tr>
+				<!--{/foreach}-->
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/extensions/Special/index'" class="btn2">
+              </div>
+            </div>
+          </div>
+
+          <div style="display:none;">
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px">标题：</th>
+                  <td><input type="text" value="" name="seo_title" ID="seo_title" class="Iw215" /></td>
+                </tr>
+                <tr>
+                  <th>关键词：</th>
+                  <td><input type="text" value="" name="seo_keywords" ID="seo_keywords" class="Iw215" /></td>
+                </tr>
+                <tr>
+                  <th>描述：</th>
+                  <td><textarea class="Iw450 Ih80" name="seo_description" ID="seo_description" ></textarea></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" value="确定" class="btn1"/>
+                <input type="button" value="取消" onclick="location.href='<!--{$baseurl}-->/extensions/Special/index'" class="btn2"/>
+              </div>
+            </div>
+          </div>
+        </div>
+       </form>
+      </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+$.formValidator.initConfig({formid:"myForm",autotip:true,generalwordwide:true});
+
+$("#name").formValidator({onshow:"请输入2-100个字符，由数字、字母、汉字组成",onfocus:"请输入2-100个字符，由数字、字母、汉字组成",oncorrect:"输入正确"})
+.inputValidator({min:2,max:100,onerror:"请输入2-100个字符，由数字、字母、汉字组成"}).regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-100个字符，由数字、字母、汉字组成"});
+
+$("#save_catalog").formValidator({onshow:"请输入1-40个字符，由数字、字母组成",onfocus:"请输入文件保存目录",oncorrect:"输入正确",empty:true,onempty:'输入内容为空，将取专题名称拼音为保存目录'}).inputValidator({min:1,max:40,onerror:"请输入1-40个字符，由数字、字母组成"}).regexValidator({regexp:['username'],datatype:"enum",onerror:"请输入1-40个字符，由数字、字母组成"});
+
+$("#click_num").formValidator({onshow:" ",onfocus:"请输入正整数",oncorrect:"输入正确",empty:true})
+.inputValidator({min:1,onerror:"请输入正整数"}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"});
+
+$("#type_id").formValidator({onshow:"请选择所属分类",onfocus:"请选择所属分类",oncorrect:"选择正确"}).inputValidator({min:1,onerror: "请选择所属分类"});
+
+$("#seo_title").formValidator({onshow:" ",onfocus:"请输入0-62个字符",oncorrect:"输入正确",empty:true})
+.inputValidator({max:62,onerror:"请输入0-62个字符"});
+
+$("#seo_keywords").formValidator({onshow:" ",onfocus:"请输入0-200个字符，多个关键词之间用','隔开",oncorrect:"输入正确",empty:true})
+.inputValidator({max:200,onerror:"请输入0-200个字符，多个关键词之间用','隔开"});
+
+$("#seo_description").formValidator({onshow:" ",onfocus:"请输入0-300个字符",oncorrect:"输入正确",empty:true})
+.inputValidator({max:300,onerror:"请输入0-300个字符"});
+
+});
+
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'专题缩略图',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);
+}
+
+function uploadAccessory2 (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'专题导航图',
+		return_id:'accessory2',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);
+}
+
+function uploadAccessory3 (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'专题背景图',
+		return_id:'accessory3',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);
+}
+
+//-->
+</script>

@@ -1,0 +1,44 @@
+<!--{if $n neq 1}--><script type='text/javascript' src='<!--{$jspath}-->/jquery-1.7.2.js'></script><script type='text/javascript'><!--{/if}-->
+    var str ="<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/q.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_q_full_sc{width:<!--{if $ad.width}--><!--{$ad.width}--><!--{else}-->1000<!--{/if}-->px;height:<!--{if $ad.height}--><!--{$ad.width}--><!--{else}-->417<!--{/if}-->px;position:absolute;display:none;}</style><div class='mainone_ads_q_bevel <!--{if $ad.pos eq 1}-->mainone_ads_q_bevel2<!--{/if}-->'><a href='#' class=''><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/<!--{if $ad.pos eq 1}-->bevel2_2.png<!--{else}-->bevel2.png<!--{/if}-->'/></a><img src='<!--{if $adimg.img.path}--><!--{if $n eq 1}-->../..<!--{/if}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{else}-->/admin/template/images/bevel_bg.jpg<!--{/if}-->' class='mainone_ads_q_beval_jpg' style='width:133px;height:133px;'/><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span><span class='mainone_ads_q_bevel_close2'><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span></span></div><div class='mainone_ads_q_full_sc' style='width:<!--{$ad.width}-->px;height:<!--{$ad.height}-->px;'><a href='<!--{$ad.link}-->' target='_blank' title='<!--{$ad.fontalt}-->'><img class='mainone_ads_q_full_img' src='<!--{if $adimg.img.path}--><!--{if $n eq 1}-->../..<!--{/if}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{else}--><!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/full_sc.jpg<!--{/if}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->' ></a><a href='#' class='mainone_ads_q_full_close'>&nbsp;&nbsp;</a></div>";
+	document.write(str);
+	$(function(){	
+		var repeat=true;
+		if(repeat){			
+			replay();
+		}
+		$('.mainone_ads_q_bevel_close').click(function(){
+			$('.mainone_ads_q_bevel').hide();
+			return false;
+		});		
+		$('.mainone_ads_q_bevel_close2').click(function(){
+			bevel_close();
+			replay();
+		});	
+		$('.mainone_ads_q_full_close').click(function(){
+			$('.mainone_ads_q_full_sc').hide();
+			bevel_open();
+		});
+		function bevel_open(){
+			$('.mainone_ads_q_bevel a').stop().animate({'height':'133px','width':'133px'},900);
+			$('.mainone_ads_q_bevel').stop().animate({'height':'133px','width':'133px'},950,function(){
+				if(repeat){
+					$('.mainone_ads_q_bevel_close2').show();
+				}else{
+					$('.mainone_ads_q_bevel_close').show();
+				}
+			});
+		}
+		function bevel_close(){
+			$('.mainone_ads_q_bevel a').css({'width':0,'height':0});
+			$('.mainone_ads_q_bevel').css({'width':0,'height':0});
+			if(repeat){
+				$('.mainone_ads_q_bevel_close2').hide();
+			}else{
+				$('.mainone_ads_q_bevel_close').hide();
+			}
+		}
+		function replay(){
+			$('.mainone_ads_q_full_sc').css({'top':'150px','left':($(window).width()-$('.mainone_ads_q_full_sc').width())/2+'px'}).fadeIn(800).delay(2000).fadeOut(500,function(){bevel_open();});
+		}	
+	});
+<!--{if $n neq 1}--></script><!--{/if}-->

@@ -1,0 +1,122 @@
+{include 'cemetery/head_cemetery.html'}
+        <!--********************************************-->
+        <div class="box_cont_w clearfix">
+        <div class="banner_into">
+            <div class="left_ban">
+              <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                    {foreach $lbt $k $v}
+                        <div class="swiper-slide">
+                            <img src="/static/uploadfile{$v['photo_url']}">
+                        </div>
+                  {/foreach}
+                    </div>
+                    <div class="pagination"></div>
+                    <div class="arrow-right"><i>&gt;</i></div>
+                    <div class="arrow-left"><i>&lt;</i></div>
+               </div>
+            </div>
+            
+                <div class="right_into">
+                    <h2>{$content['title']}</h2>
+                    <p>{$content['summary']}</p>
+                    <h3>陵园地址</h3>
+                    <p>地址: {$content['address']}</p>
+                    <h3>联系电话</h3>
+                    <p>联系电话: {$content['tel']}</p>
+               </div>       
+        </div>
+        <div class="tab_cont clearfix">
+            <div class="headline">
+            <span class="fl">陵园名人<i></i></span>
+            <!--<a href="###" class="fr">查看更多<i></i></a>-->
+            </div>
+            <div class="hotP">
+                <ul class="clearfix">
+              {mo:memo catid="1" pagesize="5" return="data"}
+                {foreach $HallMan  $key $value}
+                    <li>
+                        <div class="hotPImg">
+                            <img src="{$value['userpic']}">
+                        </div>
+                        <p class="clearfix hotP_p"><a href="/jinian/Jinian/index/mid/{$value['mid']}" target="_blank" class="fl nameA">{$value['name']}</a><a href="/jinian/Jinian/index/mid/{$value['mid']}" target="_blank" class="fr quickJS">立即祭拜</a></p>
+                        <div class="mainP">
+                            <p>享年：<span>{substr(date('Y-m-d', $value['brithdate']),0,4)}-{substr(date('Y-m-d', $value['dieddate']),0,4)}</span></p>
+                            <p class="introP">简介：<span>（{date('Y-m-d', $value['brithdate'])}），{mb_substr($value['descript'],0,25,'utf-8')}</span></p>
+                        </div>
+                    </li>
+              {/foreach}
+              {/mo:memo}
+                    </ul>
+            </div>
+        </div>
+        <!-- 公用 star-->
+       <div class="three_list">
+                <div class="cont_list">
+                    <div class="headline">
+                        <span class="fl">最新加入<i></i></span>
+                        <!--<a href="###" class="jion fr">申请加入</a>-->
+                     </div>
+                    <ul class="">
+              {mo:park   row="8"    return="data"}
+              {foreach $data  $key $value}
+                        <li>
+                            <a href="###">{$value['title']} </a>
+                            <span>{substr($value['addtiem'],0,10)}</span>
+                        </li>
+              {/foreach}
+              {/mo:park}    
+                    </ul>
+                </div>
+                <div class="cont_list cont_list5">
+                    <div class="headline">
+                        <span class="fl">热度行榜<i></i></span>
+                        <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+             {mo:park   row="8" order="click_nums DESC"   return="data"}
+              {foreach $data  $key $value}
+                        {$key++}
+                        {if $key < 4}
+                        <li class="active">
+                            <em>{$key}</em>
+                        {else}
+                        <li class="">
+                            <em>{$key}</em>
+                        {/if}
+                            <a href="###">{$value['title']} </a>
+                            <span>浏览：{$value['click_nums']} </span>
+                        </li>
+              {/foreach}
+              {/mo:park}           
+                    </ul>
+                </div>
+                <div class="cont_list cont_list3">
+                    <div class="headline">
+                        <span class="fl">购墓须知<i></i></span>
+                     </div>
+                     <div class="tell_you">
+                     {mo:articlelist row="3" cid="329" return="data"}
+                     {foreach $data  $key $value}
+                        <a href="{$value['url']}">
+                        <h3>{csubstr($value["title"],24)}</h3>
+                        <p>{csubstr($value["description"],47)}</p>
+                        </a>
+                    {/foreach}
+                    {/mo:articlelist}
+                     </div>
+                </div>
+            </div>
+        <!-- 公用 end-->
+
+        <div class="link_exchange">
+                <span>友情链接：</span>
+                {mo:friendlink row="100" return="data"}
+                  {foreach $data  $key $value}
+                    <a href='{$value["com_url"]}'>{$value["name"]}</a>
+                  {/foreach}
+                {/mo:friendlink}
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

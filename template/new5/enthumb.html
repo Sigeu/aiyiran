@@ -1,0 +1,6 @@
+Location：<a href="{getMoreUrl(294)}">Home</a> 
+	{if getPid($cid) != 294 }
+{ if getPid($cid)>0 && getPid($cid)!=$cid }
+     {php $thumbid=getPid($cid);}
+      &gt; <a href="{getMoreUrl($thumbid)}">{cid2name($thumbid)}</a>
+  {/if}{/if}&gt; {cid2name($cid)}

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'} 
+{include 'banner.html'} 
+{if !empty($searchList)}
+<div class="wrap">
+  <div class="Greyborder">
+    <div class="title">
+      <div class="sRult">您搜索的“<em><font color='red'>{$searchList['sign']['keyword']}</font></em>”关键词，为您找到 {$searchList['sign']['total']} 个相关结果：<span>栏目：<a href="#">生活妙招</a></span></div>
+     </div>
+    <div class="sRultList">
+ 
+	 	 {foreach $searchList $k $v}
+	          {if $v['created'] != ''}
+			      <dl>
+				  {if $searchList['sign']['mid'] == 1}
+					    <dt><span>日期：{date('Y-m-d',$v['created'])}</span><span>点击量：{$v['hits']}</span><a href='{$v['url']}'>{$v['title']}</a></dt>
+				        <dd>{$v['description']}</dd>
+				  {elseif $searchList['sign']['mid'] == 2}
+				  		<dt><span>日期：{date('Y-m-d',$v['created'])}</span><span>点击量：{$v['hits']}</span><a href='{$v['url']}'>{$v['goodsname']}</a></dt>
+				        <dd>{$v['brief']}</dd>
+				  {elseif  $searchList['sign']['mid'] == 'a'}
+					    <dt><span>日期：{date('Y-m-d',$v['created'])}</span><a href='{$v['url']}'>{$v['name']}</a></dt>
+				        <dd>{$v['guide']}</dd>
+				  {else}
+					    <dt><span>日期：{date('Y-m-d',$v['created'])}</span><span>点击量：{$v['hits']}</span><a href='{$v['url']}'>{$v['goodsname']}{$v['name']}{$v['title']}</a></dt>
+				        <dd>{$v['guide']}{$v['brief']}{$v['subtitle']}</dd>
+				  {/if}
+				  </dl>
+			  {else}
+			  {/if}
+		 {/foreach}
+		 
+
+    </div>
+    <div class="pages mr43">
+      <div class="page_go">
+        <a href="/search/Search/index?p=1&mid={$searchList['sign']['mid']}&keywords={$searchList['sign']['keyword']}&search_type={$searchList['sign']['search_type']}">首页</a>&nbsp;&nbsp;
+		<a href="/search/Search/index?p={$searchList['sign']['page_top']}&mid={$searchList['sign']['mid']}&keywords={$searchList['sign']['keyword']}&search_type={$searchList['sign']['search_type']}">上一页</a>&nbsp;&nbsp;
+		{$searchList['sign']['pages']}
+		<a href="/search/Search/index?p={$searchList['sign']['page_down']}&mid={$searchList['sign']['mid']}&keywords={$searchList['sign']['keyword']}&search_type={$searchList['sign']['search_type']}">下一页</a>&nbsp;&nbsp;
+		<a href="/search/Search/index?p={$searchList['sign']['page_last']}&mid={$searchList['sign']['mid']}&keywords={$searchList['sign']['keyword']}&search_type={$searchList['sign']['search_type']}">尾页</a>&nbsp;&nbsp;
+	    跳转至<input type="text" value="{$searchList['sign']['page']}" size=2>页
+       </div>
+     </div>
+    <div>
+       </div>
+  </div>
+</div>
+
+{else}
+     <div class="wrap">
+      <div class="Greyborder">
+       <div class="title">
+           <p>没有您要搜索的结果！</p>
+       </div>
+      </div>
+     </div>
+{/if}
+      
+<div class="aboutCrop">
+  <div class="friendLink">
+    <dl>
+      <dt>友情链接：</dt>
+      <dd><a href="#">北京中共</a><a href="#">新浪娱乐</a><a href="#">哥就是个传说</a><a href="#">铭万外企</a><a href="#">上海涉外事务所</a><a href="#">主流媒体都傻逼</a><a href="#">真话我想说但不让我说</a><a href="#">这个社会已经病态了</a><a href="#">我在这里啊我在这里啊</a><a href="#">我要涨工资啊</a><a href="#">我只是来学习滴只是来学习滴</a><a href="#">道明寺</a><a href="#">没有你的日子里</a><a href="#">盛开啊上开啊</a><a href="#">吃葡萄不</a><a href="#">哇哈哈哇哈哈</a><a href="#">我的大学在河北</a></dd>
+    </dl>
+    <div class="clearfix"></div>
+  </div>
+  <div class="adderss">
+    <p>铭万全国统一客户服务热线：400-700-1818 客户服务邮箱：service@mainone.cn </p>
+    <p class="copyright">铭万版权所有&copy;2004-2011 京ICP证050659号互联网药品信息服务资格证书 证书编号：（京）-经营性-2010-0049 </p>
+  </div>
+</div>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script> 
+<script type="text/javascript" src="js/list.js"></script>
+</body>
+</html>

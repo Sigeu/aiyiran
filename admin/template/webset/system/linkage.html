@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>联动菜单列表</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+    <form action="<!--{$baseurl}-->/webset/Linkage/index" method="get" id="batch-form" name="myForm">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">联动菜单列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/webset/Linkage/addLinkage" class="last">添加联动菜单</a></dd>               
+          </dl>
+            </div>
+            <div class="pubTabelTot">
+              <input type="text" tips="请输入关键字" class="Iw150 text-tips" name="keyword" value="<!--{$keyword}-->"/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="submit" value="搜 索" class="btn5" />
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%">选择</th>
+                  <th width="6%">ID</th>
+                  <th width="20%">菜单标识</th>
+                  <th width="20%">菜单名称</th>
+                  <th width="12%">级数</th>
+                  <th width="12%">系统项</th>
+                  <th width="24%">操作</th>
+                </tr>
+                <!--{foreach from=$linkage item=list}-->
+                <tr>
+                  <td><input type="checkbox" id="linkageid" name="linkageid[]" value="<!--{$list.linkageid}-->"/></td>
+                  <td><!--{$list.linkageid}--></td>
+                  <td><!--{$list.style}--></td>
+                  <td><!--{$list.name}--></td>
+                  <td><!--{$list.level}--></td>
+                  <td><!--{if $list.isglobal eq 1}-->是<!--{else}-->否<!--{/if}--></td>                 
+                  <td><a href="<!--{$baseurl}-->/webset/Linkage/manageBill/id/<!--{$list.linkageid}-->">管理子菜单</a> | <a href="<!--{$baseurl}-->/webset/Linkage/editLinkage/id/<!--{$list.linkageid}-->">修改</a> | <!--{if $list.isglobal eq 0}--><a href="#" onclick="MoConfirm('<!--{$baseurl}-->/webset/Linkage/deleteLinkage/id/<!--{$list.linkageid}-->')">删除</a><!--{else}--><font style="color:gray;cursor:text">删除</font><!--{/if}--> | <a href="<!--{$baseurl}-->/webset/Linkage/update">更新</a></td>
+                </tr>
+               <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span> 
+              <input type="button" class="btn5" value="更新" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/Linkage/update" empty-tips="请选择要进行更新的信息"/>
+            <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/Linkage/deleteLinkage" empty-tips="请选择要删除的记录！" confirm-tips="你确定要删除吗？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>   
+         </div>
+       </form>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

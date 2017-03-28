@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>找回密码</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#captcha').click(function(){
+        $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        return false;
+    });
+    
+    
+    $("#username").blur(function(){
+     if($(this).val()=="" || $(this).val()=="请输入用户名")
+     {
+        $("#uname").html("用户名不能为空！");
+        $("#uname").addClass("error");
+        $("#username").addClass("errorRed");        
+     }else
+     {
+         $("#uname").html("");
+         $("#uname").removeClass("error");
+         $("#username").removeClass("errorRed"); 
+     }
+    });
+    
+    $("#email").blur(function(){
+     if($(this).val()=="")
+     {
+        $("#email_tips").html("邮箱不能为空！");
+        $("#email_tips").addClass("error");
+        $("#email").addClass("errorRed");        
+     }else
+     {
+         $("#email_tips").html("");
+         $("#email_tips").removeClass("error");
+         $("#email").removeClass("errorRed"); 
+     }
+    });
+    
+    $("#captcha_code").blur(function(){
+     if($(this).val()=="" || $(this).val()=="请输入验证码")
+     {
+        $("#code").html("验证码不能为空！");
+        $("#code").addClass("error");
+        $("#captcha_code").addClass("errorRed");        
+     }else
+     {
+         $("#code").html("");
+         $("#code").removeClass("error");
+         $("#captcha_code").removeClass("errorRed"); 
+     }
+    });
+    
+});
+
+document.onkeydown=function(event){
+     var e = event || window.event || arguments.callee.caller.arguments[0];
+     if(e && e.keyCode==13){ // enter 键
+         loginsubmit();
+         return false;
+    }
+}; 
+
+
+//后台登录表单验证
+function findsubmit()
+{
+    var numbers  = Math.random();
+    var username = $("#username").val();
+    var email    = $("#email").val();
+    var captcha  = $("#captcha_code").val();
+    
+    if(username=='' || username=='请输入用户名')
+    {
+        $("#uname").html("用户名不能为空！");
+        $("#uname").addClass("error");
+        $("#username").addClass("errorRed");
+        return false;
+    }
+    if(email=='')
+    {
+        $("#email_tips").html("邮箱不能为空！");
+        $("#email_tips").addClass("error");
+        $("#email").addClass("errorRed");  
+        return false;
+    }
+    if(captcha=='' || captcha=="请输入验证码")
+    {
+        $("#code").html("验证码不能为空！");
+        $("#code").addClass("error");
+        $("#captcha_code").addClass("errorRed"); 
+        return false;
+    }
+    $.post("<!--{$baseurl}-->/admin/login/checkuser",{task:'dosubmit',username:username,email:email,captcha:captcha,number:numbers},function(data){
+    	//alert(data);
+    	if(data == 1)
+        {
+            $("#code").html("请输入正确的验证码");
+            $("#code").addClass("error");
+            $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        }else if(data==2)
+        {
+            $("#uname").html("用户不存在  ");
+            $("#uname").addClass("error");
+            $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        }else if(data==3)
+        {
+            $("#uname").html("账号异常，请联系总管理员  ");
+            $("#uname").addClass("error");
+        }else if(data==4)
+        {
+            $("#email_tips").html("邮箱与账户不匹配 ");
+            $("#email_tips").addClass("error");
+            $('#captcha').attr('src','<!--{$hostname}-->static/js/securimage/securimage_show.php?' + Math.random());
+        }else if(data==10)
+        {
+        	$("#flag").val('10');
+        	$("#myForm").submit();
+            //window.location.href="<!--{$baseurl}-->/admin/index/index?"+ Math.random();
+            
+        }
+    });
+}
+</script>
+</head>
+<body>
+<div class="login_top">MainOne CMS</div>
+<div class="login_con">
+  <div class="login_contaier">
+    <div class="login_info">
+     <form action="" method="post" id="myForm" name="myForm">
+        <input type="hidden" id='flag' name='flag' value=''/>
+        <ul>
+          <li>
+             <span style="height:40px; float: left; width: 75px; vertical-align: middle;line-height:40px;">管理员账户&nbsp;&nbsp;</span>
+             <input id="username" name="username" value="<!--{$username}-->" type="text" class="text-tips" tips="请输入用户名" style="height:30px;width:200px;" /><span id ="uname" class=""></span>
+          </li>
+          <li>
+             <span style="height:40px; float: left; width: 75px; vertical-align: middle;line-height:40px;">管理员邮箱&nbsp;&nbsp;</span>
+             <input id="email" name="email" value="<!--{$email}-->" type="text" class="text-tips" tips="请输入邮箱" style="height:30px;width:200px;" /><span id ="email_tips" class=""></span>
+          </li>
+          <li>
+            <span style="height:40px; float: left; width: 75px; vertical-align: middle;line-height:40px;">验证码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span><input id="captcha_code" name="captcha_code" type="text" class="login_input03 text-tips" tips="请输入验证码" value=""/></span>
+            <span class="yzm"><img id="captcha" src="<!--{$hostname}-->static/js/securimage/securimage_show.php" class="yzm"/></span><span id ="code" class=""></span>
+          </li>
+          <li><span><input type="button" name="dosubmit" value="找回密码" onclick="findsubmit();" class="login_btn" /></span>&nbsp;&nbsp;&nbsp;<span><input type="button" name="dosubmit" value="返回登录页" onclick="javascript:location.href='<!--{$baseurl}-->/admin/login/index'" class="login_btn" /></span></li>
+          <li>温馨提示：CMS系统邮件服务器设置无误才能发送找回密码邮件</li>
+        </ul>
+     </form>
+    </div>
+  </div>
+</div>
+<div class="login_foot"><!--{include file='public/copyright.html'}--></div>
+</body>
+</html>

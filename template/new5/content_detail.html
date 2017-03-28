@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+  {include 'category.html'}
+    <div class="kefu inkefu">
+      <p class="p1">24小时服务热线</p>
+      <p class="p2">400-800-0606</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="thumb">{include 'thumb.html'}</div>
+    <div class="detail">
+      <div class="T">
+        <h2>{$content['title']}</h2>
+        <span>发布日期：{date('Y-m-d',$content['publishtime'])} {if $content['source']!='' }来源：{$content['source']}{/if}</span></div>
+      <div class="C">
+        <div class="detailTxt">
+          <p>{$content['content']}</p>
+          {if isset($content['thumb']['src'])&&$content['thumb']['src']}
+          <div class="detailPic"><img src="{UPLOAD_PATH}/{$content['thumb']['src']}" width="470" height="285" {if $content['thumb']['alt']!=''}alt="$content['thumb']['alt']"{/if} /></div>
+          {/if}
+		  <p>相关热词搜索：{if $content['keywords']!='' }{$content['keywords']}{else}暂无{/if}</p>
+        </div>
+        <div class="updown">
+          <p>上一条：{$preContent}</p>
+          <p>下一条：{$nextContent}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

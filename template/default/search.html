@@ -1,0 +1,103 @@
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/idangerous.swiper.css"/>
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/public.css"/>
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/index.css"/>
+        <script type="text/javascript" src="{JS_PATH}/jquery-1.11.0.min.js" ></script>
+        <script type="text/javascript" src="{JS_PATH}/idangerous.swiper.min.js" ></script>
+        <script type="text/javascript" src="{JS_PATH}/index.js" ></script>
+        <script type="text/javascript" src="{JS_PATH}/public.js" ></script>
+
+
+{include 'head.html'}
+
+{if ($sel==1)}           
+             <div class="tab_cont clearfix">
+                <div class="headline">
+                <span class="fl">私人纪念馆 <i></i></span>
+                <!--<a href="###" class="fr">查看更多<i></i></a>-->
+                </div>
+                <ul class="list_jn clearfix createData">
+                    {mo:memo catid="$sel" pagesize="20"  keywords="$keywords" return="data"}
+
+                    {if is_array($data)}
+                      {foreach $data  $key $val}
+                      <li>
+                        <a href="/jinian/Jinian/index/mid/{$val['m_id']}" target="_blank">
+                              <img src="{$val['userpic']}" />
+                              <p class="clearfix"><span class="fl nameA">{$val['personname']}</span><span  class="fr">{$val['persontype_name']}</span></p>
+                        </a>
+                      </li>
+                      {/foreach}
+                       {else}
+                      没找到信息，请稍后再试
+                      {/if}
+                    {/mo:memo}
+                </ul>
+                <div class="page">
+                    {$pagestr}
+                </div>
+             </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+
+{include 'inc/three_inc.html'}
+
+<!-- 名人纪念馆 -->
+{else}
+               <div class="tab_cont clearfix">
+                <div class="headline">
+                <span class="fl">名人纪念馆<i></i></span>
+                <!--<a href="###" class="fr">查看更多<i></i></a>-->
+                </div>
+                <div class="hotP">
+                            <ul class="clearfix createData">
+                                {mo:memo catid="$sel" pagesize="20"  keywords="$keywords" return="data"}
+                                {if is_array($data)}
+                                {foreach $data  $key $value}
+                                <li>
+                                    <div class="hotPImg">
+                                        <img src="{$value['userpic']}">
+                                    </div>
+                                    <p class="clearfix hotP_p"><a href="###" class="fl nameA">{$value['personname']}</a><a href="/jinian/Jinian/index/mid/{$value['m_id']}" target="_blank" class="fr quickJS">立即祭拜</a></p>
+                                    <div class="mainP">
+                                        <p>享年：<span>{$value['m_year']}-{$value['d_year']}</span></p>
+                                        <p class="introP">简介：<span>{csubstr($value['descript'],35)}</span></p>
+                                    </div>
+                                </li>
+                                {/foreach}
+                                 {else}
+                                没找到信息，请稍后再试
+                                {/if}
+                                {/mo:memo}
+
+                            </ul>
+                        </div>
+                <div class="page">
+                    {$pagestr}
+                </div>
+<!-- 分页样式修改 -->
+<script type="text/javascript">
+  $(".page_jump").remove();
+  $(".page a").css("width","50px");
+  $(".page .focus").addClass('active');
+</script>
+             </div>
+        {include 'inc/three_inc.html'}
+
+        {/if}
+
+
+             <div class="link_exchange">
+                <span>友情链接：</span><a href="###">中国民政部</a>
+                {mo:friendlink row="100" return="data"}
+                  {foreach $data  $key $value}
+                    <a href='{$value["com_url"]}'>{$value["name"]}</a>
+                  {/foreach}
+                {/mo:friendlink}
+            </div>
+        </div>
+        <!--********footer***************************************-->
+{include 'head_footer.html'}

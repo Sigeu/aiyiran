@@ -1,0 +1,18 @@
+<div class="subNav">
+  { if getPid($cid) > 0  }
+     {php $Treeid=getPid($cid);}
+  {/if}
+  {php $cateTree = getCateTree($Treeid,1);}
+  {foreach $cateTree $k $v}
+  {if $k>0 }|{/if}
+  <a href="{getMoreUrl($v['id'])}">{$v['catname']}</a>
+  <!--{php $soncateTree = getCateTree($v['id'],1);}
+			 {foreach $soncateTree $sonk $sonv}
+					--<a href="{getMoreUrl($sonv['id'])}">{$sonv['catname']}</a>
+					{php $ssoncateTree = getCateTree($sonv['id'],1)}
+				    {foreach $ssoncateTree $ssonk $ssonv}
+					==<a href="">{$ssonv['catname']}</a>
+				    {/foreach}
+			{/foreach}-->
+  {/foreach}
+</div>

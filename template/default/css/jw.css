@@ -1,0 +1,82 @@
+.list_word4{ width: 838px; height:auto; margin: 20px auto 0; border: 1px solid #eeeeee; background: #fff;}
+.list_word4 ul{ width: 800px; height:auto; margin: 0 0 0 19px;}
+.list_word4 ul li{ width:800px; float: left; height: 85px; margin: 0 0 27px;}
+.list_word4 ul li a{ display: block; width: 800px; height: 84px;}
+.list_word4 ul li a img{ width: 150px; height: 84px; float: left; margin: 0 10px 0 0;}
+.list_word4 ul li a h3{ width: 630px; float: left; color: #333; font-size: 14px; height: 24px; line-height: 24px; margin: 5px 0 0;}
+.list_word4 ul li a p{ width: 630px; height: 50px; line-height:24px; overflow: hidden; color: #999;}
+/***************/
+.conItem02{ margin: 0 0 0 20px; width: 340px;}
+.three_list{ width: 1200px; height: 400px; margin: 20px auto;}
+.cont_list{ width: 408px;margin:0 20px 0 0; height: 398px; float:left; border: 1px solid #eee; background: #fff;}
+.cont_list .headline{ margin: 0 19px 10px;}
+.cont_list ul{ width:368px; margin: 0 0 0 20px;}
+.cont_list ul li{ height:30px;position:relative}
+.cont_list ul li.ju_10{ margin: 10px 0 0;}
+.cont_list ul li a{ display: block; float: left; height: 26px; font-size: 13px; color: #666; line-height: 26px; width: 280px; overflow: hidden;}
+.cont_list ul li span{ position: absolute; right: 0; top:0; display: block; line-height: 26px; color: #aaa;}
+.cont_list ul li a:hover{ color: #01d590;}
+.cont_list6{ width: 338px; margin:20px 0 0;}
+.cont_list6 ul{ width:300px; margin: 0 0 0 20px;}
+.cont_list6 ul li a{ width: 240px;}
+.cont_list6 ul li em{float: left; text-align: center; margin: 4px 15px 0 0; line-height: 20px;color:#fff;display: block; width: 20px; height: 20px; background: #b2b2b2;}
+.cont_list6 ul li a{ width:260px;}
+.cont_list6 ul li.active em{ background: #e11321;}
+.cont_list7{ width: 338px; margin:20px 0 0;}
+.cont_list7 ul{ width:300px; margin: 0 0 0 20px;}
+.cont_list7 ul li a{ width:300px;}
+.double_j{ width: 340px; height: 150px; display: block;margin: 20px 0 0; float: left;}
+.double_j img{ width: 340px; height: 150px; }
+.data_918{width: 340px; height:200px; display: block;margin: 20px 0 0; float: left;}
+.data_918 img{width: 340px; height: 200px; }
+/***********************************************/
+.details{ width: 838px; height:auto; margin: 20px auto 0; border: 1px solid #eeeeee; background: #fff;}
+.top_title{ width: 838px; height: 110px; margin: 0 auto; position: relative;}
+.top_title h2{ width: 100%; color: #333; font-size: 24px; padding: 40px 0 10px; text-align: center;}
+.top_title p{ text-align: center; width: 100%; color: #999;}
+.top_title a{ position: absolute; right:20px; top:45px; display: block; font-size: 14px; color: #999;}
+.details_cont{ text-indent: 24px; width: 800px; margin: 0 19px; line-height: 24px; font-size: 14px; color: #666;}
+.return_sx{ font-size: 14px;color: #666666; width: 800px; border-top: 1px solid #eeeeee; height: 84px; line-height: 84px; margin: 30px auto 0;}
+.return_sx a{ color: #666666;}
+.return_sx a:hover{ text-decoration: underline;}
+/****************/
+.leave_message{ width:838px; height:auto; border: 1px solid #eeeeee; background: #fff; margin:20px auto;}
+.leave_message h4{ height: 24px; font-size: 18px; color: #999; font-weight: 100;text-indent: 20px; padding: 20px 0;}
+.leave_message textarea{ width:788px; font-size: 12px; font-family: "微软雅黑"; border-radius:5px; padding: 5px; margin: 0 20px; height: 88px; border: 1px solid #dddddd;}
+.add_face{ width:838px; height: 53px; margin: 0 0 20px;}
+.add_face .add{ display: block; position:relative; width: 80px; height: 20px; text-align: right; font-size: 14px; color: #999; line-height: 20px; margin: 20px 0 0 20px;}
+.add i{ background-position: -159px 0; width: 20px; height: 20px; position: absolute; left: 0; top: 0;}
+.publish{ width: 260px; height: 38px; margin: 15px 0 0;}
+.publish em{ float: left; line-height: 38px; margin: 0 10px 0 0; color: #666; font-size: 14px;}
+.publish em i{ color: #ff0000;}
+.publish input{ width: 110px; height: 38px;background-position: -282px -215px; color: #fff; font-size: 14px;}
+/************/
+/***list_message************/
+.list_message{ width:838px; height:auto; margin: 0 auto 50px;}
+.list_message ul{ width:838px; height: auto; background: #fff; border: 1px solid #eee;}
+.list_message ul li{ background: #fff; margin: 0 19px 10px; float: left; border-bottom: 1px solid #eee; width:800px; position: relative; padding: 0 0 30px;}
+.list_message ul li h3{ color: #999; font-size: 14px; margin: 30px 0 0; width: 800px; float: left;}
+.list_message ul li h3 span{ color:#333; font-size: 16px;}
+.list_message ul li h3 i{color: #01D590; margin: 0 0 0 15px; cursor: pointer; display: none;}
+.list_message ul li p{ width: 800px;font-size: 14px; float: left;color: #666; line-height: 24px; padding: 5px 0 0;}
+.list_message ul li.active h3 i{ display: inline;}
+.replys{ width:800px; height:142px; float: left; margin:10px 0;}
+.replys textarea{ color: #666; border: 1px solid #eee; width:778px; font-size: 14px; font-family: "微软雅黑"; height: 68px; padding:10px; border-radius:5px;}
+.liu-icon { width:800px; height:32px; text-align:right; margin: 10px 0 0;}
+.liu-icon a{ display: inline-block; font-size: 14px; width: 60px; text-align: center; color: #fff; height:32px; line-height:32px; margin:0 0 0 10px}
+.liu-icon a.btn-primary{background-position:-160px -168px;}
+.liu-icon a.btn-default{background-position:-160px -202px; color: #666;}
+.floor{ position: absolute; right: 0; top:50%; width: 40px; height: 24px; margin:-12px 0 0; display: block; font-size: 16px; font-weight: 100; color: #ccc;}
+.my_message{ width:800px; float: left;}
+.list_message ul li .my_message img{ margin: 0 20px 0 0;}
+.list_message ul li .my_message p{ width: 800px;}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#brandname").formValidator(
+	{
+		onshow:"请输入1至20个字符",
+		onfocus:"请输入1至20个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:1,
+		max:20,
+		onerror:"请输入1至20个字符"
+	});
+
+	/*$("#url").formValidator(
+	{
+		onshow:"请输入品牌LOGO链接",
+		onfocus:"请输入品牌LOGO链接",
+		oncorrect:"输入正确",
+		onempty:'输入内容为空',
+		empty:false
+	}).inputValidator(
+	{
+		min:1,
+		max:200,
+		onerror:"LOGO链接长度错误"
+	}).regexValidator({regexp:['url'],datatype:"enum",onerror:"LOGO链接格式错误"});*/
+});
+
+</script>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+	   <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/goodsbrand/index">商品品牌</a></dd>
+            <dt class="on"><a href="javascript:;" class="last">添加品牌</a></dt>
+          </dl>
+        </div>
+		<form method="post" action="<!--{$baseurl}-->/modules/goodsbrand/add" id="formid" enctype="multipart/form-data">
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="145px"><font>* </font> 品牌名称：</th>
+                  <td><input type="text" value="" name="brandname" id="brandname" class="Iw290"/></td>
+                </tr>
+				<tr>
+                  <th width="145px">&nbsp;&nbsp;品牌网址：</th>
+                  <td><input type="text" value="" name="url" id="url" class="Iw290"/> <span>格式 http://www.test.com</span></td>
+                </tr>
+				<tr>
+                  <th width="145px">&nbsp;&nbsp;品牌LOGO：</th>
+                  <td>
+				  <span id="single-upload"><input type="text" name="" value="" readonly class="Iw290"/></span>
+				  <input class="btn5" hideFocus="" type="button" value="浏览" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'brand','self_id':'uploadButton','ady_upload':1,'dis_place':'single-upload'})" id="uploadButton"/>
+				  </td>
+                </tr>
+                
+				<tr>
+                  <th width="145px">&nbsp;&nbsp;品牌简介：</th>
+                  <td><textarea class="Iw450 Ih80" name="brief" id="brief"></textarea></td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit"  hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.go(-1);" class="btn2">
+              </div>
+            </div>
+          </div>
+        </div>
+		</form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'品牌图片上传',
+		return_id:'accessory',
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+</script>

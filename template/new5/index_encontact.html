@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'enhead.html'}
+{include 'banner.html'}
+<div class="wrap">
+<div class="thumb">Localtion：<a href="{getMoreUrl(294)}">Home</a> &gt; {cid2name($cid)}</div>
+<div class="contact" style="padding-bottom:190px; overflow:hidden;">
+{mo:article id='510' return='content'}
+ <div class="contactL">
+{$content['content']}
+</div>
+<div class="contactR right">
+{if $content['thumb']=='' }<img src="{IMG_PATH}/defimg.png">{else}<img src="{UPLOAD_PATH}/{$content['thumb']['src']}" width="500" />{/if}
+</div>{/mo:article}
+</div>
+</div>
+{include 'enfooter.html'}

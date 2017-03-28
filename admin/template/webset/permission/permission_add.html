@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title></title>
+<script language="javascript" type="text/javascript" src="<!--{$jsPath}-->/jquery-1.4.2.js"></script>
+<script language="javascript" type="text/javascript" src="<!--{$jsPath}-->/formvalidator.js"></script>
+<style type="">
+/*表单验证*/
+.onShow,.onFocus,.onError,.onCorrect,.onLoad,.onTime{display:inline-block;display:-moz-inline-stack;zoom:1;*display:inline; vertical-align:middle;background:url(../images/msg_bg.png) no-repeat;   color:#444;line-height:18px;padding:2px 10px 2px 23px; margin-left:10px;_margin-left:5px}
+.onShow{background-position:3px -147px;border-color:#40B3FF;color:#959595}
+.onFocus{background-position:3px -147px;border-color:#40B3FF;}
+.onError{background-position:3px -47px;border-color:#40B3FF; color:red}
+.onCorrect{background-position:3px -247px;border-color:#40B3FF;}
+.onLamp{background-position:3px -200px}
+.onTime{background-position:3px -1356px}
+</style>
+</head>
+<body>
+
+<div class="subnav">
+    <div class="content-menu ib-a blue line-x">
+        <a href='<!--{$baseurl}--><!--{$pageInfo.listUrl}-->' class="on"><em>系统菜单（权限）管理</em></a><span>|</span><a href='javascript:;' ><em>添加菜单（权限）</em></a>
+    </div>
+</div>
+
+<div class="pad_10">
+<div class="common-form">
+<form name="myform" action="" method="post" id="myform">
+<input type="hidden" name="task" value="dosubmit"> 
+<table width="100%" class="table_form contentWrap">
+    <tr>
+        <td width="150">所属菜单（权限）：</td> 
+        <td>
+        <select name="info[parentid]" id="parentid">
+          <option value="0" selected>作为顶层</option>
+          <!--{$menuoption}-->
+        </select>
+        </td>
+    </tr> 
+    <tr>
+        <td>菜单（权限）名称：</td> 
+        <td><input type="text" name="info[name]" class="input-text" id="name" value=""></td>
+    </tr>
+    <tr>
+        <td>备注名称：</td> 
+        <td><input type="text" name="info[notename]" class="input-text" id="notename" value=""></td>
+    </tr>
+    <tr>
+        <td>AppDierctory：</td>
+        <td>
+        <input type="text" name="info[appdirectory]" value="" class="input-text" id="appdirectory" >
+        </td>
+    </tr>
+    <tr>
+        <td>Module：</td>
+        <td>
+        <input type="text" name="info[module]" value="" class="input-text" id="module" >
+        </td>
+    </tr>
+    <tr>
+        <td>Controller：</td>
+        <td>
+        <input type="text" name="info[controller]" value="" class="input-text" id="controller" >
+        </td>
+    </tr>
+    <tr>
+        <td>Action:</td>
+        <td>
+        <input type="text" name="info[actionname]" value="" class="input-text" id="actionname">
+        </td>
+    </tr>
+    <tr>
+        <td>参数:</td>
+        <td>
+        <input type="text" name="info[data]" value="" class="input-text" id="data">
+        </td>
+    </tr>
+    <tr>
+        <td>类型:</td>
+        <td>            
+        <input type="radio" name="info[ptype]" value="1" class="input-text" id="ptype" checked>菜单
+        <input type="radio" name="info[ptype]" value="2" class="input-text" id="ptype">权限
+        </td>
+    </tr>
+    <tr>
+        <td>快捷操作:</td>
+        <td>            
+        <input type="radio" name="info[shortcut]" value="1" class="input-text" id="shortcut"  />是
+        <input type="radio" name="info[shortcut]" value="0" class="input-text" id="shortcut"  checked />否
+        </td>
+    </tr>
+    <tr>
+        <td>外部链接:</td>
+        <td>            
+        <input type="radio" name="info[flag]" value="1" class="input-text" id="flag"  />是
+        <input type="radio" name="info[flag]" value="0" class="input-text" id="flag"  checked />否
+        </td>
+    </tr>
+    <tr>
+        <td>链接地址:</td>
+        <td>
+        <input type="text" name="info[link]" value="" class="input-text" id="data">
+        </td>
+    </tr>
+</table>
+    <div class="bk15"></div>
+	<div class="btn"><input type="submit" id="dosubmit" class="button" name="dosubmit" value="提交"/></div>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+/**  $(document).ready(function() {
+	$.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
+	$("#name").formValidator({onshow:"请输入菜单名称",onfocus:"菜单名称不能为空。"}).inputValidator({min:1,max:999,onerror:"菜单名称不能为空。"});
+	$("#module").formValidator({onshow:"请输入模块名称",onfocus:"模块名称不能为空。"}).inputValidator({min:1,max:999,onerror:"模块名称不能为空。"});
+	})*/
+</script>
+</body>
+</html>

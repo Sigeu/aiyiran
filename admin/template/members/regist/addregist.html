@@ -1,0 +1,115 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript" src="<!--{$jspath}-->/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/iniEditor.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+	
+	$("#name").formValidator({empty:false,onshow:"请输入2-50个字符",onfocus:"请输入2-50个字符",oncorrect:"输入正确"})
+	.inputValidator({min:2,max:50,onerror:"请输入2-50个字符"})
+	.ajaxValidator({
+		datatype : "html",
+		async : true,
+		url : "<!--{$baseurl}-->/members/Regist/checkTitle?id="+$("input[name='id']").val()+"&name="+$("#name").val(),
+		success : function(data){
+            if(data == 1 ) {
+            	
+            	return true;
+            }else if( data ==2 ) {
+            	
+            	return false;
+            }
+			return false;
+		},
+		buttons: $("#button"),
+		error: function(XMLHttpRequest, textStatus, errorThrown){alert("服务器没有返回数据，可能服务器忙，请重试"+errorThrown);},
+		onerror : "该协议已存在",
+		onwait : "正在对用户名进行合法性校验，请稍候..."
+	});
+	
+	$("#tplcontent").formValidator({empty:false,onshow:"请填输入协议内容",onfocus:"请填输入协议内容 ",oncorrect:"输入正确"})
+	.functionValidator({
+	    fun:function(val,elem){
+	    	 var topicContent=CKEDITOR.instances.tplcontent.getData();  
+	         topicContent = topicContent.replace(/^\s+/g,"");  
+	         topicContent = topicContent.replace(/\s+$/g,""); 
+	         topicContent = topicContent.replace(/<.*?>/g,"");
+	         if (topicContent.length == 0) {
+	        	 
+	        	 art.dialog.alert('请填输入协议内容','error');  
+	        	return false; 
+	         } else {
+	        	 
+	        	 return true;
+	         }
+	         return false;
+		}
+	});
+	
+	$(".cancel").click(function(){
+		window.location.href='<!--{$baseurl}-->/members/regist/index';
+	})
+})
+</script>
+<body>
+<div class="pubBox" style='height:750px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/members/regist/index" class="last">协议列表</a></dd>
+            <dt class="on"><a href="<!--{$baseurl}-->/members/regist/saveRegist"><!--{if $id neq ''}-->编辑<!--{else}-->添加<!--{/if}-->协议</a></dt>
+          </dl>
+        </div>
+        <form action='<!--{$baseurl}-->/members/Regist/addregist' method='post' id='myform'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font>&nbsp;协议名称：</th>
+                  <td>
+                  <input type='hidden' value="<!--{$id}-->" name='id'>
+                  <input type="text" value="<!--{$infor.name}-->" class="Iw290" name='name' id='name'/>
+                  &nbsp;&nbsp;
+                  <span id='nameTip' class=''></span></td>
+                </tr>
+                <tr>
+                  <th><font>*</font>&nbsp;状态：</th>
+                  <td>
+                    <input type='radio' name='state' value="1" <!--{if $infor.iseffect neq 2}-->checked<!--{/if}-->>开启
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type='radio' name='state' value='2' <!--{if $infor.iseffect eq 2}-->checked<!--{/if}-->>关闭
+                  </td>
+                </tr>
+                <tr>
+                  <th><font>*</font>&nbsp;协议内容：</th>
+                  <td>
+                    <textarea id='tplcontent' name='content'><!--{$infor.content}--></textarea>
+                    <input id="reg_content" type='hidden' value=''>
+                    <span id='tplcontentTip' ></span>
+                  </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1" id='sub'>
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+            </div>
+            </form>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      document.ready = init('tplcontent', 'fail');
+      
+      if($('#hidcon').val() == ""){
+    	  $("#tplcontent").val('');
+      }
+   </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<link href="{CSS_PATH}/validator.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/formvalidator.js"></script>
+<script src="{JS_PATH}/formvalidatorregex.js"></script>
+</head>
+<body>
+{include 'head.html'}
+<div class="subNav">首页 &gt; 关于我们</div>
+<div class="wrap">
+  <div class="sideBar">
+    <div class="T">关于我们</div>
+    <div class="pubUl">
+      <ul>
+        {mo:articlelist cid='53' type='all' row='5' order='id' return='data'}
+        {foreach $data $k $v}
+        {if isset($v['id'])&&isset($id)&&$v['id']===$id}
+        <li><a href="{$v['url']}" class="focus">{$v['title']}</a></li>
+        {else}
+        <li><a href="{$v['url']}">{$v['title']}</a></li>
+        {/if}
+       {/foreach}
+      {mo:articlelist}
+      <li><a href="/message/Message/index/id/283" {if isset($ismessage)}class='focus'{/if} title="意见和建议">意见和建议</a></li>
+      <li class="last"><a href="{HOST_NAME}category/Category/index/cid/289" title="网站地图">网站地图</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="pubBox">
+      <div class="tt">向我们发送反馈意见</div>
+      <div class="C">
+        <div class="suggest">
+        <form action='/message/Message/add' id="messageForm" method='post'>
+	<input type='hidden' name='modelid' value="{$modelid}"/>
+    <table width="100%" cellpadding="0" cellspacing="0">
+      {foreach $form $key $v}
+	    {$v}
+	  {/foreach}
+
+	  {if $hasYzm}
+      <tr>
+        <th>* 验证码：</th>
+        <td><input type="text" name='code' id='code' class="input131_24" />
+          <img src="{HOST_NAME}/static/js/securimage/yzm.php" id='yzm' width="100" height="40" class="yzm captcha"/> <a href="#"  onclick='yzm.src="/static/js/securimage/yzm.php?"' class="msgLink captcha">看不清？刷新</a></td>
+      </tr>
+	  {/if}
+      <tr>
+      <th></th>
+      <td> 感谢您提供反馈意见<br />
+           感谢您对商业资讯网的关注与支持。尽管也许我们不能一一回复，但我们一定会仔细阅读这些信息。</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><input type="button" class="grayBtn3" onclick="submitCheck();" value="提交" /></td>
+      </tr>
+    </table>
+	</form>
+          <ul style="display:none;">
+            <li>
+              <input type="radio" />
+              <label>网站链接问题（打不开）</label>
+            </li>
+            <li>
+              <input type="radio" />
+              <label>首页显示不全、乱码（弹窗、广告、跳转）</label>
+            </li>
+            <li>
+              <input type="radio" />
+              <label>不能将商业资讯网设为主页（篡改）</label>
+            </li>
+            <li>
+              <input type="radio" />
+              <label>不能对文章进行评论</label>
+            </li>
+            <li>&nbsp;</li>
+            <li>
+              <p class="f14">&nbsp;请具体说明您的问题,或者说明您不满意的原因 <font>*</font></p>
+              <textarea class="textarea693_208"></textarea>
+            </li>
+            <li class="f14">&nbsp;希望留下您的联系方式：</li>
+            <li class="f14">&nbsp;&nbsp;Q Q：
+              <input type="text" class="input215_23" />
+            </li>
+            <li class="f14">Email：
+              <input type="text" class="input215_23" />
+            </li>
+            <li class="f14">&nbsp;电话：
+              <input type="text" class="input215_23" />
+            </li>
+            <li>感谢您提供反馈意见</li>
+            <li>感谢您对hao123的关注与支持。尽管也许我们不能一一回复，但我们一定会仔细阅读这些信息。</li>
+            <li>&nbsp;</li>
+            <li style="text-align:center;">
+              <input type="button" class="grayBtn3" value="提 交" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="wrap" style="display:none">
+  <div class="msg">
+    <div class="T">
+      <h3>意见和建议</h3>
+    </div>
+	{mo:message modelid='166' pagesize='1' pagenum='3' return='data'}
+	   {foreach $data $key $value}
+	   {$value['title']}
+	   {/foreach}
+	{/mo:message}
+	{$pagestr}
+  </div>
+</div>
+<script>
+ $.formValidator.initConfig({autotip:true,formid: "messageForm", debug:false,onError: function(msg) {}, onSuccess: function() {}});
+{$formvalidator}
+$(document).ready(function() {  
+	$('.captcha').click(function(){
+		$('.captcha').attr('src','/static/js/securimage/yzm.php?' + Math.random());
+		return false;
+	});
+});
+function submitCheck()      
+{
+	if($('#code').val()=='')
+	{
+		alert("请填写验证码");
+	}
+	else
+	{
+		$('#messageForm').submit();
+	}
+}
+</script>
+{include 'footer.html'}

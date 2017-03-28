@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>留言板分类</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">表单列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/members/form/addForm" class='last'>添加表单</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method='get' id="batch-form">
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="15%">选择</th>
+                  <th width="10%">ID</th>
+                  <th width="30%">会员注册表单名</th>
+                  <th width="15%">状态</th>
+                  <th width="30%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td><input type="checkbox" name='id[]' value="<!--{$item.id}-->"/></td>
+                  <td><!--{$item.id}--></td>
+                  <td title='<!--{$item.name}-->'><!--{$item.name|truncate_cn:10:'...':true}--></td>
+                  <td><!--{if $item.state eq 2}-->开启<!--{else}-->关闭<!--{/if}--></td>                 
+                  <td>
+                     <a href="<!--{$baseurl}-->/modules/message/field/id/<!--{$item.id}-->/flag/2">字段管理</a> | 
+                     <a href="<!--{$baseurl}-->/members/form/editForm/id/<!--{$item.id}-->">修改</a>| 
+                     <a href="#"
+					 onclick="MoConfirm('<!--{$baseurl}-->/members/form/copyForm/id/<!--{$item.id}-->','确定复制表单吗？')"
+					 >复制</a>|
+                     <a href="#" 
+                     <!--{if $item.def eq 1}-->
+                      style="color:#ccc;text-decoration:none;"
+                      <!--{else}-->
+                      onclick="MoConfirm('<!--{$baseurl}-->/members/form/delete/id/<!--{$item.id}-->','确认删除？')"
+                     <!--{/if}-->
+                     >删除</a>
+                 </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list"  /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="开启"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/members/form/Opera/sate/2" empty-tips="请选择要开启的表单" confirm-tips="确定要开启吗？"/>
+              <input type="button" class="btn5" value="关闭"  onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/members/form/Opera/sate/1" empty-tips="请选择要关闭的表单" confirm-tips="确定要关闭吗？"/>
+              <input type="button" class="btn5" value="删除"  class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/members/form/delete" empty-tips="请选择要删除的表单" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+            </div> 
+            </form>
+          </div>  
+        </div>
+      </div>
+    </div>   
+</body>
+</html>

@@ -1,0 +1,510 @@
+
+{include 'inc/memorial_head.html'}
+
+<!-- layer插件 -->
+<link rel="stylesheet" href="/template/default/member/layer/skin/default/layer.css" type="text/css">
+<script src="/template/default/member/layer/layer.js"></script>
+<style>
+    .page a{
+        cursor: pointer;}
+</style>
+
+			<!--**********************************-->
+			<div class="set_worship" style="background: url(/static/uploadfile{$style['pic']}) no-repeat bottom left;">
+				<div class="scenes_container">
+					<div class="epitaph">
+						<div class="left_mzm">
+						{$muzhimin['epitaph']}
+						</div>
+						<div class="mid_head">
+							<img src="{$info['userpic']}" />
+							<div class="user_n">
+								{$info['name']} <span>之墓</span>
+							</div>
+						</div>
+						<div class="right_set_p">
+							<span style="display: block; margin-bottom: 10px;">立碑人</span>{$muzhimin['steleauthor']}
+						</div>
+					</div>
+
+					<!-- 已购买的商品，在纪念堂展示 -->
+					{foreach $goods $k $v}
+											<!-- bid就是已购买的商品主键id -->
+					{if $v['uid']==$uid}
+						<div class="drag_img drag_img2" bid="{$v['id']}"
+					{else}
+						<div class="drag_img"
+					{/if}
+
+					{if $v['goods_x']}style="left:{$v['goods_x']}px; top:{$v['goods_y']}px"
+					{else}{/if}
+					>
+						<img src="{$v['goods_img']}">
+					</div>
+					{/foreach}
+
+				</div>
+				<div class="r_menu">
+					<ul>
+						{foreach $goods_list $k $v}
+						{$k++}
+						<li class="jp_{$k}"><a href="javascript:;"><i></i>{$v['cate']}</a></li>
+						{/foreach}
+					</ul>
+					{if $uid}
+						<span class="jp_6 jp_7"><a href="javascript:;">祭品箱</a></span>
+					{else}
+						<span class="jp_6"><a href="javascript:;" onclick="isLogin();">祭品箱</a></span>
+					{/if}
+				</div>
+				{if $left_info}
+				<div class="music">
+					<img src="{$left_info['user_photo']}" />
+					<h3 ><span >{csubstr($left_info["username"],10)}</span>
+						<div class="audio_div">
+							<input type="button" name="" id="on_off" value="" />
+					        <audio id="mp3Btn"
+								   {if $auto_play['auto_play']==1}
+								   autoplay="autoplay"
+									{else}
+							{/if}
+							>
+								{foreach $getMusicLists $k $v}
+					        	<source src="{$v['musicpath']}" type="audio/mp3" />
+								{/foreach} 
+					        </audio>
+						</div>
+					</h3>
+					<p><span>元宝：<i>{$left_info['point']}</i></span><a href="/member/Recharge/online">充值</a></p>
+				</div>
+				{/if}
+		    </div>
+		    <div class="shop-content">
+		    	<div class="shop-content_box">
+		    	<a href="###" class="close">X</a>
+		            <ul class="tab">
+		            	<li class="all"><a href="###">全部</a></li>
+						{foreach $goods_list $k $v}
+						{$k++}
+						<li class="jp_{$k}"><a href="###"><i></i>{$v['cate']}</a></li>
+						{/foreach}
+					</ul>
+
+					<!-- 全部商品开始 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="goods_all_pagenum">
+ 		    			{foreach $goods_all $k $v}
+ 		    			<li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+		     		{php for($i=1;$i<=$goods_all_pagenum;$i++){}
+                            <a onclick="goods_all_pagenum({$i},{$goods_all_num},{$mid})">{$i}</a>
+                    {php }}
+		     	</div>
+ 		    	</div>
+ 		    	<!-- 全部商品结束 -->
+
+ 		    	<!-- 花朵 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="xianhua">
+ 		    			{foreach $xianhua $k $v}
+                        <li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+			     	{php for($i=1;$i<=$xianhua_pagenum;$i++){}
+                            <a onclick="xianhua_pagenum({$i},{$xianhua_num},{$mid})">{$i}</a>
+                    {php }}
+		     		</div>
+ 		    	</div>
+
+ 		    	<!-- 上香 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="shang">
+ 		    			{foreach $shang $k $v}
+                        <li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+			     		{php for($i=1;$i<=$shang_pagenum;$i++){}
+                            <a onclick="shang({$i},{$shang_num},{$mid})">{$i}</a>
+                        {php }}
+		     		</div>
+ 		    	</div>
+
+ 		    	<!-- 点烛 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="dian">
+ 		    			{foreach $dian $k $v}
+                        <li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+			     		{php for($i=1;$i<=$dian_pagenum;$i++){}
+                            <a onclick="dian({$i},{$shang_num},{$mid})">{$i}</a>
+                        {php }}
+		     		</div>
+ 		    	</div>
+
+ 		    	<!-- 祭品 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="jiping">
+ 		    			{foreach $jiping $k $v}
+                        <li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+			     		{php for($i=1;$i<=$jiping_pagenum;$i++){}
+                            <a onclick="jiping({$i},{$shang_num},{$mid})">{$i}</a>
+                        {php }}
+		     		</div>
+ 		    	</div>
+
+ 		    	<!-- 装饰 -->
+ 		    	<div class="ShopList">
+ 		    		<ul id="zhuangshi">
+ 		    			{foreach $zhuangshi $k $v}
+                        <li data-goodsid="{$v['id']}" data-mid="{$mid}" data-gname="{$v['gname']}" data-img="{$v['pic']}" data-price="{$v['price']}" onclick="showBuy(this)">
+ 		    				<a href="###">
+ 		    				<img src="{$v['pic']}" />
+ 		    				<h4>{$v['gname']}</h4>
+ 		    				<p><span class="fl">{$v['gtime']}天</span><em class="fr">{$v['price']}元宝</em></p>
+ 		    				</a>
+ 		    				<div class="goods_info">
+ 		    					<h3>{$v['gname']}</h3>
+ 		    					<p>{$v['summary']}</p>
+ 		    					<span>价格：{$v['price']}元宝</span>
+ 		    					<em>时效：{$v['gtime']}天</em>
+ 		    				</div>
+ 		    			</li>
+ 		    			{/foreach}
+ 		    		</ul>
+ 		    		<div class="page">
+			     		{php for($i=1;$i<=$zhuangshi_pagenum;$i++){}
+                            <a onclick="zhuangshi({$i},{$shang_num},{$mid})">{$i}</a>
+                        {php }}
+		     		</div>
+ 		    	</div>
+
+
+
+		        </div>
+		    </div>
+
+		    <div id="layer-goods" class="buy_goods" data-goodsid="" data-mid="" data-gname="" data-img="" data-price="" style="display: none;">
+		    	<div class="buy_cont">
+		    		<h3>购买祭品</h3>
+		    		<dl>
+		    			<dt>
+		    				<img src="{IMG_PATH}/scenes/jp_09.png" />
+		    				<span>黄玫瑰</span>
+		    			</dt>
+		    			<dd>
+		    				<p><em>数量：</em><!-- <span>-</span> --><input type="text" onkeyup="money_sel(this)" id="money_sel" value="1" /><!-- <span>+</span> --></p>
+		    				<p><em>单价：</em><b class="price"></b> 元宝</p>
+		    				<p><em>共计：</em><b class="all_price"></b> 元宝</p>
+		    				{if $uid}
+		    				<p><a href="javascript:;" class="confirm confirm2" >确认购买</a></p>
+		    				{else}
+		    				<p><a href="javascript:;" class="confirm" onclick="isLogin();">确认购买</a></p>
+		    				{/if}
+		    			</dd>
+		    		</dl>
+		    		<a href="javascript:;" class="close" onclick="close_goods()">x</a>
+		    	</div>
+		    </div>
+
+		    <div class="offer_box">
+		    	<div class="offer_list">
+		    		<h3 class="title_jpx">我的祭品箱</h3>
+		    		<a href="###" class="close">X</a>
+		    		<ul id="mybox">
+		    		{foreach $mybox $k $v}
+                        <!-- 检测纪念馆是否已经放置 -->
+                        {if $v['place']==2}
+		    			<li onclick="fangzhi({$v['goods_id']}, {$mid})" goods_id="{$v['goods_id']}" mid="{$mid}">
+                        <a href="javascript:;">
+                        {else}
+                        <li goods_id="{$v['goods_id']}" mid="{$mid}" >
+                        <a href="javascript:;" style="cursor: default;">
+                        {/if}
+		    					<span><img src="{$v['pic']}" width="120" height="120" /></span>
+		    					<h3>{$v['gname']}</h3>
+		    					<p class="jb_who">
+		    						{if $v['place']!=2}
+		    							已摆放到{$v['name']}纪念堂
+		    						{else}
+		    							未摆放
+		    						{/if}
+		    					</p>
+		    					<p class="reman">剩余时间：{$v['end_time']}</p>
+		    					<!-- <p class="reman">剩余时间：22天22小时55分钟26秒</p> -->
+		    				</a>
+		    			</li>
+		    		{/foreach}
+		    		</ul>
+		    		<div class="page">
+                        {php for($i=1;$i<=$pagenum;$i++){}
+                            <a onclick="setPage0({$i},{$pagenum},{$mid})">{$i}</a>
+                        {php }}
+		     	</div>
+		    	</div>
+
+		    </div>
+		    <div class="mask" style="display: none;"></div>
+		    <div class="mask2" style="display: none;"></div>
+
+{include 'inc/inc_comment.html'}
+
+
+<!--<script type="text/javascript">-->
+<!--$(function(){-->
+    <!--function ityzl_SHOW_LOAD_LAYER(){-->
+                <!--return index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2-->
+    <!--}-->
+    <!--function ityzl_CLOSE_LOAD_LAYER(index){-->
+            <!--layer.close(index);-->
+    <!--}-->
+    <!--$("#sub").click(function(){-->
+        <!--$("#sub").attr("disabled","disabled");//按钮不可用-->
+        <!--var content = $("textarea[name='content']").val();-->
+        <!--var token_form = $("input[name='token_form']").val();-->
+        <!--var VerifyCode = $("input[name='VerifyCode']").val();-->
+        <!--var mid = $("input[name='mid']").val();-->
+        <!--if(content==""){-->
+            <!--layer.msg("请填写内容");-->
+            <!--$("#sub").removeAttr("disabled");//按钮可用-->
+            <!--return false;-->
+        <!--}-->
+        <!--// if(VerifyCode==""){-->
+        <!--//     layer.msg("验证码不能为空");-->
+        <!--//     $("#sub").removeAttr("disabled");//按钮可用-->
+        <!--//     return false;-->
+        <!--// }-->
+         <!--$.ajax({-->
+            <!--type: "Post",-->
+            <!--url: "/jinian/Jinian/commentInsert",-->
+            <!--data: {'content':content,'token_form':token_form,'VerifyCode':VerifyCode,'mid':mid},-->
+            <!--dataType: "json",-->
+            <!--beforeSend: function () {-->
+                <!--i =ityzl_SHOW_LOAD_LAYER();-->
+                <!--// $('#sub').val('发表追思留言中...');-->
+            <!--},-->
+            <!--complete: function () {-->
+                 <!--ityzl_CLOSE_LOAD_LAYER(i);-->
+                   <!--// $('#sub').val('发表追思留言');-->
+            <!--},-->
+            <!--success: function(data) {-->
+                <!--if (data.status == 1) {-->
+                    <!--// layer.msg(data.msg);-->
+                    <!--// window.location.reload();-->
+                    <!--layer.msg(data.msg, {icon: 1, offset: '40%'},function(){-->
+                        <!--location.reload();-->
+                    <!--});-->
+
+                    <!--$('#form1')[0].reset();-->
+                    <!--$("#sub").removeAttr("disabled");//按钮可用-->
+                <!--}else{-->
+                   <!--layer.msg(data.msg);-->
+                    <!--$("#sub").removeAttr("disabled");//按钮可用-->
+
+                <!--}-->
+            <!--}-->
+        <!--});-->
+    <!--});-->
+<!--});-->
+
+    <!--function huan() {-->
+        <!--var time = new Date().getTime();//当前时间-->
+        <!--$('#yzm').attr("src" , "/static/js/securimage/yzm.php?t=" + time);//验证码切换-->
+    <!--}-->
+<!--</script>-->
+
+
+		</div>
+	<!--********footer***************************************-->
+{include 'head_footer.html'}
+
+
+
+<script>
+    function setPage0(page,pagenum,mid){
+     
+    $.post('{HOST_NAME}jinian/Jinian/ajaxjs?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#mybox').html(data);
+            }
+        });
+    }
+
+//鲜花ajax js
+function xianhua_pagenum(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/xianhuaAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#xianhua').html(data);
+            }
+        });
+    }
+
+//全部商品ajax js
+function goods_all_pagenum(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/goodsAllAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#goods_all_pagenum').html(data);
+            }
+        });
+    }
+
+
+//尚香ajax js
+function shang(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/shangAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#shang').html(data);
+            }
+        });
+    }
+
+//点烛ajax js
+function dian(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/dianAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#dian').html(data);
+            }
+        });
+    }
+
+//祭品ajax js
+function jiping(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/jipingAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#jiping').html(data);
+            }
+        });
+    }
+
+//装饰ajax js
+function zhuangshi(page,pagenum,mid){
+    $.post('{HOST_NAME}jinian/Jinian/zhuangshiAjax?page=' + page+'&pagenum='+pagenum+'&mid='+mid,{},function(data)
+
+        {
+          
+            if(data != '')
+            {   
+                $('#zhuangshi').html(data);
+            }
+        });
+    }
+
+
+
+
+//祭品箱子倒计时
+function GetRTime(t){
+	var EndTime= new Date(t);
+	var NowTime = new Date();
+	var t =EndTime.getTime() - NowTime.getTime();
+	var d=0;
+	var h=0;
+	var m=0;
+	var s=0;
+	if(t>=0){
+		d=Math.floor(t/1000/60/60/24);
+		h=Math.floor(t/1000/60/60%24);
+		m=Math.floor(t/1000/60%60);
+		s=Math.floor(t/1000%60);
+	}
+
+
+	document.getElementById("t_d").innerHTML = d + "天";
+	document.getElementById("t_h").innerHTML = h + "时";
+	document.getElementById("t_m").innerHTML = m + "分";
+	document.getElementById("t_s").innerHTML = s + "秒";
+}
+</script>
+

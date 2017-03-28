@@ -1,0 +1,19 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<br />
+<center>
+<form method="post" action="<!--{$baseurl}-->/content/column/moveto" enctype="multipart/form-data">
+	<select class="Iw290" id="pid" name="pid" style="width:302px;">
+		<option value="0">顶级栏目</option>
+		<!--{foreach from=$cat_tree item=l}-->
+		<option value="<!--{$l.id}-->"><!--{$l.catname}--></option>
+		<!--{/foreach}-->
+	</select>
+	</center>
+	<div style="margin-left: 52px;margin-top: 21px;">
+		<input type="hidden" name="id" value="<!--{$cid}-->" />
+		<input type="submit" value="确定" class="btn1">
+	</div>
+</form>
+</body>
+</html>

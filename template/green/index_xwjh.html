@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'} 
+<div class="wrap">
+  <div class="w">
+    <div class="l w245">
+     {include 'category.html'}
+
+      <div class="advertL"><a href="#"><img src="{IMG_PATH}/advert3.png" width="245" height="102" /></a></div>
+      <div class="bg_grayL"> <a href="#" class="moreL">更多>></a> <span class="h_grayL">北京娱论</span>
+        <ul class="arrow_ulL">
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+		  <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li><a href="#">多几个崔永元 多几个正能量</a></li>
+          <li class="last"><a href="#">多几个崔永元 多几个正能量</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="right w744">
+       {php $sonids=getCategoryIds($cid)}
+	  {foreach $sonids $k $v}
+	   {mo:goods cid="$v" row='8' order='publishtime' return='data'} 
+      <div class="Greyborder mb10" style="padding-bottom:8px;">
+        <div class="title">
+		  <a href="{getMoreUrl($v,'goods')}" class="t_more right">更多>></a>
+          <div class="t_name"><span class="tit_green">{cid2name($v)}</span><span class="tit_en">The latest release</span></div>
+        </div>
+        <div class="box_con">
+          <div class="gList_two">
+            <div class="dlLine mr85"></div>
+            <div class="dlLine"></div>
+			{php $i=1}
+			{foreach $data $sonk $sonv}
+            <dl {if $i%2!=0}class="mr85"{/if}>
+              <dt><a href="{$sonv['url']}">{$sonv['goodsname']}</a></dt>
+              <dd class="pic"><a href="{$sonv['url']}"><img src="{UPLOAD_PATH}/goods/{$sonv['image'][0]}" width="88" height="88"/></a></dd>
+              <dd>
+                <p>发布时间：<span>{maktimes($sonv['created'])}</span></p>
+                <p>交易地点：<span>北京市 朝阳区</span></p>
+                <p>交易数量：<span>2502件</span></p>
+              </dd>
+            </dl>
+			{if $i%2==0} <div class="dlLine mr85"></div>{/if}
+			{$i++}
+			{/foreach}
+            
+          </div>
+        </div>
+      </div>
+       {/mo:goods}
+	  {/foreach}
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'footer.html'}

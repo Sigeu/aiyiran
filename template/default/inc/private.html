@@ -1,0 +1,92 @@
+            <div class="three_list">
+                <div class="cont_list cont_list5">
+                    <div class="headline">
+                        <span class="fl">亲情排行榜<i></i></span>
+                        <!--<a href="###" class="fr">参看更多<i></i></a>-->
+                     </div>
+                    <ul class="">
+                    {mo:memorial catid="1" field="id,userpic,personname,persontype,family_ranking" pagesize="10" return="data"}
+                      {foreach $data  $key $val}
+                          {$key++}
+                        {if $key < 4}
+                        <li class="active">
+                            <em>{$key}</em>
+                        {else}
+                        <li class="">
+                            <em>{$key}</em>
+                        {/if}
+                            <a href="###">{$val['personname']} </a>
+                            <span>亲情值：{$val['family_ranking']}</span>
+                        </li>
+                      {/foreach}
+                    {/mo:memorial}
+                    </ul>
+                </div>
+                <div class="cont_list">
+                    <div class="headline">
+                        <span class="fl">最新祭拜<i></i></span>
+                        <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+                     </div>
+                    <ul class="">
+                        <li>
+                            <a href="###">游客123213祭拜了毛泽东纪念馆 </a>
+                            <span>刚刚</span>
+                        </li>
+                        <li>
+                            <a href="###">游客123213祭拜了毛泽东纪念馆</a>
+                            <span>3分钟前</span>
+                        </li>
+                        <li>
+                            <a href="###">游客123213祭拜了毛泽东纪念馆</a>
+                            <span>10分钟前</span>
+                        </li>
+                        <li>
+                            <a href="###">前NBA球员吉拉尼去世 享去世 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">前NBA球员吉拉尼去世 享年62岁多 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">前NBA球员吉拉尼去世 享年62岁多 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">澳最红羊驼“蜂巢”去世 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">澳最红羊驼“蜂巢”去世 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">澳最红羊驼“蜂巢”去世 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                        <li>
+                            <a href="###">澳最红羊驼“蜂巢”去世 </a>
+                            <span>2016-06-19</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cont_list cont_list3">
+                    <div class="headline">
+                        <span class="fl">推荐馆<i></i></span>
+                        <!-- <a href="###" class="fr">参看更多<i></i></a> -->
+                     </div>
+                     <div class="three_tj">
+                     <!-- 默认先设置为0 功能后续添加 -->
+                     {mo:memo isTop="0"  pagesize="3" return="data"}
+                        {foreach $data  $key $value}
+                            <a href="###">
+                                <img src="{$value['userpic']}" />
+                                <h5><span>{$value['m_name']}</span><em>{date('Y-m-d',$value["brithdate"])}-{date('Y-m-d',$value["dieddate"])}</em></h5>
+                                <p>{mb_substr($value['descript'],0,15,'utf-8')}</p>
+                            </a>
+                            {/foreach}
+                        {/mo:memo}
+                     </div>
+
+                </div>
+            </div>

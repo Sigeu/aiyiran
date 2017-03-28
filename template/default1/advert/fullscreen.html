@@ -1,0 +1,87 @@
+var base_str = "<link href='[css]/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='[css]/q.css' type='text/css' rel='stylesheet' /><link href='[css]/J.css' type='text/css' rel='stylesheet' /><link href='[css]/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_TCGG { width:250px;height:0; border:#7e7e7e 1px solid; border-radius:2px; position:fixed; right:0; bottom:0;margin-left:[left]px;}.mainone_ads_full_sc{width:[width]px;height:[height]px;display:block;margin-top:[up]px;margin-left:[left]px;}#mainone_ads_picOff{position:relative;top:16px;left:[width]px;}</style><div class='mainone_ads_full_sc'  id='mainone_ads_full_sc'><input type='hidden' value='[tem]' id='mainone_ads_adtype'><a href='javascript:closeFull_sc();' id='mainone_ads_picOff'></a><a href='[link]'>[object]</a></div>";
+	document.write(base_str);
+	var effect = "<!--嵌入--><div class='mainone_ads_adver_bg' style='display:none;'><div><a href='[link]' title='[font]'>[object]</a><span class='mainone_ads_close_btn'><img src='[add]/close_btn.jpg' /></span></div></div><!--弹窗--><div class='mainone_ads_TCGG' id='mainone_ads_TCGG'><div class='mainone_ads_titG'><a href='javascript:closeTCGG();' class='mainone_ads_closeBtnG' title='关闭'></a></div><div class='mainone_ads_contG'><a href='[link]' title='[font]'>[object]</a></div></div><!--折角--><div class='mainone_ads_q_bevel'><a href='[link]' class=''><img src='[add]/bevel.png'/></a>[object]<span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span><span class='mainone_ads_q_bevel_close2'><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span></span></div><div class='mainone_ads_q_full_sc'><a href='#'><img class='mainone_ads_q_full_img' src='[add]/full_sc.jpg'/></a><a href='#' class='mainone_ads_q_full_close'>&nbsp;&nbsp;</a></div>";
+	document.write(effect);
+    var speed = 10000;
+	function tanchuang(){
+		  showTCGG();
+		  setTimeout('closeTCGG()',speed);
+	}
+	function showTCGG(o){
+		if(o == undefined){
+		  o = document.getElementById('mainone_ads_TCGG');
+		}
+		if( o.clientHeight < 176){
+		  o.style.height = o.clientHeight + 2 + 'px';
+		  setTimeout(function(){showTCGG(o)},8);
+		}
+	}
+	function closeTCGG(o){
+	 if(o == undefined){
+		o = document.getElementById('mainone_ads_TCGG');
+	 }
+	 if( o.clientHeight >= 0){
+		o.style.height = o.clientHeight - 2 + 'px';
+		setTimeout(function(){closeTCGG(o)},8);
+	 }
+	}
+	$(function(){	
+		var repeat=true;
+		if(repeat){			
+			replay();
+		}
+	
+		$('.mainone_ads_q_bevel_close').click(function(){
+			$('.mainone_ads_q_bevel').hide();
+			return false;
+		})		
+		$('.mainone_ads_q_bevel_close2').click(function(){
+			bevel_close();
+			replay();
+		})	
+		//嵌入广告
+		function qianru(){
+		  $('.mainone_ads_adver_bg').slideDown(1500,function(){
+	          $('.mainone_ads_close_btn').css('display','block'); 
+          });
+          $('.mainone_ads_close_btn').click(function(){
+	          $('.mainone_ads_adver_bg').fadeOut();
+          });
+		}
+		//折角广告
+		function zhejiao(){
+		  $('.mainone_ads_q_bevel a').stop().animate({'height':'133px','width':'133px'},900);
+		  $('.mainone_ads_q_bevel').stop().animate({'height':'133px','width':'133px'},950,function(){
+			if(repeat){
+			   $('.mainone_ads_q_bevel_close2').show();
+			}else{
+			   $('.mainone_ads_q_bevel_close').show();
+			}
+		 });
+		}
+		function bevel_close(){
+			$('.mainone_ads_q_bevel a').css({'width':0,'height':0});
+			$('.mainone_ads_q_bevel').css({'width':0,'height':0});
+			if(repeat){
+				$('.mainone_ads_q_bevel_close2').hide();
+			}else{
+				$('.mainone_ads_q_bevel_close').hide();
+			}
+		}
+		function replay(){
+			$('.mainone_ads_full_sc').css({'top':'150px','left':($(window).width()-$('.mainone_ads_full_sc').width())/2+'px'}).fadeIn(800).delay(2000).fadeOut(500,function(){
+			  var n = $('#mainone_ads_adtype').val();
+			  if(n ==1){
+                 qianru();
+			  }else if(n==2){
+                 zhejiao();
+			  }else if(n==3){
+                 tanchuang();
+			  }
+			});
+		}
+	})
+	function closeFull_sc(){
+			document.getElementById('mainone_ads_full_sc').style.display = 'none';
+	}
+

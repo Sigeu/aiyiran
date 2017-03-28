@@ -1,0 +1,456 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript" src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/extensions/qrcode/index/pid/<!--{$pid}-->" class="last">二维码列表</a></dd>
+            <dt class="on"><a href="<!--{$baseurl}-->/extensions/qrcode/add/pid/<!--{$pid}-->">添加二维码</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$baseurl}-->/extensions/qrcode/add/pid/<!--{$pid}-->" method="post" id='myForm' name="myForm">
+                <div class="pubTabel mt10">             
+                  <table class="tabelLR">
+                    <tr class="border">
+                      <th width="145"><font>*</font>&nbsp;&nbsp;二维码名称: </th>
+                      <td><input type="text" value="" class="Iw290" id="name" name="qrcode[common][name]"/></td>
+                    </tr>
+                    <tr class="border">
+                      <th>&nbsp;&nbsp;&nbsp;二维码类型:</th>
+                      <td>
+                      <select name="qrcode[common][type]" id='type'  class="Iw290">
+                      <option value='0'>网址二维码</option>
+                      <option value='1'>名片二维码</option>
+                      <option value='2'>文本二维码</option>
+                      <option value='3'>app安装二维码</option>
+                      <option value='4'>app下载二维码</option>
+                      </select>
+                      </td>
+                    </tr>
+                    <tr class="border">
+                      <th><font>*</font>&nbsp;&nbsp;二维码链接地址: </th>
+                      <td><input type="text" value='http://' class="Iw290" id="link_url" name="qrcode[common][link_url]" /></td>
+                    </tr>  
+                    <tr class="border time_limit">
+                      <th>&nbsp;&nbsp;&nbsp;时间限制: </th>
+                      <td>
+                        <input type="radio" name="qrcode[common][time_limit]" value='0' checked='true'/>永不限制&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="qrcode[common][time_limit]" value='1'/>在规定时间内有效                  
+                      </td>
+                    </tr>
+                    <tr class="border time_area">
+                      <th><font>*</font>&nbsp;&nbsp;投放时间: </th>
+                      <td>
+                        从&nbsp;&nbsp;<input id="start_time" class="Iw190" type="text" name="qrcode[common][start_time]" onclick="WdatePicker({maxDate:'#F{$dp.$D(\'end_time\')}', dateFmt:'yyyy-MM-dd H:mm'})" value="">
+                        &nbsp;到&nbsp;&nbsp;<input id="end_time" class="Iw190" type="text" name="qrcode[common][end_time]" onclick="WdatePicker({minDate:'#F{$dp.$D(\'start_time\')}', dateFmt:'yyyy-MM-dd H:mm'})" value="">
+                      </td>
+                    </tr>
+
+                    <tr class="theme">
+                      <th width="145"><div style="line-height:15px;">二维码设置</div></th>
+                      <td></td>
+                    </tr>
+                    </table>
+                    
+                    <table class="tabelLR hidden" id='type0'>
+                        <tr class="border">
+                          <th width="145"><font>*</font>&nbsp;&nbsp;网址: </th>
+                          <td><input type="text" value='http://' class="Iw290" id="web_url" name="qrcode[web][web_url]" /></td>
+                        </tr>
+                    </table>
+                    
+                     <table class="tabelLR hidden" id='type2'>
+                        <tr class="border">
+                          <th width="145"><font>*</font>&nbsp;&nbsp;文本: </th>
+                          <td>
+                            <textarea class="Iw290" id="text" name="qrcode[text][text]" rows="8" cols="15"/></textarea>                 
+                          </td>
+                        </tr>
+                    </table>
+                    
+                    <table class="tabelLR hidden" id='type1'>
+                        <tr class="border">
+                          <th width="145"><font>*</font>&nbsp;&nbsp;姓名: </th>
+                          <td><input type="text" value='' class="Iw290" id="card_name" name="qrcode[card][card_name]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;手机: </th>
+                          <td><input type="text" value='' class="Iw290" id="mobile" name="qrcode[card][mobile]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;公司: </th>
+                          <td><input type="text" value='' class="Iw290" id="company_name" name="qrcode[card][company_name]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;职位: </th>
+                          <td><input type="text" value='' class="Iw290" id="position" name="qrcode[card][position]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;公司地址: </th>
+                          <td><input type="text" value='' class="Iw290" id="company_address" name="qrcode[card][company_address]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;公司网址: </th>
+                          <td><input type="text" value='http://' class="Iw290" id="company_url" name="qrcode[card][company_url]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;电话: </th>
+                          <td><input type="text" value='' class="Iw290" id="phone" name="qrcode[card][phone]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;传真: </th>
+                          <td><input type="text" value='' class="Iw290" id="fax" name="qrcode[card][fax]" /></td>
+                        </tr>
+                        
+                        <tr class="border">
+                          <th width="145">&nbsp;&nbsp;&nbsp;电子邮箱: </th>
+                          <td><input type="text" value='' class="Iw290" id="email" name="qrcode[card][email]" /></td>
+                        </tr>
+                     </table>
+                    
+                    <table  class="tabelLR">
+                    <tr class="border">
+                      <th width="145">&nbsp;&nbsp;&nbsp;嵌入logo:</th>
+                      <td>
+                          <span id="single-upload"><input type="text" name="" value="" readonly class="Iw290"/></span>
+                          <input class="btn5" hideFocus="" type="button" value="浏览" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'brand','self_id':'uploadButton','ady_upload':1,'dis_place':'single-upload'})" id="uploadButton"/>
+                      </td>
+                    </tr>
+                    
+                    <tr class="border">
+                      <th width="145"><font>*</font>&nbsp;&nbsp;颜色设置: </th>
+                      <td>
+                        前景色：&nbsp;&nbsp;<input class="Iw90" id='front_color' onclick="coloropen(this)" type="text" name="qrcode[common][front_color]" value="#000000">
+                        &nbsp;背景色：&nbsp;&nbsp;<input class="Iw90" id='bg_color' onclick="coloropen(this)" type="text" name="qrcode[common][bg_color]" value="#ffffff">
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="pubTabelBot">
+                    <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                    <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back();">
+                </div>
+            </form>
+            <div id="colorpane" style="position:absolute;z-index:99;display:none;margin-left:155px;margin-top:275px;"></div> 
+          </div>
+          <div class="notice2" style="border-bottom:#d3e0e9 1px solid;line-height:25px;height:60px;padding-top:5px;"><span class="notice_warnblue">备注说明：二维码包含的信息太长，会导致二维码识别度太低而无法扫描，二维码前景色和背景色过于相近也会导致二维码无法扫描；建议文本不超过150字，不要选择相近颜色。</span></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $.formValidator.initConfig({formid:"myForm",autotip:true,generalwordwide:true});
+
+        $("#name").formValidator({empty:false,onshow:"请输入1-100个字符",onfocus:"请输入1-100个字符",oncorrect:"输入正确"})
+        .inputValidator({min:1,max:100,onerror:"请输入1-100个字符"});
+    
+        $("#link_url").formValidator({empty:false,onshow:"请输入网站域名以http://开头",onfocus:"请输入网站域名以http://开头",oncorrect:"输入正确"})
+        .regexValidator({regexp:['url'],datatype:"enum",onerror:"请输入网站域名以http://开头"})
+        .inputValidator({min:5,max:50,onerror:"请输入5-50个字符"});
+        
+        $("#start_time").formValidator({empty:false,onshow:"请输入时间",onfocus:"请输入时间",oncorrect:"输入正确"})
+        .inputValidator({min:1,max:50,onerror:"请输入时间"});
+        
+        $("#end_time").formValidator({empty:false,onshow:"请输入时间",onfocus:"请输入时间",oncorrect:"输入正确"})
+        .inputValidator({min:1,max:50,onerror:"请输入时间"});
+        
+        $("#front_color").formValidator({empty:false,onshow:" ",onfocus:" ",oncorrect:"输入正确"})
+        .regexValidator({regexp:['color1'],datatype:"enum",onerror:"格式错误"}).defaultPassed();
+        
+        $("#bg_color").formValidator({empty:false,onshow:" ",onfocus:" ",oncorrect:"输入正确"})
+        .regexValidator({regexp:['color1'],datatype:"enum",onerror:"格式错误"}).defaultPassed();
+        
+        $("#web_url").formValidator({empty:false,onshow:"请输入网站域名以http://开头",onfocus:"请输入网站域名以http://开头",oncorrect:"输入正确"})
+        .regexValidator({regexp:['url'],datatype:"enum",onerror:"请输入网站域名以http://开头"})
+        .inputValidator({min:5,max:50,onerror:"请输入5-50个字符"});
+        
+        $("#company_url").formValidator({empty:true,onshow:" ",onfocus:"请输入网站域名以http://开头",oncorrect:"输入正确"})
+        .regexValidator({regexp:['url'],datatype:"enum",onerror:"请输入网站域名以http://开头"})
+        .inputValidator({min:5,max:50,onerror:"请输入5-50个字符"});
+        
+        $("#card_name").formValidator({empty:false,onshow:"请输入2-50位数字、汉字、字母",onfocus:"请输入2-50位数字、汉字、字母",oncorrect:"输入正确"})
+        .regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-50位数字、汉字、字母"})
+        .inputValidator({min:2,max:50,onerror:"请输入2-50个字符"});
+        
+        $("#mobile").formValidator({empty:true,onshow:" ",onfocus:"请输入正确的手机号",oncorrect:"输入正确"})
+        .regexValidator({regexp:['mobile'],datatype:"enum",onerror:"请输入正确的手机号"});
+        
+        $("#phone").formValidator({empty:true,onshow:" ",onfocus:"请输入3-12位数字号码",oncorrect:"输入正确"})
+        .regexValidator({regexp:['phone2'],datatype:"enum",onerror:"请输入正确的电话号码"});
+        
+        $("#fax").formValidator({empty:true,onshow:" ",onfocus:"请输入3-12位数字号码",oncorrect:"输入正确"})
+        .regexValidator({regexp:['phone2'],datatype:"enum",onerror:"请输入正确的传真号码"});
+        
+        $("#email").formValidator({empty:true,onshow:" ",onfocus:"请输入正确的邮箱地址",oncorrect:"输入正确"})
+        .regexValidator({regexp:['email'],datatype:"enum",onerror:"邮箱地址格式不正确"});
+        
+        $("#position").formValidator({empty:true,onshow:" ",onfocus:"请输入2-50位数字、汉字、字母",oncorrect:"输入正确"})
+        .regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-50位数字、汉字、字母"})
+        .inputValidator({min:2,max:50,onerror:"请输入2-50个字符"});
+        
+        $("#company_name").formValidator({empty:true,onshow:" ",onfocus:"请输入2-50位数字、汉字、字母",oncorrect:"输入正确"})
+        .regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-50位数字、汉字、字母"})
+        .inputValidator({min:2,max:50,onerror:"请输入2-50个字符"});
+        
+        $("#company_address").formValidator({empty:true,onshow:" ",onfocus:"请输入2-200位数字、汉字、字母",oncorrect:"输入正确"})
+        .regexValidator({regexp:['only'],datatype:"enum",onerror:"请输入2-200位数字、汉字、字母"})
+        .inputValidator({min:2,max:200,onerror:"请输入2-200个字符"});
+        
+        $("#text").formValidator({empty:false,onshow:"请输入5-500个字符",onfocus:"请输入5-500个字符",oncorrect:"输入正确"})
+        .inputValidator({min:5,max:500,onerror:"请输入5-500个字符"});
+    });
+    
+//点击选取三原色
+function initcolor(id) {
+    obj = document.getElementById(id);
+    var ColorHex=new Array('00','33','66','99','CC','FF');
+    var SpColorHex=new Array('FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF');
+    var current=null;
+    var colorTable=''; 
+    for (i=0;i<2;i++)
+    { 
+    for (j=0;j<6;j++) 
+    { 
+    colorTable=colorTable+'<tr height=15>' 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    if (i==0){ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[j]+ColorHex[j]+ColorHex[j]+'" onclick="doclick(\''+id+'\',this.style.backgroundColor)">'} 
+    else{ 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+SpColorHex[j]+'" onclick="doclick(\''+id+'\',this.style.backgroundColor)">'} 
+    colorTable=colorTable+'<td width=15 style="background-color:#000000">' 
+    for (k=0;k<3;k++) 
+    { 
+    for (l=0;l<6;l++) 
+    { 
+    colorTable=colorTable+'<td width=15 style="cursor:pointer;background-color:#'+ColorHex[k+i*3]+ColorHex[l]+ColorHex[j]+'" onclick="doclick(\''+id+'\',this.style.backgroundColor)">' 
+    } 
+    } 
+    } 
+    } 
+    colorTable='<table border="0" cellspacing="0" cellpadding="0" style="border:1px #000000 solid;border-bottom:none;border-collapse: collapse;width:337px;" bordercolor="000000">' 
+    +'<tr height=20><td colspan=21 bgcolor=#E4E4E4 style="font:12px tahoma;padding-left:2px;">' 
+    +'<span style="float:left;color:#999999;"></span>' 
+    +'<span style="float:right;padding-right:3px;cursor:pointer;" onclick="colorclose()">×关闭</span>' 
+    +'</td></table>' 
+    +'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="000000" style="cursor:pointer;">' 
+    +colorTable+'</table>'; 
+    document.getElementById("colorpane").innerHTML=colorTable; 
+    var current_x = obj.offsetLeft;
+    var current_y = obj.offsetTop;
+    var style = document.getElementById('type').value;
+    if (style == 0) {
+            current_y = -115;
+    }
+    if (style == 1) {
+        current_y = 275;
+    }
+    
+    if (style == 2) {
+        current_y = 0;
+    }
+    document.getElementById("colorpane").style.left = current_x + "px"; 
+    document.getElementById("colorpane").style.top = current_y + "px"; 
+}
+
+function doclick(id, obj) {
+    document.getElementById(id).value = RGBToHex(obj);
+    window.onload = colorclose(); //选取后关闭弹窗
+}
+
+function colorclose() {
+    document.getElementById("colorpane").style.display = "none"; 
+}
+
+function coloropen(obj) {
+    initcolor(obj.id);
+    document.getElementById("colorpane").style.display = ""; 
+}
+
+//window.onload = initcolor(this);
+
+function RGBToHex(rgb)  //将rgb三原色转换成16位色值
+{ 
+   var regexp = /[0-9]{0,3}/g;  
+   var re = rgb.match(regexp);
+   var hexColor = "#"; var hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];  
+   for (var i = 0; i < re.length; i++) {
+        var r = null, c = re[i], l = c; 
+        var hexAr = [];
+        while (c > 16){  
+              r = c % 16;  
+              c = (c / 16) >> 0; 
+              hexAr.push(hex[r]);  
+         } hexAr.push(hex[c]);
+         if(l < 16&&l != ""){        
+             hexAr.push(0)
+         }
+       hexColor += hexAr.reverse().join(''); 
+    }  
+   return hexColor;  
+}
+    </script>
+    
+<script type="text/javascript">
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{   
+    var option=
+    {
+        upload_id:'accessory_upload',
+        title:'二维码logo图片上传',
+        return_id:'accessory',
+        callFunName:'accessoryUpload',
+        setting:'<!--{$setting.setting}-->',
+        param:obj
+    };
+    MainOneUpload(option);//调用统一上传方法
+}
+
+$(".time_limit :radio").change(function() {
+     var val = $("input[name='qrcode[common][time_limit]']:checked").val();// 获取当前选中radio的值
+     if (val == 0) {
+        $('#start_time').val('');
+        $('#end_time').val('');
+        $('#start_time').attr('id', 'start_time_');
+        $('#end_time').attr('id', 'end_time_');
+        
+        $('.time_area').hide();
+     }else if (val == 1) {
+        $('#start_time_').attr('id', 'start_time');
+        $('#end_time_').attr('id', 'end_time');
+        $('.time_area').show();
+     }
+});
+
+$(".time_limit :radio").ready(function() {
+     var val = $("input[name='qrcode[common][time_limit]']:checked").val();// 获取当前选中radio的值
+     if (val == 0) {
+        $('#start_time').val('');
+        $('#end_time').val('');
+        $('#start_time').attr('id', 'start_time_');
+        $('#end_time').attr('id', 'end_time_');
+        $('.time_area').hide();
+     }else if (val == 1) {
+        $('.time_area').show();
+     }
+});
+
+$('#type').ready(function () {
+    val = $('#type').val();
+    clearValues (val);
+    changeIds (val);
+    $('.hidden').hide();
+    $('#type' + val).show();
+});
+
+$('#type').change(function () {
+    val = $(this).val();
+    clearValues (val);
+    changeIds (val);
+    $('.hidden').hide();
+    $('#type' + val).show();
+});
+
+function changeIds (val) {
+    if (val == 0 || val == 3 || val == 4) {
+        if (val == 0) {
+            $("#web_url_").attr('id', 'web_url');
+            $("#web_url").show();
+        } else {
+            $("#web_url").attr('id', 'web_url_');
+            $("#web_url_").hide();
+        }
+        
+        $("#text").attr('id', 'text_');
+        
+        $("#company_url").attr('id', 'company_url_');
+        $("#card_name").attr('id', 'card_name_');
+        $("#mobile").attr('id', 'mobile_');
+        $("#phone").attr('id', 'phone_');
+        $("#fax").attr('id', 'fax_');
+        $("#email").attr('id', 'email_');
+        $("#position").attr('id', 'position_');
+        $("#company_name").attr('id', 'company_name_');
+        $("#company_address").attr('id', 'company_address_');
+    } else if (val == 1) {
+        $("#web_url").attr('id', 'web_url_');
+        
+        $("#text").attr('id', 'text_');
+        
+        $("#company_url_").attr('id', 'company_url');
+        $("#card_name_").attr('id', 'card_name');
+        $("#mobile_").attr('id', 'mobile');
+        $("#phone_").attr('id', 'phone');
+        $("#fax_").attr('id', 'fax');
+        $("#email_").attr('id', 'email');
+        $("#position_").attr('id', 'position');
+        $("#company_name_").attr('id', 'company_name');
+        $("#company_address_").attr('id', 'company_address');
+    } else if (val == 2) {
+        $("#text_").attr('id', 'text');
+        
+        $("#web_url").attr('id', 'web_url_');
+        
+        $("#company_url").attr('id', 'company_url_');
+        $("#card_name").attr('id', 'card_name_');
+        $("#mobile").attr('id', 'mobile_');
+        $("#phone").attr('id', 'phone_');
+        $("#fax").attr('id', 'fax_');
+        $("#email").attr('id', 'email_');
+        $("#position").attr('id', 'position_');
+        $("#company_name").attr('id', 'company_name_');
+        $("#company_address").attr('id', 'company_address_');
+    }
+    return true;
+}
+
+function clearValues (val) {
+    if (val == 0 || val == 3 || val == 4) {
+        $("#text").val('');
+        $("#company_url").val('http://');
+        $("#card_name").val('');
+        $("#mobile").val('');
+        $("#phone").val('');
+        $("#fax").val('');
+        $("#email").val('');
+        $("#position").val('');
+        $("#company_name").val('');
+        $("#company_address").val('');
+    } else if (val == 1) {
+        $("#web_url").val('http://');
+        $("#text").val('');
+    } else if (val == 2) {
+        $("#text_").attr('id', 'text');
+        
+        $("#web_url").val('http://');
+        
+        $("#company_url").val('http://');
+        $("#card_name").val('');
+        $("#mobile").val('');
+        $("#phone").val('');
+        $("#fax").val('');
+        $("#email").val('');
+        $("#position").val('');
+        $("#company_name").val('');
+        $("#company_address").val('');
+    }
+    return true;
+}
+
+</script>
+    </body>

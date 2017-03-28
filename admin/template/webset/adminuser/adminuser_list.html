@@ -1,0 +1,87 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="">管理员列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/webset/adminuser/add" class="last">添加管理员</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="<!--{$baseurl}-->/webset/adminuser/index" method="get" id="myForm" name="myForm">
+            <input type="hidden" id="page" name="page" value="<!--{$pageInfo.page}-->" />
+            <div class="pubTabelTot">
+              <input type="text" value="<!--{$searchInfo.keyword}-->" class="Iw290 text-tips" tips="请输入关键字" style="width:150px;" id="keyword" name="keyword">
+              <select class="Iw290" style="width:130px;" id="roleid" name="roleid">
+                <option value="">请选择所属角色</option>
+                 <!--{foreach from=$roleList key=roleid item=rolename}-->
+                 <option value="<!--{$roleid}-->"  <!--{if $searchInfo.roleid==$roleid}-->selected<!--{/if}-->><!--{$rolename}--></option>
+                 <!--{/foreach}-->
+              </select>
+              <select class="Iw290" style="width:110px;" id="status" name="status">
+                <option value="">请选择状态</option>
+                <option value="1" <!--{if $searchInfo.status eq 1}-->selected<!--{/if}-->>开通</option>
+                <option value="2" <!--{if $searchInfo.status eq 2}-->selected<!--{/if}-->>关闭</option>
+              </select>
+              创建时间：<span class="time"><input type="text" value="<!--{$searchInfo.starttime}-->" class="Iw150" onfocus="WdatePicker()" id="starttime" name="starttime"></span>&nbsp;至&nbsp;<span class="time"><input type="text" value="<!--{$searchInfo.endtime}-->" class="Iw150" onfocus="WdatePicker()" id="endtime" name="endtime"></span>
+              <input type="button" hidefocus="hide" value="搜 索" class="btn5" onclick="formSubmit();">
+            </div>
+            <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%">选择</th>
+                  <th width="6%">ID</th>
+                  <th width="10%">用户名</th>
+                  <th width="10%">所属角色</th>
+                  <th width="15%">最后登录时间</th>
+                  <th width="16%">最后登录IP</th>
+                  <th width="15%">创建时间</th>
+                  <th width="6%">状态</th>
+                  <th width="16%">操作</th>
+                </tr>
+                <!--{foreach from=$userList item=row}-->
+                <tr>
+                  <td><!--{if $row.id!='1'}--><input type="checkbox" id="userid" name="userid[]" value="<!--{$row.id}-->"  /><!--{/if}--></td>
+                  <td><!--{$row.id}--></td>
+                  <td title="<!--{$row.username}-->"><!--{$row.username|truncate_cn:"10":"...":true}--></td>
+                  <td title="<!--{$roleList[$row.roleid]}-->"><!--{$roleList[$row.roleid]|truncate_cn:"8":"...":true}--></td>
+                  <td><!--{$row.lastlogintime|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td><!--{$row.lastloginip}--></td>
+                  <td><!--{$row.createtime|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                  <td><!--{$pageInfo.status[$row.status]}--></td>
+                  <!--{if $row.id=='1'}-->
+                  <!--{if $pageInfo.userid=='1'}-->
+                  <td><a href="<!--{$baseurl}-->/webset/adminuser/edit/userid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/keyword/<!--{$searchInfo.keyword}-->/role/<!--{$searchInfo.roleid}-->/st/<!--{$searchInfo.status}-->/starttime/<!--{$searchInfo.starttime}-->/endtime/<!--{$searchInfo.endtime}-->">修改</a> | 
+                  <a id="gray">开通</a> | <a id="gray">关闭</a> | <a id="gray">删除</a></td>
+                  <!--{else}-->
+                  <td><a id="gray">修改</a> | <a id="gray">开通</a> | <a id="gray">关闭</a> | <a id="gray">删除</a></td>
+                  <!--{/if}-->
+                  <!--{else}-->
+                  <td><a href="<!--{$baseurl}-->/webset/adminuser/edit/userid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/keyword/<!--{$searchInfo.keyword}-->/role/<!--{$searchInfo.roleid}-->/st/<!--{$searchInfo.status}-->/starttime/<!--{$searchInfo.starttime}-->/endtime/<!--{$searchInfo.endtime}-->">修改</a> | 
+                  <!--{if $row.status eq 1}--><a id="gray">开通</a><!--{else}--><a href="<!--{$baseurl}-->/webset/adminuser/isable/state/1/userid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/keyword/<!--{$searchInfo.keyword}-->/roleid/<!--{$searchInfo.roleid}-->/status/<!--{$searchInfo.status}-->/starttime/<!--{$searchInfo.starttime}-->/endtime/<!--{$searchInfo.endtime}-->">开通</a><!--{/if}--> | 
+                  <!--{if $row.status eq 2}--><a id="gray">关闭</a><!--{else}--><a href="<!--{$baseurl}-->/webset/adminuser/isable/state/2/userid/<!--{$row.id}-->/page/<!--{$pageInfo.page}-->/keyword/<!--{$searchInfo.keyword}-->/roleid/<!--{$searchInfo.roleid}-->/status/<!--{$searchInfo.status}-->/starttime/<!--{$searchInfo.starttime}-->/endtime/<!--{$searchInfo.endtime}-->">关闭</a><!--{/if}--> | 
+                  <a href="#" onclick="MoConfirm('<!--{$baseurl}-->/webset/adminuser/delete/userid/<!--{$row.id}-->','确认删除？');">删除</a></td>
+                  <!--{/if}-->
+                </tr>
+                <!--{/foreach}-->
+              </table>                 
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+              <input type="button" class="btn5" value="开通"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/adminuser/isable/state/1" empty-tips="请选择要开通的用户！" confirm-tips="确认开通？"/>
+              <input type="button" class="btn5" value="关闭"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/adminuser/isable/state/2" empty-tips="请选择要关闭用户！" confirm-tips="确认关闭？"/>
+              <input type="button" class="btn5" value="删除"  onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/webset/adminuser/delete" empty-tips="请选择要删除用户！" confirm-tips="确认删除？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+            </form>
+          </div>
+          <div style="height:100px; display:none"></div>
+          <div style="height:100px; display:none"></div>
+        </div>
+      </div>
+    </div>    
+</body>
+</html>

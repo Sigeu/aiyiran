@@ -1,0 +1,137 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+			<dd><a href="<!--{$urlArr.ContentIndexUrl}-->">模型列表</a></dd>
+            <dt class="on"><a href="#">添加模型</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+        <form method='post' action="<!--{$urlArr.addsaveUrl}-->" id='myForm'>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font> 模型名称：</th>
+                  <td><input type="text" value="" class="Iw290" name='modelName' id='modelName'/>
+                    </td>
+                </tr>
+                <tr>
+                  <th><font>*</font>模型表键名：</th>
+                  <td>
+                  <input type="text" value="" class="Iw290" name='tableName' id='tableName'/>
+                  <span id="tableNameTip" class=""></span>
+                  </td>
+                </tr>
+ 
+                <tr>
+                  <th>&nbsp; 栏目首页模板：</th>
+                  <td><select class="Iw290" style="width:161px;" name='category_template'>
+                      <!--{foreach item=item key=key from=$index_list}-->
+                      <option value="<!--{$item}-->"><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                       </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <th>&nbsp; 栏目列表页模板：</th>
+                  <td><select class="Iw290" style="width:161px;" name='list_template'>
+                      <!--{foreach item=item key=key from=$list_list}-->
+                      <option value="<!--{$item}-->"><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <th>&nbsp; 内容页模板：</th>
+                  <td><select class="Iw290" style="width:161px;"  name='content_tempalte'>
+                      <!--{foreach item=item key=key from=$content_list}-->
+                      <option value="<!--{$item}-->"><!--$configArr.$item.describe--><!--{$item}--></option>
+                      <!--{/foreach}-->
+                    </select>
+                    </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                  <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	//初始化配置
+	 $.formValidator.initConfig({autotip:true,formid: "myForm",generalwordwide:true, debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	 $("#modelName").formValidator({onshow:"请输入1-100个字符，由汉字、数字、字母、符号组成",onempty:'请输入1-100个字符，由汉字、数字、字母、符号组成',onfocus:"请输入1-100个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确"}).inputValidator({min:1,max:100,onerror:"请输入1-100个字符，由汉字、数字、字母、符号组成"});
+});
+
+$('#myForm').submit(function () {
+    var validate = validateTableName ();
+    if (validate) {
+        validate = ajaxValidate ();
+    }
+    return validate;
+});
+
+$('#tableName').focus(function () {
+    showError ('请输入1～50个字符，由数字、字母、下划线组成，且非下划线开头和结尾');
+});
+
+$('#tableName').blur(function () {
+    var validate = validateTableName ();
+    if (validate) {
+        $('#tableNameTip').attr('class', 'onCorrect');
+        $('#tableNameTip').text('输入正确');
+    }
+});
+
+function showError (msg) {
+    $('#tableNameTip').attr('class', 'onError');
+    $('#tableNameTip').text(msg);
+}
+
+function validateTableName () {
+    var tablename = $('#tableName').val();
+    var len = tablename.length;
+    if (len > 50 || len < 1) {
+        showError('请输入1～50个字符，由数字、字母、下划线组成，且非下划线开头和结尾');
+        return false;
+    }
+    reg = /^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/;
+    if (!reg.test(tablename)) {
+        showError('请输入1～50个字符，由数字、字母、下划线组成，且非下划线开头和结尾');
+        return false;
+    }
+    return true;
+}
+
+function ajaxValidate () {
+    var tablename = $('#tableName').val();
+    var validate = false;
+    $.ajax({
+          type:"GET",
+          url:"<!--{$urlArr.checkTableUrl}-->/tableName/" + tablename,
+          async:false,
+          success:function(data){
+              if (data == 1) {
+                showError('该表已存在，请换一个');
+                validate = false;
+              } else {
+                 $('#tableNameTip').attr('class', 'onCorrect');
+                 $('#tableNameTip').text('输入正确');
+                validate = true;
+              }
+          }
+     });
+     return validate;
+}
+</script>
+</body>
+</html>

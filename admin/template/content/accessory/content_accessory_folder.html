@@ -1,0 +1,113 @@
+<!--{if $setting.setting}-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+</head>
+<body>
+	<div class="notif ">
+		<div class="layoutBox">
+			<div class="layout">
+				<dl class="laytab">
+					<dt><a href="<!--{$baseurl}-->/dialog/upload/index/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">本地上传</a></dt>
+					<dt><a href="<!--{$baseurl}-->/content/accessory/local/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->">本地图库</a></dt>
+					<dt><a href="<!--{$baseurl}-->/content/accessory/folder/?setting=<!--{$setting.setting}-->&flag=<!--{$flag}-->" class="focus">目录浏览</a></dt>
+				</dl>
+			</div>
+
+			<div class="layoutC">
+				<div class="localF">
+					<div class="tukufolder">
+						<dl class="act">
+							<dt><a href="javascript:void(0)">File</a></dt>
+							<!--{foreach from=$folder_list item=l}-->
+							<dd><a href="<!--{$baseurl}-->/content/accessory/folder/folder/<!--{$l.trends_path}-->/setting/<!--{$setting.setting}-->/flag/<!--{$flag}-->"><!--{$l.trends_path}--></a></dd>
+							<!--{/foreach}-->
+						</dl>
+					</div>
+
+					<div class="localC mt10">
+						<div style="padding:0; margin:0 -10px;">
+							当前目录为 <span class="f60"><!--{$cur_folder}--></span>
+							<select multiple style=" height: 144px;margin-top: 8px; width: 648px;" id="file-list">
+							<!--{foreach from=$file_list item=l}-->
+							<option img_id="<!--{$l.id}-->" value="<!--{$l.selfname}-->" style="border-bottom:1px dotted #cccccc;height: 22px;"><!--{$l.name}-->_<!--{$l.selfname}--></option>
+							<!--{/foreach}-->
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--{foreach from=$file_list item=l}-->
+	<div id="upload_<!--{$l.id}-->" selfname="<!--{$l.selfname}-->" filename='<!--{$l.file_path}-->' size="<!--{$l.size}-->" iswatermark="0" isimage="1" path="<!--{$l.file_path}-->"></div>
+	<!--{/foreach}-->
+</body>
+</html>
+<script type="text/javascript">
+
+	$(function()
+	{
+		
+		if ('<!--{$flag}-->' == 'editImages' || '<!--{$flag}-->' == 'goodsedit') {
+			var limit = parseInt(1);
+			
+		} else {
+			var limit = parseInt('<!--{$setting.limit}-->');//限制数
+		}
+		$('#file-list').bind('change',function()
+		{
+			var option = $('#file-list option');
+			var op_len = option.length;
+			var s_option = $('#file-list option:selected');
+			var j=0;
+			$.each(option,function(i,n)
+			{
+				var op = $(n);
+				var img_id = op.attr('img_id');
+				var cur_state = op.attr('selected');
+				if(j >= limit)
+				{
+					op.removeAttr('selected');
+					cancelFile(img_id);	
+				}
+				else
+				{
+					if(op.attr('selected') == 'selected')
+					{
+						selectFile(img_id);
+						j = j + 1;
+					}
+					else
+					{
+						cancelFile(img_id);
+					}
+				}
+			});
+			if(j >= limit)
+			{
+				art.dialog.tips('您最多能选'+limit+'个。');
+				return;
+			}
+		});
+		
+		//选中文件
+		function selectFile (img_id)
+		{	
+			$('#upload_'+img_id).addClass('mo-upload-data');
+		}
+
+		//取消文件
+		function cancelFile (img_id)
+		{
+			$('#upload_'+img_id).removeClass('mo-upload-data');
+		}
+	});
+	
+</script>
+<!--{/if}-->

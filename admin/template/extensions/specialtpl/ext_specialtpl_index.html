@@ -1,0 +1,37 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">专题模板</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <ul class="tempX">
+               <!--{foreach from=$tpl_conf item=l }-->
+                <li>
+                  <a href="javascript:void(0)" class="timg"><img src="<!--{$l.cover}-->" /></a>
+                  <span>模板名称：<!--{$l.name}--> (<!--{$l.folder}-->)</span>
+                  <p>
+                      <a href="">专题数 5</a> | 
+                      <a href="<!--{$baseurl}-->/extensions/specialtpl/view/folder/<!--{$l.folder}-->">查看模板</a> | 
+                      <a href="<!--{$baseurl}-->/extensions/specialtpl/export/folder/<!--{$l.folder}-->">导出模板</a> <br /> 
+                      <a href="<!--{$baseurl}-->/extensions/specialskin/skinlist/folder/<!--{$l.folder}-->">查看模板皮肤</a> | 
+                      <a href="<!--{$baseurl}-->/extensions/specialfile/filelist/folder/<!--{$l.folder}-->">查看模板文件</a>
+                  </p>
+                </li>
+               <!--{foreachelse}-->
+                 <li>没有可用模板！</li> 
+               <!--{/foreach}-->
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

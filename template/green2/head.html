@@ -1,0 +1,22 @@
+{include 'tophead.html'}
+<div class="n"> 
+	<div class="logo_nav">
+		<div class="logo" style="width:145px;height:65px"><a href="{HOST_NAME}"><img src="{logo()}" style="width:145px;height:65px" /></a></div>
+		<div class="nav">
+			<ul> 
+				<li><a href="{HOST_NAME}" {if !$cid}class="focus"{/if}>首&nbsp;&nbsp;&nbsp;页</a></li>
+				{mo:navigation row="5" order="id asc" return="data" }             
+					{foreach  $data $k $v}
+					<!--$n序号，$lastIndex最后一次循环-->
+					{if $v['id']===$cid or $v['id']===$pid}
+						<li><a href="{$v['url']}" class="focus">{csubstr($v['catname'],4,'')}</a></li>
+					{else}
+						<li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a></li>
+					{/if}
+					{/foreach}
+				{/mo:navigation}
+				<li><a href="{HOST_NAME}message/Message/index/id/458" {if isset($ismessage)}class='focus'{/if}>网站留言</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

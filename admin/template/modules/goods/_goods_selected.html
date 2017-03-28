@@ -1,0 +1,12 @@
+<tr>
+	<th width="145px">&nbsp; <!--{$param.attrname}-->：</th>
+	<td>
+		<select name="attr[<!--{$param.attrid}-->]">
+		<option value="">请选择</option>
+		<!--{foreach from=$param.defaultvalue item=l}-->
+		<option value="<!--{$l}-->"><!--{$l}--></option>
+		<!--{/foreach}-->
+		</select>
+		&nbsp;&nbsp;&nbsp;<span class="warnBlue"><!--{$param.fieldtips}--></span>
+	</td>
+</tr>

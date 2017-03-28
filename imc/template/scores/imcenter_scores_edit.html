@@ -1,0 +1,84 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#ratio1").formValidator(
+	{
+		onshow:"请输入正整数",
+		onfocus:"请输入正整数",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:0,
+		onerror:"请输入正整数"
+	}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"}).defaultPassed();
+
+	$("#ratio2").formValidator(
+	{
+		onshow:"请输入正整数",
+		onfocus:"请输入正整数",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:0,
+		onerror:"请输入正整数"
+	}).regexValidator({regexp:['intege1'],datatype:"enum",onerror:"请输入正整数"}).defaultPassed();
+});
+</script>
+<body>
+	<div class="pubBox">
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">
+					<dd><a href="<!--{$baseurl}-->/scores/scores/index">积分规则管理</a></dd>
+					<dt class="on"><a href="javascript:;">编辑积分规则</a></dt>
+				</dl>
+			</div>
+			<form method="post" action="<!--{$baseurl}-->/scores/scores/edit" id="formid" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="<!--{$info.id}-->" />
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th width="145px"><font>*</font> 兑换方向：</th>
+									<td>
+										<select name="app" id="app-id" onchange="changeScoresType()">
+											<!--{foreach from=$app item=l}-->
+											<option value="<!--{$l.id}-->" <!--{if $info.app eq $l.id}-->selected<!--{/if}--> currency="<!--{$l.currency}-->"><!--{$l.appname}--></option>
+											<!--{/foreach}-->
+										</select>
+										<select name="scores_type" Id="scores_type"></select>->：MoCMS  积分
+									</td>
+								</tr>
+								<tr>
+									<th width="145px"><font>*</font> 兑换比例：</th>
+									<td><input type="text" name="ratio1" id="ratio1" maxlength="5" value="<!--{$info.ratio1}-->" /> ： <input type="text" maxlength="5" name="ratio2" id="ratio2" value="<!--{$info.ratio2}-->" />
+									</td>
+								</tr>
+							</table>
+
+							<div class="pubTabelBot">
+							<input type="submit"  hidefocus="hide" value="确定" class="btn1">
+							&nbsp;&nbsp;&nbsp;
+							<input type="button" hidefocus="hide" value="取消" onclick="location.href='<!--{$baseurl}-->/scores/scores/index'" class="btn2">
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</body>
+</html>
+<script type="text/javascript">
+function changeScoresType ()
+{
+	var currency = $('#app-id option:selected').attr('currency');
+    $('#scores_type').html('<option value="'+currency+'">'+currency+'</option>');
+}
+changeScoresType();
+</script>

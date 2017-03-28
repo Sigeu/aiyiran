@@ -1,0 +1,487 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+<script src="{JS_PATH}/date.js"></script>
+<script src="{JS_PATH}/slides.js"></script>
+<script>
+	$(function(){
+		$('#slides').slides({
+			preload: true,
+			preloadImage: 'img/loading.gif',
+			play: 5000,
+			pause: 2500,
+			hoverPause: true
+		});
+	});
+</script>
+</head>                       
+<body>
+ {include 'head.html'}
+ <div class="banner"><script language='javascript' src='{HOST_NAME}index/index/preview/id/61'></script></div>
+ <div class="notice"><strong>滚动新闻</strong>
+  <div class="ncInfo">
+    <div id="demo">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td id="demo1"><table>
+              <tr>
+                <td nowrap="nowrap">{mo:articlelist cid='280' order="hits desc" row='8' return='data'}
+			{foreach $data $k $v}<a href="{$v['url']}" title='{$v["title"]}'>{$v["title"]}</a>{/foreach}
+			{/mo:articlelist}</td>
+              </tr>
+            </table></td>
+          <td id="demo2"></td>
+        </tr>
+      </table>
+    </div>
+    <script language="javascript" type="text/javascript">
+	var speed = 50;
+	var demo = document.getElementById("demo");
+	var demo1 = document.getElementById("demo1");
+	var demo2 = document.getElementById("demo2");
+	demo2.innerHTML = demo1.innerHTML;
+	function marquee(){
+		with(demo){
+			if(scrollLeft>=demo1.scrollWidth){
+				scrollLeft = 0;
+			}else{
+				scrollLeft++;
+			}
+		}
+	}
+	var Mar = setInterval(marquee,speed);
+	demo.onmouseover = function(){
+		clearInterval(Mar);
+	}
+	demo.onmouseout = function(){
+		Mar = setInterval(marquee,speed);
+	}
+</script> 
+  </div>
+</div>
+<div class="w">
+  <div class="l">
+    <div id="slidBar">
+    <div id="slides">
+      <div class="slides_slidBar"> 
+      {mo:position id='72' return='hot_other'}
+     {foreach $hot_other $k $value}
+     {php $n=$k+1;} 
+     <a href="{$value['info']['url']}" title="{$value['headline']}" target="_blank"><img src="{HOST_NAME}{$value['pos_img']}" alt="Slide {$n}"> <span>
+        <p class="p1">{csubstr($value['headline'],18)}</p>
+        <p class="p2">{csubstr($value['pos_info'],50)}[详细]</p>
+        </span> </a>
+	{/foreach}
+    {/mo:position}
+    </div>
+    </div>
+</div>
+    <div class="info bder">
+      <div class="T">
+        <h3 class="h3_1">精选资料</h3>
+      </div>
+      <div class="C">
+        <ul>
+        {mo:articlelist cid='58' type='son' row='2' return='data'}
+		{foreach $data $k $v}
+          <li><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="154" height="104" />{$v["title"]}</a></li>
+		{/foreach}
+		 {/mo:articlelist}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="m bder" style="height:585px;">
+    <div class="main">
+      <div class="mainOne">
+       {mo:articlelist cid='58' type='son' row='5' return='data'}
+		{foreach $data $k $v}
+        {if $k==0 }
+        <h1><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],20)}</a></h1><p>
+        {else}
+        <a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],20)}</a> 
+        {if $lastIndex ==false}|{/if}
+        {/if}
+		{/foreach}
+		{/mo:articlelist}
+        </p>
+      </div>
+      <div class="mainTwo">
+        <div class="T">
+          <h3>商业要闻</h3>
+        </div>
+        <div class="C" style="margin-bottom:12px;">
+          <ul>
+          {mo:articlelist cid='58' type='son' row='8' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+          </ul>
+        </div>
+        <div class="T">
+          <h3>企业报道</h3>
+        </div>
+        <div class="C">
+          <ul>
+            {mo:articlelist cid='63' type='son' row='8' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="r">
+    <div class="mainThree">
+      <div class="mT1">
+        <div class="T"><span class="more"><a href="{getMoreUrl(-1)}">更多 &gt;&gt;</a></span>
+          <h3>焦点关注</h3>
+        </div>
+        <div class="C"> {mo:contentlist  order="hits desc" row='1' return='data'}
+			{foreach $data $k $v}
+            <a href="{$v['url']}" title='{$v["title"]}' class="picTxt"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="160" height="120" />{csubstr($v['title'],15)}</a>
+          <p>{csubstr($v['description'],26)}<a href="{$v['url']}"  onClick="view(this);" class="fba">[详情]</a></p>
+			{/foreach}
+			{/mo:contentlist}
+        </div>
+      </div>
+      <div class="mT2">
+        <div class="T"><span class="more"><a href="{getMoreUrl(78)}">更多 &gt;&gt;</a></span>
+          <h3>社会视点</h3>
+        </div>
+        <div class="C">
+          <ul>
+          {mo:articlelist cid='78' type='all' row='2' return='data'}
+		{foreach $data $k $v}
+        {if $k>0}
+         <li class="mR0"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="86" height="75" />{$v["title"]}</a></li>
+        {else}
+          <li><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="86" height="75" />{$v["title"]}</a></li>
+         {/if}
+		{/foreach}
+		 {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+      <div class="mT3">
+        <div class="T"><span class="more"><a href="#">更多 &gt;&gt;</a></span>
+          <h3>专题报道</h3>
+        </div>
+        <div class="C">
+          <ul>
+          {mo:position id='72' row='5' return='hot_other'}
+           {foreach $hot_other $k $value}
+           <li><a href="{$value['info']['url']}" title="{$value['headline']}" target="_blank">{$value['headline']}</a></li>
+          {/foreach}
+          {/mo:position}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="Madvert"><script language='javascript' src='{HOST_NAME}index/index/preview/id/62'></script></div>
+<div class="wrap">
+  <div class="lWrap">
+    <div class="k bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="{getMoreUrl(57)}">更多 &gt;&gt;</a></span>
+          <h3>消费问题</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+          {mo:articlelist cid='57' type='all' row='1' return='data'}
+            {foreach $data $k $v}
+            <div class="pic"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],12)}</a></dt>
+              <dd>{csubstr($v["description"],38)}<a href='{$v["url"]}' class="fba">[详情]</a></dd>
+            </dl>
+            {/foreach}
+            {/mo:articlelist}
+          </div>
+          <div class="mainTwo">
+            <ul>
+            {mo:articlelist cid='57' type='all' row='7' from='1' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="line1"></div>
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="{getMoreUrl(58)}">更多 &gt;&gt;</a></span>
+          <h3>国际财经</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+            {mo:articlelist cid='58' type='all' row='1' return='data'}
+            {foreach $data $k $v}
+            <div class="pic"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],12)}</a></dt>
+              <dd>{csubstr($v["description"],38)}<a href='{$v["url"]}' class="fba">[详情]</a></dd>
+            </dl>
+            {/foreach}
+            {/mo:articlelist}
+          </div>
+          <div class="mainTwo">
+            <ul>
+              {mo:articlelist cid='58' type='all' row='7' from='1' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="j bder">
+      <div class="T">
+        <h3>商业人生</h3>
+      </div>
+      <div class="C">
+        <div class="busLive">
+          <ul>
+          {mo:articlelist cid='90' type='all' row='5' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="143" height="108"/>{$v["title"]}</a></li>
+            {/foreach}
+            {/mo:articlelist}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="k bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="{getMoreUrl(255)}">更多 &gt;&gt;</a></span>
+          <h3>{cid2name(255)}</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+          {mo:articlelist cid='255' type='all' order='id desc' row='1' return='data'}
+            {foreach $data $k $v}
+            <div class="pic"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],12)}</a></dt>
+              <dd>{csubstr($v["description"],38)}<a href='{$v["url"]}' class="fba">[详情]</a></dd>
+            </dl>
+            {/foreach}
+            {/mo:articlelist}
+          </div>
+          <div class="mainTwo">
+            <ul>
+            {mo:articlelist cid='255' type='all' row='7' order='id desc'  from='1' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="line1"></div>
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="{getMoreUrl(274)}">更多 &gt;&gt;</a></span>
+          <h3>科学发展</h3>
+        </div>
+        <div class="C">
+          <div class="ddl">
+          {mo:articlelist cid='274' type='all' row='1' return='data'}
+            {foreach $data $k $v}
+            <div class="pic"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="110" height="85"/></a></div>
+            <dl>
+              <dt><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],12)}</a></dt>
+              <dd>{csubstr($v["description"],38)}<a href='{$v["url"]}' class="fba">[详情]</a></dd>
+            </dl>
+            {/foreach}
+            {/mo:articlelist}
+          </div>
+          <div class="mainTwo">
+            <ul>
+            {mo:articlelist cid='274' type='all' row='7' from='1' return='data'}
+            {foreach $data $k $v}
+            <li><a href='{$v["url"]}' title='{$v["title"]}'>{$v["title"]}</a><em><a href='{$v["url"]}'>{csubstr($v["description"],20)}</a></em></li>
+            {/foreach}
+            {/mo:articlelist}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="j bder">
+      <div class="T">
+        <h3>会议活动</h3>
+      </div>
+      <div class="C">
+        <div class="meeting">
+          <ul>
+          {mo:articlelist cid='285' type='all' row='8' return='data'}
+            {foreach $data $k $v}
+            <li>
+              <div class="pic"><a href='{$v["url"]}' title='{$v["title"]}'><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="50" height="50"/></a></div>
+              <div class="picTxt"><a href='{$v["url"]}' title='{$v["title"]}'>{csubstr($v["title"],16)}</a>
+                <p>{csubstr($v["description"],38)}</p>
+              </div>
+            </li>
+            {/foreach}
+            {/mo:articlelist}
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rWrap">
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T"><span class="more"><a href="{getMoreurl(281)}">更多&gt;&gt;</a></span>
+          <h3>经济周刊</h3>
+        </div>
+        <div class="C">
+          <div class="pubTabs">
+            <ul id="card0" class="tabUlOne">
+            {php $cateTree = getCateTree(281,1);}
+              {foreach $cateTree $k $v}
+                {if $k == 0}
+                <li class="focus">{$v['catname']}</li>
+                {else}
+                <li>{$v['catname']}</li>
+                {/if}
+              {/foreach} 
+            </ul>
+            <div class="tabDivOne">
+      {php $cateTree = getCateTree(281,1);}
+      {foreach $cateTree $k $v}
+      	{if $k == 0 }
+        <div id="card0{$k}">
+        {else}
+		<div id="card0{$k}" style="display:none;">
+        {/if}
+        <div class="pic">
+        <ul>
+		{php $mycid=$v['id'];}
+        {mo:articlelist cid='$mycid' type='all' order='publishtime desc' row='2' return='data'}
+			{foreach $data $sonk $sonv}
+            <li><a href="{$sonv['url']}" title='{$sonv["title"]}'><img src="{UPLOAD_PATH}/{$sonv['thumb']['src']}" width="91" height="121" />{csubstr($sonv['title'],30)}</a></li>
+			{/foreach}
+		{/mo:articlelist}
+        </ul>
+        </div>
+        <div class="picTxt">
+        {mo:articlelist cid='$mycid' type='all' order='publishtime desc' row='4' from='2' return='data'}
+			{foreach $data $sonk $sonv}
+            <a href="{$sonv['url']}" title='{$sonv["title"]}'>{csubstr($sonv['title'],4)}</a>
+			{/foreach}
+		{/mo:articlelist}
+        </div>
+      </div>
+      {/foreach} 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advert"><script language='javascript' src='{HOST_NAME}index/index/preview/id/64'></script></div>
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T">
+          <h3>世界聚焦</h3>
+        </div>
+        <div class="C">
+          <div class="mT3">
+            <ul>
+            {mo:contentlist order="hits desc" row='10' return='data'}
+			{foreach $data $k $v}
+            <li><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],15)}</a></p></li>
+			{/foreach}
+			{/mo:contentlist}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="advert"><script language='javascript' src='{HOST_NAME}index/index/preview/id/65'></script></div>
+    <div class="u bder">
+      <div class="pubMod">
+        <div class="T">
+          <h3>财经视线</h3>
+        </div>
+        <div class="C">
+          <div class="mT4">
+          {mo:articlelist cid='254' type='all' order='publishtime desc' row='2' return='data'}
+			{foreach $data $k $v}
+            <dl>
+              <dt><a href="{$sonv['url']}">{csubstr($v['title'],12)}</a></dt>
+              <dd>{csubstr($v["description"],50)}</dd>
+            </dl>
+			{/foreach}
+		 {/mo:articlelist}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="friendLink bder">
+    <div class="T">
+      <h3>友情链接</h3>
+    </div>
+    <div class="C">{include 'friendlink.html'}</div>
+  </div>
+</div>
+{include 'footer.html'}
+<script type="text/javascript">
+var forEach = function(array, callback, thisObject){
+		if(array.forEach){
+			array.forEach(callback, thisObject);
+		}
+		else
+		{ 
+			for (var i = 0, len = array.length; i < len; i++) { callback.call(thisObject, array[i], i, array); }
+		}
+	}
+	var st = new SlideTrans("idcontainerBanner2", "idSlider2", 5, { Vertical: false });
+	var arr=ban.$('idSlider2').getElementsByTagName('td');
+	forEach(arr, function(o, i){
+		o.onmouseover = function(){st.Stop()}
+		o.onmouseout = function(){ st.Run() }
+	}) 
+	var nums = ban.$('nav_title').getElementsByTagName('li');
+	forEach(nums, function(o, i){
+		o.onmousedown = function(){ o.className = "on"; st.Auto = false; st.Run(i); }
+		o.onmouseout = function(){ o.className = ""; st.Auto = true; st.Run(); }
+	})
+		//设置按钮样式
+	st.onStart = function(){
+		forEach(nums, function(o, i){ o.className = st.Index == i ? "on" : ""; })
+	}
+	st.Run();
+</script> 
+<script src="{JS_PATH}/tabs.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>

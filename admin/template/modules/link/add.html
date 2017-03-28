@@ -1,0 +1,149 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script>
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+	
+	$("#name").formValidator({empty:false,onshow:"请输入2-50字符",onfocus:"请输入2-50字符",oncorrect:"输入正确"})
+	.inputValidator({min:2,max:50,onerror:"请输入2-50字符"});
+	
+	$("#com_url").formValidator({empty:false,onshow:"请输入网站域名以http://开头",onfocus:"请输入网站域名以http://开头",oncorrect:"输入正确"})
+	.regexValidator({regexp:["url"],datatype:"enum",onerror:"请输入网站域名以http://开头"});
+	
+	$("#link_type").formValidator({onshow:"请选择类型",onfocus:"请选择类型",oncorrect:"选择正确"}).inputValidator({min:1,onerror: "请选择类型"});
+
+	$("#member").formValidator({empty:true,onshow:" ",onfocus:"请输入2-50字符",oncorrect:"输入正确"})
+	.inputValidator({min:2,max:50,onerror:"请输入2-50字符"});
+	
+	$("#logo").formValidator(
+	{
+		empty:false,
+		onshow:"请上传网站logo",
+		onfocus:"请上传网站logo",4294967294  4294967195
+		oncorrect:"上传正确"}
+	).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			if($("#link_type").val() == 1 || $("#link_type").val() == "")
+			{
+				return ($("#logo").val() != '') ? true : '请上传网站logo';
+			}
+			else
+			{
+				return true;
+			}
+		 }
+	});
+	
+	//模型必选验证
+	$("#text").formValidator({empty:true,onshow:" ",onfocus:"请输入2-500个字符",oncorrect:"输入正确",onempty:'输入内容为空'})
+	.inputValidator({min:2,max:500,onerror: "请输入2-500个字符"});
+	
+	$("#link_type").change(function()
+	{
+		if ($(this).val() == 1) 
+		{
+			$("#webLogo").show();
+			$('#webLogo input').removeAttr('disabled');
+		}
+		else 
+		{
+			$('#webLogo input').attr('disabled','disabled');
+			$("#webLogo").hide();
+
+		}
+	});
+	
+});	
+
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+
+	var option={
+		upload_id:'logo',
+		title:'图片上传',
+		return_id:'accessory',	
+		callFunName:'accessoryUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);
+}
+
+</script>
+<body>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">     
+                    <dd><a href="<!--{$baseurl}-->/modules/link/index" class="last">友情链接列表</a></dd>
+                    <dt class="on"><a href="#">添加友情链接</a></dt>
+				</dl>
+			</div>
+
+			<form action='<!--{$baseurl}-->/modules/link/add' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th width="170px">&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 网站名称：</th>
+									<td>
+										<input type="text" value="" class="Iw290" name='name' id='name'/>&nbsp;<span id='nameTip'></span>
+									</td>
+								</tr>
+
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 网站域名：</th>
+									<td>
+										<input type="text" value="http://" class="Iw290" name='com_url' id='com_url'/>&nbsp;<span id='com_urlTip'></span>
+									</td>
+								</tr>
+
+								<tr class='second'>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 友情链接类型：</th>
+									<td>
+										<select class="Iw290" name="link_type" style="width:162px;" id='link_type' >
+											<option value="">请选择类型</option>
+											<option value="1">图片</option>
+											<option value="2">文字</option>
+										</select>&nbsp;<span id="link_typeTip" ></span>
+									</td>
+								</tr>
+
+								<tr id="webLogo" style="display:none">
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 网站logo：</th>
+									<td>
+										<span id="single-upload"><input type="text" name="" class="Iw290" value="" /></span>
+										<input class="btn5" hideFocus="" type="button" value="浏览" onclick="uploadAccessory({'limit':'<!--{$setting.limit}-->','_switch':'friend_link','self_id':'logo_uploadButton','ady_upload':1,'dis_place':'single-upload','check_id':'logo','show_id':'logo_show'})" id="logo_uploadButton">
+										<input type="hidden" id="logo" value="" _required=2/><span id='logoTip'></span>
+									</td>
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系人：</th>
+									<td>
+										<input type="text" value="" class="Iw290" name='member' id='member'/>&nbsp;<span id='memberTip'></span>
+									</td>
+								</tr>
+
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站简介：</th>
+									<td>
+										<textarea id="text" name="introduce" style="height:128px;" class="Iw450 Ih80"></textarea>&nbsp;<span id='textTip'></span>
+									</td>
+								</tr>
+							</table>
+							<div class="pubTabelBot"><input type="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

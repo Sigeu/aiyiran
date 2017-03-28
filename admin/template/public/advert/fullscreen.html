@@ -1,0 +1,118 @@
+<!--{if $n neq 1}--><script type='text/javascript' src='<!--{$jspath}-->/jquery-1.7.2.js'></script><script type='text/javascript'><!--{/if}-->
+	var base_str = "<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/q.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/J.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_TCGG { width:250px;height:0; border:#7e7e7e 1px solid; border-radius:2px; position:fixed; right:0; bottom:0; }.mainone_ads_full_sc{width:<!--{$ad.width}-->px;height:<!--{$ad.height}-->px;display:block;margin-top:<!--{$ad.up}-->px;margin-left:<!--{$ad.left}-->px;}</style><div class='mainone_ads_full_sc' id='mainone_ads_full_sc'><input type='hidden' value='<!--{$type.closeeffect}-->' id='mainone_ads_adtype'><a href='javascript:closeFull_sc();' id='mainone_ads_picOff'></a><a href='<!--{$adimg.link}-->'>";
+	<!--{if $flash neq 0}-->
+	    base_str +="<object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='32' height='35'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash' data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>";
+	<!--{else}-->
+	    base_str +="<img class='mainone_ads_full_img' src='<!--{if $adimg.img.path}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{/if}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'/>";
+	<!--{/if}-->
+	    base_str +="</a></div>";
+   document.write(base_str);
+   
+   var effect = "<!--嵌入--><div class='mainone_ads_adver_bg' style='display:none;'><div><a href='<!--{$adimg.link}-->' title='<!--{$adimg.fontalt}-->'>";
+   <!--{if $flash neq 0}-->
+   	effect +="<object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='32' height='35'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash' data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>";
+   <!--{else}-->
+   	effect +="<img src='<!--{if $adimg.img.path}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{/if}-->'/>";
+   <!--{/if}-->
+
+
+   effect +="</a><span class='mainone_ads_close_btn'><img src='<!--{if $n eq 1}-->../..<!--{/if}-->/admin/template/images/close_btn.jpg' /></span></div></div><!--弹窗--><div class='mainone_ads_TCGG' id='mainone_ads_TCGG'><div class='mainone_ads_titG'><a href='javascript:closeTCGG();' class='mainone_ads_closeBtnG' title='关闭'></a></div><div class='mainone_ads_contG'><a href='<!--{$adimg.link}-->' title='<!--{$adimg.fontalt}-->'>";
+   <!--{if $flash neq 0}-->
+   	effect +="<object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='32' height='35'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash' data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='250' height='176'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>";
+   <!--{else}-->
+   	effect +="<img src='<!--{if $adimg.img.path }-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{/if}-->' alt='<!--{$adimg.img.fontalt}-->' width='250' height='176'/>";
+   <!--{/if}-->
+
+   effect +="</a></div></div><!--折角--><div class='mainone_ads_q_bevel'><a href='<!--{$adimg.link}-->' class=''><img src='<!--{if $adimg.img.path}-->/admin/template/images/bevel.png<!--{/if}-->'/></a>";
+   <!--{if $flash neq 0}-->
+   	effect +="<object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='32' height='35'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash' data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='100' height='100'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>";
+   <!--{else}-->
+   	effect +="<img src='<!--{if $adimg.img.path}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{/if}-->' class='mainone_ads_q_beval_jpg' style='width:133px;height:133px;'/>";
+   <!--{/if}-->
+
+   effect +="<span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span><span class='mainone_ads_q_bevel_close2'><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span></span></div><div class='mainone_ads_q_full_sc'><a href='#'><img class='mainone_ads_q_full_img' src='/admin/template/images/full_sc.jpg'/></a><a href='#' class='mainone_ads_q_full_close'>&nbsp;&nbsp;</a></div>";
+   document.write(effect);
+    var speed = 10000;
+	function tanchuang(){
+		  showTCGG();
+		  setTimeout('closeTCGG()',speed);
+	}
+	function showTCGG(o){
+		if(o == undefined){
+		  o = document.getElementById('mainone_ads_TCGG');
+		}
+		if( o.clientHeight < 176){
+		  o.style.height = o.clientHeight + 2 + 'px';
+		  setTimeout(function(){showTCGG(o)},8);
+		}
+	}
+	function closeTCGG(o){
+	 if(o == undefined){
+		o = document.getElementById('mainone_ads_TCGG');
+	 }
+	 if( o.clientHeight >= 0){
+		o.style.height = o.clientHeight - 2 + 'px';
+		setTimeout(function(){closeTCGG(o)},8);
+	 }
+	}
+	$(function(){	
+		var repeat=true;
+		if(repeat){			
+			replay();
+		}
+	
+		$('.mainone_ads_q_bevel_close').click(function(){
+			$('.mainone_ads_q_bevel').hide();
+			return false;
+		})		
+		$('.mainone_ads_q_bevel_close2').click(function(){
+			bevel_close();
+			replay();
+		})	
+		//嵌入广告
+		function qianru(){
+		  $('.mainone_ads_adver_bg').slideDown(1500,function(){
+	          $('.mainone_ads_close_btn').css('display','block'); 
+          });
+          $('.mainone_ads_close_btn').click(function(){
+	          $('.mainone_ads_adver_bg').fadeOut();
+          });
+		}
+		//折角广告
+		function zhejiao(){
+		  $('.mainone_ads_q_bevel a').stop().animate({'height':'133px','width':'133px'},900);
+		  $('.mainone_ads_q_bevel').stop().animate({'height':'133px','width':'133px'},950,function(){
+			if(repeat){
+			   $('.mainone_ads_q_bevel_close2').show();
+			}else{
+			   $('.mainone_ads_q_bevel_close').show();
+			}
+		 });
+		}
+		function bevel_close(){
+			$('.mainone_ads_q_bevel a').css({'width':0,'height':0});
+			$('.mainone_ads_q_bevel').css({'width':0,'height':0});
+			if(repeat){
+				$('.mainone_ads_q_bevel_close2').hide();
+			}else{
+				$('.mainone_ads_q_bevel_close').hide();
+			}
+		}
+		function replay(){
+			$('.mainone_ads_full_sc').css({'top':'150px','left':($(window).width()-$('.mainone_ads_full_sc').width())/2+'px'}).fadeIn(800).delay(2000).fadeOut(500,function(){
+			  var n = $('#mainone_ads_adtype').val();
+			  if(n ==1){
+                 qianru();
+			  }else if(n==2){
+                 zhejiao();
+			  }else if(n==3){
+                 tanchuang();
+			  }
+			});
+		}
+	})
+	function closeFull_sc(){
+			document.getElementById('mainone_ads_full_sc').style.display = 'none';
+	}
+<!--{if $n neq 1}--></script><!--{/if}-->
+

@@ -1,0 +1,115 @@
+{include 'inc/memorial_head.html'}
+
+<!-- layer插件 -->
+<link rel="stylesheet" href="/template/default/member/layer/skin/default/layer.css" type="text/css">
+<script src="/template/default/member/layer/layer.js"></script>
+
+            <!--**********************************-->
+            <form id="form1">
+            <div class="leave_message clearfix">
+                <h4>追思留言/Message</h4>
+                <textarea name="content"></textarea>
+                <input type="hidden" name="token_form" value="<?php echo $_SESSION['token_form'];?>">
+                <input type="hidden" name="mid" value="{$mid}">
+                <div class="add_face">
+                    <!-- 验证码 -->
+                  <!--   <input type="text" name="VerifyCode" style="border:solid red 1px;">
+                    <img src="/static/js/securimage/yzm.php" alt="" id="yzm" >
+                    <a id="changeVerifyCode" onclick="huan()" href="javascript:;"> 换一张</a> -->
+                    <!-- 验证码 -->
+
+                    <span class="add fl"><i></i>添加表情</span>
+                    {if $_SESSION['front_login_info']['id']}
+                    <span class="publish fr"><em class="fl">还可以输入<i>400字符</i></em><input type="button" value="发表追思留言" class="fb" id="sub" /></span>
+					{else}
+					<span class="publish fr"><em class="fl">还可以输入<i>400字符</i></em><input type="button" value="发表追思留言" class="fb" onclick="isLogin();" /></span>
+					{/if}
+                </div>
+            </div>
+            </form>
+            <div class="list_message clearfix">
+                <ul class="clearfix">
+                {foreach $lists $k $v}
+                    <li>
+                        <img src="{$v['user_photo']}" />
+                        <h3><span>{$v['username']}</span><em>{$v['addtime']}</em><!-- <i class="rep">回复</i> --></h3>
+                        <p>{$v['content']}</p>
+                        <div class="replys" style="display:none;">
+                            <textarea  class="form-control">回复朱桂安：</textarea>
+                            <div class="liu-icon"><a href="###" class="btn btn-primary">评论</a><a href="###" class="btn btn-default">取消</a></div>
+                        </div>
+                        <b class="floor">1F</b>
+                    </li>
+                {/foreach}
+                </ul>
+                <div class="page">
+                    {$showPage}
+                </div>
+            </div>
+        </div>
+    <!--********footer***************************************-->
+
+
+<script type="text/javascript">
+$(function(){
+    function ityzl_SHOW_LOAD_LAYER(){
+                return index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+    }
+    function ityzl_CLOSE_LOAD_LAYER(index){
+            layer.close(index);
+    }
+    $("#sub").click(function(){
+        $("#sub").attr("disabled","disabled");//按钮不可用
+        var content = $("textarea[name='content']").val();
+        var token_form = $("input[name='token_form']").val();
+        var VerifyCode = $("input[name='VerifyCode']").val();
+        var mid = $("input[name='mid']").val();
+        if(content==""){
+            layer.msg("请填写内容");
+            $("#sub").removeAttr("disabled");//按钮可用
+            return false;
+        }
+        // if(VerifyCode==""){
+        //     layer.msg("验证码不能为空");
+        //     $("#sub").removeAttr("disabled");//按钮可用
+        //     return false;
+        // }
+         $.ajax({
+            type: "Post",
+            url: "/jinian/Jinian/commentInsert",
+            data: {'content':content,'token_form':token_form,'VerifyCode':VerifyCode,'mid':mid},
+            dataType: "json",
+            beforeSend: function () {
+                i =ityzl_SHOW_LOAD_LAYER();
+                // $('#sub').val('发表追思留言中...');
+            },
+            complete: function () {
+                 ityzl_CLOSE_LOAD_LAYER(i);
+                   // $('#sub').val('发表追思留言');
+            },
+            success: function(data) {
+                if (data.status == 1) {
+                    // layer.msg(data.msg);
+                    // window.location.reload();
+                    layer.msg(data.msg, {icon: 1, offset: '40%'},function(){
+                        location.reload();
+                    });
+
+                    // $('#form1')[0].reset();
+                    // $("#sub").removeAttr("disabled");//按钮可用
+                }else{
+                   layer.msg(data.msg);
+                    $("#sub").removeAttr("disabled");//按钮可用
+
+                }
+            }
+        });
+    });
+});
+
+    function huan() {
+        var time = new Date().getTime();//当前时间
+        $('#yzm').attr("src" , "/static/js/securimage/yzm.php?t=" + time);//验证码切换
+    }
+</script>
+{include 'head_footer.html'}

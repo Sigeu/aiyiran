@@ -1,0 +1,24 @@
+/* CSS Document */
+/*�������-TCGG*/
+.mainone_ads_TCGG { width:250px; height:0; border:#7e7e7e 1px solid; border-radius:2px; position:fixed; right:0; bottom:0; }
+.mainone_ads_titG { height:17px; background:url(../images/bg_titG.png) repeat-x; }
+.mainone_ads_titG a{ float:right;}
+a.mainone_ads_replay{ color:#fff; background:url(../images/bg_lefta.png) left center no-repeat; padding:0 6px;}
+.mainone_ads_closeBtnG { display:block; width:15px; height:15px; background:url(../images/closeBtnG.png) no-repeat; float:right; margin-right:2px; }
+/*�ֲ����-LBGG*/
+#mainone_ads_LBGG { width:245px; height:171px; position:relative; overflow:hidden; }
+#mainone_ads_picBox { height:171px; width:245px; position:absolute; }
+#mainone_ads_picBox li { height:171px; overflow:hidden; }
+#mainone_ads_liBox { position:absolute; bottom:5px; right:0; }
+#mainone_ads_liBox li { float:left; width:14px; height:14px; color:#fff; line-height:14px; text-align:center; cursor:pointer; margin-right:2px; background-color:#000; opacity:.5; filter:alpha(opacity=50); }
+#mainone_ads_liBox li:hover, #mainone_ads_liBox li.active { background-color:#fff; color:#000; }
+/*Ư�����-PFGG*/
+#mainone_ads_PFGG { width:60px; height:60px; z-index:9999}
+.mainone_ads_closeBtn1G { display:block; width:14px; height:14px; background:url(../images/closeBtn1G.png) no-repeat; position:absolute; top:0px; right:0px; }
+/*���������-WZGG*/
+#mainone_ads_WZGG { width:214px; height:74px; border:#c0c0c0 1px dashed;padding:5px 10px 0;}
+#mainone_ads_WZGG a { height:24px; line-height:24px; overflow:hidden; color:#571b8d; background:url(../images/bg_aWZ.png) left center no-repeat; display:block; padding-left:8px; }
+#mainone_ads_marqueeBox{}
+/*ȫ�����-QPGG*/
+.mainone_ads_full_sc{width:1000px; height:417px; display:none;}
+#mainone_ads_picOff{ display:block;width:45px; height:16px; background:url(../images/q_close.png) no-repeat;}

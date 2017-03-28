@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/validator.css" rel="stylesheet" type="text/css"></link>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/pubJq.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/formvalidator.js"></script>
+<script src="<!--{$jspath}-->/formvalidatorregex.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+</head>
+<body>
+    <div class="pubBox" style="min-height:340px;">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="">基本信息</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <form action="" method="post" id="myForm" name="myForm">
+            <input type="hidden" id="task" name='task' value="dosubmit" />
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="100"><font>*</font> 用户名：</th>
+                  <td><!--{$username}--></td>
+                </tr>
+                <tr>
+                  <th width="100"><font>*</font> 新密码：</th>
+                  <td><input type="password" value="" class="Iw150" id="password" name="password"/></td>
+                </tr>
+                <tr>
+                  <th width="100"><font>*</font> 确认密码：</th>
+                  <td><input type="password" value="" class="Iw150" id="password2" name="password2"/></td>
+                </tr> 
+              </table>
+            </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#password").formValidator({onshow:"请输入4-20个字符，由字母、数字、符号组成",onfocus:"请输入4-20个字符，由字母、数字、符号组成"}).inputValidator({min:4,max:20,onerror:"请输入4-20个字符，由字母、数字、符号组成"});
+    $("#password2").formValidator({onshow:"请再次输入密码",onfocus:"请输入4-20个字符，由字母、数字、符号组成",oncorrect:"两次输入密码一致"}).inputValidator({min:4,empty:{leftempty:false,rightempty:false,emptyerror:"重复密码两边不能有空符号"},onerror:"请输入4-20个字符，由字母、数字、符号组成"}).compareValidator({desid:"password",operateor:"=",onerror:"两次输入密码不一致"});
+    })
+</script>
+    </body>
+    </html>

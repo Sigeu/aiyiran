@@ -1,0 +1,69 @@
+
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/Basc.css"/>
+        <link rel="stylesheet" type="text/css" href="/template/default/member/css/manage_yc.css"/>
+        <!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+{include 'member/head_left.html'}
+
+            <form id="formToUpdate" method="post" action="#" enctype="multipart/form-data">
+            <div class="conRig_yc">
+                <h3 class="dwH3_yc">创建相册集</h3>
+                <ul class="ediUl_yc">
+                    <li>
+                        <span class="spanT_yc">名称：</span><input type="text" name="name" placeholder="相册名称" class="inputCom_yc">
+                    </li>
+                    <li>
+                        <span class="spanT_yc">创建类型：</span><select name="type" class="deadSel_yc deadSel03_yc">
+                            <option value="">相册集</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span class="spanT_yc">封面：</span><input type="file" name="cover" value="{$info['bioname']}" placeholder="传记标题" class="inputCom_yc">
+                    </li>
+
+                    <li>
+                        <input type="hidden" name="mid" value="{$mid}">
+                        <div class="deadBtn_yc">
+                            <a href="javascript:;" class="success_yc mr20" id="ajaxSubmit">保存</a>
+                            <!--<input type="submit" value="保存" class="cancel_yc">-->
+                            <a href="/member/memorial/photo/mid/{$mid}" class="cancel_yc">取消</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </form>
+        </div>
+        <div class="wrapS03_yc jbFT_yc">
+            <p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="/template/default/member/js/html5shiv.js" ></script>
+    <script type="text/javascript" src="/template/default/member/js/common.js" ></script>
+        <script>
+$(function(){
+        //异步提交表单
+        $("#ajaxSubmit").on("click",function(){
+                $("#formToUpdate").ajaxSubmit({
+                        type:'post',
+                        url:'/member/Memorial/createPhoto',
+                        success:function(data){
+                            var member = eval("("+data+")"); //包数据解析为json 格
+                            if(member.status ==1){
+                                // layer.alert(member.message, {icon: 1,offset: '40%'});
+                                // setTimeout("window.location.href='/member/memorial/photo/mid/{$mid}'",2000);
+                                 var index = layer.alert(member.message, {icon: 1,offset: '40%',
+                                    yes: function(index, layero){
+                                        setTimeout("window.location.href='/member/memorial/photo/mid/{$mid}'",1000);
+                                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                                    }
+                                });
+                            }else{
+                                layer.alert(member.message, {icon: 2,offset: '40%'});
+                            }
+                        }
+                });
+        });
+});
+
+        </script>
+</html>

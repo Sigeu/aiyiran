@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>纪念馆管理--相册视频管理</title>
+		<link rel="stylesheet" type="text/css" href="css/Basc.css"/>
+		<link rel="stylesheet" type="text/css" href="css/manage_yc.css"/>
+		<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+	</head>
+	<body>
+		<!-- 确认删除弹层 -->
+		<div class="bg_yc02"></div>
+		<div class="bgBox02"></div>
+		<div class="notiBox">
+			<div class="handTop">
+				<span class="handS">操作提示</span><em class="handEm"></em>
+			</div>
+			<div class="notiBot">
+				<p class="handSure">确定删除该相册吗？</p>
+				<p class="deleteP">删除后本集中的图片将移至默认相册集。</p>
+				<div class="sureD sureD02">
+					<a href="javascript:;" class="sure">确认删除</a><a href="javascript:;" class="concle">取消</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- 上传照片弹层 -->
+		<div class="bg_yc02"></div>
+		<div class="bgBox03"></div>
+		<div class="scPoBox">
+			<div class="handTop">
+				<span class="handS">上传照片</span><em class="handEm"></em>
+			</div>
+			<div class="commonBot">
+				<ul>
+					<li>
+						<span class="passSa">名称：</span><input type="text" placeholder="请输入图片名称" class="passInp">
+					</li>
+					<li>
+						<span class="passSa">选择相册：</span><select name="" class="zjSel">
+							<option value="">相册1</option>
+							<option value="">相册1</option>
+							<option value="">相册1</option>
+						</select>
+					</li>
+					<li>
+						<span class="passSa">选择照片：</span><input type="text" class="passInp"><a href="javascript:;" class="fileA"><input type="file" class="scInp">上传</a>
+					</li>
+					<li>
+						<div class="liBtn">
+							<a href="javascript:;" class="poSuc">上传照片</a><a href="javascript:;" class="poFai">取消</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="header_yc">
+			<div class="clearfix headMain_yc">
+				<div class="clearfix headL_yc">
+					<span class="fl title_yc"></span>
+					<ul class="fl clearfix firstUl_yc">
+						<li>
+							<a href="javascript:;"><i class="icon1_yc"></i>首页</a>
+						</li>
+						<li class="active">
+							<a href="javascript:;">纪念馆管理<i class="icon2_yc"></i></a>
+							<ul class="secondUl_yc">
+								<li><a href="javascript:;">我管理的馆</a></li>
+								<li><a href="javascript:;">我关注的馆</a></li>
+								<li><a href="javascript:;">创建新馆</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">资金管理<i class="icon2_yc"></i></a>
+							<ul class="secondUl_yc">
+								<li><a href="javascript:;">消费记录</a></li>
+								<li><a href="javascript:;">充值记录</a></li>
+								<li><a href="javascript:;">在线充值</a></li>
+								<li><a href="javascript:;">会员充值</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">祭拜记录<i class="icon2_yc"></i></a>
+							<ul class="secondUl_yc">
+								<li><a href="javascript:;">我贡献的祭品</a></li>
+								<li><a href="javascript:;">我发布的悼文</a></li>
+								<li><a href="javascript:;">我发布的评论</a></li>
+								<li><a href="javascript:;">我发布的留言</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">账号设置<i class="icon2_yc"></i></a>
+							<ul class="secondUl_yc">
+								<li><a href="javascript:;">个人资料</a></li>
+								<li><a href="javascript:;">安全设置</a></li>
+								<li><a href="javascript:;">第三方帐号绑定</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">系统消息</a>
+						</li>
+					</ul>
+				</div>
+				<div class="headR_yc">
+					<ul class="clearfix">
+						<li>
+							<a href="javascript:;"><i class="icon3_yc"></i>帮助中心</a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="images/toux_yc.png" alt="头像" class="toux_yc">ca****ao-@outlook.com</a>
+						</li>
+						<li>
+							<a href="javascript:;"><i class="icon4_yc"></i>退出</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="wrapW">
+			<div class="conLeft_yc">
+				<h3 class="h3Com_yc"><span></span>李小龙纪念馆管理</h3>
+				<ul class="jbList_yc">
+					<li><a href="javascript:;">逝者资料管理</a></li>
+					<li><a href="ZJmemorial_yc.html">传记管理</a></li>
+					<li><a href="JWmemo_yc.html">祭文悼词管理</a></li>
+					<li><a href="javascript:;">纪念祭文管理</a></li>
+					<li><a href="javascript:;">隐私设置</a></li>
+					<li><a href="LYmanage_yc.html">留言管理</a></li>
+					<li><a href="javascript:;">背景音乐管理</a></li>
+					<li><a href="javascript:;">模板风格管理</a></li>
+					<li><a href="javascript:;" class="active">相册视频管理</a></li>
+				</ul>
+			</div>
+			<div class="conRig_yc">
+				<h3 class="dwH3_yc">相册视频管理</h3>
+				<div class="filePo">
+					<a href="javascript:;" class="poSuc clickSC">上传照片</a><a href="javascript:;" class="poCre">创建相册</a>
+				</div>
+				<ul class="clearfix photoUl">
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">默认相册</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a>
+						</div>
+					</li>
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">相册1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">相册1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">相册1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">相册1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+					<li>
+						<div class="photoD">
+							<img src="images/photo.jpg">
+						</div>
+						<p class="photoP">相册1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+				</ul>
+				<div class="pageF_yc">
+					<a href="javascript:;" class="borLf_yc prev_yc"><span>&lt;</span> 上一页</a><a href="javascript:;">1</a><a href="javascript:;" class="active">2</a><a href="javascript:;">3</a><a href="javascript:;">4</a><a href="javascript:;">5</a><a href="javascript:;">6</a><span class="padS_yc">...</span><a href="javascript:;" class="borLf_yc">10</a><a href="javascript:;" class="next_yc">下一页 <span>&gt;</span></a>
+				</div>
+				<div class="filePo">
+					<a href="javascript:;" class="poSuc">上传视频</a>
+				</div>
+				<ul class="clearfix photoUl">
+					<li>
+						<div class="videoD">
+							<a href="javascript:;" class="viedoA">
+								<img src="images/video.png">
+							</a>
+						</div>
+						<p class="photoP">视频1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA">使用</a>
+						</div>
+					</li>
+					<li>
+						<div class="videoD">
+							<a href="javascript:;" class="viedoA">
+								<img src="images/video.png">
+							</a>
+						</div>
+						<p class="photoP">视频1</p>
+						<div class="photoBox">
+							<a href="javascript:;" class="greenA">设置</a><a href="javascript:;" class="redA removeA">删除</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="wrapS03_yc jbFT_yc">
+			<p>Copyright &copy; <em>2015 - 2016</em> love still All Rights Reserved</p>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="js/html5shiv.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			// 删除
+			$(".removeA").click(function(){
+				var $this=$(this);
+				$(".bg_yc02,.bgBox02,.notiBox").show();
+				$(".sure").unbind("click").click(function(){
+					$(".bg_yc02,.bgBox02,.notiBox").hide();
+					$this.parents("li").remove();
+				});
+				$(".concle").unbind("click").click(function(){
+					$(".bg_yc02,.bgBox02,.notiBox").hide();
+				});
+			});
+			// 上传照片
+			$(".clickSC").click(function(){
+				$(".bg_yc02,.bgBox03,.scPoBox").show();
+			});
+			// 公共弹层关闭
+			$(".handEm").click(function(){
+				$(".bg_yc02,.bgBox02,.notiBox,.bgBox03,.scPoBox").hide();
+			});
+		});
+	</script>
+</html>

@@ -1,0 +1,24 @@
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+{include 'tophead.html'}
+<div class="n"> 
+	<div class="logo_nav">
+		<div class="logo" style="width:116px;height:56px"><img width="116" height="56" src="{logo()}" /></div>
+		<div class="nav">
+			<ul> 
+				<li><a href="{host()}" {if !$cid}class="focus"{/if}>首&nbsp;&nbsp;&nbsp;页</a></li>
+				{mo:navigation row="6"}             
+					{foreach  $return  $v}
+					<!--$n序号，$lastIndex最后一次循环-->
+					{if $v['id']===$cid or $v['id']===$pid}
+						<li><a href="{$v['url']}" class="focus">{csubstr($v['catname'],4,'')}</a></li>
+					{else}
+						<li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a></li>
+					{/if}
+					{/foreach}
+				{/mo:navigation}
+				<li><a href="/special/specialList/index" >网站专题</a></li>
+				<li><a href="/message/Message/index/id/458" {if isset($ismessage)}class='focus'{/if}>网站留言</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

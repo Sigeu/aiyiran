@@ -1,0 +1,107 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">消费记录</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel mt10">
+                <dl class="navTab" style='padding-left:1px;border:0px;'>
+                    <dt class="on" style='display:block;padding:0 10px;'>消费记录</dt>
+                </dl>
+             	<table class="tabelLR" style="border:1px solid #ddd;border-bottom:dashed 1px #ddd">
+                  <tr>
+                    <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%;">用户名</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border:1px solid #ddd">
+                        <!--{if $info.username}-->
+                        <!--{$info.username}-->
+                        <!--{else}-->
+                        <!--{$info.email}-->
+                        <!--{/if}-->
+                    </td>
+
+                    <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%">纪念馆</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border-bottom:1px solid #ddd">
+                       <!--{$info.memorial_name}-->
+                    </td>
+                  </tr>
+                  <tr>
+                    <th style="text-align:center;text-indent:0px;background:#eee;width:20%;border-right:1px solid #ddd">消费项目</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border-right:1px solid #ddd">
+                        <!--{$info.gname}-->
+                    </td>
+
+                    <th style="text-align:center;text-indent:0px;background:#eee;width:20%;border-right:1px solid #ddd">消费元宝</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border-right:1px solid #ddd">
+                        <!--{$info.num * $info.price}-->
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="tabelLR" style="border:1px solid #ddd;border-bottom:dashed 1px #ddd;border-top:0px;">
+                  <tr>
+                    <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%;border-top:0px;">消费纪念馆</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border:1px solid #ddd;border-top:0px;">
+                        <!--{if $info.memorial_name}-->
+                        <!--{$info.memorial_name}-->
+                        <!--{else}-->
+                        储物箱
+                        <!--{/if}-->
+
+                    </td>
+
+                    <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%;border-top:0px;">时间</th>
+                    <td style="text-indent:1em;text-align:left;width:30%;border-bottom:1px solid #ddd;border-top:0px;">
+                        <!--{$info.addtime|date_format:'%Y-%m-%d %H:%M:%S'}-->
+                    </td>
+                  </tr>
+                </table>
+
+                <table class="tabelLR" style="border:1px solid #ddd;border-bottom:dashed 1px #ddd;border-top:0px;">
+                    <tr>
+                        <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%;border-top:0px;">是否放置到纪念馆</th>
+                        <td style="text-indent:1em;text-align:left;width:30%;border:1px solid #ddd;border-top:0px;">
+                            <!--{if $info.place eq 1}-->
+                                已放置
+                            <!--{/if}-->
+                            <!--{if $info.place eq 2}-->
+                                未放置
+                            <!--{/if}-->
+                        </td>
+
+                        <th style="text-align:center;text-indent:0px;background:#eee;border:1px solid #ddd;width:20%;border-top:0px;">商品数量</th>
+                        <td style="text-indent:1em;text-align:left;width:30%;border-bottom:1px solid #ddd;border-top:0px;">
+                            <!--{$info.num}-->
+                        </td>
+                    </tr>
+                </table>
+                <form action="<!--{$baseurl}-->/memorial/order/orderConfirm" method="post">
+                    <input type="hidden" name="orderid" value="<!--{$order.orderid}-->"/>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+
+    </div>
+<div class="clearfix"></div>
+
+    <script type="text/javascript">
+        $('.submit_btn').click(function () {
+            var url = $(this).attr('submit-url');
+            $('#operation-form').attr('action', url);
+            $('#operation-form').submit();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!--{include file="public/head_admin.html"}-->
+<style type='text/css'>
+.dis{display:none}
+</style>
+<script>
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+	//发送邮件用户名称验证
+	$("#adname").formValidator({empty:false,onshow:"请输入1-100个字符",onfocus:"请输入1-100个字符",oncorrect:"输入正确"})
+	.inputValidator({min:1,max:100,onerror:"请输入1-100个字符"});
+	$("#adtypeid").formValidator({onshow:"请选择广告效果",onfocus:"请选择广告效果",oncorrect:"选择正确"}).inputValidator({min:1,onerror: "请选择广告效果"});
+	$("#fontsize").formValidator({empty:true,onshow:"请输入广告位显示字数,由数字组成",onfocus:"请输入广告位显示字数,由数字组成",oncorrect:"输入正确"})
+	.regexValidator({regexp:"^\\d+$",onerror:"请输入广告位显示字数,由数字组成"});
+	$(".position").formValidator({onshow:"请输入广告位上边距,左边距",tipid:"positionTip",onfocus:"请输入上左边距",oncorrect:"输入正确"})
+	.functionValidator({
+	    fun:function(){
+	    	var reg =  /^\d*$/;
+	    	var up = $("#up").val();
+	    	var left = $("#left").val();
+			if(!reg.test(up)  || !reg.test(left)){
+				return "请输入正数";
+			}else{
+				return true;
+			}
+		}
+	});
+	
+	$('.size').formValidator({empty:false,onshow:"请输入广告位宽度,高度",tipid:"sizeTip",onfocus:"请输入宽高",oncorrect:"输入正确"})
+	.functionValidator({
+	    fun:function(){
+	    	var reg =  /^\d*$/;
+	    	var width = $("#width").val();
+	    	var height = $("#size").val();
+
+			if(!reg.test(width)|| !reg.test(height)){
+				return "请输入正数";
+			}else{
+				return true;
+			}
+		}
+	});
+	
+	$(".size").focus(function(){
+		if($(this).val() =='宽度' || $(this).val()=="高度"){
+			$(this).val('');
+		}
+	});
+	$(".size").blur(function(){	
+		if($(this).val() =="宽度" || $(this).val()=="高度" || $(this).val()==""){
+			var val = $(this).attr('reg');
+			$(this).val(val);
+		}
+	});
+	$(".position").focus(function(){
+		if($(this).val() =='上边距' || $(this).val()=="左边距"){
+			$(this).val('');
+		}
+	});
+	$(".position").blur(function(){	
+		if($(this).val() =="上边距" || $(this).val()=="左边距" || $(this).val()==""){
+			var val = $(this).attr('reg');
+			$(this).val(val);
+		}
+	});
+	
+	$("#adtypeid").change(function(){
+		var name = $("#adtypeid option:selected").attr('reg');
+		$('.tem').removeClass('dis');
+		$("#trsize").removeClass('dis');
+		var adsize = $("#"+name).val();
+		var adpos = $("#"+name).attr('reg');
+		
+		if($("#fontsize").val()=="" && name!="word")
+		{
+			   $("#fontsize").val('0');
+		}
+		//对联广告和文字广告时对边距值的控制
+		if(name == 'couplet' || name=='word' ){
+			$("#up").val("上边距");
+			$("#left").val("左边距");
+		}else{
+			$("#up").val("0");
+			$("#left").val("0");
+		}
+		//背投广告时对宽高的控制
+		if(name == 'back'){
+			$("#width").val("0");
+			$("#size").val("0");
+		}else{
+			$("#width").val("宽度");
+			$("#size").val("高度");
+		}
+
+		if(name == 'couplet')
+		{
+			$("#pos1").addClass('dis');
+			$("#pos2").attr('class','');
+			$("#fontnum").addClass('dis');
+		}else if(name == 'back')
+		{
+			$(".tem").addClass('dis');
+			
+		}else if(name == 'turnup')
+		{
+			$("#pos2").addClass('dis');
+			$("#fontnum").addClass('dis');
+			
+		}else if(name == 'adwindow')
+		{
+			$("#pos2").addClass('dis');
+			$("#fontnum").addClass('dis');
+			
+		}else if(name == 'word')
+		{
+			$("#pos2").addClass('dis');
+			$("#fontnum").addClass('dis');
+			var obj = $("#fontnum").find("#fontsize").siblings("span");
+			obj.attr('id',"fontsizeTip");
+			obj.addClass('onShow');
+			obj.html('请输入广告位显示字数');
+		}else{
+			$(".tem").addClass('dis');
+		}
+		if(adpos ==2){//广告类型不需要设置位置
+			
+        	$("#pos1").addClass("dis");
+        	$("#pos2").addClass("dis");
+        	$("#up").val('0');
+        	$("#left").val('0');
+        	
+        }else if(adpos==1){
+        	
+        	$("#pos1").removeClass("dis");
+        	$("#pos2").removeClass("dis");
+        	$("#up").val('上边距');
+        	$("#left").val('左边距');
+        }
+		if(adsize == 2){//广告类型不需要设置尺寸
+			
+        	$("#trsize").addClass("dis");
+        	$("#width").val('0');
+        	$("#size").val('0');
+        }else if(adsize==1){
+        	
+        	$("#trsize").removeClass("dis");
+        	$("#width").val('宽度');
+        	$("#size").val('高度');
+        }
+		if(name=='adwindow' || name=='turnup'){
+			$("#pos2").addClass('dis');
+			$("#up").val('0');
+        	$("#left").val('0');
+		}else{
+			$("#pos1").addClass('dis');
+		}
+		
+		if($("#"+name).attr('atr') == 2){
+			$("#fontsize").val('0');
+			$("#fontnum").addClass('dis');
+			
+		}else if($("#"+name).attr('atr') == 1){
+			$("#fontsize").val('0');
+			$("#fontnum").removeClass('dis');
+		}
+	})
+	$(".cancel").click(function(){
+		window.location.href = "<!--{$baseurl}-->/modules/admanage/adPosition";
+	})
+	
+})
+</script>
+<body>
+    <div class="pubBox" style='height:550px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/modules/admanage/adposition" class="last">广告位列表</a></dd>
+            <dt class="on"><a href="">添加广告位</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+             <form action="<!--{$baseurl}-->/modules/admanage/addposition" id='myform' method='post'>
+              <table class="tabelLR">
+                <!--{foreach item=item from = $effect}-->
+                   <input type='hidden' value='<!--{$item.adsize}-->' reg='<!--{$item.adposition}-->' atr="<!--{$item.wordnum}-->" id="<!--{$item.typefilename}-->"></input>
+                <!--{/foreach}-->
+                <tr>
+                  <th width="145px"><font>*</font> 广告位名称：</th>
+                  <td>
+                      <input type='hidden' value="<!--{$search.category}-->" name='category' ></input>
+                      <input type='hidden' value='<!--{$search.keyword}-->' name='keyword'></input>
+                      <input type='hidden' value='<!--{$search.page}-->' name='page'></input>
+                      <input type="text" value="<!--{$infor.adname}-->" name='adname' id="adname" class="Iw290"/>
+                      <span id='adnameTip'></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 广告效果：</th>
+                  <td><select class="Iw290" style="width:162px;" name='adtypeid' id='adtypeid'>
+                      <option value="0">请选择广告位类型</option>
+                      <!--{foreach item=item from = $effect}-->
+                      <option value="<!--{$item.id}-->,<!--{$item.typename}-->" reg='<!--{$item.typefilename}-->' <!--{if $item.id eq $infor.adtypeid}-->selected<!--{/if}-->><!--{$item.typename}--></option>
+                      <!--{/foreach}-->
+                      </select>
+                      <span id='adtypeidTip'></span>
+                    </td>
+                </tr>
+                <tr>
+                  <th><font>*</font> 投放栏目：</th>
+                  <td><select class="Iw290" style="width:162px;" name='useclumn'>
+                      <option value="0">不限栏目</option>
+                      <!--{foreach item=clum from=$category}-->
+                      <option value="<!--{$clum.id}-->,<!--{$clum.catname}-->" <!--{if $clum.id eq $infor.useclumn}-->selected<!--{/if}-->><!--{$clum.catname}--></option>
+                      <!--{/foreach}-->
+                    </select></td>
+                </tr>
+                <tr id='trsize' <!--{if $effect.adsize eq 2}-->class='dis'<!--{/if}-->>
+                  <th><font>*</font> 广告位尺寸：</th>
+                  <td><input type="text" value="<!--{if $infor.width neq ''}--><!--{$infor.width}--><!--{else}-->宽度<!--{/if}-->" id='width' class="Iw45 size" name='width' reg='宽度'>&nbsp;px&nbsp;&nbsp;
+                  <input type="text" value="<!--{if $infor.height neq ''}--><!--{$infor.height}--><!--{else}-->高度<!--{/if}-->" reg='高度' class="Iw45 size" name='height' id='size'>&nbsp;px
+                  <span id='sizeTip'></span>
+                  </td>
+                </tr>
+                <tr id='pos1' <!--{if $infor.adtypeid eq 7 or $infor.adtypeid eq 9 or $effect.adposition eq 1}-->class='tem'<!--{else}--> class='tem dis'<!--{/if}-->>
+                  <th><font>*</font> 广告位位置：</th>
+                  <td>
+                  <input type="radio" value="1"  class="Iw45" name='pos' <!--{if $infor.pos neq 2}-->checked<!--{/if}--> >左上角
+                  <input type="radio" value="2"  class="Iw45" name='pos' <!--{if $infor.pos eq 2}-->checked<!--{/if}-->>右上角
+                  </td>
+                </tr>
+                
+                <tr id='pos2' <!--{if $infor.adtypeid eq 1 or $infor.adtypeid eq 4 or $effect.adposition eq 1}-->class='tem'<!--{else}--> class='tem dis'<!--{/if}-->>
+                  <th><font>*</font> 广告位位置：</th>
+                  <td><input type="text" value="<!--{if $infor.up}--><!--{$infor.up}--><!--{else}-->上边距<!--{/if}-->" reg="上边距"  class="Iw45 position" name='up' id='up'>&nbsp;px&nbsp;&nbsp;
+                  <input type="text" value="<!--{if $infor.left}--><!--{$infor.left}--><!--{else}-->左边距<!--{/if}-->" reg="左边距"  class="Iw45 position" name='left' id='left'>&nbsp;px
+                  <span id='positionTip'></span>
+                  </td>
+                </tr>
+                 <tr  id='fontnum' <!--{if $infor.adtypeid eq 4 or $effect.wordnum eq 1}-->class='tem'<!--{else}--> class='tem dis'<!--{/if}-->>
+                  <th width="145px"><font>*</font>每条广告显示字数：</th>
+                  <td>
+                      <input type="text" value="0" name='fontnum' id='fontsize' class="Iw290"/>
+                      <span id='fontsizeTip'></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>&nbsp; 广告位描述：</th>
+                  <td><textarea class="Iw450 Ih80" name='addescript'></textarea></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1"> 
+                <input type="button" hidefocus="hide" value="取消" class="btn2 cancel">
+              </div>
+           </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </body>
+    </html>

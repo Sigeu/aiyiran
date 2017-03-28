@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/banner.js"></script>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'head.html'}
+{include 'banner.html'}
+ 
+<div class="wrap">
+  <div class="sideBar1">
+    {include 'category3.html'}
+  </div>
+  <div class="container">
+    <div class="Greyborder">
+      <div class="title"> 
+        <!--<a href="#" class="t_more right">更多&gt;&gt;</a>-->
+        <div class="t_name"><span class="tit_green">Tag列表</span><span class="tit_en">{$tagname}</span></div>
+      </div>
+      <div class="gList_three">
+          <ul>
+		
+            {mo:tags row="10" id="$id_list"  tables='goods'   order='publishtime' pagesize='1' pagenum='5' return="data"} 
+  			{foreach $data  $key $value}  
+   				<li><a href="{$value['url']}" class="picBox"><img src="{UPLOAD_PATH}/goods/{$value['photo'][0]['photo']}" width="173" height="173" onerror="this.src='{IMG_PATH}/default.jpg'" /></a>
+                <div class="tt">
+                <p><a href="{$value['url']}">{$value['goodsname']}</a></p>
+                <p><cite>{$value['shopprice']}</cite>元</p>
+                </div>
+           		 </li>
+  			{/foreach}
+			{/mo:tags}  
+		
+          </ul>
+      </div>
+	 
+       {$pagestr}
+     </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+{include 'footer.html'}

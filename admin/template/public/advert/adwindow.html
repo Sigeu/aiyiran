@@ -1,0 +1,34 @@
+<!--{if $n neq 1}--><script><!--{/if}-->
+var str = "<link href='<!--{$csspath}-->/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='<!--{$csspath}-->/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_TCGG { width:<!--{if $ad.width neq 0}--><!--{$ad.width}-->px;<!--{else}-->250px;<!--{/if}--> height:0; border:#7e7e7e 1px solid; border-radius:2px; position:fixed; <!--{if $ad.pos eq 1}-->left:0;<!--{else}-->right:0;<!--{/if}--> bottom:0; }</style><div class='mainone_ads_TCGG mainone_ads' id='mainone_ads_TCGG'><div class='mainone_ads_titG'><input type='hidden' id='height' value='<!--{$ad.height}-->'><a href='javascript:closeTCGG();' class='mainone_ads_closeBtnG' title='关闭'></a></div><div class='mainone_ads_contG'><a href='<!--{$adimg.link}-->' target='_blank' title='<!--{$adimg.fontalt}-->'>";
+     <!--{if $flash neq 0 }-->
+     str += " <object id='FlashID' classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><param name='movie' value='/static/uploadfile/advert/<!--{$adimg.img.path}-->' /><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><!--[if !IE]>--><object type='application/x-shockwave-flash' data='/static/uploadfile/advert/<!--{$adimg.img.path}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'><!--<![endif]--><param name='quality' value='high' /><param name='wmode' value='opaque' /><param name='swfversion' value='7.0.70.0' /><param name='expressinstall' value='Scripts/expressInstall.swf' /><div><h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4><p><a href='http://www.adobe.com/go/getflashplayer'><img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='获取 Adobe Flash Player' width='112' height='33' /></a></p></div><!--[if !IE]>--></object><!--<![endif]--></object>";
+   <!--{else}-->
+      str += "<img src='<!--{if $adimg.img.path}-->/static/uploadfile/advert/<!--{$adimg.img.path}--><!--{/if}-->' alt='<!--{$adimg.fontalt}-->' width='<!--{$ad.width}-->' height='<!--{$ad.height}-->'/>";
+   <!--{/if}-->
+       str += "</a></div></div>";
+	document.write(str);
+	var speed = 10000;
+	window.onload = function(){
+			showTCGG();
+			setTimeout('closeTCGG()',speed);
+			
+		};
+		function showTCGG(o){
+				if(o == undefined){
+						o = document.getElementById('mainone_ads_TCGG');
+					}
+					if( o.clientHeight < document.getElementById('height').value){
+							o.style.height = o.clientHeight + 2 + 'px';
+							setTimeout(function(){showTCGG(o)},8);
+						}
+			};
+			function closeTCGG(o){
+					if(o == undefined){
+							o = document.getElementById('mainone_ads_TCGG');
+						}
+						if( o.clientHeight >= 0){
+								o.style.height = o.clientHeight - 2 + 'px';
+								setTimeout(function(){closeTCGG(o)},8);
+							}
+				};
+<!--{if $n neq 1}--></script><!--{/if}-->

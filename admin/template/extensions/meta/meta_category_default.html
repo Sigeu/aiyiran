@@ -1,0 +1,64 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/index">首页</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/category">栏目页</a></dd>
+            <dt class="on"><a href="#">栏目页默认设置</a></dt>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/special">专题页</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/2">专题页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/3">专题列表页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/4">内容页默认设置</a></dd>
+            <dd><a href="<!--{$baseurl}-->/extensions/meta/defaultset/type/5" class="last">商品页默认设置</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form action="<!--{$baseurl}-->/extensions/meta/setmeta" id="myForm" name="myForm" method="post">
+            <input type="hidden" id="type" name="type" value="<!--{$type}-->" />
+              <table class="tabelLR">
+                <tr>
+                  <th width="170"><font>*</font>&nbsp; 标题（title）：</th>
+                  <td colspan="3"><input id="title" name="title" type="text" value="<!--{$metaInfo.title}-->" class="Iw290 C999"/></td>
+                </tr>
+                <tr>
+                  <th><font>*</font>&nbsp; 关键词（keywords）：</th>
+                  <td colspan="3"><input id="keywords" name="keywords" type="text" value="<!--{$metaInfo.keywords}-->" class="Iw290 C999"/></td>
+                </tr>
+                <tr>
+                  <th><font>*</font>&nbsp; 描述（description）：</th>
+                  <td colspan="3"><textarea id="description" name="description" class="Iw450 Ih80"><!--{$metaInfo.description}--></textarea></td>
+                </tr>
+                <tr class="pubTabelTot tabelLR">
+                  <th><strong>[可选参数]：</strong></th>
+                  <td colspan="3">
+                      <span>默认设置需要的参数可从以下可选参数中复制添加，请勿任意修改参数及参数书写格式，以免影响页面效果：<br>
+                                                        栏目名称：{category_name}<br/>
+                                                        站点title：{home_title}，站点keywords：{home_keywords}，站点description：{home_description}</span>
+                  </td>
+                </tr>
+              </table>
+              <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" class="btn1">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:history.back();">
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+    $("#title").formValidator({onshow:"请输入标题",onfocus:"请输入标题"}).inputValidator({min:1,onerror:"请输入标题"}).defaultPassed();
+    $("#keywords").formValidator({onshow:'多个关键词之间用","隔开',onfocus:'多个关键词之间用","隔开'}).inputValidator({min:1,onerror:"请输入关键词"}).defaultPassed();
+    $("#description").formValidator({onshow:"请输入描述",onfocus:"请输入描述"}).inputValidator({min:1,onerror:"请输入描述"}).defaultPassed();
+  });
+</script>
+</body>
+</html>

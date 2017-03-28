@@ -1,0 +1,69 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<script>
+$(function(){
+  $.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+  
+  $("#name").formValidator({empty:false,onshow:"请输入2-50字符",onfocus:"请输入2-50字符",oncorrect:"输入正确"})
+  .inputValidator({min:2,max:50,onerror:"请输入2-50字符"});
+ })
+</script>
+<body>
+  <div class="pubBox" >
+    <div class="pubtabBox">
+      <div class="TabBoxT">
+        <dl class="navTab">     
+                   <dt  class="on"><a href="#" class="last">审核列表</a></dt>
+        </dl>
+      </div>
+
+      <form action='<!--{$baseurl}-->/memorial/audit/index' method='post' id='myform'>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <!--{foreach item=item from = $data}-->
+                <tr id="webLogo">
+                  <th width="200px;"><!--{$item.name}-->：</th>
+                  <td>
+                    <label>需要审核：<input type="radio" name="<!--{$item.audit_name}-->" value="1" 
+                    <!--{if $item.is_audit eq 1}-->checked=''<!--{/if}-->
+                    ></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>不需要审核：<input type="radio" name="<!--{$item.audit_name}-->" value="2"
+                    <!--{if $item.is_audit eq 2}-->checked=''<!--{/if}-->
+                    ></label>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </td>
+                <tr>
+               <!--{/foreach}-->
+              </table>
+              <div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="更新" class="btn1"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+ <script>
+ /*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{ 
+
+  var option={
+    upload_id:'logo',
+    title:'音乐',
+    return_id:'accessory',  
+    callFunName:'accessoryUpload',
+    setting:'<!--{$picsetting}-->',
+    param:obj
+  };
+  MainOneUpload(option);
+}
+
+</script>
+ </script>
+</body>
+</html>

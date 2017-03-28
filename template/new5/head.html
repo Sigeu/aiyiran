@@ -1,0 +1,77 @@
+{include 'tophead.html'}
+<div class="nav">
+  <div class="search"><script>
+        function searchSubmit()
+        {
+            var val = $('#keywords').val();
+            if(val=="请输入关键词"||val=='')
+            {
+                alert("请输入关键词");
+                return false;
+            }
+            else
+           {
+                $("#hiddens").val(1);
+                $("#searchForm").submit();
+            }
+        }
+    </script>
+	<form action='{HOST_NAME}search/Search/search' method='post' id='searchForm' target="_blank">
+		<span style="display:none">
+		<select class="select1"  name='cid'>
+            <option value='0'>请选择栏目</option>
+            <option value='{$cid}'>{cid2name($cid)}</option>
+            {php $cateTree = getCategoryTree($cid);}
+            {foreach $cateTree $k $v}
+            <option value='{$v["id"]}'>{$v['catname']}</option>
+            {/foreach}
+        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        <select class="select1"  name='mid'>
+        	<option value=''>--请选择--</option>
+            <option value='1'>文章搜索</option>
+            <option value='2'>商品搜索</option>
+            <option value='a'>专题搜索</option>
+        </select>
+		<input type='radio' value='1' name='search_type'/>  搜索标题&nbsp;&nbsp;
+        <input type='radio' value='2' name='search_type' checked = checked/>  智能搜索&nbsp;&nbsp;
+		</span>
+		
+        <input type="text" name='keywords' class="input226_30 keys" id='keywords' placeholder="请输入关键词" {if isset($keywords)&&$keywords}value="{$keywords}"{else}value=""{/if} /><input type="button" class="sBtn1" value="" onclick='javascript:searchSubmit()'/>
+        <input type='hidden' value='0' id='hiddens' name='hiddens'>
+        <input type="hidden" name="dosearch" value="yes" />
+     </form>
+  </div>
+  <ul>
+		<li><a href="{HOST_NAME}" {if !$cid}class="focus"{/if}>网站首页</a></li>
+        {mo:navigation row='5' order='ordernum'}             
+          {foreach $return  $v}
+		  <!--$n序号，$lastIndex最后一次循环-->
+          {if $v['id']===$cid or $v['id']===$pid}
+        <li><a href="{$v['url']}" class="focus">{$v['catname']}</a></li>
+         {else}
+         <li><a href="{$v['url']}">{csubstr($v['catname'],4,'')}</a></li>
+         {/if}
+          {/foreach}
+        {/mo:navigation}
+        <li><a href="/message/Message/index/id/283" {if isset($ismessage)}class='focus'{/if}>访客留言</a></li>
+  </ul>
+</div>
+<script>
+$(document).ready(function(){
+	
+	$("input.keys").focus(function(){
+	  if($("input.keys").val().replace(/^\s+|\s+$/g,'') == '请输入关键词'){
+		  $("input.keys").val('');
+		  $("input.keys").css("color","#222");
+	  }
+	});
+	
+	$("input.keys").blur(function(){
+		if ($("input.keys").val().replace(/^\s+|\s+$/g,'') == '') {
+			$("input.keys").val('请输入关键词');
+			$("input.keys").css("color","#999");
+		}
+	});
+
+});
+</script>

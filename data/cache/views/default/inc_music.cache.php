@@ -1,0 +1,211 @@
+<?php if(!defined('IN_MAINONE')) exit(); ?>
+        <!-- 音乐盒 -->
+        <link rel="stylesheet" type="text/css" href="/template/default/member/js/jPlayer/jplayer.blue.monday.css"/>
+        <script src="/template/default/member/js/jPlayer/jquery.jplayer.min.js"></script>
+
+<script type="text/javascript">
+function deleteMusic(id)
+{
+    layer.confirm('确认删除当前歌曲吗？', {
+        btn: ['确认','取消'] //按钮
+    }, function(){
+        $.ajax({
+            type: "Post",
+            url: "/member/Memorial/deleteMusic",
+            data: {'id':id},
+            dataType: "json",
+            beforeSend: function () {
+                i =ityzl_SHOW_LOAD_LAYER();
+            },
+            complete: function () {
+                 ityzl_CLOSE_LOAD_LAYER(i);
+            },
+            success: function(data) {
+                if (data.status == 1) {
+                    layer.closeAll();
+                    layer.msg(data.msg);
+                    setTimeout('window.location.reload()',2000);
+                }else{
+                   layer.msg(data.msg);
+                   return false;
+                }
+            }
+        });
+    }, function(){
+        layer.closeAll();
+    });
+}
+
+function removeMusic(id)
+{
+    layer.confirm('确认移出歌单吗？', {
+        btn: ['确认','取消'] //按钮
+    }, function(){
+        $.ajax({
+            type: "Post",
+            url: "/member/Memorial/removeMusic",
+            data: {'id':id},
+            dataType: "json",
+            beforeSend: function () {
+                i =ityzl_SHOW_LOAD_LAYER();
+            },
+            complete: function () {
+                 ityzl_CLOSE_LOAD_LAYER(i);
+            },
+            success: function(data) {
+                if (data.status == 1) {
+                    layer.closeAll();
+                    layer.msg(data.msg);
+                    setTimeout('window.location.reload()',2000);
+                }else{
+                   layer.msg(data.msg);
+                   return false;
+                }
+            }
+        });
+    }, function(){
+        layer.closeAll();
+    });
+}
+
+function renameMusic(id, name)
+{
+    layer.prompt({
+        value: name,
+        title: '请输入要修改的名称',
+    },function(value, index, elem){
+        // alert(value); //得到value
+        if(value){
+            $.ajax({
+                type: "Post",
+                url: "/member/Memorial/renameMusic",
+                data: {'id':id, 'name':value},
+                dataType: "json",
+                beforeSend: function () {
+                    i =ityzl_SHOW_LOAD_LAYER();
+                },
+                complete: function () {
+                     ityzl_CLOSE_LOAD_LAYER(i);
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        layer.closeAll();
+                        layer.msg(data.msg);
+                        setTimeout('window.location.reload()',2000);
+                    }else{
+                       layer.msg(data.msg);
+                       return false;
+                    }
+                }
+            });
+        }
+
+    });
+}
+ function ityzl_SHOW_LOAD_LAYER(){
+                return index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+    }
+    function ityzl_CLOSE_LOAD_LAYER(index){
+            layer.close(index);
+    }
+
+function addMusicList(id)
+{
+
+         $.ajax({
+            type: "Post",
+            url: "/member/Memorial/addMusicList",
+            data: {'id':id},
+            dataType: "json",
+            beforeSend: function () {
+                i =ityzl_SHOW_LOAD_LAYER();
+                // $('#sub').val('发表追思留言中...');
+            },
+            complete: function () {
+                 ityzl_CLOSE_LOAD_LAYER(i);
+                   // $('#sub').val('发表追思留言');
+            },
+            success: function(data) {
+                if (data.status == 1) {
+                    window.location.reload();
+                }else{
+                   layer.msg(data.msg);
+                   return false;
+                }
+            }
+        });
+}
+
+
+//<![CDATA[
+$(document).ready(function(){
+    $(".Audition").click(function(){
+        var path = $(this).attr('path');
+        var title = $(this).attr('title');
+        $('.jp-title').html(title);
+        $("#jquery_jplayer_1").jPlayer("setMedia", {
+                    title: title,
+                    mp3: path
+        }).jPlayer("play")
+
+    });
+
+
+    //默认参数
+    $("#jquery_jplayer_1").jPlayer({
+        ready: function () {
+            $(this).jPlayer("setMedia", {
+                title: "Bubble",
+                mp3: ""
+            });
+        },
+        swfPath: "../../dist/jplayer",
+        supplied: "mp3",
+        wmode: "window",
+        useStateClassSkin: true,
+        autoBlur: false,
+        smoothPlayBar: true,
+        keyEnabled: true,
+        remainingDuration: true,
+        toggleDuration: true
+    });
+});
+//]]>
+</script>
+<div id="jquery_jplayer_1" class="jp-jplayer"></div>
+<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+    <div class="jp-type-single">
+        <div class="jp-gui jp-interface">
+            <div class="jp-controls">
+                <button class="jp-play" role="button" tabindex="0">play</button>
+                <button class="jp-stop" role="button" tabindex="0">stop</button>
+            </div>
+            <div class="jp-progress">
+                <div class="jp-seek-bar">
+                    <div class="jp-play-bar"></div>
+                </div>
+            </div>
+            <div class="jp-volume-controls">
+                <button class="jp-mute" role="button" tabindex="0">mute</button>
+                <button class="jp-volume-max" role="button" tabindex="0">max volume</button>
+                <div class="jp-volume-bar">
+                    <div class="jp-volume-bar-value"></div>
+                </div>
+            </div>
+            <div class="jp-time-holder">
+                <div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>
+                <div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>
+                <div class="jp-toggles">
+                    <button class="jp-repeat" role="button" tabindex="0">repeat</button>
+                </div>
+            </div>
+        </div>
+        <div class="jp-details">
+            <div class="jp-title" aria-label="title">&nbsp;</div>
+        </div>
+        <div class="jp-no-solution">
+            <span>Update Required</span>
+            To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+        </div>
+    </div>
+</div>

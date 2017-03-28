@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>模板文件</title>
+<link href="<!--{$jspath}-->/swfupload/swfupload.css" rel="stylesheet" type="text/css" />
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+</head>
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+		    <dt class="on"><a href="#">模板文件</a></dt>
+		    <dd><a href="<!--{$baseurl}-->/extensions/specialfile/newfile/folder/<!--{$folder}-->">新建模板文件</a></dd>
+            <dd><a id='accessory_upload' href="javascript:void(0)" class="last" onclick="uploadAccessory({'limit':'1'})">上传新模板文件</a></dd>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabelTot">
+            </div>
+            <div class="pubTabel">
+                <form action="" method="post" id='myForm'>
+                    <table class="tabelTB"  id="search-list">
+                        <tr>
+                            <th width="10%">选择</th>
+                            <th width="20%">文件名</th>
+                            <th width="25%">描述</th>
+                            <th width="20%">修改时间</th>
+                            <th width="25%">操作</th>
+                        </tr>
+                        <!--{foreach from=$filelist item=l }-->
+                        <tr>
+                            <td><input type="checkbox" name="file[]" value="<!--{$l.filename}-->"/></td>
+                            <td><!--{$l.filename}--></td>
+                            <td><!--{$l.describe}--></td>
+                            <td><!--{$l.update}--></td>
+                            <td>
+                                <a href="<!--{$baseurl}-->/extensions/specialfile/edit/folder/<!--{$folder}-->/file/<!--{$l.filename}-->">修改</a> | 
+                                <a target='_blank' href="<!--{$smarty.const.URL_TPL}-->special/<!--{$folder}-->/<!--{$l.filename}-->">预览</a> | 
+                                <a href="javascript:;" onclick="MoConfirm('<!--{$baseurl}-->/extensions/specialfile/del/folder/<!--{$folder}-->/file/<!--{$l.filename}-->')">删除</span>
+                            </td>  
+                        </tr>
+                        <!--{foreachelse}-->
+                        <tr >
+                            <td align="center" style="colspan:5">没有模板文件</td>
+                        </tr>
+                        <!--{/foreach}-->
+                    </table>
+                    <input type="hidden" name="folder" value="<!--{$folder}-->" />
+                </form>
+            </div>
+            <div class="pubOperate"><label><span class="btn5">
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+              全选/反选
+              </span> </label>
+              <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="myForm" container-id="search-list"  form-action="<!--{$baseurl}-->/extensions/specialfile/del" empty-tips="请选择要删除的模板文件！" confirm-tips="确定删除？"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ <script src="<!--{$jspath}-->/pubJq.js"></script>
+<script>
+/*
+*  -------------------------------------------------
+*   自定义上传方法
+*  -------------------------------------------------
+*/
+function uploadAccessory (obj)
+{	
+	var option=
+	{
+		upload_id:'accessory_upload',
+		title:'模板文件上传',
+		return_id:'accessory',
+		callFunName:'templateUpload',
+		setting:'<!--{$setting.setting}-->',
+		param:obj
+	};
+	MainOneUpload(option);//调用统一上传方法
+}
+
+//js回调函数
+function templateUpload ()
+{
+	var win = art.dialog.open.origin;			//来源页面
+	var iframe = this.iframe.contentWindow;		//Iframe
+	var $iframe = $(iframe.document);           //iframe Jquery对象
+	var $data = $iframe.find('.mo-upload-data');//上传后的数据
+	var js_object = {'folder':'<!--{$folder}-->'};
+	if($data.length)
+	{
+		$.each($data,function(i,n)
+		{
+			var _n = $(n);
+            js_object[i] = {'selfname':_n.attr('selfname'),'path':_n.attr('path')};
+		});
+	}
+    jQuery.post('<!--{$baseurl}-->/extensions/specialfile/uploadtpl',js_object,function()
+    {
+       location.reload();
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+/* CSS Document */
+.adver_bg{ height:40px; background-color:#600203; overflow:hidden; display:none;position:relative;}
+.adver_bg div{ width:1000px; margin:0 auto; position:relative;}
+.close_btn{ width:14px; height:14px; position:absolute; right:0; top:0; display:none;}
+.dl{width:120px; height:270px; display:block;position:absolute; top:100px;}
+.dl_left{ left:0; z-index:100;}
+.dl_right{ right:0; z-index:100;}
+.dl_closebtn{ width:14px; height:14px; position:absolute; right:0; top:0;}

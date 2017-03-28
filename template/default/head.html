@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{$seo['title']}</title>
+        <link rel="stylesheet" type="text/css" href="{CSS_PATH}/public.css"/>
+        <script src='/template/default/js/jquery.1.7.2.js'></script>
+
+    </head>
+    <body>
+        <div class="box_top">
+            <div class="box_top_cont">
+                <ul class="fl">
+                    <li><a href="/">网站首页</a></li>
+                    <li><a href="javascript:setHomepage()">设为首页</a></li>
+                </ul>
+                <ul class="fr">
+                    <li><a href="/category/Category/index/cid/281">帮助中心</a></li>
+                    <li><a href="/category/Category/index/cid/53">关于我们</a></li>
+                    {if $GLOBALS['username']}
+                    <li><a href="/member/Systeminfo/lists" target="_blank">消息</a></li>
+                    <li class="user_name"><a href="/member/Index/index">{$GLOBALS['username']}</a></li>
+                    {else}
+                        <li class="user_name"><a href="/user/Login/login2">登录</a></li>
+                    {/if}
+                </ul>
+            </div>
+        </div>
+        <div class="header">
+            <div class="head_search">
+                <a href="/" class="logo fl"><img src="{IMG_PATH}/logo_02.png"></a>
+                <span class="dt_pic fl"><img src="{IMG_PATH}/logod.gif"/></span>
+                <!-- <form action="/comment/comment/searchs" method="post"> -->
+                <div class="search fl">
+                    <div class="seleBox fl">
+                        <p>{if isset($sel) && $sel==2}名人纪念馆{else}私人纪念馆{/if}</p><i class="jt_1"></i>
+                        <ul class="sel_list">
+                            <li data="1">私人纪念馆</li>
+                            <li data="2">名人纪念馆</li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="hiddens" value="1">
+                    <input class="text_cont fl" type="text" id="kds" name="keywords" placeholder="请输入搜索内容" />
+                    <input class="but_search fl" type="button" id="tijiao"  value="搜索" />
+                    <p class="hot_seek fl"><span>热门搜索：</span>
+                        {mo:memorial catid='2' field="name" order="click_num desc" pagesize="5" return="data"}
+                        {foreach $data  $key $val}
+                        <a href="/search/Search/searchs2/sel/2/keywords/{$val['name']}">{$val['name']}</a>
+                        {/foreach}
+                        {/mo:memorial}
+                    </p>
+                </div>
+            <!-- </form> -->
+
+<script type="text/javascript">
+$(function(){
+    var sel = 1;
+    $(".sel_list li").click(function(){
+     sel = $(this).attr('data');
+    });
+        $("#tijiao").click(function(){
+            var keywords = $("#kds").val();
+             window.location.href="/search/Search/searchs2/sel/"+sel+"/keywords/"+keywords;
+        })
+});
+
+</script>
+
+            </div>
+            <div class="nav_box">
+                <div class="nav">
+                    <ul class="fl navUl_yc">
+                        <li class="bgnav {if $cid==0}active1{/if}"><a href="/" class="active">首页</a></li>
+                        {mo:navigation  row='9' type="top" order='ordernum asc'}
+                            {foreach $return  $v}
+                                    {if $v['id']=='304'}
+                                    <li  class="bgnav {if $cid==305}active1{/if}" ><a  href="{getMoreUrl(305)}">{$v['catname']}</a>
+                                    {else}
+                                    <li  class="bgnav {if $cid==$v['id']}active1{/if}" ><a  href="{getMoreUrl($v['id'])}">{$v['catname']}</a>
+                                    {/if}
+                                        <dl class="memNav_yc" style="display: none;">
+                                        {php $soncateTree = getCateTree($v['id'],1);}
+                                            {foreach $soncateTree $sonk $sonv}
+                                                {if $sonv['id']=='312'}
+                                                {elseif $sonv['id']=='311'}
+                                                {elseif $sonv['id']=='310'}
+                                                {elseif $sonv['id']=='320'}
+                                                {elseif $sonv['id']=='319'}
+                                                {elseif $sonv['id']=='318'}
+                                                {elseif $sonv['id']=='317'}
+                                                {elseif $sonv['id']=='316'}
+                                                {elseif $sonv['id']=='329'}
+                                                {elseif $sonv['id']=='330'}
+                                                {else}
+                                                <dd><a target="_blank" href="{getMoreUrl($sonv['id'])}">{$sonv['catname']}</a></dd>
+                                                {/if}
+                                            {/foreach}
+                                        </dl>
+                                    </li>
+                            {/foreach}
+                        {/mo:navigation}
+                    </ul>
+                    <span class="fl"><i></i>400-800-6666</span>
+                </div>
+            </div>
+        </div>
+<script type="text/javascript">
+//设为主页
+function setHomepage() {
+if (document.all) {
+   document.body.style.behavior = 'url(#default#homepage)';
+   document.body.setHomePage('http://www.aiyiran.com/');
+} else if (window.sidebar) {
+   if (window.netscape) {
+       try {
+           netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+       } catch (e) {
+           alert("该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true");
+       }
+   }
+   var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+   prefs.setCharPref('browser.startup.homepage', window.location.href);
+} else {
+   alert('您的浏览器不支持自动自动设置首页, 请使用浏览器菜单手动设置!');
+}
+}
+</script>
+
+

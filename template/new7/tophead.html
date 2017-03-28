@@ -1,0 +1,5 @@
+<div class="t">
+  <div class="topBar"> <span class="right">{if $GLOBALS['username']}
+	欢迎你:{$GLOBALS['username']}　<a href="/user/User/loginout">安全退出</a>
+	{else}<a target='__blank' href="/user/User/regist/groupid/24" class="ico3">免费注册</a> | <a href="/user/User/login/type/1" class="ico4">登录</a>{/if}</span><a href="javascript:;" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('{HOST_NAME}')" class="ico1">设为首页</a> | <a href="javascript:;" onClick="window.external.addFavorite('{HOST_NAME}','企业资讯')" title="企业资讯" class="ico2">收藏首页</a></div>
+</div>

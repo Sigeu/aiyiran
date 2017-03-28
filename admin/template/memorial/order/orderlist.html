@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<!-- layer插件 -->
+<link rel="stylesheet" href="<!--{$jspath}-->/layer/skin/default/layer.css" type="text/css">
+<script src="<!--{$jspath}-->/layer/layer.js"></script>
+<!-- 时间日期插件 -->
+<script src="<!--{$jspath}-->/laydate/laydate.js"></script>
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/need/laydate.css" type="text/css">
+<link rel="stylesheet" href="<!--{$jspath}-->/laydate/skins/molv/laydate.css" type="text/css">
+
+
+
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+              <!--{if $params.status eq 0}-->
+              <dt class="on"><a href="<!--{$baseurl}-->/memorial/order/orderlist">订单列表</a></dt>
+              <!--{else}-->
+              <dd><a href="<!--{$baseurl}-->/memorial/order/orderlist"  class="last">订单列表</a></dd>
+              <!--{/if}-->
+
+              <!--{if $params.status eq 1}-->
+              <dt class="on"><a href="<!--{$baseurl}-->/memorial/order/orderlist/status/1"  class="last">待支付</a></dt>
+              <!--{else}-->
+              <dd><a href="<!--{$baseurl}-->/memorial/order/orderlist/status/1"  class="last">待支付</a></dd>
+              <!--{/if}-->
+
+              <!--{if $params.status eq 2}-->
+              <dt class="on"><a href="<!--{$baseurl}-->/memorial/order/orderlist/status/2" class="last">已支付</a></dt>
+              <!--{else}-->
+              <dd><a href="<!--{$baseurl}-->/memorial/order/orderlist/status/2"  class="last">已支付</a></dd>
+              <!--{/if}-->
+          </dl>
+        </div>
+
+        </form>
+        <form action="<!--{$baseurl}-->/memorial/hall/index" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                    <th width="5%">选择</th>
+                    <th width="10%">订单号</th>
+                  <th width="5%">支付金额</th>
+                  <th width="10%">产品名称</th>
+                  <th width="5%">支付方式</th>
+                  <th width="10%">时间</th>
+                  <th width="5%">订单状态</th>
+                  <th width="5%">操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                    <td><input type="checkbox" name="orderid[]" value='<!--{$item.orderid}-->' />
+                    </td>
+                  <td title='<!--{$item.ordersn}-->'><!--{$item.ordersn}--></td>
+                  <td><!--{$item.money}--></td>
+                    <td><!--{$item.product_name}--></td>
+                    <td><!--{if $item.payid eq 1}-->支付宝<!--{/if}--><!--{if $item.payid eq 2}-->微信<!--{/if}--><!--{if $item.payid eq 3}-->苹果支付<!--{/if}--></td>
+                    <td><!--{$item.ordertime|date_format:'%Y-%m-%d %H:%M:%S'}--></td>
+                    <td><!--{if $item.status eq 1}-->待付款<!--{/if}--><!--{if $item.status eq 2}-->已付款<!--{/if}--><!--{if $item.status eq 3}-->已取消<!--{/if}--></td>
+                    <td>
+                   <a href="<!--{$baseurl}-->/memorial/order/orderInfo/orderid/<!--{$item.orderid}-->" class="last">查看</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+			  <input type="button" class="btn5" value="删除" class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/order/orderDelete/page/<!--{$page}-->" empty-tips="请选择要删除的订单" confirm-tips="确认删除？"/>
+
+            </div>
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+
+<script type="text/javascript">
+  $(function(){
+    $(".shenhe").click(function(){
+      var id = $(this).attr('data');
+       var idx = layer.confirm('确认通过审核吗？', {
+            btn: ['通过','不通过'] //按钮
+                        }, function(){
+                            $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/audi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("history.go(0)",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        }, function(){
+                           $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/noaudi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("history.go(0)",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        
+            });
+    });
+
+    // 不通过
+     $(".bushenhe").click(function(){
+      var id = $(this).attr('data');
+       var idx = layer.confirm('不通过审核吗？', {
+            btn: ['确认','取消'] //按钮
+                        }, function(){
+                            $.ajax({
+                                type: "Post",
+                                url: "<!--{$baseurl}-->/memorial/hall/noaudi",
+                                data: {"id":id},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.status == 1) {
+                                        layer.msg(data.msg, {icon: 1});
+                                        setTimeout("window.location.href='<!--{$baseurl}-->/memorial/Hall/index'",2000);
+                                    } else {
+                                        layer.msg(data.msg, {icon: 2});
+                                    };
+                                }
+                            });
+                        }, function(){
+                         layer.close(idx);
+            });
+    });
+  })
+</script>
+
+    </body>
+    </html>

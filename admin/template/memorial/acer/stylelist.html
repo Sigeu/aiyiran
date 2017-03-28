@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><!--{$title}--></title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+<!--  artdialog插件  -->
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+
+</head>
+
+<body>
+  <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">模板风格列表</a></dt>
+            <dd><a href="<!--{$baseurl}-->/memorial/acer/styleadd" class="last">添加模板风格</a></dd>
+          </dl>
+        </div>
+        <form action="<!--{$baseurl}-->/memorial/hall/index" method='get' id="batch-form">
+      
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <div class="pubTabel">
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th>选择</th>
+                  <th>模板名称</th>
+                  <th>缩略图</th>
+                  <th>是否收费</th>
+                  <th>价格</th>
+                  <th>操作</th>
+                </tr>
+                <!--{foreach item=item from = $list}-->
+                <tr>
+                  <td>
+                    <input type="checkbox" name="id[]" value='<!--{$item.id}-->' />
+                  </td>
+                  <td><!--{$item.name}--></td>
+                  <td><img src="/static/uploadfile<!--{$item.pic}-->" width="50" height="50"></td>
+                  <td><!--{$item.free}--></td>
+                  <td><!--{$item.price}--></td>
+                  <td>
+                    <a href="<!--{$baseurl}-->/memorial/acer/styleupdate/id/<!--{$item.id}-->/page/<!--{$page}-->">修改</a> |
+                    <a href="javascript:;"  onclick="MoConfirm('<!--  {$baseurl}-->/memorial/acer/delete/id/<!--{$item.id}-->','确认删除？')">删除</a>
+                  </td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+            </div>
+
+            <div class="pubOperate"><span class="btn5">
+              <label>
+              <input type="checkbox" class="Check-All-Toggle" container-id="search-list"/>
+                                        全选/反选</label>
+              </span> 
+             
+              <input type="button" class="btn5" value="删除" class="Check-All-Toggle" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/memorial/acer/delete" empty-tips="请选择要删除的数据" confirm-tips="确认删除？"/>
+            </div>
+            *最多可添加5条规则
+
+            <div class="pubTabelBot">
+             <div class="pageGo"><!--{$pageStr}--></div>
+            </div> 
+             </form>          
+           </div>
+          </div>
+    </body>
+    </html>
+
+    <script type="text/javascript">
+      $(function(){
+        $(".upajax").click(function(){
+          var id = $(this).attr("data");
+          var tr = $(".up_"+id).parent();
+          var money = $(".money_"+id).val();
+          var acer = $(".acer_"+id).val();
+          // location.href="<!--{$baseurl}-->/memorial/acer/updata/id/"+id+"/money/"+money+"/acer/"+acer;
+          if(id==""){
+            alert("请选择删除id");
+          }else{
+            $.ajax({
+              type: "Post",
+              url: "<!--{$baseurl}-->/memorial/acer/updata",
+              data: {"id":id, "money":money, "acer":acer},
+              dataType: "json",
+              success: function(data) {
+                  if (data.status == 1) {
+                    artDialog({
+                      opacity: 0, // 透明度
+                      content: data.msg,
+                      ok: function () {
+                        //点击确定执行回调函数
+                      },
+                    });
+                  } else {
+                    artDialog({content: data.msg});
+                  };
+              }
+            });
+          }
+        
+        });
+      });
+    </script>

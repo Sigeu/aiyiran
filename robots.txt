@@ -1,0 +1,8 @@
+User-agent: *
+Crawl-delay: 10
+Disallow: /admin/
+Disallow: /library/
+Disallow: /application/
+Disallow: /vendor/
+Disallow: /data/
+Disallow: /logs/

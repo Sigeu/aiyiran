@@ -1,0 +1,66 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+<div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">添加模型</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+        <form method='post' action="" id='myForm'>
+            <div class="pubTabel">
+              <table class="tabelLR">
+                <tr>
+                  <th width="170px"><font>*</font> 模型名称：</th>
+                  <td><input type="text" value="<!--{$newModelInfo.name}-->" class="Iw290" name='name' id='modelName'/>
+                    </td>
+                </tr>
+                <tr>
+                  <th><font>*</font>模型表键名：</th>
+                  <td><input type="text" value="<!--{$newModelInfo.tablename}-->" class="Iw290" name='tablename' id='tableName'/></td>
+                </tr>
+                 <input type="hidden" value="<!--{$newModelInfo.oldid}-->" class="Iw290" name='oldid'/>
+                 <input type="hidden" value="<!--{$newModelInfo.id}-->" class="Iw290" name='id'/>
+                 <input type="hidden" value="<!--{$newModelInfo.category_template}-->" class="Iw290" name='category_template'/>
+                 <input type="hidden" value="<!--{$newModelInfo.list_template}-->" class="Iw290" name='list_template' />
+                 <input type="hidden" value="<!--{$newModelInfo.content_template}-->" class="Iw290" name='content_template' />
+              </table>
+              <div class="pubTabelBot">
+                   <input type="hidden" name='dosubmit' value='1'/>
+                  <input type="button" hidefocus="hide" value="确定" onclick='javascript:formSubmit();' class="btn1"><input type="button" hidefocus="hide" value="取消"  onclick="javascript:history.back();" class="btn2">
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+	//初始化配置
+	 $.formValidator.initConfig({autotip:true,formid: "myForm",generalwordwide:true,  debug:false,onError: function(msg) {}, onSuccess: function() {}});
+	
+	$("#modelName").formValidator({onshow:"请输入1-100个字符，由汉字、数字、字母、符号组成",onempty:'请输入1-100个字符，由汉字、数字、字母、符号组成',onfocus:"请输入1-100个字符，由汉字、数字、字母、符号组成",oncorrect:"输入正确"}).inputValidator({min:1,max:100,onerror:"请输入1-100个字符，由汉字、数字、字母、符号组成"}).defaultPassed();
+	$("#tableName").formValidator({onshow:"请输入1～50个字符，由数字、字母、下划线组成",onfocus:"请输入1～50个字符，由数字、字母、下划线组成",oncorrect:"输入正确"}).inputValidator({min:1,max:50,onerror:"请输入1～50个字符，由数字、字母、下划线组成"}).regexValidator({regexp:"^(\\w)+$",onerror:"请输入1～50个字符，由数字、字母、下划线组成"})
+	 .ajaxValidator({
+					type:"get",
+					url : "<!--{$urlArr.checkTableUrl}-->",
+					success : function(data)
+					{	
+						if(data==1)
+							return false;
+						else
+							return true;
+					},
+					buttons: $(".btn2"),
+					error: function(jqXHR, textStatus, errorThrown){onerror: "可能服务器忙，请重试"},
+					onerror : "该表已存在，请换一个",
+					onwait : "正在对表名进行合法性校验，请稍候..."
+				}).defaultPassed();
+	
+});
+</script>
+</body>
+</html>

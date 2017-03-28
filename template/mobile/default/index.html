@@ -1,0 +1,150 @@
+<!--首页-->
+
+{include 'header.html'}
+<!--搜索框 begin-->
+  <div class="search_wrap">
+      <div style="padding:10px 15px; border-bottom:#d9e8f5 solid 1px;">
+        <div class="searchbar">
+            {foreach $search_set $key $val}
+                <a href="javascript:void(0)" class="{if $val['id'] == 1}search_btnR{else}search_btnB{/if} searchbtn" mid="{$val['id']}" style="margin-right:{if $key == 0}-57{else}-120{/if}px;">{$val['title']}</a><!--searchbtn-->
+            {/foreach}
+          <div class="search_con">
+            <span class="search_ico"></span>
+            <div>
+                <form id='search_form' action="{URL_HOST}mobile/index/search" method='post'>
+                    <input type="text" name='keywords' value="" class="input01" placeholder="请输入搜索关键词" />
+                    <input id='search_mid' name='mid' type="hidden" value=''/>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<!--搜索框 end-->
+  <div class="content">
+  <!--首页模块 begin-->
+      {foreach $index_set $hkey $hval}
+          {php $source_id = $hval['source_id']}
+           <!--首页轮播图 beign-->
+          {if $hval['id'] == 1}
+            <div class="pic_scroll">
+              <ul id="pic_s">
+                {if $hval['item_count'] != ''}
+                {php $conut = $hval['item_count']}
+                {mo:position row="$conut" id="$source_id" return="data"}
+                {else}
+                {mo:position id="$source_id" return="data"}
+                {/if}
+                    {foreach $data  $key $value}
+                        {if $value['model_id'] == 2}
+                            {php $action = 'goods'}
+                        {else}
+                            {php $action = 'content'}
+                        {/if}
+                        <li>
+                          <a href="{URL_HOST}mobile/index/{$action}/id/{$value['ag_id']}" class="scroll_img">
+                            <img src="{URL_HOST}{$value['pos_img']}" />
+                          </a>
+                          <div class="pic_desc">
+                            <a href="{URL_HOST}mobile/index/{$action}/id/{$value['ag_id']}">{$value['headline']}</a>
+                          </div>
+                        </li>
+                    {/foreach}
+                {/mo:position}
+              </ul>
+              <a href="javascript:void(0);" title="上一幅" id="prev"></a>
+              <a href="javascript:void(0);" title="上一幅" id="next"></a>
+            </div>
+          {/if}
+          <!--首页轮播图 end-->
+          <!--文章推荐 beign-->
+          {if $hval['id'] == 2}
+            <div class="pubT">
+                <h3>{$hval['name']}</h3>
+            </div>
+            <div class="ulList01">
+              <ul>
+                {if $hval['item_count'] != ''}
+                {php $conut = $hval['item_count']}
+                {mo:position row="$conut" id="$source_id" return="data"}
+                {else}
+                {mo:position $hval['item_count'] id="$source_id" return="data"}
+                {/if}
+                    {foreach $data $key $value}
+                        {if $value['model_id'] == 2}
+                            {php $action = 'goods'}
+                        {else}
+                            {php $action = 'content'}
+                        {/if}
+                        <li>
+                            <a href="{URL_HOST}mobile/index/{$action}/id/{$value['ag_id']}">{$value['headline']}</a>
+                        </li>
+                    {/foreach}
+                {/mo:position}
+              </ul>
+            </div>
+          {/if}
+          <!--文章推荐 end-->
+          <!--商品推荐 beign-->
+          {if $hval['id'] == 3}  
+            <div class="pubT"><h3>{$hval['name']}</h3></div>
+            <div class="ulList02">
+              <ul>
+                {if $hval['item_count'] != ''}
+                {php $conut = $hval['item_count']}
+                {mo:position row="$conut" id="$source_id" return="data"}
+                {else}
+                {mo:position $hval['item_count'] id="$source_id" return="data"}
+                {/if}
+                    {foreach $data  $key $value}
+                        {if $value['model_id'] == 2}
+                            {php $action = 'goods'}
+                            {php $width = $base_set['product_picture_width']}
+                            {php $height = $base_set['product_picture_height']}
+                        {else}
+                            {php $action = 'content'}
+                            {php $width = $base_set['article_picture_width']}
+                            {php $height = $base_set['article_picture_height']}
+                        {/if}
+                        <li>
+                            <a href="{URL_HOST}mobile/index/{$action}/id/{$value['ag_id']}" class="listImg">
+                                <img src="{URL_HOST}{$value['pos_img']}" width="{$width}" height="{$height}"/>
+                            </a>
+                            <a style='display:block;width:85%' href="{URL_HOST}mobile/index/{$action}/id/{$value['ag_id']}" class="listTxt">{$value['headline']}</a>
+                        </li>
+                    {/foreach}
+                {/mo:position}
+              </ul>
+            </div>
+          {/if}
+          <!--商品推荐 end-->
+          <!--网站介绍|联系方式 beign-->
+          {if $hval['id'] >= 4}
+              <div class="pubT">
+                  <h3>{$hval['name']}</h3>
+              </div>
+              {php $cid = $hval['source_id']}
+              {mo:category cid="$cid" type='self' return="data"}
+                  <div class="webInfo mar_b10">
+                      {htmlTagSubstr($data[0]['content'], 60, '...')}
+                  </div>
+                  <div class="mar_b10">
+                      <a href="{$hval['url']}" class="showAll">查看详细>></a>
+                  </div>
+              {/mo:category}
+          {/if}
+          <!--网站介绍|联系方式 end-->
+      {/foreach}
+    <!--首页模块 end-->
+      {include 'interact.html'}
+  </div>
+  {include 'footer.html'}
+  
+  <!--搜索框 js-->
+  <script type='text/javascript'>
+  $('.searchbtn').bind('click', function () {
+        var mid = $(this).attr('mid');
+        $('#search_mid').val(mid);
+        $('#search_form').submit();
+  });
+  </script>

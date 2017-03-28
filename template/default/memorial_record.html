@@ -1,0 +1,18 @@
+{include 'inc/memorial_head.html'}
+
+		<div class="biography clearfix">
+			    <div class="headline">
+				<span class="fl">传记<i></i></span>
+				<!--<a href="###" class="fr">参看更多<i></i></a>-->
+				</div>	
+				<ul class="four_zj clearfix">
+					<li>
+						<h3>{$bio['bioname']}</h3>
+						{csubstr($bio['biocontent'],300)}
+					    <h5><!-- 发布人：admin │  -->阅读({$bio['click_nums']}) │ 发布时间：{$bio['createtime']}<a href="/jinian/Jinian/recordConn/mid/{$mid}">阅读全文>></a></h5>
+					</li>
+				</ul>
+			</div>
+		 
+			<!--********footer***************************************-->
+{include 'head_footer.html'}

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>站点地图</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<link href="<!--{$csspath}-->/styleL.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+<div class="notif" style="width:675px;position:absolute;">
+      <div class="Ncon">
+        <div class="Ncont">
+          <div class="pubTabel" style="overflow:hiddden;">
+            <!--{foreach from=$mapList key=key item=row}-->
+            <dl class="col">
+                <dt><a href="#"><!--{$tops[$key].name}--></a></dt>
+                <!--{foreach from=$row key=key2 item=row2}-->
+                <dd>
+                    <dl>
+                        <dt><a href="#"><!--{$row2.name}--></a></dt>
+                        <!--{foreach from=$row2.menuchild item=row3}-->
+                        <dd><a href="#" onclick='go("<!--{$key}-->","<!--{$row3.id}-->","<!--{$row3.linkURL}-->");'><!--{$row3.name}--></a></dd>
+                        <!--{/foreach}--> 
+                    </dl>
+                </dd>
+                <!--{/foreach}--> 
+            </dl>
+            <!--{/foreach}-->            
+          </div>         
+        </div>
+      </div>
+    </div>    
+<script type="text/javascript">
+ function go(topid,subid,targetUrl) {
+    window.top.location.href = "<!--{$baseurl}-->/admin/index/init?menuid="+topid+"&submenu="+subid+"&rightUrl="+targetUrl; 
+    window.top.art.dialog({id:'map'}).close();
+} 
+
+</script>
+</body>
+</html>

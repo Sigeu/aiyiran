@@ -1,0 +1,25 @@
+                <div class="cont_list cont_list6">
+                    <div class="headline">
+                        <span class="fl">纪念馆访问排行<i></i></span>
+                        <!--<a href="###" class="fr">参看更多<i></i></a>-->
+                     </div>
+                    <ul class="">
+            <!-- 纪念馆访问排行 -->
+             {mo:memorial dearrank="1" field="id,personname" pagesize="10" return="data"}
+                {foreach $data  $key $value}
+                    {$key++}
+                        {if $key < 4}
+                        <li class="active">
+                            <em>{$key}</em>
+                        {else}
+                        <li class="">
+                            <em>{$key}</em>
+                        {/if}
+                            <a href="/jinian/Jinian/index/mid/{$value['id']}" target="_blank">{$value['personname']} </a>
+                        </li>
+
+                {/foreach}
+            {/mo:memorial}
+
+                    </ul>
+                </div>

@@ -1,0 +1,55 @@
+<!--{include file="public/head_admin.html"}-->
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on">
+                <a href="<!--{$baseurl}-->/template/mobiletemplate/index">手机模板</a>
+            </dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+              <ul class="tempX">
+               <!--{foreach from=$tpl_conf item=l }-->
+                <li>
+                  <a href="javascript:void(0)" class="timg"><img src="<!--{$l.cover}-->" /></a>
+                  <span>模板名称：<!--{$l.name}--> (<!--{$l.folder}-->)</span>
+                  <p>
+                      <!--{if $l.disable == 1}--><a class="on" href="#">使用中</a><!--{/if}-->
+                      <!--{if $l.disable != 1}--><a href="javascript:redirect('<!--{$baseurl}-->/template/mobiletemplate/replace','<!--{$l.folder}-->');">替换使用</a><!--{/if}--> |
+                      <a href="<!--{$baseurl}-->/template/mobiletemplate/view/folder/<!--{$l.folder}-->">查看模板</a> |
+                      <a href="<!--{$baseurl}-->/template/mobiletemplate/export/folder/<!--{$l.folder}-->">导出模板</a>
+                  </p>
+                </li>
+               <!--{foreachelse}-->
+                 <li>没有可用模板！</li> 
+               <!--{/foreach}-->
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="pubTabelBot">
+              <div class="pageGo"> <span>共<em><!--{$page.totalnum}--></em>条信息，分<em><!--{$page.pagenum}--></em>页显示，当前第<em><!--{$page.nowpage}--></em>页</span> <a href="<!--{$baseurl}-->/template/mobiletemplate/index/page/<!--{$page.first}-->">首页</a>  <a href="<!--{$baseurl}-->/template/mobiletemplate/index/page/<!--{$page.uppage}-->">上一页</a> <a href="<!--{$baseurl}-->/template/mobiletemplate/index/page/<!--{$page.nextpage}-->">下一页</a> <a href="<!--{$baseurl}-->/template/mobiletemplate/index/page/<!--{$page.last}-->">末页</a> <span>跳转至
+                <select>
+                  <!--{section name="page" loop=$page.pagenum}-->
+                  <option value="<!--{$smarty.section.page.index+1}-->" onclick="javascript:window.location.href='<!--{$baseurl}-->/template/mobiletemplate/index/page/<!--{$smarty.section.page.index+1}-->'"  <!--{if $page.nowpage eq $smarty.section.page.index+1}-->selected<!--{/if}--> ><!--{$smarty.section.page.index+1}--></option>
+                  <!--{/section}-->
+                </select>
+                页 </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+	//查看模板
+	function redirect(url,name)
+	{
+		window.location.href = url+"?name="+name;
+	}
+</script>
+</body>
+</html>

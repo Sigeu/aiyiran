@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleL.css" rel="stylesheet" type="text/css"/>
+</head>
+<!--动态调用二维码-->
+<script language='javascript' src='{HOST_NAME}index/index/qrcodePreview/id/4'></script>
+<!--静态调用二维码-->
+<script language='javascript' src='{HOST_NAME}html/qrcache/10.js'></script>
+<body>
+{if $GLOBALS['is_mobile_open']}
+    {if $GLOBALS['is_mobile_scan']}
+        您正在用手机访问电脑版网站，为了保证最佳浏览效果，建议您 <a href='{URL_HOST}index/index/changeEdition/ed/mobile' style="color:blue">[切换至手机版]</a>
+    {/if}
+{/if}
+{include 'head.html'}
+<script src="{JS_PATH}/banner.js"></script>
+<script language='javascript' src='{HOST_NAME}index/index/preview/id/94'></script>
+<div class="bgGreen">              
+  <div class="w">
+    <div class="allBanner">
+      <div class="showimg" id="idcontainerBanner2">
+        <table id="idSlider2">
+          <tr>
+            <td><a href="#"><img src="{IMG_PATH}/allbanner1.png" /></a></td>
+            <td><a href="#"><img src="{IMG_PATH}/allbanner2.png" /></a></td>
+            <td><a href="#"><img src="{IMG_PATH}/allbanner3.png" /></a></td>
+            <td><a href="#"><img src="{IMG_PATH}/allbanner4.png" /></a></td>
+            <td><a href="#"><img src="{IMG_PATH}/allbanner5.png" /></a></td>
+          </tr>
+        </table>
+      </div>    
+      <div class="scrollimg" id="nav_title">
+        <ul>
+          <li><span class="simg"></span>
+            <div class="sort"><a href="javascript:void(0);" class="a1"><strong>吃喝玩乐</strong><cite>Beer skittles</cite></a></div>
+          </li>
+          <li> <span class="simg"></span>
+            <div class="sort"><a href="javascript:void(0);" class="a2"><strong>闲物交换</strong><cite>Idle Swap</cite></a></div>
+          </li>
+          <li> <span class="simg"></span>
+            <div class="sort"><a href="javascript:void(0);" class="a3"><strong>生活妙招</strong><cite>Life coup</cite></a></div>
+          </li>
+          <li> <span class="simg"></span>
+            <div class="sort"><a href="javascript:void(0);" class="a4"><strong>政策法规</strong><cite> regulations</cite></a></div>
+          </li>
+          <li> <span class="simg"></span>
+            <div class="sort"><a href="javascript:void(0);" class="a5 last"><strong>北京新闻</strong><cite>BeijingNews</cite></a></div>
+          </li>
+        </ul>  
+      </div>
+    </div>
+
+	<div class="hotNews">
+		<div class="T">热点新闻</div>
+		<div class="C">
+			<div class="sidebar">
+				<ul id="photoUl" style="position:absolute;left:0;">
+					{mo:contentlist  order="hits desc" row='3' return='data'}
+						{foreach $data $k $v}
+						<li>
+							<strong><a href="{$v['url']}" title='{$v["title"]}'>{csubstr($v['title'],15)}</a></strong>
+							<img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="88" height="58"/>
+							<p>{csubstr($v['description'],38)}<a href="{$v['url']}"  >[详细]</a></p>
+						</li>
+						{/foreach}
+					{/mo:contentlist}
+				</ul>
+				<div class="lrRow"><a href="javascript:void(0);" title="下一幅" id="next"></a><a href="javascript:void(0);" title="上一幅" id="prve"></a></div>
+			</div>
+		</div>
+	</div>
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="w">
+    <div class="l w356">
+      <div class="Gborder Gborder_h332">
+        <div class="title"> <a href="{getMoreUrl(391)}" class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name(391)}</span><span class="tit_en">Beer and skittles</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h132">
+            <div class="bc_pic">
+            {mo:contentlist   return='data'}
+              	{foreach $data $k $v} 
+	              	{if $n==1}   
+	                   <a href="{$v['curl']}" title="" ><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" /></a>
+	                {/if} 
+                {/foreach} 
+              {/mo:contentlist}
+              </div>            
+            <dl class="bc_txt">             
+              <dt><a href="{getMoreUrl(391)}" title="">{cid2name(391)}</a></dt>
+              {mo:contentlist cid='391'  row='3' return='data'}
+              	{foreach $data $k $v}
+              <dd><a href="{$v['url']}" id="mylink" target="_blank"  title="{$v['title']}">{csubstr($v['title'],15)}</a></dd>
+                {/foreach} 
+               {/mo:contentlist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <div class="bc bc_h132">
+            <div class="bc_pic">
+			 {mo:articlelist cid='60' type='son' return='data' order='true'}
+              	{foreach $data $k $v} 
+	                  {if $n==1}   
+	                   <a href="{$v['curl']}"   title=""><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" /></a>
+	                {/if} 
+	             {/foreach} 
+               {/mo:articlelist}
+			</div>
+            <dl class="bc_txt">
+              <dt><a href="{getMoreUrl(58)}"   title="">{cid2name(60)}</a></dt>
+               {mo:articlelist cid='60' type='son' return='data'}
+              	{foreach $data $k $v}
+              <dd><a href="{$v['url']}">[{cid2name($v['cid'])}]{$v['title']}</a></dd>
+                {/foreach} 
+               {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m w387">
+      <div class="Gborder Gborder_h332">
+        <div class="title"> <a href="{getMoreUrl(394)}"   class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name(394)}</span><span class="tit_en">Policies and regulations</span></div>
+        </div>
+        <div class="box_con">
+          <dl class="bc_txt">
+              {mo:articlelist cid='394' order='true' row='12' return='data'}
+              	{foreach $data $k $v}
+				 <dd><span class="time">{date('Y-m-d',$v['updatetime'])}</span><a   title="{$v['title']}" href="{$v['url']}">[{cid2name($v['cid'])}］{csubstr($v['title'],17)}</a></dd>
+                {/foreach} 
+               {/mo:articlelist}
+            
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="r w237">
+      <div class="Greyborder Gborder_h332 Greyborder_bg1">
+        <div class="r_tit"> <a href="#" class="right t_more">更多&gt;&gt;</a> <span class="r_t_name icobg_01">浏览量高的商品</span> </div>
+        <div class="box_con">
+          <ul class="r_goods">
+          {mo:goods  order='hits desc'  row='3'  return='data'}
+              {foreach $data $key $value}
+            <li>
+              <div class="bc_pic" ><a href="{$value['url']}" title=""><img style='width:88px;height:88px' src="{UPLOAD_PATH}/goods/{$value['image'][0]}" /></a></div>
+              <dl class="dl_goods">
+                <dt><a href="{$value['url']}">{$value['goodsname']}</a></dt>
+                <dd class="f6 pb5">{csubstr($value['brief'],15)}</dd>
+                <dd><strong class="f14">{$value['shopprice']}</strong>元</dd>
+              </dl> 
+             </li>
+           {/foreach}
+         {/mo:goods} 
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="w">
+    <div class="goodsList"><b></b>
+      <ul>  
+        {mo:goods   cid='54' type='son' row='8' return='data'}
+        {foreach $data $k $v}
+        <li><a href="{$v['url']}"><img style='width:104px;height:99px' src="{UPLOAD_PATH}/goods/{$v['image'][0]}" /></a></li>
+        {/foreach}
+        {/mo:goods}
+      </ul>
+    </div>
+  </div>
+  <div class="w">     
+    <div class="l w356"></div>
+    <div class="m w387"></div>
+    <div class="r w236"></div>
+    <div class="l w356">
+      <div class="Gborder Gborder_h255">
+        <div class="title"> <a href="{getMoreUrl(393)}" class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name(393)}</span><span class="tit_en">Sports news</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h198">
+              {mo:articlelist cid='393' row='1' return='data'}
+              {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:15px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" /></a></div>
+              {/foreach}
+              {/mo:articlelist}
+            <dl class="bc_txt">
+              {mo:articlelist cid='393' row='8' return='data'}
+              {foreach $data $k $v}
+              {if $n==1}
+              <dt><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],'13','..')}</a></dt>
+              {else}
+              <dd><a href="{$v['url']}" title='{$v["title"]}' class="bg_dot">{csubstr($v['title'],'15','..')}</a></dd>
+              {/if}
+              {/foreach}
+              {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="m w366">
+      <div class="Gborder Gborder_h255">
+        <div class="title"> <a href="{getMoreUrl(395)}" class="t_more right">更多&gt;&gt;</a>
+          <div class="t_name"><span class="tit_green">{cid2name(395)}</span><span class="tit_en">The life of a small coup</span></div>
+        </div>
+        <div class="box_con">
+          <div class="bc bc_h81">
+          {mo:articlelist cid='395' row='1' return='data'}
+              {foreach $data $k $v}
+            <div class="bc_pic" style="margin-right:15px;"><a href="{$v['url']}" title="{$v['title']}"><img src="{UPLOAD_PATH}/{$v['thumb']['src']}" width="128" height="81" /></a></div>
+            <dl class="bc_txt">
+              <dt><a href="{$v['url']}" title="{$v['title']}">{csubstr($v['title'],'10')}</a></dt>
+              <dd class="sj">{csubstr($v['description'],'27')}<a href="{$v['url']}" class="greena">
+                <详细>
+                </a></dd>
+              {/foreach}
+              {/mo:articlelist}
+            </dl>
+          </div>
+          <div class="bg_line"></div>
+          <div class="box_con">
+            <dl class="bc_txt">
+              {mo:articlelist cid='395' type='son' row='6' return='data'}
+              {foreach $data $k $v}
+              <dd><a href="{$v['url']}">[{$v['catname']}］{$v['title']}</a></dd>
+               {/foreach}
+              {/mo:articlelist}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="r w257">
+      <div class="Greyborder Gborder_h255 Greyborder_bg2">
+        <div class="r_tit" style="margin-bottom:4px;"> <a href="#" class="right t_more">更多&gt;&gt;</a> <span class="r_t_name icobg_02">推荐游玩</span> </div>
+        <div class="box_con">
+          <ul class="arrow_ulL" style="margin:0;">
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">北京蟹岛新增海盗船，过山车...</a></li>
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">北京蟹岛新增海盗船，过山车...</a></li>
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">北京蟹岛新增海盗</a></li>
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">北京蟹岛新增海盗船</a></li>
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">多几个崔永元 多几个正能量</a></li>
+            <li><a href="#" class="right f6 uline">查看</a><a href="#">多几个崔永元 多几个正能量</a></li>
+            <li class="last"><a href="#" class="right f6 uline">查看</a><a href="#">多几个崔永元 多几个正能量</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+{include 'banner.html'}
+{include 'footer.html'}
+                      
+<script type="text/javascript">
+var forEach = function(array, callback, thisObject){
+		if(array.forEach){
+			array.forEach(callback, thisObject);
+		}
+		else
+		{ 
+			for (var i = 0, len = array.length; i < len; i++) { callback.call(thisObject, array[i], i, array); }
+		}
+	}
+	
+	var st = new SlideTrans("idcontainerBanner2", "idSlider2", 5, { Vertical: false });
+	var arr=ban.$('idSlider2').getElementsByTagName('td');
+	forEach(arr, function(o, i){
+		o.onmouseover = function(){st.Stop()}
+		o.onmouseout = function(){ st.Run() }
+	}) 
+	var nums = ban.$('nav_title').getElementsByTagName('li');
+	forEach(nums, function(o, i){
+		o.onmousedown = function(){ o.className = "on"; st.Auto = false; st.Run(i); }
+		o.onmouseout = function(){ o.className = ""; st.Auto = true; st.Run(); }
+	})
+		//设置按钮样式
+	st.onStart = function(){
+		forEach(nums, function(o, i){ o.className = st.Index == i ? "on" : ""; })
+	}
+	st.Run();
+</script> 
+<script src="{JS_PATH}/photo.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+function view(url)
+{
+    window.open("makehtml.php?url="+url);
+    document.links('mylink').disabled;
+}
+</script>

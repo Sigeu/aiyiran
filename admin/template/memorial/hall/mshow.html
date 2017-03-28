@@ -1,0 +1,43 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+<body>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">     
+                    <dd><a href="<!--{$baseurl}-->/memorial/hall/index" class="last">纪念馆列表</a></dd>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/info/id/<!--{$mid}-->">逝者资料管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/biography/id/<!--{$mid}-->">传记管理</a></dt>
+                    <dt class="on"><a href="<!--{$baseurl}-->/memorial/hall/mshow/id/<!--{$mid}-->">隐私管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/eulogy/id/<!--{$mid}-->">祭文悼词管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/epitaph/id/<!--{$mid}-->">墓志铭管理</a></dt>
+                    <dt><a href="<!--{$baseurl}-->/memorial/hall/steleauthor/id/<!--{$mid}-->">立碑人信息</a></dt>
+                </dl>
+			</div>
+
+			<form action='<!--{$baseurl}-->/memorial/hall/mshow' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+            
+							
+
+								<tr>
+									<th width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看权限：</th>
+									<td>
+                                     <span><input type="radio" name="isshow" value="1"<!--{if $info.isshow eq 1}-->checked<!--{/if}--> /><label>完全公开</label></span>
+									 <span><input type="radio" name="isshow" value="2"<!--{if $info.isshow eq 2}-->checked<!--{/if}--> /><label>仅馆主可见</label></span>
+									</td>
+								</tr>
+                                <input type="hidden" name="mid" value="<!--{$mid}-->"/>
+ 							</table>
+							<div class="pubTabelBot"><input type="submit" name="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/modules/link/index'"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

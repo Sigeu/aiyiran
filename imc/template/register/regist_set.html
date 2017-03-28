@@ -1,0 +1,151 @@
+<!--{include file="public/head_admin.html"}-->
+<style>
+   #forbid_email,#forbid_email,#forbidname,#forbid_ip,#allow_ip,#allow_email{font-size:12px;}
+</style>
+<script>
+  $(function(){
+	  $.formValidator.initConfig({autotip:true,formid:"myForm",onerror:function(msg){}});
+	  $("#allow_ip").formValidator({empty:true,onshow:"允许这些IP段注册网站一行一个，例：192.168.*.*",onfocus:"允许这些IP段注册网站一行一个，例：192.168.*.*",oncorrect:"输入正确"})
+	  .functionValidator({
+		     fun:function(val,elem){
+		    	 var vals = $("#allow_ip").val();
+				  ch = new Array;
+				  ch = vals.split("\n");
+				  for(i=0;i<ch.length;i++){
+				    ips =ch[i].split(".");
+				    reg = new RegExp(/^\d{1,3}|\*{1}$/);
+				    if(ips.length!=4){
+				    	return "ip格式不正确";
+				    }
+				    for(j=0;j<ips.length;j++){
+				    	if(reg.test(ips[j])==false || parseInt(ips[j])>255)
+				    	{
+				    		return "您输入的IP格式不正确";
+				    	}
+				    }
+				  }
+				  return true;  
+		     }
+	  })
+	   $("#forbid_ip").formValidator({empty:true,onshow:"禁止这些IP段注册网站一行一个，例：192.168.*.*",onfocus:"禁止这些IP段注册网站一行一个，例：192.168.*.*",oncorrect:"输入正确"})
+	  .functionValidator({
+		     fun:function(val,elem){
+		    	 var vals = $("#forbid_ip").val();
+				  ch = new Array;
+				  ch = vals.split("\n");
+				  for(i=0;i<ch.length;i++){
+				    ips =ch[i].split(".");
+				    reg = new RegExp(/^\d{1,3}|\*{1}$/);
+				    if(ips.length!=4){
+				    	return "ip格式不正确";
+				    }
+				    for(j=0;j<ips.length;j++){
+				    	if(reg.test(ips[j])==false || parseInt(ips[j])>255)
+				    	{
+				    		return "您输入的IP格式不正确";
+				    	}
+				    }
+				  }
+				  return true;  
+		     }
+	  })
+	  $("#allow_email").formValidator({empty:true,onshow:"允许这些域名结尾的E-mail地址注册一行一个如：@hotmail.com换行后添加第二个 @gmail.com",onfocus:"允许这些域名结尾的E-mail地址注册一行一个如：@hotmail.com换行后添加第二个 @gmail.com",oncorrect:"输入正确"})
+	  .functionValidator({
+		     fun:function(val,elem){
+		    	 var vals = $("#allow_email").val();
+				  email = new Array;
+				  email = vals.split("\n");
+				  for(i=0;i<email.length;i++){
+				    reg = new RegExp(/^@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/);
+				    if(reg.test(email[i])==false){
+				    	return "格式输入有误!";
+				    }
+				  }
+				  return true;  
+		     }
+	  })
+	  $("#forbid_email").formValidator({empty:true,onshow:"允许这些域名结尾的E-mail地址注册一行一个如：@hotmail.com换行后添加第二个 @gmail.com",onfocus:"允许这些域名结尾的E-mail地址注册一行一个如：@hotmail.com换行后添加第二个 @gmail.com",oncorrect:"输入正确"})
+	  .functionValidator({
+		     fun:function(val,elem){
+		    	 var vals = $("#forbid_email").val();
+				  email = new Array;
+				  email = vals.split("\n");
+				  for(i=0;i<email.length;i++){
+				    reg = new RegExp(/^@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/);
+				    if(reg.test(email[i])==false){
+				    	return "格式输入有误!";
+				    }
+				  }
+				  return true;  
+		     }
+	  })
+	  $("#cancel").click(function(){
+		  window.location.reload(true);
+	  })
+  })
+</script>
+<body>
+    <div class="pubBox" style='padding:10px;'>
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="#">注册设置</a></dt>
+          </dl>
+        </div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel" style='margin-left:15px;'>
+            <form action='<!--{$baseurl}-->/register/register/saveSet' method='post' id='myForm'>
+              <table class="tabelLR">
+                <tr>
+                  <td style='width:100%'>
+				  禁止的用户名：<br>
+                  <textarea class="Iw450 Ih80" name='forbidname' id='forbidname'><!--{$set.mo_forbidname}--></textarea>&nbsp;&nbsp;禁止这些用户名注册会员，多个用户名用英文逗号","隔开，可设置通配符，例"**强","李**"
+				  </td>
+                </tr>
+                <tr>
+                  <td>
+				  禁止的E-mail地址：<br>
+				  <textarea class="Iw450 Ih80" id='forbid_email' name='forbidemail'><!--{$set.mo_forbidemail}--></textarea>&nbsp;&nbsp;<span id="forbid_emailTip">禁止这些域名结尾的E-mail地址注册，一行一个如：@hotmail.com  换行后添加第二个 @gmail.com</span></td>
+                </tr>
+                <tr>
+                  <td>
+				  允许的E-mail地址：<br>
+				  <textarea class="Iw450 Ih80" id='allow_email' name='allowemail'><!--{$set.mo_allowemail}--></textarea>&nbsp;&nbsp;<span id="allow_emailTip"></span></td>
+                </tr>
+                <tr>
+                  <td>
+				  禁止的IP地址段：<br>
+				  <textarea class="Iw450 Ih80" id='forbid_ip' name='forbidip'><!--{$set.mo_forbidip}--></textarea>&nbsp;&nbsp;<span id='forbid_ipTip'></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+				  允许的IP地址段：<br>
+				  <textarea class="Iw450 Ih80" id='allow_ip' name='allowip'><!--{$set.mo_allowip}--></textarea>&nbsp;&nbsp;<span id='allow_ipTip'></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+				  是否允许同一个E-mail注册多个用户：<br>
+				  <span>
+                    <input type="radio" value='1' name='flag' <!--{if $set.mo_flag eq 1}-->checked<!--{/if}-->/>
+                    <label>是</label>
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                    <input type="radio" value='2' name='flag' <!--{if $set.mo_flag neq 1}-->checked<!--{/if}-->/>
+                    <label>否</label>
+                    </span></td>
+                </tr>
+              </table>
+            </div>
+             <div class="pubTabelBot">
+                <input type="submit" hidefocus="hide" value="确定" id='sub' class="btn1"><input type="button" hidefocus="hide" value="取消" id='cancel' class="btn2">
+              </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+

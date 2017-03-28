@@ -1,0 +1,10 @@
+.q_bevel {width:0;height:0;position:fixed;_position:absolute;top:0;right:0;overflow:hidden;}
+.q_bevel a{display:block;position:absolute;left:0;top:0;width:100%;height:100%;z-index:2;}
+.q_bevel a img {width:100%;height:100%;}
+.q_bevel .q_beval_jpg{position:absolute;right:0;top:0;}
+.q_bevel_close,.q_bevel_close2 {position:absolute;z-index:3;top:54%;left:38%;cursor:pointer;display:none;background:url(../images/repeat.png) no-repeat right 0;width:16px;height:16px;}
+.q_bevel_close2{width:47px;left:33%;}
+.q_bevel_close2 .q_bevel_close{position:absolute;top:0;left:31px;display:block;} 
+.q_pic_art {width:900px;height:90px;margin-top:10px;}
+.q_full_sc{width:1000px;height:417px;position:absolute;display:none;}
+.q_full_close,.q_full_close:hover {background:url(../images/q_close.png);position:absolute;top:0;right:0;width:45px;height:16px;text-decoration:none;}

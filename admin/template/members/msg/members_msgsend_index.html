@@ -1,0 +1,180 @@
+<!--{include file="public/head_admin.html"}-->
+<script type="text/javascript">
+$(function()
+{
+	//初始化配置
+	$.formValidator.initConfig({formid:"formid",autotip:true,generalwordwide:true});
+	$("#title").formValidator(
+	{
+		onshow:"请输入2至30个字符",
+		onfocus:"请输入2至30个字符",
+		oncorrect:"输入正确"
+	}).inputValidator(
+	{
+		min:2,
+		max:30,
+		onerror:"请输入2至30个字符"
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			$("#isSelect").focus().blur();
+			return true;
+		 }
+	});
+
+	$("#isSelect").formValidator(
+	{
+		onshow:"请选择会员组或填写会员名",
+		onfocus:"请选择会员组或填写会员名",
+		oncorrect:"输入或选择正确"
+	}).functionValidator(
+	{
+		 fun:function(val)
+		 {
+			var attrname = $('input[name="sendtype"]:checked').val();
+			if (attrname == 'group')
+			{
+				if($('#groups input:checkbox:checked').length == 0)
+					return '请选择会员组';
+			}
+			else 
+			{
+				if($.trim($('#members').val()) == '')
+					return '请输入会员名称';
+			}
+			return true;
+		 }
+	});
+
+	$("#content").formValidator(
+	{
+		onshow:"请输入10至300个字符",
+		onfocus:"请输入10至300个字符",
+		oncorrect:"输入正确",
+		onempty:'输入内容为空',
+		empty:true
+	}).inputValidator(
+	{
+		min:10,
+		max:300,
+		onerror:"请输入10至300个字符"
+	});
+});
+</script>
+<body>
+<div class="pubBox">
+  <div class="pubtabBox">
+	<div class="TabBoxT">
+	  <dl class="navTab">
+		<!--{if $act eq 'in'}-->
+		<dd><a href="<!--{$baseurl}-->/members/msginbox/index" class="last">收件箱列表</a></dd>
+		<!--{else}-->
+		<dd><a href="<!--{$baseurl}-->/members/msgoutbox/index" class="last">发件箱列表</a></dd>
+		<!--{/if}-->
+		<dt class="on"><a href="JavaScript:;">发送站内信</a></dt>
+	  </dl>
+	</div>
+	<form method="post" action="<!--{$baseurl}-->/members/msgsend/send" enctype="multipart/form-data" id="formid">
+	<div class="TabBoxC">
+	  <div>
+		<div class="pubTabel">
+		  <table class="tabelLR">
+			<tr>
+			  <th width="145"><font>*</font> 信件主题：</th>
+			  <td><input type="text" name="title" value="" class="Iw290" id="title"/></td>
+			</tr>
+			<tr>
+			  <th valign="top"><font>*</font> 收件人：</th>
+			  <td>
+			    <span>
+				<input type="radio" checked="checked" name="sendtype" value="group" id="groupsend"/><label>群发消息</label>
+				</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>
+				<input type="radio" name="sendtype" value="member" id="membersend"/><label>指定会员发送</label>
+				</span><span>
+				<input type="hidden" value="" id="isSelect"/>
+				</span><div class="height16"></div>
+				<table id="groups" style="display:none;width:400px;"><!--{foreach from=$group item=l key=k name=myinfo}-->
+				<!--{if $k%3 eq 0}--><tr><!--{/if}--><td valign="top"><label><input type="checkbox" <!--{foreach from=$l.level item=lv}--><!--{if $levelid eq $lv.id}-->checked<!--{/if}--><!--{/foreach}--> name="group[<!--{$l.id}-->]" value="<!--{$l.id}-->" />&nbsp;<!--{$l.name}--></label>
+				<div>
+				<!--{foreach from=$l.level item=lv}-->
+				&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="checkbox" <!--{if $levelid eq $lv.id}-->checked<!--{/if}--> name="group[<!--{$l.id}-->][]" value="<!--{$lv.id}-->" /> <!--{$lv.levelname}--></label><br />
+				<!--{/foreach}-->
+				</div>
+				</td><!--{if $k%3 eq 2}--></tr><!--{/if}--><!--{/foreach}--><!--{if $smarty.foreach.myinfo.total%3 eq 1}--><td></td><td></td></tr><!--{/if}--><!--{if $smarty.foreach.myinfo.total%3 eq 2}--><td></td></tr><!--{/if}--></table>
+				<div id="names" style="display:none">
+					<textarea type="text" name="members" class="Iw290" id="members"/><!--{foreach from=$member_list item=l}--><!--{$l.username}-->,<!--{/foreach}--></textarea><strong>[温馨提示]：</strong><span>请填写收件人的用户名，多个用户名之间用'；'分隔。</span>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <th valign="top">&nbsp; 信件内容：</th>
+			  <td><textarea class="Iw450 Ih80" name="content" id="content"></textarea></td>
+			</tr>
+		  </table>
+		</div>
+		 <div class="pubTabelBot">
+			<input type="submit" hidefocus="hide" value="确定" class="btn1"><input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/members/msgoutbox/index'">
+		  </div>
+	  </div>
+	</div>
+	</form>
+  </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	$(function()
+	{
+		$('#groupsend').click(function(){
+			$('#names').hide();
+			$('#groups').show();
+		});
+		$('#membersend').click(function(){
+			$('#names').show();
+			$('#groups').hide();
+		});
+
+		if($(':radio:checked').val() == 'group')
+			$('#groupsend').click();
+		else
+			$('#membersend').click();	
+
+
+		$.each($('#groups td'),function(i,n)
+		{
+			$(n).find('input:first').bind('click',function()
+			{
+				var _c = ($(this).attr('checked') == undefined) ? false : true;
+				$(this).parent().parent().find('div').find('input').attr('checked',_c);
+				$("#isSelect").focus().blur();
+			});
+
+			if($(n).find('div').find('input').length != 0)
+			{
+				$.each($(n).find('div').find('input'),function(ci,cn)
+				{
+					$(cn).bind('click',function()
+					{
+						var _toatls = $(n).find('div').find('input').length;
+						var _checked = $(n).find('div').find('input:checkbox:checked').length;
+						var _nochecked = $(n).find('div').find('input:checkbox:not(:checked)').length;
+						if(_checked != 0)
+						{
+							$(n).find('input:first').attr('checked',true);
+							$("#isSelect").focus().blur();
+							return;
+						}
+						if (_nochecked == _toatls)
+						{
+							$(n).find('input:first').attr('checked',false);
+							$("#isSelect").focus().blur();
+							return;
+						}
+						//
+					})
+				});
+			}
+		})
+	});
+</script>

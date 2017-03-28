@@ -1,0 +1,58 @@
+<!--{include file="public/head_admin.html"}-->
+<script src="<!--{$jspath}-->/mo_upload.js"></script>
+
+<body>
+	<div class="pubBox" >
+		<div class="pubtabBox">
+			<div class="TabBoxT">
+				<dl class="navTab">     
+                    <dd><a href="<!--{$baseurl}-->/memorial/moreset/steleauthor" class="last">立碑人模板信息列表</a></dd>
+                    <dt class="on"><a href="#">编辑立碑人模板信息</a></dt>
+				</dl>
+			</div>
+
+			<form action='<!--{$baseurl}-->/memorial/moreset/steleupdate' method='post' id='myform'>
+				<div class="TabBoxC">
+					<div>
+						<div class="pubTabel">
+							<table class="tabelLR">
+								<tr>
+									<th width="170px">&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 名称：</th>
+									<td>
+										<input type="hidden" name="page" value="<!--{$arr.page}-->" />
+										<input type="hidden" name="id" value="<!--{$infor.id}-->" />
+										<input type="text" value="<!--{$infor.name}-->" class="Iw290" name='name' id='name'/>&nbsp;<span id='nameTip'></span>
+									</td>
+								</tr>
+                                 <tr>
+                                  <th valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;内容：</th>
+                                  <td colspan="5"><textarea class="Iw450 Ih80" name="content" id="content"><!--{$infor.content}--></textarea> &nbsp;&nbsp;<span id='contentTip'></span></td>
+                                 </tr>
+								<tr>
+									<th>&nbsp;&nbsp;&nbsp;&nbsp;<font>*</font> 排序：</th>
+									<td>
+										<input type="text" value="<!--{$infor.listorder}-->" class="Iw290" name='listorder' id='listorder'/>&nbsp;<span id='listorder_urlTip'></span>
+									</td>
+								</tr>
+							</table>
+							<div class="pubTabelBot"><input type="submit" hidefocus="hide" value="确定" class="btn1">&nbsp;&nbsp;&nbsp;<input type="button" hidefocus="hide" value="取消" class="btn2" onclick="javascript:window.location.href = '<!--{$baseurl}-->/memorial/moreset/steleauthor'"></div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+$(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:false,generalwordwide:true});
+    
+    $("#name").formValidator({empty:false,onshow:"请输入2-50字符",onfocus:"请输入2-50字符",oncorrect:"输入正确"})
+    .inputValidator({min:2,max:50,onerror:"请输入2-50字符"}).defaultPassed();
+     $("#content").formValidator({empty:false,onshow:"请输入2-500字符",onfocus:"请输入2-500字符",oncorrect:"输入正确"})
+	.inputValidator({min:2,max:500,onerror:"请输入2-500字符"}).defaultPassed();
+});
+
+
+</script>
+</html>

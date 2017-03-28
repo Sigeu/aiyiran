@@ -1,0 +1,60 @@
+<!--单页栏目页-->
+
+{include 'header.html'}
+<!--子栏目 begin-->
+{if $hid != 0}
+{mo:category cid="$hid" order="ordernum" type="child" return="data"}
+{if $data}
+<div class="search_wrap">
+  <div class="search_box">
+  <div class="search_txt">
+         {foreach $data $key $value}
+            {if $key != 0}&nbsp;&nbsp;|&nbsp;&nbsp;{/if}
+            {if $value['columnattr'] <= 2}
+                <a {if $value['id'] == $cid}class='red'{/if} href="{URL_HOST}mobile/index/search/mid/{$value['model']}/cid/{$value['id']}">{$value["catname"]}</a>
+            {/if}
+            {if $value['columnattr'] == 3}
+                <a href="{$value['filepath']}">{$value["catname"]}</a>
+            {/if}
+            {if $value['columnattr'] == 4}
+                <a {if $value['id'] == $cid}class='red'{/if} href="{URL_HOST}mobile/index/category/cid/{$value['id']}">{$value["catname"]}</a>
+            {/if}
+         {/foreach}
+  </div>
+  </div>
+</div>
+{/if}
+{/mo:category}
+{/if}
+<!--子栏目 end-->
+  <div class="content">
+    <div class="company">
+      <div class="com_tit">{$info['catname']}</div>
+      <div class='content' id='category_content'>{$info['content']}</div><!--category_content-->
+      {if $show}
+      <div>
+        <a nextpage='{$nextpage}' href="javascript:void(0)" class="showAll">余下全文</a><!--showAll nextpage-->
+      </div>
+      {/if}
+    </div>
+    {include 'interact.html'}
+  </div>
+  {include 'footer.html'}
+  
+<script type='text/javascript'>
+$('.showAll').bind('click', function () {
+    var nextpage = $(this).attr('nextpage');
+    $.post(
+        "{URL_HOST}mobile/index/categoryViewMore",
+        {nextpage: nextpage, cid : "{$cid}"},
+        function (data) {
+            $('#category_content').html(data.content);
+            $('.showAll').attr('nextpage', nextpage*1 + 1);
+            if (data.show == 0) {
+                $('.showAll').remove();
+            }
+        },
+        "json"
+    )  
+});
+</script>

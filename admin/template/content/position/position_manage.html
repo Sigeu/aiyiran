@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>推荐位管理</title>
+<link href="<!--{$csspath}-->/basc.css" rel="stylesheet" type="text/css"/>
+<script src="<!--{$jspath}-->/jquery-1.7.2.js"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/jquery.artDialog.source.js?skin=blue"></script>
+<script src="<!--{$jspath}-->/artDialog4.1.6/plugins/iframeTools.source.js"></script>
+<script type="text/javascript" src="<!--{$jspath}-->/My97DatePicker/WdatePicker.js"></script>
+<script src="<!--{$jspath}-->/admin.js"></script>
+</head>
+<body>
+    <div class="pubBox">
+      <div class="pubtabBox">
+        <div class="TabBoxT">
+          <dl class="navTab">
+            <dt class="on"><a href="javascript:void(0)">推荐位管理</a></dt>
+            <dd><a href="<!--{$baseurl}-->/content/position/addposition" class="last">添加推荐位</a></dd>
+          </dl>
+        </div>
+        <div class="height16"></div>
+        <div class="TabBoxC">
+          <div>
+            <div class="pubTabel">
+            <form method="POST" action="" id="batch-form" />
+              <table class="tabelTB" id="search-list">
+                <tr>
+                  <th width="6%">选择</th>
+                  <th width="10%">ID</th>
+                  <th width="25%">推荐位名称</th>
+                  <th width="8%">特效</th>
+                  <th width="14%">所属栏目</th>
+                  <th width="14%">编辑时间</th>
+                  <th width="18%">操作</th>
+                </tr>
+                <!--{foreach from=$pos item=list}-->
+                <tr>
+                  <td><input type="checkbox" id="posid" name="posid[]" value="<!--{$list.pos_id}-->"/></td>
+                  <td><!--{$list.pos_id}--></td>
+                  <td><!--{$list.name}--></td>
+                  <td><!--{if $list.special eq 0}-->无<!--{elseif $list.special eq 1}-->跑马灯<!--{else}-->幻灯片<!--{/if}--></td>
+                  <td><!--{$list.catname}--></td>
+                  <td><!--{$list.alter_time}--></td>
+                  <td><a href="<!--{$baseurl}-->/content/position/positioninfo/pid/<!--{$list.pos_id}-->/catid/<!--{$list.cat_id}-->">信息管理</a> | <a href="<!--{$baseurl}-->/content/position/editposition/id/<!--{$list.pos_id}-->">修改</a> | <a href="javascript:void(0);"onclick="MoConfirm('<!--{$baseurl}-->/content/position/delposition/id/<!--{$list.pos_id}-->')">删除</a></td>
+                </tr>
+                <!--{/foreach}-->
+              </table>
+              </form>
+            </div>
+            <div class="pubOperate"><span class="btn5" style="width:80px;"><label><input type="checkbox" class="Check-All-Toggle" container-id="search-list" /> 全选/反选</label></span>
+             <input type="button" class="btn5" value="删除" onclick="batchOperate(this)" form-id="batch-form" container-id="search-list"  form-action="<!--{$baseurl}-->/content/position/delposition" empty-tips="请选择要删除的记录！" confirm-tips="确定要删除吗？"/>
+            </div>
+            <div class="pubTabelBot">
+              <div class="pageGo"><!--{$pageStr}--></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</body>
+</html>

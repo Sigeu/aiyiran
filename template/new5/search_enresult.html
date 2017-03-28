@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={CHAR_SET}" />
+<title>{$seo['title']}</title>
+<meta name="keywords" content="{$seo['keywords']}" />
+<meta name="description" content="{$seo['description']}" />
+<link href="{CSS_PATH}/basc.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleG.css" rel="stylesheet" type="text/css"/>
+<link href="{CSS_PATH}/styleX.css" rel="stylesheet" type="text/css"/>
+<script src="{JS_PATH}/jquery-1.7.2.js"></script>
+</head>
+<body>
+{include 'enhead.html'}
+{include 'banner.html'}
+<div class="wrap">
+  <div class="sideBar">
+    <div class="pubModL">
+	  <div class="T">
+		<h3>{cid2name(296)}</h3>
+	  </div>
+	  <div class="C">
+		<div class="subNav">
+		  <ul>
+		  {php $cateTree = getCateTree(296,1);}
+			{foreach $cateTree $k $v}
+				{if $lastIndex}
+					{if $v['id']===$cid or $v['id']===$pid}
+					<li class="last"><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>	
+					{else}
+					<li class="last"><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+					{/if}
+				{else}
+					{if $v['id']===$cid or $v['id']===$pid}
+					<li><a href="{getMoreUrl($v['id'])}" class="focus">{$v['catname']}</a></li>
+					{else}
+					<li><a href="{getMoreUrl($v['id'])}">{$v['catname']}</a></li>
+					{/if}
+				{/if}
+			{/foreach}            
+		  </ul>
+		</div>
+	  </div>
+	</div>
+    <div class="kefu inkefu">
+      <p class="p1">24 hour service hotline</p>
+      <p class="p2">400-800-0606</p>
+    </div>
+  </div>
+	<div class="container">
+    <div class="thumb">Location：<a href="{GetMoreUrl(294)}">HOME</a> &gt; SearchList</div>
+    <div class="inTrends">
+		{if $cid != ''}
+		 {mo:searchlist  id="$ids" mid="$mid" cid="$cid" stat="$stat" search_type="$search_type" modelTab="$modelTab" total="$total" fenci="$fenci" keyword="$keyword" page='$page' pagesize='10' pagenum='5' return="data"} 
+		 {else}
+		 {mo:searchlist  id="$ids" mid="$mid" stat="$stat" search_type="$search_type" modelTab="$modelTab"  total="$total" fenci="$fenci" keyword="$keyword" page='$page' pagesize='10' pagenum='5' return="data"} 
+  		 {/if}
+  			{foreach $data  $key $v}
+			<div class="trendpt">  
+				  <div class="trendp"><a href="{$v['url']}"><img {if $v['thumb']['src']==''} src="{IMG_PATH}/defimg.png" {else} src="{UPLOAD_PATH}/{$v['thumb']['src']}" {/if} width="94" height="94"/></a></div>
+				  <dl class="trendt">
+					<dt><a href="{$v['url']}" title="{$v['goodsname']}{$v['name']}{$v['title']}" target="_blank">{$v['goodsname']}{$v['name']}{$v['title']}</a></dt>
+					<dd>{$v['brief']}{$v['guide']}{$v['description']}{$v['subtitle']} <a href="{$v['url']}"  onClick="view(this);">Details>></a></dd>
+				  </dl>
+			</div>
+		    {/foreach}
+		 {/mo:searchlist}
+	 </div>
+	 </div>
+	 <div class="clearfix"></div>  
+	 <div class="page">{$enpagestr}</div>
+</div></div>
+{include 'enfooter.html'}
