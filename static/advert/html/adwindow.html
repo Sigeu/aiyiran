@@ -1,0 +1,26 @@
+var str = "<link href='[css]/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='[css]/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_TCGG { width:[width]px;height:0; border:#7e7e7e 1px solid; border-radius:2px; position:fixed;bottom:0; [pos]}</style><div class='mainone_ads_TCGG mainone_ads' id='mainone_ads_TCGG'><div class='mainone_ads_titG'><input type='hidden' id='height' value='[height]'><a href='javascript:closeTCGG();' class='mainone_ads_closeBtnG' title='关闭'></a></div><div class='mainone_ads_contG'><a href='[link]' target='_blank' title='[font]'>[tem]</a></div></div>";
+	document.write(str);
+	var speed = 10000;
+	window.onload = function(){
+			showTCGG();
+			setTimeout('closeTCGG()',speed);
+			
+		};
+		function showTCGG(o){
+				if(o == undefined){
+						o = document.getElementById('mainone_ads_TCGG');
+					}
+					if( o.clientHeight < document.getElementById('height').value){
+							o.style.height = o.clientHeight + 2 + 'px';
+							setTimeout(function(){showTCGG(o)},8);
+						}
+			};
+			function closeTCGG(o){
+					if(o == undefined){
+							o = document.getElementById('mainone_ads_TCGG');
+						}
+						if( o.clientHeight >= 0){
+								o.style.height = o.clientHeight - 2 + 'px';
+								setTimeout(function(){closeTCGG(o)},8);
+							}
+				};

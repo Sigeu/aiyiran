@@ -1,0 +1,42 @@
+    var str ="<link href='[css]/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='[css]/q.css' type='text/css' rel='stylesheet' /><style type='text/css'>.mainone_ads_q_full_sc{width:[width]px;height:[height]px;position:absolute;display:none;}</style><div class='mainone_ads_q_bevel [add]'><a href='#' class=''><img src='[pos]'/></a><img src='static/uploadfile/advert/[path]' class='mainone_ads_q_beval_jpg' style='width:133px;height:133px;'/><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span><span class='mainone_ads_q_bevel_close2'><span class='mainone_ads_q_bevel_close'>&nbsp;&nbsp;</span></span></div><div class='mainone_ads_q_full_sc' style='width:[width]px;height:[height]px;'><a href='[link]' target='_blank' title='[font]>'><img class='mainone_ads_q_full_img' src='static/uploadfile/advert/[path]' width='[width]' height='[height]' ></a><a href='#' class='mainone_ads_q_full_close'>&nbsp;&nbsp;</a></div>";
+	document.write(str);
+	$(function(){	
+		var repeat=true;
+		if(repeat){			
+			replay();
+		}
+		$('.mainone_ads_q_bevel_close').click(function(){
+			$('.mainone_ads_q_bevel').hide();
+			return false;
+		});		
+		$('.mainone_ads_q_bevel_close2').click(function(){
+			bevel_close();
+			replay();
+		});	
+		$('.mainone_ads_q_full_close').click(function(){
+			$('.mainone_ads_q_full_sc').hide();
+			bevel_open();
+		});
+		function bevel_open(){
+			$('.mainone_ads_q_bevel a').stop().animate({'height':'133px','width':'133px'},900);
+			$('.mainone_ads_q_bevel').stop().animate({'height':'133px','width':'133px'},950,function(){
+				if(repeat){
+					$('.mainone_ads_q_bevel_close2').show();
+				}else{
+					$('.mainone_ads_q_bevel_close').show();
+				}
+			});
+		}
+		function bevel_close(){
+			$('.mainone_ads_q_bevel a').css({'width':0,'height':0});
+			$('.mainone_ads_q_bevel').css({'width':0,'height':0});
+			if(repeat){
+				$('.mainone_ads_q_bevel_close2').hide();
+			}else{
+				$('.mainone_ads_q_bevel_close').hide();
+			}
+		}
+		function replay(){
+			$('.mainone_ads_q_full_sc').css({'top':'150px','left':($(window).width()-$('.mainone_ads_q_full_sc').width())/2+'px'}).fadeIn(800).delay(2000).fadeOut(500,function(){bevel_open();});
+		}	
+	});

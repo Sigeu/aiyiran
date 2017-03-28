@@ -1,0 +1,82 @@
+var content_str = "<link href='[css]/mainone_ads.css' type='text/css' rel='stylesheet' /><link href='[css]/GG.css' type='text/css' rel='stylesheet' /><style type='text/css'>#mainone_ads_LBGG {width:[width]px; height:[height]px;position:relative; float:left;overflow:hidden;margin-top:[up]px;margin-left:[left]px;}#mainone_ads_picBox { height:[height]px; width:[width]px;}#mainone_ads_picBox li{ height:[height]px;}</style>";
+document.write(content_str);
+	document.write("[add]");
+	var xxk = new function(){
+		function $id(id){
+			return document.getElementById(id);
+		}
+		this.glide = function(auto,a,b,size,second,fSpeed,point){
+			var oSubLi = $id(a).getElementsByTagName('li');
+			var sum = oSubLi.length;
+			var interval,timeout,Rang;
+			var speed = fSpeed;
+			var delay = second * 1000;
+			var time = 5;
+			var a = 0;
+			var setValTop = function(s){
+				return function(){
+					Rang = Math.abs(parseInt($id(b).style[point]));
+					$id(b).style[point] = -Math.floor(Rang + (parseInt(s * size) - Rang) * speed) + 'px';
+					if(Rang == [(s * size)]){
+						clearInterval(interval);
+						a = s;
+					}
+				}
+			}
+			var setValDown = function(s){
+				return function(){
+					Rang = Math.abs(parseInt($id(b).style[point]));
+					$id(b).style[point] = -Math.ceil(Rang + (parseInt(s * size) - Rang) * speed) + 'px';
+					if(Rang == [(s * size)]){
+						clearInterval(interval);
+						a = s;
+					}
+				}
+			}
+			function autoGlide(){
+				for(var c = 0; c < sum;c++){
+					oSubLi[c].className = '';
+				}
+				clearInterval(timeout);
+				if(a == (parseInt(sum) - 1)){
+					for(var c = 0; c < sum;c++){
+						oSubLi[c].className = '';
+					}
+					a = 0;
+					oSubLi[a].className = 'active';
+					interval = setInterval(setValTop(a),time);
+					timeout = setTimeout(autoGlide,delay);
+				}else{
+					a++;
+					oSubLi[a].className = 'active';
+					interval = setInterval(setValDown(a),time);
+					timeout = setTimeout(autoGlide,delay);
+				}
+			}
+			timeout = setTimeout(autoGlide,delay);
+			for(var i = 0;i < sum;i++){
+				oSubLi[i].onmouseover = (function(i){
+					return function(){
+						for(var c = 0;c <sum;c++){
+							oSubLi[c].className = '';
+						}
+						clearInterval(interval);
+						clearTimeout(timeout);
+						oSubLi[i].className = 'active';
+						if(Math.abs(parseInt($id(b).style[point])) > [(size * i)]){
+							interval = setInterval(setValTop(i),time);
+							this.onmouseout = function(){
+								timeout = setTimeout(autoGlide,delay);
+							}
+						}else if(Math.abs(parseInt($id(b).style[point])) < [(size * i)]){
+							interval = setInterval(setValDown(i),time);
+							this.onmouseout = function(){
+								timeout = setTimeout(autoGlide,delay);
+							}
+						}
+					}
+				})(i);
+			}
+		}
+	}
+	xxk.glide(true,'mainone_ads_liBox','mainone_ads_picBox',[tem],5,0.1,'top');

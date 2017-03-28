@@ -1,0 +1,4 @@
+var js="<script type='text/javascript'>function upHits(obj) {var url = obj.attr('url');var link_url = obj.attr('link_url');$.ajax({url: url,type: 'POST',data:{},dataType: 'json',success: function(result){if (result == '1'){window.open(link_url,'_blank'); }}});}</script>";
+document.write(js);
+var str = "<a href='javascript:void(0)' url='[url]' link_url='[link_url]' onclick='upHits($(this))'><img src='[code_image]' width='[width]' height='[width]'/></a>";
+document.write(str);
